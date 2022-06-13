@@ -27,6 +27,7 @@ secrets.yaml
 *.log
 *.log.*
 *.log.txt
+log.txt
 .storage
 .cloud
 core
