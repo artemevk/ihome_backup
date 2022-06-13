@@ -76,5 +76,4 @@ notify:
     
     
 shell_command:
-#   backup: '/root/config/ha_gitpush.sh'
-  backup: bash /root/config/ha_gitpush.sh
+  push_to_github: cd /config && bash ./gitpush.sh
