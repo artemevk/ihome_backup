@@ -1,0 +1,57 @@
+# Toilet
+title: Туалет
+icon: mdi:toilet
+cards:
+
+  - type: vertical-stack
+    cards:
+
+    - type: markdown
+      content: >
+        **Термостат**
+    
+    - entity: climate.toilet_heater_thermostat
+      type: thermostat
+      name: " "
+
+    - type: markdown
+      content: >
+        **Конвектор**
+
+    - type: glance
+      entities:
+      - entity: switch.toilet_heater
+        name: "Состояние конвектора"
+        # tap_action:
+        #   action: toggle
+      - entity: sensor.toilet_heater_current
+        name: Потребляемый ток
+      - entity: sensor.toilet_heater_power
+        name: Потребляемая мощность
+        icon: mdi:arm-flex
+      - entity: sensor.toilet_heater_voltage
+        name: Напряжение
+      - entity: sensor.toilet_heater_energy
+      - entity: sensor.toilet_heater_linkquality
+        name: Индикатор качества сигнала
+
+  - type: vertical-stack
+    cards:
+
+    - type: markdown
+      content: >
+        **Климат**
+
+    - type: sensor
+      entity: sensor.toilet_climate_temperature
+      name: Температура
+      graph: line
+      detail: 1
+      
+    - type: sensor
+      entity: sensor.toilet_climate_humidity
+      name: Влажность
+
+    - type: sensor
+      entity: sensor.toilet_climate_pressure
+      name: Давление

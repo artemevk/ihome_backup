@@ -1,0 +1,90 @@
+# Kitchen-Living_room
+title: Кухня-гостиная
+icon: mdi:sofa-outline
+cards:
+
+  - type: vertical-stack
+    cards:
+
+    - type: markdown
+      content: >
+        **Термостат**
+    
+    # - entity: climate.kitchen_living_room_heater_thermostat
+    #   type: thermostat
+    #   name: " "
+    - type: thermostat
+      entity: climate.kitchen_living_room_thermostat
+      name: " "
+      
+    - type: markdown
+      content: >
+        **Конвектор**
+        
+    - type: glance
+      entities:
+        - entity: switch.kitchen_living_room_heater
+          name: Состояние
+        #   tap_action:
+        #     action: toggle
+        - entity: sensor.kitchen_living_room_heater_current
+          name: Потребляемый ток
+        - entity: sensor.kitchen_living_room_heater_power
+          name: Потребляемая мощность
+          icon: mdi:arm-flex
+        - entity: sensor.kitchen_living_room_heater_cpu_temperature
+          name: Температура процессора
+          icon: mdi:thermometer
+        - entity: sensor.kitchen_living_room_heater_linkquality
+          name: Индикатор качества сигнала
+
+  - type: vertical-stack
+    cards:
+
+    - type: markdown
+      content: >
+        **Климат**
+
+    - type: sensor
+      entity: sensor.kitchen_living_room_temperature
+      name: Температура
+      graph: line
+    #   detail: 1
+      
+    - type: sensor
+      entity: sensor.kitchen_living_room_climate_temperature
+      name: Температура
+      graph: line
+    #   detail: 1
+      
+    
+    - type: sensor
+      entity: sensor.kitchen_living_room_climate_humidity
+      name: Влажность
+    #   graph: line
+    #   detail: 1
+      
+    - type: sensor
+      entity: sensor.kitchen_living_room_climate_pressure
+      name: Давление
+    #   graph: line
+    #   detail: 1
+
+  - type: vertical-stack
+    cards:
+    
+    - type: markdown
+      content: >
+        **Освещение**
+
+    - type: entities
+      entities:
+      - input_select.scenes
+
+
+    - type: light
+      entity: light.corridor_lamp_1
+      name: Лампа 1
+    - type: light
+      entity: light.corridor_lamp_2
+      name: Лампа 2

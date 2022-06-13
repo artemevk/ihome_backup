@@ -1,0 +1,80 @@
+# 1st floor bedroom
+title: Спальня первого этажа
+icon: mdi:bed-outline
+cards:
+
+  - type: vertical-stack
+    cards:
+
+    - type: markdown
+      content: >
+        **Климат**
+  
+    - type: thermostat
+      entity: climate.1st_floor_bedroom_thermostat
+      name: " "
+      
+    - type: markdown
+      content: >
+        **Конвектор**
+        
+    # - type: glance
+    #   entities:
+    #     - entity: switch.kitchen_living_room_heater
+    #       name: Состояние
+    #     #   tap_action:
+    #     #     action: toggle
+    #     - entity: sensor.kitchen_living_room_heater_current
+    #       name: Потребляемый ток
+    #     - entity: sensor.kitchen_living_room_heater_power
+    #       name: Потребляемая мощность
+    #       icon: mdi:arm-flex
+    #     - entity: sensor.kitchen_living_room_heater_cpu_temperature
+    #       name: Температура процессора
+    #       icon: mdi:thermometer
+    #     - entity: sensor.kitchen_living_room_heater_linkquality
+    #       name: Индикатор качества сигнала
+
+#     - type: entities
+#     #   title: Климат
+#     #   show_header_toggle: false
+#       entities:
+#         - entity: sensor.1st_floor_bedroom_climate_temperature
+#           name: Температура
+#           secondary_info: last-changed
+#         - entity: sensor.1st_floor_bedroom_climate_humidity
+#           name: Влажность
+#         - entity: sensor.1st_floor_bedroom_climate_pressure
+#           name: Давление
+
+#   - type: vertical-stack
+#     cards:
+#     - type: markdown
+#       content: >
+#         **Конвектор**
+        
+#     - type: entities
+#     #   title: Конвектор
+#     #   show_header_toggle: false
+#       entities:
+#         - entity: switch.1st_floor_bedroom_heater_relay_switch
+#           name: Состояние
+#           secondary_info: last-changed
+#         - type: divider
+#         - entity: sensor.1st_floor_bedroom_heater_relay_current
+#           name: Потребляемый ток
+#         - entity: sensor.1st_floor_bedroom_heater_relay_power
+#           name: Потребляемая мощность
+#         # - entity: sensor.1st_floor_bedroom_relay_cpu_temperature
+#         #   name: Температура
+#         # - entity: sensor.1st_floor_bedroom_relay_linkquality
+#         #   name: Индикатор качества сигнала
+          
+#   - type: vertical-stack
+#     cards:
+#       - entity: climate.1st_floor_bedroom_heater_thermostat
+#         type: thermostat
+#         name: Термостат
+        
+        
+        

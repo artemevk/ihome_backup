@@ -1,0 +1,181 @@
+{
+    "0x588e81fffed39429": {
+        "state": "OFF",
+        "energy": 1580.16,
+        "power": 0,
+        "current": 0,
+        "voltage": 230,
+        "power_outage_memory": "restore"
+    },
+    "0x00158d00047ddd4e": {
+        "voltage": 3005,
+        "battery": 100,
+        "temperature": 22.47,
+        "humidity": 76.13,
+        "pressure": 996
+    },
+    "0x5c0272fffecf64fd": {
+        "battery": 100,
+        "voltage": 2100,
+        "occupancy": false,
+        "tamper": false,
+        "battery_low": false
+    },
+    "0x00158d00048681f7": {
+        "voltage": 2875,
+        "battery": 47,
+        "temperature": 18.32,
+        "humidity": 83.22,
+        "pressure": 985.2
+    },
+    "0x00124b001ed0f19e": {
+        "state": "OFF",
+        "cpu_temperature": 25.89,
+        "power": 0,
+        "current": 0
+    },
+    "0x00158d00048893ac": {
+        "voltage": 3005,
+        "battery": 100,
+        "temperature": 22.19,
+        "humidity": 62.94,
+        "pressure": 991.8
+    },
+    "0x00158d00048742e4": {
+        "voltage": 2935,
+        "battery": 62,
+        "temperature": -2.4,
+        "humidity": 62.65,
+        "pressure": 971
+    },
+    "0x847127fffe04dc4d": {
+        "current_heating_setpoint": 25,
+        "heat": "OFF",
+        "local_temperature": 21.5,
+        "system_mode": "off",
+        "preset_mode": "hold",
+        "preset": "hold",
+        "child_lock": "LOCK",
+        "sensor": "AL",
+        "running_state": "idle",
+        "program": [
+            {
+                "weekdays_p1": "6h:0m 20°C"
+            },
+            {
+                "weekdays_p2": "11h:30m 21°C"
+            },
+            {
+                "weekdays_p3": "13h:30m 22°C"
+            },
+            {
+                "weekdays_p4": "17h:30m 23°C"
+            },
+            {
+                "saturday_p1": "6h:0m 24°C"
+            },
+            {
+                "saturday_p2": "12h:0m 23°C"
+            },
+            {
+                "saturday_p3": "14h:30m 22°C"
+            },
+            {
+                "saturday_p4": "17h:30m 21°C"
+            },
+            {
+                "sunday_p1": "6h:0m 19°C"
+            },
+            {
+                "sunday_p2": "12h:30m 20°C"
+            },
+            {
+                "sunday_p3": "14h:30m 21°C"
+            },
+            {
+                "sunday_p4": "18h:30m 20°C"
+            }
+        ]
+    },
+    "0x842e14fffe00c500": {
+        "state": "OFF"
+    },
+    "0x00158d0006baa93b": {
+        "voltage": 3045,
+        "battery": 100,
+        "illuminance": 81,
+        "illuminance_lux": 81,
+        "temperature": 24,
+        "occupancy": false,
+        "device_temperature": 29
+    },
+    "0x00124b001f2b5b39": {
+        "state_l2": "OFF",
+        "l1": 0,
+        "current_l1": 0,
+        "state_l1": "OFF",
+        "state_l8": "OFF"
+    },
+    "0x00124b00246e611a": {
+        "battery": 75,
+        "voltage": 3000
+    },
+    "0x00158d00057f6f0b": {
+        "contact": true,
+        "voltage": 3005,
+        "battery": 100
+    },
+    "0x847127fffe1dac9c": {
+        "system_mode": "heat",
+        "preset_mode": "hold",
+        "preset": "hold",
+        "current_heating_setpoint": 23,
+        "max_temperature_limit": 45,
+        "max_temperature": 35,
+        "deadzone_temperature": 1,
+        "local_temperature": 23.5,
+        "local_temperature_calibration": -2,
+        "heat": "OFF",
+        "running_state": "idle",
+        "child_lock": "UNLOCK",
+        "sensor": "AL",
+        "program": [
+            {
+                "weekdays_p1": "6h:0m 20°C"
+            },
+            {
+                "weekdays_p2": "11h:30m 21°C"
+            },
+            {
+                "weekdays_p3": "13h:30m 22°C"
+            },
+            {
+                "weekdays_p4": "17h:30m 23°C"
+            },
+            {
+                "saturday_p1": "6h:0m 24°C"
+            },
+            {
+                "saturday_p2": "12h:0m 23°C"
+            },
+            {
+                "saturday_p3": "14h:30m 22°C"
+            },
+            {
+                "saturday_p4": "17h:30m 21°C"
+            },
+            {
+                "sunday_p1": "6h:0m 19°C"
+            },
+            {
+                "sunday_p2": "12h:30m 20°C"
+            },
+            {
+                "sunday_p3": "14h:30m 21°C"
+            },
+            {
+                "sunday_p4": "18h:30m 20°C"
+            }
+        ]
+    }
+}

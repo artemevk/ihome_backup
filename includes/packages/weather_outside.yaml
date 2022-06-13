@@ -1,0 +1,107 @@
+weather_outside:
+## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
+
+  automation:
+  
+    # Отправка ежедневного утреннего отчета о погоде
+    - alias: send_morning_climate_report
+      id: Утренний отчет о погоде
+      initial_state: true
+      trigger:
+        - platform: time
+          at: '07:30:00'
+      action:
+        - service: notify.all_telegram
+          data:
+            title: "#weather"
+            message: >
+              {{"\U0001F300"}} Климат отчет за {{ states("sensor.time_date") }}
+              {{ "\n" -}}
+              {{ "\n" -}}{{"\U0001F3E2"}} *МОСКВА:*
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
+              {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather_moscow", "wind_speed")}} м/с
+              {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
+              {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
+              {% endif %}
+              {{ "\n" -}}
+              {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
+              {{ "\n" -}}{{"\U0001F321"}} Температура: {{ states('sensor.outdoor_climate_temperature') |round(1) }} °C
+              {{ "\n" -}}{{"\U0001F4A7"}} Влажность: {{ states('sensor.outdoor_climate_humidity') |round(1) }} %
+              {{ "\n" -}}{{"\U0001F4AA"}} Давление: {{ (states('sensor.outdoor_climate_pressure') | float * 0.7500637) | round(0) }} мм рт. ст.
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather", "temperature")}} °C
+              {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
+              {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
+              {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
+              {% endif %}
+                
+                
+    # Отправка отчета о погоде по запросу
+    - alias: send_climate_report
+      id: Отчет о погоде по запросу
+      initial_state: true
+      trigger:
+        - platform: event
+          event_type: telegram_command
+          event_data:
+            command: '/forecast'
+            # user_id: !secret tlg_user1_id
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#weather"
+            message: >
+              {{"\U0001F3E2"}} *МОСКВА:*
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
+              {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather_moscow", "wind_speed")}} м/с
+              {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
+              {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
+              {% endif %}
+              {{ "\n" -}}
+              {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
+              {{ "\n" -}}{{"\U0001F321"}} Температура: {{ states('sensor.outdoor_climate_temperature') |round(1) }} °C
+              {{ "\n" -}}{{"\U0001F4A7"}} Влажность: {{ states('sensor.outdoor_climate_humidity') |round(1) }} %
+              {{ "\n" -}}{{"\U0001F4AA"}} Давление: {{ (states('sensor.outdoor_climate_pressure') | float * 0.7500637) | round(0) }} мм рт. ст.
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather", "temperature")}} °C
+              {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
+              {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
+              {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
+              {% endif %}
+
+
+
+            #   {{ "\n" -}}{{"\U0001F321"}} Температура: {{ states('sensor.temperature_goncharova') |round(1) }} °C
+            #   {{ "\n" -}}{{"\U0001F32B"}} Влажность: {{ states('sensor.humidity_goncharova') |round(1) }} %
+            #   {{ "\n" -}}{{"\U0001F4AA"}} Давление: {{ (states('sensor.pressure_goncharova') | float * 7.500637) | round(0) }} мм рт. ст.

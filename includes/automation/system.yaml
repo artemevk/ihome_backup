@@ -1,0 +1,51 @@
+- id: Сжатие базы
+  alias: 00_purge_everyday
+  initial_state: true
+  trigger:
+    - platform: time
+      at: '01:00:00'
+  action:
+    - service: recorder.purge
+      data:
+          keep_days: 10
+          repack: true
+
+- id: Очистка уведомлений о паролях
+  alias: persistent_notification_clear_pwned
+  initial_state: true
+  mode: parallel
+  trigger:
+    - platform: event
+      event_type: call_service
+      event_data:
+        domain: persistent_notification
+        service: create
+  condition:
+    - condition: template
+      value_template: >
+        {{ 'supervisor_issue_pwned' in trigger.event.data.service_data.notification_id }}
+  action:
+    - service: persistent_notification.dismiss
+      data:
+        notification_id: >
+          {{ trigger.event.data.service_data.notification_id }}
+          
+- id: l1k3
+  alias: push_HA_configuration_to_GitHub_repo
+  initial_state: true
+  trigger:
+  # Everyday at 23:23:23 time
+  - platform: time
+    at: '23:23:23'
+  action:
+  - service: hassio.addon_stdin
+    data:
+      addon: a0d7b954_ssh
+      input: /config/ha_gitpush.sh
+    
+    
+    # https://peyanski.com/automatic-home-assistant-backup-to-github/
+    # Чтобы сделать бэкап на Github нужно выполнить команды: 
+    # 1. ls config
+    # 2. git remote set-url origin https://github.com/artemevk/country_house_backup.git
+    # 3. ./ha_gitpush.sh

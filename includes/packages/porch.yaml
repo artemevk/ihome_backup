@@ -1,0 +1,35 @@
+porch:
+
+    automation:
+    - alias: "switch_on_light_porch"
+      trigger:
+        platform: state
+        entity_id: binary_sensor.porch_motion_protect_occupancy
+        to: "on"
+      condition:
+        - condition: state
+          entity_id: switch.porch_light
+          state: "off"
+        - condition: state
+          entity_id: sun.sun
+          state: "below_horizon" # "above_horizon"
+      action:
+        service: homeassistant.turn_on
+        target:
+          entity_id: switch.porch_light
+    
+    - alias: "switch_off_light_porch"
+      trigger:
+        platform: state
+        entity_id: binary_sensor.porch_motion_protect_occupancy
+        to: "off"
+        for:
+          minutes: 5
+      condition:
+        - condition: state
+          entity_id: switch.porch_light
+          state: "on"
+      action:
+        service: homeassistant.turn_off
+        target:
+          entity_id: switch.porch_light

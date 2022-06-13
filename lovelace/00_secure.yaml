@@ -1,0 +1,33 @@
+title: Охрана
+id: secure
+icon: mdi:shield-home
+cards:
+
+  - type: 'custom:simple-clock-card'
+  
+  - type: alarm-panel
+    entity: alarm_control_panel.8124_a01_1_alarm
+    name: "Сигнализация"
+
+#   - type: iframe
+#     url: https://embed.waze.com/iframe 
+#     aspect_ratio: 75%
+
+  - type: entities
+    title: "Маршрут до дома"
+    # icon: mdi:city
+    entities:
+    - type: weblink
+      name: "Гончарова, 9"
+      url: https://yandex.ru/maps/213/moscow/?ll=37.378157%2C56.044938&mode=routes&rtext=56.266282%2C37.177434~55.815974%2C37.584829
+      icon: mdi:car-hatchback
+      
+    - type: weblink
+      name: "Декабристов, 22"
+      url: https://yandex.ru/maps/213/moscow/?ll=37.695470%2C55.839279&mode=routes&rtext=56.266282%2C37.177434~55.862156%2C37.606307
+      icon: mdi:car-hatchback
+
+    - type: weblink
+      name: "Декабристов, 10к1"
+      url: https://yandex.ru/maps/213/moscow/?ll=37.390928%2C56.067668&mode=routes&rtext=56.266282%2C37.177434~55.866440%2C37.596363
+      icon: mdi:car-hatchback

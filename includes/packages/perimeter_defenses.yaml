@@ -1,0 +1,95 @@
+perimeter_defenses:
+
+  automation:
+    - alias: "motion_notification"
+      id: motion_notification
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.porch_motion_protect_occupancy
+          to: "on"
+        # - platform: webhook
+        #   webhook_id: "motion_notification"
+      condition:
+        - condition: state
+          entity_id: alarm_control_panel.8124_a01_1_alarm
+          state: 'armed_away' # disarmed
+      action:
+        # Отправка сообщения
+        - service: notify.tlg_user1_id
+          data:
+            title: "#security"
+            message: "*Движение около крыльца*"
+            # data:
+            #   photo:
+            #     - file: /share/motioneye/courtyard/2022-05-22/20-51-55.jpg
+            #       caption: Picture Title xy
+            #     - url: http://ihome.artemevk.keenetic.pro/api/hassio_ingress/4Ec7lFKuhRxxTNl5sahkbTCTzhceNP2AtrF-vQ1MZaU/picture/2/current/
+            #       caption: "Picture Title xy"
+        # Сохранение фото
+        - service: camera.snapshot
+          target:
+            entity_id: camera.courtyard
+          data:
+            filename: '/config/tmp/courtyard_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
+  
+    - id: Уведомление о снятии с охраны
+      alias: send_notification_when_alarm_is_disarmed
+      initial_state: true
+      trigger:
+        platform: state
+        entity_id: alarm_control_panel.8124_a01_1_alarm
+        from: 'armed_away'  # 'triggered'
+      action:
+        service: notify.tlg_user1_id
+        data:
+          title: "#security"
+          message: 
+            '{{"\U0001F6A8"}} Дом снят с охраны!'
+
+
+    - id: Уведомление о постановке на охрану
+      alias: send_notification_when_alarm_is_armed
+      initial_state: true
+      trigger:
+        platform: state
+        entity_id: alarm_control_panel.8124_a01_1_alarm
+        to: 'armed_away'
+      action:
+        service: notify.tlg_user1_id
+        data:
+          title: "#security"
+          message:
+            '{{"\U0001F6A8"}} Дом поставлен на охрану!'
+  
+  
+    - id: Напоминание о необходимости снять дом с охраны
+      alias: reminder_to_disarm_the_house
+      initial_state: true
+      trigger:
+        platform: state
+        entity_id: device_tracker.artemevk
+        from: 'not_home'
+        to: 'home'
+      action:
+        service: notify.tlg_user1_id
+        data:
+          title: "#security"
+          message:
+            '{{"\U0001F6A8"}} Не забудь снять дом с охраны!'
+
+
+    - id: Напоминание о необходимости снять дом с охраны АПН
+      alias: reminder_to_disarm_the_house_artemevp
+      initial_state: true
+      trigger:
+        platform: state
+        entity_id: device_tracker.artemevp
+        from: 'not_home'
+        to: 'home'
+      action:
+        service: notify.tlg_user3_id
+        data:
+          title: "#security"
+          message:
+            '{{"\U0001F6A8"}} Не забудь снять дом с охраны!'
+

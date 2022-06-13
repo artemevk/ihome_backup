@@ -1,0 +1,280 @@
+scene_light:
+
+    scene:
+
+      - name: off_light
+        entities:
+          light.corridor_lamp_1: off
+          light.corridor_lamp_2: off
+
+      - name: on_light
+        entities:
+          light.corridor_lamp_1: on
+          light.corridor_lamp_2: on
+           
+      - name: fourth
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            brightness_pct: 25
+            kelvin: 4000
+          light.corridor_lamp_2:
+            state: "on"
+            brightness_pct: 25
+            kelvin: 4000
+      
+      - name: half
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            brightness_pct: 50
+            kelvin: 4000
+          light.corridor_lamp_2:
+            state: "on"
+            brightness_pct: 50
+            kelvin: 4000
+               
+      - name: three_quarters
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            brightness_pct: 75
+            kelvin: 4000
+          light.corridor_lamp_2:
+            state: "on"
+            brightness_pct: 75
+            kelvin: 4000
+               
+      - name: full
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            brightness_pct: 100
+            kelvin: 4000
+          light.corridor_lamp_2:
+            state: "on"
+            brightness_pct: 100
+            kelvin: 4000
+
+      - name: warm
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            kelvin: 2700                
+          light.corridor_lamp_2:
+            state: "on"
+            kelvin: 2700
+               
+      - name: medium
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            kelvin: 4000
+          light.corridor_lamp_2:
+            state: "on"
+            kelvin: 4000
+
+      - name: cold
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            kelvin: 6300
+          light.corridor_lamp_2:
+            state: "on"
+            kelvin: 6300
+
+      - name: red
+        entities:
+          light.corridor_lamp_1:
+            state: "on"
+            rgb_color: [255, 0, 0]
+            brightness_pct: 1
+          light.corridor_lamp_2:
+            state: "on"
+            rgb_color: [255, 0, 0]
+            brightness_pct: 1
+
+      - name: forest
+        entities:
+          light.corridor_lamp_1:
+              state: "on"
+              rgb_color: [0, 255, 81]
+          light.corridor_lamp_2:
+              state: "on"
+              rgb_color: [0, 255, 81]
+              
+      - name: night
+        entities:
+          light.corridor_lamp_1: 
+              state: "on"
+              effect: Night
+          light.corridor_lamp_2: 
+              state: "on"
+              effect: Night
+               
+      - name: beautiful
+        entities:
+          light.corridor_lamp_1:
+              state: "on"
+              effect: Beautiful
+          light.corridor_lamp_2:
+              state: "on"
+              effect: Beautiful
+
+
+
+    input_select:
+               
+      scenes:
+        name: scene
+        options:
+          - fourth
+          - half
+          - three_quarters
+          - full
+          - warm
+          - medium
+          - cold
+          - red
+          - forest
+          - night
+          - beautiful
+          - off_light
+        initial: fourth
+        
+        
+    automation:
+               
+               
+    - id: apply_scene
+      alias: apply_scene
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: input_select.scenes
+        # - platform: state
+        #   entity_id: input_select.color_temp_mode
+        # - platform: state
+        #   entity_id: input_select.rgb_mode
+      action:
+        - service: scene.turn_on
+          data_template:
+            entity_id: scene.{{trigger.to_state.state}}
+            transition: 2
+               
+    - id: on_off_corridor_lamps
+      alias: on_off_corridor_lamps
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: sensor.remote_artemevk_action
+          to: "button_1_hold"               
+      action:
+        - choose:
+          - conditions:
+              - condition: state
+                entity_id: light.corridor_lamp_1
+                state: "off"               
+            sequence:
+              - service: scene.turn_on
+                entity_id: scene.on_light
+                data:
+                  transition: 3
+          - conditions:
+              - condition: state
+                entity_id: light.corridor_lamp_1
+                state: "on"
+            sequence:
+              - service: scene.turn_on
+                entity_id: scene.off_light
+                data:
+                  transition: 3
+
+
+    - id: change_scene
+      alias: change_scene
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: sensor.remote_artemevk_action
+          to: "button_1_single"
+      action:
+          service: input_select.select_next
+          data:
+            entity_id: input_select.scenes
+
+
+    - id: entrance_door_scene
+      alias: entrance_door_scene
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.entrance_door_contact
+          to: "on"
+      condition:
+        condition: numeric_state
+        entity_id: sensor.kitchen_living_room_motion_sensor_illuminance_lux
+        below: 50
+      action:
+          - service: scene.turn_on
+            target:
+              entity_id: scene.full
+        #   - delay: 0:05
+        #   - service: scene.turn_on
+        #     target:
+        #       entity_id: scene.off_light
+
+    - id: switch_off_corridor_lamps
+      alias: "switch_off_corridor_lamps"
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: alarm_control_panel.8124_a01_1_alarm
+          to: "armed_away"
+        - platform: state
+          entity_id: binary_sensor.kitchen_living_room_motion_sensor_occupancy
+          to: "off"
+          for:
+            minutes: 5
+      condition:
+        condition: or # Lamp_1 or lamp_2 is on
+        conditions:
+          - condition: state
+            entity_id: light.corridor_lamp_1
+            state: "on"
+          - condition: state
+            entity_id: light.corridor_lamp_2
+            state: "on"
+      action:
+        - service: scene.turn_on
+          target:
+            entity_id: scene.off_light
+
+    - id: switch_on_full_corridor_lamps
+      alias: "switch_on_full_corridor_lamps"
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.kitchen_living_room_motion_sensor_occupancy
+          to: "on"
+      condition:
+        condition: and
+        conditions:
+          - condition: time
+            after: '7:00:00'
+            before: '22:00:00'
+          - condition: numeric_state
+            entity_id: sensor.kitchen_living_room_motion_sensor_illuminance_lux
+            below: 50
+          - condition: or # Lamp_1 or lamp_2 is off
+            conditions:
+              - condition: state
+                entity_id: light.corridor_lamp_1
+                state: "off"
+              - condition: state
+                entity_id: light.corridor_lamp_2
+                state: "off"
+      action:
+          - service: scene.turn_on
+            target:
+              entity_id: scene.full

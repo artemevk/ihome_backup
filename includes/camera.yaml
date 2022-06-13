@@ -1,0 +1,3 @@
+- platform: ffmpeg
+  name: "courtyard"
+  input: !secret courtyard_rtsp

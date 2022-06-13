@@ -1,0 +1,80 @@
+homeassistant:
+  name: Сountry house
+  latitude: !secret latitude_coord
+  longitude: !secret longitude_coord
+  elevation: 211
+  unit_system: metric
+  time_zone: Europe/Moscow
+  packages: !include_dir_merge_named includes/packages
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+lovelace:
+  mode: yaml
+  resources:
+    - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
+      type: module
+    - url: /hacsfiles/simple-clock-card/simple-clock-card.js 
+      type: module
+
+hacs:
+  token: !secret HACS_github
+  appdaemon: true
+  python_script: true
+  theme: true
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Вынос во внешние файлы
+# timer: !include includes/timer.yaml
+sensor: !include_dir_merge_list includes/sensor
+binary_sensor: !include_dir_merge_list includes/binary_sensor
+# group: !include includes/groups.yaml
+# script: !include includes/scripts.yaml
+# scene: !include includes/scenes.yaml
+recorder: !include includes/recorder.yaml
+# yeelight: !include includes/yeelight.yaml
+camera: !include includes/camera.yaml
+automation: !include_dir_merge_list includes/automation
+
+# Платформа телеграмм бота
+telegram_bot:
+  - platform: polling
+    api_key: !secret api_token_bot
+    allowed_chat_ids:
+      - !secret tlg_user1_id
+      - !secret tlg_user2_id
+      - !secret tlg_user3_id
+      - !secret tlg_user4_id
+
+
+# Платформа телеграмм уведомлений
+notify:
+  - platform: telegram
+    name: tlg_user1_id
+    chat_id: !secret tlg_user1_id
+  - platform: telegram
+    name: tlg_user2_id
+    chat_id: !secret tlg_user2_id
+  - platform: telegram
+    name: tlg_user3_id
+    chat_id: !secret tlg_user3_id
+  - platform: telegram
+    name: tlg_user4_id
+    chat_id: !secret tlg_user4_id
+  - platform: group 
+    name: all_telegram
+    services:
+      - service: tlg_user1_id
+      - service: tlg_user2_id
+      - service: tlg_user3_id
+      - service: tlg_user4_id
+    
+    
+    
+shell_command:
+#   backup: '/root/config/ha_gitpush.sh'
+  backup: bash /root/config/ha_gitpush.sh

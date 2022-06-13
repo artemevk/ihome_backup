@@ -1,0 +1,24 @@
+##################  Camera
+title: Камеры
+icon: mdi:webcam
+cards:
+
+      - type: vertical-stack
+        cards:
+
+        - type: markdown
+          content: >
+              **Внутрений двор**
+
+        - type: picture-glance
+          title: Внутрений двор
+          camera_image: camera.courtyard
+          camera_view: live
+          entities:
+           - entity: switch.87874800dc4f22ec37b2
+             tap_action:
+                action: toggle
+           - entity: script.take_photo_courtyard
+             icon: mdi:camera 
+             tap_action:
+                action: toggle

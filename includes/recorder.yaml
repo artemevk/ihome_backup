@@ -1,0 +1,10 @@
+  db_url: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
+  include:
+    domains:
+      - sensor
+      - switch
+      - light
+      - alarm_control_panel
+    entities: 
+#Объем БД
+      - sensor.maria_db_size

@@ -1,0 +1,25 @@
+title: Погода
+icon: mdi:stairs
+
+cards:
+
+    - type: vertical-stack
+      cards:
+      
+      - type: vertical-stack
+        cards:
+        - type: markdown
+          content: >
+            **Освещение/движение**
+      
+      - type: glance
+        entities:
+        - entity: switch.porch_light
+          tap_action:
+            action: toggle
+          icon: mdi:lightbulb-group
+        - entity: binary_sensor.porch_motion_protect_occupancy
+        - entity: binary_sensor.porch_motion_protect_tamper
+        - entity: binary_sensor.porch_motion_protect_battery_low
+        - entity: sensor.porch_motion_protect_linkquality
+          name: Качество сигнала

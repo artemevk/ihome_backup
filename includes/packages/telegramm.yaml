@@ -1,0 +1,107 @@
+telegramm:
+
+  sensor:
+
+    - platform: template
+      sensors:
+
+        unavailable_now_light:
+          friendly_name: "Всего недоступных светильников - "
+          # entity_id:
+          #   - sensor.time
+          value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter
+          
+        unavailable_now_switch:
+          friendly_name: "Всего недоступных реле - "
+          # entity_id:
+          #   - sensor.time
+          value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter 
+          
+        unavailable_now_sensor:
+          friendly_name: "Всего недоступных сенсоров - "
+          # entity_id:
+          #   - sensor.time
+          value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter
+          
+        unavailable_now_binary_sensor:
+          friendly_name: "Всего недоступных бинарных сенсоров - "
+          # entity_id:
+          #   - sensor.time
+          value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter
+          
+  automation:
+  
+    - id: Клавиатура телеграмм бота
+      alias: telegram_keyboard
+      initial_state: true
+      trigger:
+        - platform: event
+          event_type: telegram_command
+          event_data:
+            command: '/start'
+          #   user_id: !secret tlg_user1_id
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#system"
+            message: 'Привет!'
+            keyboard:
+                - '/report, /forecast'
+                # - '/toilet_climate_report, /kitchen_living_room_climate_report'
+                
+    - id: Отчет при запуске системы
+      alias: start_message
+      initial_state: true
+      trigger:
+        - platform: homeassistant
+          event: start
+      action:
+        - service: notify.tlg_user1_id
+          data:
+            title: "#system"
+            message: | 
+              {{"\U0001F4AC"}} Основной сервер Raspberry Pi 
+              {{"\U0001F567"}} Зафиксирован запуск в {{ states('sensor.time_date') }} 
+              {{"\U0001F4C3"}} Отчет о состоянии будет через 1 минуту
+        # Задержка и отправка полного отчета через минуту
+        - delay: 00:01:10
+        - service: notify.tlg_user1_id
+          data:
+            title: "#system"
+            message:  | 
+              {{"\U0001F4CB"}} Состояние системы
+              {{"\U0001F567"}} Отчет за {{ states('sensor.time_date') }}
+              {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
+              {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
+              {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
+              {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
+
+    # Отчет о системе по запросу
+    - id: Отчет о системе по запросу
+      alias: send_report
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_command
+          event_data:
+            command: '/report'
+        - platform: numeric_state # при отвале датчиков
+          entity_id: sensor.unavailable_now_sensor
+          above: 0
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#system"
+            message:  | 
+              {{"\U0001F4CB"}} Состояние системы
+              {{"\U0001F567"}} Отчет за {{ states('sensor.time_date') }}
+              {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
+              {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
+              {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
+              {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
