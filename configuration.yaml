@@ -76,4 +76,4 @@ notify:
     
     
 shell_command:
-  push_to_github: cd /config && bash ./gitpush.sh
+  push_to_github: cd /config && bash ./ha_gitpush.sh
