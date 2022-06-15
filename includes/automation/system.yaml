@@ -38,10 +38,7 @@
   - platform: time
     at: '23:23:23'
   action:
-  - service: hassio.addon_stdin
-    data:
-      addon: a0d7b954_ssh
-      input: /config/ha_gitpush.sh
+  - service: shell_command.push_to_github
     
     
     # https://peyanski.com/automatic-home-assistant-backup-to-github/
