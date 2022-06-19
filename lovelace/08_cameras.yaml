@@ -1,6 +1,6 @@
 ##################  Camera
 title: Камеры
-icon: mdi:webcam
+icon: mdi:cctv
 cards:
 
       - type: vertical-stack

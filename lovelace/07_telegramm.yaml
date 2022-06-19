@@ -1,6 +1,7 @@
 title: Telegram
-icon: mdi:telegram
-
+icon: mdi:forum
+visible:
+  - user: 2376d6369bca4360a25daab33042a011
 cards:
 
     - type: markdown
@@ -12,7 +13,7 @@ cards:
       entities:
          - entity: automation.start_message
            name: Отправка сообщения о запуске системы
-         - entity: script.send_message_1
+         - entity: automation.start_message
            name: Сервис уведомлений
          - entity: script.system_report
          - entity: sensor.unavailable_now_light

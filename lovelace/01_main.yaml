@@ -1,6 +1,7 @@
 title: Главная
 icon: mdi:home-assistant
-
+visible:
+  - user: 2376d6369bca4360a25daab33042a011
 cards:
 
   - type: vertical-stack
