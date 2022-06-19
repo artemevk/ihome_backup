@@ -43,7 +43,6 @@ telegramm:
           event_type: telegram_command
           event_data:
             command: '/start'
-          #   user_id: !secret tlg_user1_id
       action:
         - service: telegram_bot.send_message
           data_template:
@@ -65,7 +64,7 @@ telegramm:
           data:
             title: "#system"
             message: | 
-              {{"\U0001F4AC"}} Основной сервер Raspberry Pi 
+              {{"\U0001F4AC"}} ihome 
               {{"\U0001F567"}} Зафиксирован запуск в {{ states('sensor.time_date') }} 
               {{"\U0001F4C3"}} Отчет о состоянии будет через 1 минуту
         # Задержка и отправка полного отчета через минуту
