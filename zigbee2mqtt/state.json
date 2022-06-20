@@ -44,9 +44,9 @@
     "0x00158d00048742e4": {
         "voltage": 2935,
         "battery": 62,
-        "temperature": -2.4,
-        "humidity": 62.65,
-        "pressure": 971
+        "temperature": 31.05,
+        "humidity": 65.5,
+        "pressure": 982.9
     },
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
