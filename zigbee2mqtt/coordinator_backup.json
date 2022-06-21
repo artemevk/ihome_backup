@@ -4,7 +4,7 @@
     "version": 1,
     "source": "zigbee-herdsman@0.14.34",
     "internal": {
-      "date": "2022-06-20T20:14:31.646Z",
+      "date": "2022-06-20T20:26:48.160Z",
       "znpVersion": 1
     }
   },
@@ -46,7 +46,7 @@
     {
       "nwk_address": "799c",
       "ieee_address": "00158d00048742e4",
-      "is_child": false
+      "is_child": true
     },
     {
       "nwk_address": "b14d",
