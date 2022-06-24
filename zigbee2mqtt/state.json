@@ -48,11 +48,11 @@
         "last_seen": "2022-06-04T19:16:23+03:00"
     },
     "0x00158d00048742e4": {
-        "voltage": 3115,
+        "voltage": 3105,
         "battery": 100,
-        "temperature": 25.84,
-        "humidity": 37.06,
-        "pressure": 991.8,
+        "temperature": 26.82,
+        "humidity": 39.86,
+        "pressure": 993.4,
         "linkquality": 72,
         "last_seen": "2022-06-20T23:28:41+03:00"
     },
