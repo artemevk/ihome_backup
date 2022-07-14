@@ -19,7 +19,7 @@
     "0x5c0272fffecf64fd": {
         "battery": 100,
         "voltage": 2100,
-        "occupancy": true,
+        "occupancy": false,
         "tamper": false,
         "battery_low": false,
         "last_seen": "2022-06-13T13:28:46+03:00"
@@ -34,7 +34,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 26.55,
+        "cpu_temperature": 26.28,
         "power": 0,
         "current": 0,
         "last_seen": "2022-06-13T13:32:41+03:00"
@@ -113,11 +113,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 80,
-        "illuminance_lux": 80,
+        "illuminance": 82,
+        "illuminance_lux": 82,
         "temperature": 24,
-        "occupancy": true,
-        "device_temperature": 29,
+        "occupancy": false,
+        "device_temperature": 30,
         "last_seen": "2022-06-13T13:49:32+03:00",
         "power_outage_count": 14
     },
