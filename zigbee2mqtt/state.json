@@ -34,8 +34,8 @@
     },
     "0x00124b001ed0f19e": {
         "state": "ON",
-        "cpu_temperature": 26.28,
-        "power": 65533.57,
+        "cpu_temperature": 25.44,
+        "power": 65534.3,
         "current": 284.93,
         "last_seen": "2022-06-13T13:32:41+03:00"
     },
@@ -59,7 +59,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": 22,
+        "local_temperature": 21,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -107,17 +107,17 @@
         "last_seen": "2022-06-13T13:32:50+03:00"
     },
     "0x842e14fffe00c500": {
-        "state": "ON",
+        "state": "OFF",
         "last_seen": "2022-06-13T13:08:14+03:00"
     },
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 78,
-        "illuminance_lux": 78,
+        "illuminance": 16,
+        "illuminance_lux": 16,
         "temperature": 24,
-        "occupancy": true,
-        "device_temperature": 30,
+        "occupancy": false,
+        "device_temperature": 28,
         "last_seen": "2022-06-13T13:49:32+03:00",
         "power_outage_count": 14
     },
@@ -149,7 +149,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 24.5,
+        "local_temperature": 24,
         "local_temperature_calibration": -2,
         "heat": "ON",
         "running_state": "heat",
