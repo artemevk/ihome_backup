@@ -34,7 +34,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 29,
+        "cpu_temperature": 28.28,
         "power": 0,
         "current": 0,
         "last_seen": "2022-06-13T13:32:41+03:00"
@@ -59,7 +59,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": 25,
+        "local_temperature": 24.5,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -117,7 +117,7 @@
         "illuminance_lux": 16,
         "temperature": 24,
         "occupancy": true,
-        "device_temperature": 33,
+        "device_temperature": 32,
         "last_seen": "2022-06-13T13:49:32+03:00",
         "power_outage_count": 14
     },
