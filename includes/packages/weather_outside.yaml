@@ -24,7 +24,6 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
               {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
@@ -33,16 +32,21 @@ weather_outside:
               {% endif %}
               {{ "\n" -}}
               {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
-              {{ "\n" -}}{{"\U0001F321"}} Температура: {{ states('sensor.outdoor_climate_temperature') |round(1) }} °C
-              {{ "\n" -}}{{"\U0001F4A7"}} Влажность: {{ states('sensor.outdoor_climate_humidity') |round(1) }} %
-              {{ "\n" -}}{{"\U0001F4AA"}} Давление: {{ (states('sensor.outdoor_climate_pressure') | float * 0.7500637) | round(0) }} мм рт. ст.
+               {{-  "\n"}}{{"\U0001F321"}} Температура: {% if is_state('sensor.outdoor_climate_temperature', 'unavailable') %}{{"-" -}}
+                {% else %}{{states('sensor.outdoor_climate_temperature') | round(1)}} {{"°C" -}}
+              {% endif %}
+              {{- "\n"}}{{"\U0001F4A7"}} Влажность: {% if is_state('sensor.outdoor_climate_humidity', 'unavailable') %}{{"-" -}}
+                {% else %}{{states('sensor.outdoor_climate_humidity') | round(1)}}  {{"%" -}}
+              {% endif %}
+              {{- "\n"}}{{"\U0001F4AA"}} Давление: {% if is_state('sensor.outdoor_climate_pressure', 'unavailable') %}{{"-" -}}
+                {% else %}{{ (states('sensor.outdoor_climate_pressure') | float * 0.7500637) | round(0) }} {{"мм рт. ст." -}}
+              {% endif %}
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
               {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
@@ -74,7 +78,6 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
               {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
@@ -82,17 +85,22 @@ weather_outside:
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
               {% endif %}
               {{ "\n" -}}
-              {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
-              {{ "\n" -}}{{"\U0001F321"}} Температура: {{ states('sensor.outdoor_climate_temperature') |round(1) }} °C
-              {{ "\n" -}}{{"\U0001F4A7"}} Влажность: {{ states('sensor.outdoor_climate_humidity') |round(1) }} %
-              {{ "\n" -}}{{"\U0001F4AA"}} Давление: {{ (states('sensor.outdoor_climate_pressure') | float * 0.7500637) | round(0) }} мм рт. ст.
+              {{ "\n" }}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
+               {{-  "\n"}}{{"\U0001F321"}} Температура: {% if is_state('sensor.outdoor_climate_temperature', 'unavailable') %}{{"-" -}}
+                {% else %}{{states('sensor.outdoor_climate_temperature') | round(1)}} {{"°C" -}}
+              {% endif %}
+              {{- "\n"}}{{"\U0001F4A7"}} Влажность: {% if is_state('sensor.outdoor_climate_humidity', 'unavailable') %}{{"-" -}}
+                {% else %}{{states('sensor.outdoor_climate_humidity') | round(1)}}  {{"%" -}}
+              {% endif %}
+              {{- "\n"}}{{"\U0001F4AA"}} Давление: {% if is_state('sensor.outdoor_climate_pressure', 'unavailable') %}{{"-" -}}
+                {% else %}{{ (states('sensor.outdoor_climate_pressure') | float * 0.7500637) | round(0) }} {{"мм рт. ст." -}}
+              {% endif %}
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
               {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
@@ -101,7 +109,4 @@ weather_outside:
               {% endif %}
 
 
-
-            #   {{ "\n" -}}{{"\U0001F321"}} Температура: {{ states('sensor.temperature_goncharova') |round(1) }} °C
-            #   {{ "\n" -}}{{"\U0001F32B"}} Влажность: {{ states('sensor.humidity_goncharova') |round(1) }} %
-            #   {{ "\n" -}}{{"\U0001F4AA"}} Давление: {{ (states('sensor.pressure_goncharova') | float * 7.500637) | round(0) }} мм рт. ст.
+            #   {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
