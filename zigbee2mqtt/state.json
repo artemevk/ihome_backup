@@ -4,7 +4,7 @@
         "energy": 1580.16,
         "power": 0,
         "current": 0,
-        "voltage": 223,
+        "voltage": 235,
         "power_outage_memory": "restore",
         "last_seen": "2022-06-13T13:32:34+03:00",
         "indicator_mode": "off/on"
@@ -35,7 +35,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 26.33,
+        "cpu_temperature": 26.44,
         "power": 0,
         "current": 0,
         "last_seen": "2022-06-13T13:32:41+03:00"
@@ -114,8 +114,8 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 56,
-        "illuminance": 7,
-        "illuminance_lux": 7,
+        "illuminance": 8,
+        "illuminance_lux": 8,
         "temperature": 24,
         "occupancy": false,
         "device_temperature": 29,
