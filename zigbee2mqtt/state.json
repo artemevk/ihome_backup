@@ -13,9 +13,9 @@
     "0x00158d00047ddd4e": {
         "voltage": 3005,
         "battery": 100,
-        "temperature": 25.03,
-        "humidity": 46.15,
-        "pressure": 995.9,
+        "temperature": 18.21,
+        "humidity": 50.45,
+        "pressure": 995.1,
         "last_seen": "2022-08-08T10:07:45+03:00",
         "power_outage_count": 84,
         "linkquality": 108
@@ -38,19 +38,19 @@
         "last_seen": "2022-06-13T14:21:20+03:00"
     },
     "0x00124b001ed0f19e": {
-        "state": "ON",
-        "cpu_temperature": 27.44,
-        "power": 1968.63,
-        "current": 8.56,
+        "state": "OFF",
+        "cpu_temperature": 19.72,
+        "power": 0,
+        "current": 0,
         "last_seen": "2022-08-08T10:17:14+03:00",
         "linkquality": 78
     },
     "0x00158d00048893ac": {
         "voltage": 3015,
         "battery": 100,
-        "temperature": 21.42,
-        "humidity": 56.44,
-        "pressure": 995.6,
+        "temperature": 19.2,
+        "humidity": 50.97,
+        "pressure": 994.7,
         "last_seen": "2022-08-08T10:16:14+03:00",
         "power_outage_count": 52,
         "linkquality": 78
@@ -67,7 +67,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": 16,
+        "local_temperature": 15,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -123,11 +123,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 3,
-        "illuminance_lux": 3,
+        "illuminance": 4,
+        "illuminance_lux": 4,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 30,
+        "device_temperature": 25,
         "last_seen": "2022-08-08T10:17:17+03:00",
         "power_outage_count": 14,
         "linkquality": 81
@@ -156,17 +156,17 @@
         "linkquality": 78
     },
     "0x847127fffe1dac9c": {
-        "system_mode": "heat",
+        "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
-        "current_heating_setpoint": 26,
+        "current_heating_setpoint": 24,
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 25,
+        "local_temperature": 17.5,
         "local_temperature_calibration": -2,
-        "heat": "ON",
-        "running_state": "heat",
+        "heat": "OFF",
+        "running_state": "idle",
         "child_lock": "UNLOCK",
         "sensor": "AL",
         "program": [
