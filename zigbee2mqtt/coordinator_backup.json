@@ -4,7 +4,7 @@
     "version": 1,
     "source": "zigbee-herdsman@0.14.53",
     "internal": {
-      "date": "2022-09-04T13:44:05.542Z",
+      "date": "2022-09-05T13:44:05.267Z",
       "znpVersion": 1
     }
   },
@@ -25,7 +25,7 @@
   "network_key": {
     "key": "01030507090b0d0f00020406080a0c0d",
     "sequence_number": 0,
-    "frame_counter": 65826456
+    "frame_counter": 66017647
   },
   "devices": [
     {
