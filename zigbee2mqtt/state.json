@@ -11,11 +11,11 @@
         "linkquality": 63
     },
     "0x00158d00047ddd4e": {
-        "voltage": 2995,
-        "battery": 97,
-        "temperature": 14.83,
-        "humidity": 60.39,
-        "pressure": 993.9,
+        "voltage": 2985,
+        "battery": 90,
+        "temperature": 13.65,
+        "humidity": 62.29,
+        "pressure": 990.4,
         "last_seen": "2022-08-08T10:07:45+03:00",
         "power_outage_count": 84,
         "linkquality": 108
@@ -39,18 +39,18 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 17.17,
+        "cpu_temperature": 16.05,
         "power": 0,
         "current": 0,
         "last_seen": "2022-08-08T10:17:14+03:00",
         "linkquality": 78
     },
     "0x00158d00048893ac": {
-        "voltage": 3015,
+        "voltage": 3005,
         "battery": 100,
-        "temperature": 14.99,
-        "humidity": 58.6,
-        "pressure": 993.6,
+        "temperature": 13.32,
+        "humidity": 61.44,
+        "pressure": 990.1,
         "last_seen": "2022-08-08T10:16:14+03:00",
         "power_outage_count": 52,
         "linkquality": 78
@@ -67,7 +67,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": 13,
+        "local_temperature": 11.5,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -123,11 +123,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 3,
-        "illuminance_lux": 3,
+        "illuminance": 0,
+        "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 20,
+        "device_temperature": 18,
         "last_seen": "2022-08-08T10:17:17+03:00",
         "power_outage_count": 14,
         "linkquality": 81
@@ -163,7 +163,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 14.5,
+        "local_temperature": 13,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
