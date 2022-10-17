@@ -13,9 +13,9 @@
     "0x00158d00047ddd4e": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 11.11,
-        "humidity": 61.21,
-        "pressure": 1001,
+        "temperature": 10.18,
+        "humidity": 63.55,
+        "pressure": 996,
         "last_seen": "2022-10-01T16:02:59+03:00",
         "power_outage_count": 84,
         "linkquality": 84
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2935,
         "battery": 57,
-        "temperature": 6.72,
-        "humidity": 72,
-        "pressure": 1000.5,
+        "temperature": 6.95,
+        "humidity": 92.54,
+        "pressure": 995.2,
         "last_seen": "2022-10-01T15:48:42+03:00",
         "power_outage_count": 2957,
         "linkquality": 75
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 13.11,
+        "cpu_temperature": 12.5,
         "power": 0,
         "current": 0,
         "last_seen": "2022-10-01T16:17:15+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 11.49,
-        "humidity": 62.87,
-        "pressure": 1000.8,
+        "temperature": 10.09,
+        "humidity": 66.62,
+        "pressure": 995.6,
         "last_seen": "2022-10-01T15:41:38+03:00",
         "power_outage_count": 52,
         "linkquality": 87
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": 8.5,
+        "local_temperature": 8,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -125,11 +125,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3025,
         "battery": 100,
-        "illuminance": 3,
-        "illuminance_lux": 3,
+        "illuminance": 0,
+        "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 16,
+        "device_temperature": 15,
         "last_seen": "2022-10-01T15:50:09+03:00",
         "power_outage_count": 14,
         "linkquality": 72
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 10.5,
+        "local_temperature": 9.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
