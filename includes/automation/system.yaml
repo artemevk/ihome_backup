@@ -7,7 +7,7 @@
   action:
     - service: recorder.purge
       data:
-          keep_days: 10
+          keep_days: 60
           repack: true
 
 - id: Очистка уведомлений о паролях
