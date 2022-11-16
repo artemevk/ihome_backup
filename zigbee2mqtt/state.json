@@ -13,16 +13,16 @@
     "0x00158d00047ddd4e": {
         "voltage": 2965,
         "battery": 77,
-        "temperature": 6.29,
-        "humidity": 60.27,
-        "pressure": 987.9,
+        "temperature": 6.01,
+        "humidity": 58.87,
+        "pressure": 987.7,
         "last_seen": "2022-11-05T05:39:36+03:00",
         "power_outage_count": 84,
         "linkquality": 87
     },
     "0x5c0272fffecf64fd": {
-        "battery": 91,
-        "voltage": 2000,
+        "battery": 90,
+        "voltage": 2100,
         "occupancy": false,
         "tamper": false,
         "battery_low": false,
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2915,
         "battery": 43,
-        "temperature": -2.4,
-        "humidity": 87.89,
-        "pressure": 986.9,
+        "temperature": -2.44,
+        "humidity": 85.08,
+        "pressure": 987,
         "last_seen": "2022-11-05T05:44:30+03:00",
         "power_outage_count": 2957,
         "linkquality": 90
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 7.83,
+        "cpu_temperature": 7.28,
         "power": 0,
         "current": 0,
         "last_seen": "2022-11-05T05:59:09+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2965,
         "battery": 77,
-        "temperature": 3.39,
-        "humidity": 74.68,
-        "pressure": 987.3,
+        "temperature": 2.74,
+        "humidity": 73.52,
+        "pressure": 987.4,
         "last_seen": "2022-11-05T05:37:54+03:00",
         "power_outage_count": 52,
         "linkquality": 90
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": 3,
+        "local_temperature": 2,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -123,7 +123,7 @@
         "linkquality": 90
     },
     "0x00158d0006baa93b": {
-        "voltage": 3025,
+        "voltage": 3015,
         "battery": 100,
         "illuminance": 0,
         "illuminance_lux": 0,
@@ -151,8 +151,8 @@
     },
     "0x00158d00057f6f0b": {
         "contact": true,
-        "voltage": 2965,
-        "battery": 77,
+        "voltage": 2955,
+        "battery": 70,
         "last_seen": "2022-11-05T05:53:21+03:00",
         "power_outage_count": 63,
         "linkquality": 87
