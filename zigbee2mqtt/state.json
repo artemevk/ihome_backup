@@ -13,9 +13,9 @@
     "0x00158d00047ddd4e": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 5.77,
-        "humidity": 54.35,
-        "pressure": 987.2,
+        "temperature": 5.98,
+        "humidity": 53.87,
+        "pressure": 990.5,
         "last_seen": "2022-11-05T05:39:36+03:00",
         "power_outage_count": 84,
         "linkquality": 87
@@ -32,27 +32,27 @@
     "0x00158d00048681f7": {
         "voltage": 2905,
         "battery": 37,
-        "temperature": -6.63,
-        "humidity": 87.55,
-        "pressure": 985.9,
+        "temperature": -3.81,
+        "humidity": 87.84,
+        "pressure": 989.5,
         "last_seen": "2022-11-05T05:44:30+03:00",
         "power_outage_count": 2957,
         "linkquality": 90
     },
     "0x00124b001ed0f19e": {
-        "state": "ON",
-        "cpu_temperature": 11.72,
-        "power": 1915.04,
-        "current": 8.33,
+        "state": "OFF",
+        "cpu_temperature": 7.05,
+        "power": 0,
+        "current": 0,
         "last_seen": "2022-11-05T05:59:09+03:00",
         "linkquality": 87
     },
     "0x00158d00048893ac": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 1.66,
-        "humidity": 72.22,
-        "pressure": 986.4,
+        "temperature": 1.94,
+        "humidity": 70.32,
+        "pressure": 990.2,
         "last_seen": "2022-11-05T05:37:54+03:00",
         "power_outage_count": 52,
         "linkquality": 90
@@ -125,11 +125,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3015,
         "battery": 100,
-        "illuminance": 0,
-        "illuminance_lux": 0,
+        "illuminance": 3,
+        "illuminance_lux": 3,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 10,
+        "device_temperature": 11,
         "last_seen": "2022-11-05T05:16:26+03:00",
         "power_outage_count": 14,
         "linkquality": 87
@@ -167,8 +167,8 @@
         "deadzone_temperature": 1,
         "local_temperature": 5.5,
         "local_temperature_calibration": -2,
-        "heat": "ON",
-        "running_state": "heat",
+        "heat": "OFF",
+        "running_state": "idle",
         "child_lock": "UNLOCK",
         "sensor": "AL",
         "program": [
