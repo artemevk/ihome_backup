@@ -13,9 +13,9 @@
     "0x00158d00047ddd4e": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 7.29,
-        "humidity": 49.03,
-        "pressure": 1006.5,
+        "temperature": 6.87,
+        "humidity": 50.65,
+        "pressure": 1008.5,
         "last_seen": "2022-11-26T12:01:26+03:00",
         "power_outage_count": 84,
         "linkquality": 96
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2905,
         "battery": 37,
-        "temperature": -5.71,
-        "humidity": 82.48,
-        "pressure": 1005.2,
+        "temperature": -4.16,
+        "humidity": 87.15,
+        "pressure": 1007.3,
         "last_seen": "2022-11-26T11:18:35+03:00",
         "power_outage_count": 2957,
         "linkquality": 108
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 8.44,
+        "cpu_temperature": 8.33,
         "power": 0,
         "current": 0,
         "last_seen": "2022-11-24T17:02:40+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 6.68,
-        "humidity": 52.27,
-        "pressure": 1006.2,
+        "temperature": 4.95,
+        "humidity": 57.64,
+        "pressure": 1008.1,
         "last_seen": "2022-11-26T12:03:53+03:00",
         "power_outage_count": 52,
         "linkquality": 93
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": 2.5,
+        "local_temperature": 1,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -129,7 +129,7 @@
         "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 13,
+        "device_temperature": 12,
         "last_seen": "2022-11-26T12:07:07+03:00",
         "power_outage_count": 15,
         "linkquality": 90
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 6.5,
+        "local_temperature": 7,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
