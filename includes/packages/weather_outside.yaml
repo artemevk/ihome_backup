@@ -23,12 +23,13 @@ weather_outside:
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
-              {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
-              {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
+              {% if state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'snowy' %}{{"снег"}}
+              {% else %}{{ state_attr("weather.yandex_weather_moscow", "forecast")[0].condition }}
               {% endif %}
               {{ "\n" -}}
               {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
@@ -51,6 +52,7 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'snowy' %}{{"снег"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
               {% endif %}
                 
@@ -77,12 +79,13 @@ weather_outside:
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
-              {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
-              {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
+              {% if state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'snowy' %}{{"снег"}}
+              {% else %}{{ state_attr("weather.yandex_weather_moscow", "forecast")[0].condition }}
               {% endif %}
               {{ "\n" -}}
               {{ "\n" }}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
@@ -105,6 +108,7 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'snowy' %}{{"снег"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
               {% endif %}
 
