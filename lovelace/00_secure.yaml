@@ -6,7 +6,7 @@ cards:
   - type: 'custom:simple-clock-card'
   
   - type: alarm-panel
-    entity: alarm_control_panel.8124_a01_1_alarm
+    entity: alarm_control_panel.8124_a01_zone_1_alarm
     name: "Сигнализация"
 
 #   - type: iframe

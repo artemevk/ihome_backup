@@ -11,7 +11,7 @@ perimeter_defenses:
         #   webhook_id: "motion_notification"
       condition:
         - condition: state
-          entity_id: alarm_control_panel.8124_a01_1_alarm
+          entity_id: alarm_control_panel.8124_a01_zone_1_alarm
           state: 'armed_away' # disarmed
       action:
         # Отправка сообщения
@@ -37,7 +37,7 @@ perimeter_defenses:
       initial_state: true
       trigger:
         platform: state
-        entity_id: alarm_control_panel.8124_a01_1_alarm
+        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
         from: 'armed_away'  # 'triggered'
       action:
         service: notify.tlg_user1_id
@@ -52,7 +52,7 @@ perimeter_defenses:
       initial_state: true
       trigger:
         platform: state
-        entity_id: alarm_control_panel.8124_a01_1_alarm
+        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
         to: 'armed_away'
       action:
         service: notify.tlg_user1_id

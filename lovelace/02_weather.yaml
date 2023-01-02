@@ -3,69 +3,9 @@ icon: mdi:weather-partly-snowy-rainy
 
 cards:
 
-    - type: custom:sun-card
-
     - type: vertical-stack
       cards:
-      - type: markdown
-        content: >
-          **Погода в Москве**
-
-
-    #   - type: entities
-    #     title: >
-    #       Погода в Москве
-    #     entities:
-
-    #     - entity: sensor.humidity_goncharova
-    #       icon: hass:water-percent
-    #       name: Влажность
-    #     - entity: sensor.pressure_goncharova
-    #       icon: hass:gauge
-    #       name: Давление
-    #     - entity: sensor.sensor_battery_goncharova
-    #       icon: hass:battery
-    #       name: Батарея
-    #     - entity: sensor.temperature_goncharova
-    #       name: Температура
-    #       graph: line
-    #       detail: 2
-    #       secondary_info: last-changed
-    #     footer:
-    #       type: graph
-    #       entity: sensor.temperature_goncharova
-    #       detail: 1
-
-
-      - type: sensor
-        entity: sensor.temperature_goncharova
-        name: Температура
-        graph: line
-        detail: 2
-        secondary_info: last-changed
-        
-      - type: sensor
-        entity: sensor.humidity_goncharova
-        icon: hass:water-percent
-        name: Влажность
-        
-      - type: sensor
-        entity: sensor.pressure_goncharova
-        icon: hass:gauge
-        name: Давление
-        
-      - type: sensor
-        entity: sensor.sensor_battery_goncharova
-        icon: >
-          {% set battery_round = (states.sensor.sensor_battery_goncharova.state|int / 10)|int * 10 %}
-          {% if battery_round >= 100 %}
-            hass:battery
-          {% elif battery_round > 0 %}
-            hass:battery-{{ battery_round }}
-          {% else %}
-            hass:battery-alert
-          {% endif %}
-        name: Батарея
+      - type: custom:sun-card
 
     - type: vertical-stack
       cards:
@@ -87,7 +27,6 @@ cards:
         entity: sensor.outdoor_climate_pressure
         name: Давление
 
-
     - type: vertical-stack
       cards:
       - type: markdown
@@ -96,6 +35,3 @@ cards:
 
       - type: weather-forecast
         entity: weather.home
-      
-      - type: weather-forecast
-        entity: weather.openweathermap
