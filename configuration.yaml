@@ -1,5 +1,5 @@
 homeassistant:
-  name: Сountry house
+  name: iHome
   latitude: !secret latitude_coord
   longitude: !secret longitude_coord
   elevation: 211
