@@ -7,52 +7,45 @@ telegramm:
 
         unavailable_now_light:
           friendly_name: "Всего недоступных светильников - "
-          # entity_id:
-          #   - sensor.time
           value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
           icon_template: mdi:counter
           
         unavailable_now_switch:
           friendly_name: "Всего недоступных реле - "
-          # entity_id:
-          #   - sensor.time
           value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
           icon_template: mdi:counter 
           
         unavailable_now_sensor:
           friendly_name: "Всего недоступных сенсоров - "
-          # entity_id:
-          #   - sensor.time
           value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
           icon_template: mdi:counter
           
         unavailable_now_binary_sensor:
           friendly_name: "Всего недоступных бинарных сенсоров - "
-          # entity_id:
-          #   - sensor.time
           value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
           icon_template: mdi:counter
           
   automation:
   
-    - id: Клавиатура телеграмм бота
-      alias: telegram_keyboard
-      initial_state: true
+    - alias: 'Telegram bot main menu'
       trigger:
+        - platform: event
+          event_type: telegram_callback
+          event_data:
+            command: "/start"
         - platform: event
           event_type: telegram_command
           event_data:
-            command: '/start'
+            command: "/start"
       action:
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
-            title: "#system"
-            message: 'Привет!'
-            keyboard:
-                - '/report, /forecast'
-                # - '/toilet_climate_report, /kitchen_living_room_climate_report'
-                
+            message: 'Добро пожаловать в главное меню. Выберите действие:'
+            inline_keyboard:
+              - "Отчет о системе:/report, Прогноз погоды:/forecast"
+              - "Погода в доме:/home_climate_report"
+  
     - id: Отчет при запуске системы
       alias: start_message
       initial_state: true
@@ -79,12 +72,27 @@ telegramm:
               {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
               {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
               {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
+        # Задержка 2 с
+        - delay: 00:00:02
+        - service: notify.tlg_user1_id
+          data:
+            # title: "#system"
+            message: 'Добро пожаловать в главное меню. Выберите действие:'
+            data:
+              inline_keyboard:
+                - "Отчет о системе:/report, Прогноз погоды:/forecast"
+                - "Погода в доме:/home_climate_report"
+
 
     # Отчет о системе по запросу
     - id: Отчет о системе по запросу
       alias: send_report
       initial_state: true
       trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: '/report'
         - platform: event # по запросу из telegramm
           event_type: telegram_command
           event_data:
@@ -104,3 +112,37 @@ telegramm:
               {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
               {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
               {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
+            inline_keyboard:
+              - "Главное меню:/start"
+
+
+    # Погода в доме
+    - id: Выключение света в квартире
+      alias: home_climate_report
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: '/home_climate_report'
+        - platform: event # по запросу из telegramm
+          event_type: telegram_command
+          event_data:
+            command: '/home_climate_report'
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message:  | 
+              {{"\U000023F1"}} Отчет за {{ states('sensor.time_date') }}
+              {{"\U0001F6CB"}} Кухня-гостиная.
+              {{"\U0001F321"}} Температура - {{ states('sensor.kitchen_living_room_climate_temperature') }} C
+              {{"\U0001F4A1"}} Конвектор - {{ states('switch.kitchen_living_room_heater') }}
+              {{"\U0001F525"}} Состояние термостата - {{ states('climate.toilet_heater_thermostat') }}
+              
+              {{"\U0001F6BD"}} Туалет.
+              {{"\U0001F321"}} Температура - {{ states('sensor.toilet_climate_temperature') }} C
+              {{"\U0001F4A1"}} Конвектор - {{ states('switch.toilet_heater') }}
+              {{"\U0001F525"}} Состояние термостата - {{ states('climate.toilet_heater_thermostat') }}
+            inline_keyboard:
+              - "Главное меню:/start"

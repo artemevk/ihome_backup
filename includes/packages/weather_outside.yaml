@@ -29,6 +29,7 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'snowy' %}{{"снег"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather_moscow", "forecast")[0].condition }}
               {% endif %}
               {{ "\n" -}}
@@ -53,20 +54,24 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'snowy' %}{{"снег"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
               {% endif %}
-                
-                
+
+
     # Отправка отчета о погоде по запросу
     - alias: send_climate_report
       id: Отчет о погоде по запросу
       initial_state: true
       trigger:
         - platform: event
+          event_type: telegram_callback
+          event_data:
+            command: '/forecast'
+        - platform: event
           event_type: telegram_command
           event_data:
             command: '/forecast'
-            # user_id: !secret tlg_user1_id
       action:
         - service: telegram_bot.send_message
           data_template:
@@ -84,6 +89,7 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'clear-night' %}{{"ясно"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'snowy' %}{{"снег"}}
               {% else %}{{ state_attr("weather.yandex_weather_moscow", "forecast")[0].condition }}
               {% endif %}
@@ -109,8 +115,10 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'pouring' %}{{"ливень"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'rainy' %}{{"дождь"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'snowy' %}{{"снег"}}
+              {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
               {% endif %}
-
+            inline_keyboard:
+              - "Главное меню:/start"
 
             #   {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}
