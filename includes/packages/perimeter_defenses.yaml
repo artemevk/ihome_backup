@@ -38,7 +38,7 @@ perimeter_defenses:
       trigger:
         platform: state
         entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        from: 'armed_away'  # 'triggered'
+        to: 'disarmed'  # 'triggered'
       action:
         service: notify.tlg_user1_id
         data:
