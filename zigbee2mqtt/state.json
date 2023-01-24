@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
-        "state": "ON",
-        "energy": 2231.09,
-        "power": 1646,
-        "current": 7.17,
-        "voltage": 228,
+        "state": "OFF",
+        "energy": 2237.89,
+        "power": 0,
+        "current": 0,
+        "voltage": 235,
         "power_outage_memory": "restore",
         "last_seen": "2023-01-18T21:21:52+03:00",
         "indicator_mode": "off/on",
@@ -13,15 +13,15 @@
     "0x00158d00047ddd4e": {
         "voltage": 2965,
         "battery": 77,
-        "temperature": 5.61,
-        "humidity": 53,
-        "pressure": 1012.2,
+        "temperature": 5.67,
+        "humidity": 53.8,
+        "pressure": 1004.8,
         "last_seen": "2023-01-18T20:59:58+03:00",
         "power_outage_count": 84,
         "linkquality": 99
     },
     "0x5c0272fffecf64fd": {
-        "battery": 84,
+        "battery": 83,
         "voltage": 2000,
         "occupancy": false,
         "tamper": false,
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2925,
         "battery": 50,
-        "temperature": -3.04,
-        "humidity": 85.92,
-        "pressure": 1011,
+        "temperature": -1.34,
+        "humidity": 81.38,
+        "pressure": 1003.9,
         "last_seen": "2023-01-18T21:20:53+03:00",
         "power_outage_count": 2957,
         "linkquality": 108
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 4.67,
+        "cpu_temperature": 4.83,
         "power": 0,
         "current": 0,
         "last_seen": "2023-01-18T21:21:41+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2935,
         "battery": 57,
-        "temperature": 5.07,
-        "humidity": 55.41,
-        "pressure": 1011.7,
+        "temperature": 4.96,
+        "humidity": 55.75,
+        "pressure": 1004.7,
         "last_seen": "2023-01-18T21:05:38+03:00",
         "power_outage_count": 52,
         "linkquality": 102
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": -1.4,
+        "local_temperature": -0.9,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -129,7 +129,7 @@
         "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 11,
+        "device_temperature": 12,
         "last_seen": "2023-01-18T21:01:23+03:00",
         "power_outage_count": 15,
         "linkquality": 99
