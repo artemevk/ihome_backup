@@ -3,6 +3,7 @@
   include:
     domains:
       - sensor
+      - binary_sensor
       - switch
       - light
       - alarm_control_panel
