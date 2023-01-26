@@ -2,6 +2,7 @@
   db_url: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
   include:
     domains:
+      - person
       - sensor
       - binary_sensor
       - switch
