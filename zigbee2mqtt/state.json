@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
         "state": "OFF",
-        "energy": 2319,
+        "energy": 2328.86,
         "power": 0,
         "current": 0,
-        "voltage": 232,
+        "voltage": 229,
         "power_outage_memory": "restore",
         "last_seen": "2023-01-18T21:21:52+03:00",
         "indicator_mode": "off/on",
@@ -13,9 +13,9 @@
     "0x00158d00047ddd4e": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 5.12,
-        "humidity": 56.29,
-        "pressure": 1002.6,
+        "temperature": 5.2,
+        "humidity": 54.17,
+        "pressure": 1005.6,
         "last_seen": "2023-01-18T20:59:58+03:00",
         "power_outage_count": 84,
         "linkquality": 99
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2915,
         "battery": 43,
-        "temperature": -4.37,
-        "humidity": 87.03,
-        "pressure": 1001.3,
+        "temperature": -5.65,
+        "humidity": 77.61,
+        "pressure": 1004.4,
         "last_seen": "2023-01-18T21:20:53+03:00",
         "power_outage_count": 2957,
         "linkquality": 108
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 5.28,
+        "cpu_temperature": 4.5,
         "power": 0,
         "current": 0,
         "last_seen": "2023-01-18T21:21:41+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2925,
         "battery": 50,
-        "temperature": 5.48,
-        "humidity": 57.58,
-        "pressure": 1002.2,
+        "temperature": 4.78,
+        "humidity": 54.95,
+        "pressure": 1005.4,
         "last_seen": "2023-01-18T21:05:38+03:00",
         "power_outage_count": 52,
         "linkquality": 102
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": -0.9,
+        "local_temperature": -1.4,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -123,7 +123,7 @@
         "linkquality": 48
     },
     "0x00158d0006baa93b": {
-        "voltage": 3005,
+        "voltage": 3015,
         "battery": 100,
         "illuminance": 0,
         "illuminance_lux": 0,
