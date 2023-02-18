@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
-        "state": "ON",
-        "energy": 2431.53,
-        "power": 1491,
-        "current": 6.82,
-        "voltage": 218,
+        "state": "OFF",
+        "energy": 2446.87,
+        "power": 0,
+        "current": 0,
+        "voltage": 229,
         "power_outage_memory": "restore",
         "last_seen": "2023-01-18T21:21:52+03:00",
         "indicator_mode": "off/on",
@@ -13,15 +13,15 @@
     "0x00158d00047ddd4e": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 5.37,
-        "humidity": 49.98,
-        "pressure": 992.2,
+        "temperature": 5.46,
+        "humidity": 49.57,
+        "pressure": 975,
         "last_seen": "2023-01-18T20:59:58+03:00",
         "power_outage_count": 84,
         "linkquality": 99
     },
     "0x5c0272fffecf64fd": {
-        "battery": 83,
+        "battery": 82,
         "voltage": 2000,
         "occupancy": false,
         "tamper": false,
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2915,
         "battery": 43,
-        "temperature": -9.31,
-        "humidity": 84.71,
-        "pressure": 990.6,
+        "temperature": -6.18,
+        "humidity": 80.71,
+        "pressure": 973.8,
         "last_seen": "2023-01-18T21:20:53+03:00",
         "power_outage_count": 2957,
         "linkquality": 108
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 3.5,
+        "cpu_temperature": 3.17,
         "power": 0,
         "current": 0,
         "last_seen": "2023-01-18T21:21:41+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2915,
         "battery": 43,
-        "temperature": 4.62,
-        "humidity": 51.55,
-        "pressure": 991.9,
+        "temperature": 5.02,
+        "humidity": 49.88,
+        "pressure": 974.7,
         "last_seen": "2023-01-18T21:05:38+03:00",
         "power_outage_count": 52,
         "linkquality": 102
@@ -123,7 +123,7 @@
         "linkquality": 48
     },
     "0x00158d0006baa93b": {
-        "voltage": 3015,
+        "voltage": 3005,
         "battery": 100,
         "illuminance": 0,
         "illuminance_lux": 0,
