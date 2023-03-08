@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
         "state": "OFF",
-        "energy": 2640.09,
+        "energy": 2652.22,
         "power": 0,
         "current": 0,
-        "voltage": 230,
+        "voltage": 231,
         "power_outage_memory": "restore",
         "last_seen": "2023-03-01T09:48:19+03:00",
         "indicator_mode": "off/on",
@@ -13,9 +13,9 @@
     "0x00158d00047ddd4e": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 5,
-        "humidity": 53.83,
-        "pressure": 977.6,
+        "temperature": 5.56,
+        "humidity": 51.86,
+        "pressure": 967,
         "last_seen": "2023-03-01T09:33:09+03:00",
         "power_outage_count": 85,
         "linkquality": 102
@@ -30,18 +30,18 @@
         "linkquality": 78
     },
     "0x00158d00048681f7": {
-        "voltage": 2925,
-        "battery": 50,
-        "temperature": -7.18,
-        "humidity": 88.43,
-        "pressure": 976.2,
+        "voltage": 2915,
+        "battery": 43,
+        "temperature": -0.76,
+        "humidity": 83.94,
+        "pressure": 966.3,
         "last_seen": "2023-03-01T09:45:28+03:00",
         "power_outage_count": 2957,
         "linkquality": 81
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 5.17,
+        "cpu_temperature": 4.39,
         "power": 0,
         "current": 0,
         "last_seen": "2023-03-01T09:47:34+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2905,
         "battery": 37,
-        "temperature": 4.89,
-        "humidity": 55.2,
-        "pressure": 977,
+        "temperature": 5,
+        "humidity": 53.58,
+        "pressure": 966.7,
         "last_seen": "2023-03-01T09:39:56+03:00",
         "power_outage_count": 52,
         "linkquality": 99
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 25,
         "heat": "OFF",
-        "local_temperature": -0.4,
+        "local_temperature": -1.4,
         "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
@@ -151,8 +151,8 @@
     },
     "0x00158d00057f6f0b": {
         "contact": true,
-        "voltage": 2945,
-        "battery": 63,
+        "voltage": 2935,
+        "battery": 57,
         "last_seen": "2023-03-01T09:25:00+03:00",
         "power_outage_count": 63,
         "linkquality": 99
