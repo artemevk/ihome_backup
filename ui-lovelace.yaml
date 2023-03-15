@@ -1,3 +1,4 @@
+title: iHome
 views:
   - !include lovelace/00_secure.yaml
   - !include lovelace/01_main.yaml
