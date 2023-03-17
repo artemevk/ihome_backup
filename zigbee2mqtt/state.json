@@ -1,9 +1,9 @@
 {
     "0x588e81fffed39429": {
         "state": "OFF",
-        "energy": 2707.02,
-        "power": 1677,
-        "current": 7.23,
+        "energy": 2708.45,
+        "power": 0,
+        "current": 0,
         "voltage": 230,
         "power_outage_memory": "restore",
         "last_seen": "2023-03-15T14:31:30+03:00",
@@ -13,9 +13,9 @@
     "0x00158d00047ddd4e": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 5.6,
-        "humidity": 59,
-        "pressure": 991.4,
+        "temperature": 5.39,
+        "humidity": 55.52,
+        "pressure": 1005,
         "last_seen": "2023-03-15T14:29:28+03:00",
         "power_outage_count": 85,
         "linkquality": 90
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2935,
         "battery": 57,
-        "temperature": 0.57,
-        "humidity": 89.29,
-        "pressure": 990.4,
+        "temperature": -4.19,
+        "humidity": 57.71,
+        "pressure": 1003.8,
         "last_seen": "2023-03-15T14:30:01+03:00",
         "power_outage_count": 2957,
         "linkquality": 81
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 7.11,
+        "cpu_temperature": 6.94,
         "power": 0,
         "current": 0,
         "last_seen": "2023-03-15T14:31:19+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2905,
         "battery": 37,
-        "temperature": 5.7,
-        "humidity": 60.61,
-        "pressure": 991,
+        "temperature": 5.17,
+        "humidity": 57.54,
+        "pressure": 1004.7,
         "last_seen": "2023-03-15T14:18:02+03:00",
         "power_outage_count": 52,
         "linkquality": 90
@@ -129,7 +129,7 @@
         "illuminance_lux": 7,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 10,
+        "device_temperature": 13,
         "last_seen": "2023-03-15T13:58:07+03:00",
         "power_outage_count": 15,
         "linkquality": 87
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 5.5,
+        "local_temperature": 4.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
