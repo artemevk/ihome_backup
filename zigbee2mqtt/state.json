@@ -6,19 +6,19 @@
         "current": 0,
         "voltage": 224,
         "power_outage_memory": "restore",
-        "last_seen": "2023-03-15T14:31:30+03:00",
+        "last_seen": "2023-03-25T10:53:24+03:00",
         "indicator_mode": "off/on",
         "linkquality": 105
     },
     "0x00158d00047ddd4e": {
         "voltage": 3005,
         "battery": 100,
-        "temperature": 22.52,
-        "humidity": 44.76,
-        "pressure": 988.8,
-        "last_seen": "2023-03-15T14:29:28+03:00",
+        "temperature": 18.21,
+        "humidity": 42.8,
+        "pressure": 994.2,
+        "last_seen": "2023-04-29T22:42:12+03:00",
         "power_outage_count": 86,
-        "linkquality": 90
+        "linkquality": 93
     },
     "0x5c0272fffecf64fd": {
         "battery": 82,
@@ -26,36 +26,36 @@
         "occupancy": false,
         "tamper": false,
         "battery_low": false,
-        "last_seen": "2023-03-15T13:49:53+03:00",
-        "linkquality": 81
+        "last_seen": "2023-04-29T21:40:17+03:00",
+        "linkquality": 72
     },
     "0x00158d00048681f7": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 5.41,
-        "humidity": 87.36,
-        "pressure": 988,
-        "last_seen": "2023-03-15T14:30:01+03:00",
+        "temperature": 3.93,
+        "humidity": 73.22,
+        "pressure": 993.7,
+        "last_seen": "2023-04-29T22:29:17+03:00",
         "power_outage_count": 2957,
-        "linkquality": 81
+        "linkquality": 108
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 21.67,
+        "cpu_temperature": 18.5,
         "power": 0,
         "current": 0,
-        "last_seen": "2023-03-15T14:31:19+03:00",
+        "last_seen": "2023-04-29T22:41:22+03:00",
         "linkquality": 72
     },
     "0x00158d00048893ac": {
         "voltage": 2885,
         "battery": 23,
-        "temperature": 19.77,
-        "humidity": 56.05,
-        "pressure": 988.6,
-        "last_seen": "2023-03-15T14:18:02+03:00",
+        "temperature": 17.41,
+        "humidity": 48.99,
+        "pressure": 993.9,
+        "last_seen": "2023-04-29T22:14:02+03:00",
         "power_outage_count": 54,
-        "linkquality": 90
+        "linkquality": 99
     },
     "0x00158d00048742e4": {
         "voltage": 3095,
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 10,
         "heat": "OFF",
-        "local_temperature": 16,
+        "local_temperature": 14,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -114,25 +114,25 @@
                 "sunday_p4": "18h:30m 20°C"
             }
         ],
-        "last_seen": "2023-03-15T14:31:22+03:00",
-        "linkquality": 105
+        "last_seen": "2023-04-29T22:41:54+03:00",
+        "linkquality": 108
     },
     "0x842e14fffe00c500": {
         "state": "OFF",
-        "last_seen": "2023-03-15T14:29:35+03:00",
+        "last_seen": "2023-04-29T22:39:58+03:00",
         "linkquality": 45
     },
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 9,
-        "illuminance_lux": 9,
+        "illuminance": 3,
+        "illuminance_lux": 3,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 29,
-        "last_seen": "2023-03-15T13:58:07+03:00",
+        "device_temperature": 23,
+        "last_seen": "2023-04-29T22:16:09+03:00",
         "power_outage_count": 15,
-        "linkquality": 87
+        "linkquality": 96
     },
     "0x00124b001f2b5b39": {
         "state_l2": "OFF",
@@ -140,8 +140,8 @@
         "current_l1": 0,
         "state_l1": "OFF",
         "state_l8": "OFF",
-        "last_seen": "2023-03-15T14:30:40+03:00",
-        "linkquality": 90
+        "last_seen": "2023-04-29T22:41:25+03:00",
+        "linkquality": 93
     },
     "0x00124b00246e611a": {
         "battery": 100,
@@ -153,19 +153,19 @@
         "contact": true,
         "voltage": 2985,
         "battery": 90,
-        "last_seen": "2023-03-15T14:22:32+03:00",
+        "last_seen": "2023-04-29T22:09:09+03:00",
         "power_outage_count": 63,
-        "linkquality": 90
+        "linkquality": 93
     },
     "0x847127fffe1dac9c": {
-        "system_mode": "heat",
+        "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
-        "current_heating_setpoint": 16,
+        "current_heating_setpoint": 5,
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 22,
+        "local_temperature": 17.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -209,7 +209,7 @@
                 "sunday_p4": "18h:30m 20°C"
             }
         ],
-        "last_seen": "2023-03-15T14:31:28+03:00",
-        "linkquality": 81
+        "last_seen": "2023-04-29T22:42:09+03:00",
+        "linkquality": 108
     }
 }
