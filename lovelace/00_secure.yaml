@@ -18,8 +18,9 @@ cards:
     # icon: mdi:city
     entities:
     - type: weblink
-      name: "Гончарова, 9"
-      url: https://yandex.ru/maps/213/moscow/?ll=37.378157%2C56.044938&mode=routes&rtext=56.266282%2C37.177434~55.815974%2C37.584829
+      name: "Северный бельвар, 3к1"
+    #   url: https://yandex.ru/maps/213/moscow/?ll=37.378157%2C56.044938&mode=routes&rtext=56.266282%2C37.177434~55.815974%2C37.584829
+      url: https://yandex.ru/maps/213/moscow/?ll=37.395133%2C56.073139&mode=routes&routes%5Bavoid%5D=tolls&rtext=56.266282%2C37.177434~55.866127%2C37.604547&rtt=auto&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1Njc5MDg2OBJB0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCh0LXQstC10YDQvdGL0Lkg0LHRg9C70YzQstCw0YAsIDPQujEiCg0OaxZCFep2X0I%2C&z=10.61
       icon: mdi:car-hatchback
       
     - type: weblink

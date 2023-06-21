@@ -58,6 +58,7 @@ telegram_bot:
       - !secret tlg_user2_id
       - !secret tlg_user3_id
       - !secret tlg_user4_id
+      - !secret tlg_user5_id
 
 
 # Платформа телеграмм уведомлений
@@ -74,6 +75,9 @@ notify:
   - platform: telegram
     name: tlg_user4_id
     chat_id: !secret tlg_user4_id
+  - platform: telegram
+    name: tlg_user5_id
+    chat_id: !secret tlg_user5_id
   - platform: group 
     name: all_telegram
     services:
@@ -81,6 +85,7 @@ notify:
       - service: tlg_user2_id
       - service: tlg_user3_id
       - service: tlg_user4_id
+      - service: tlg_user5_id
     
     
     
