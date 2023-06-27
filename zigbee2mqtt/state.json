@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2985,
         "battery": 90,
-        "temperature": 15.59,
-        "humidity": 76.52,
-        "pressure": 987,
+        "temperature": 16.65,
+        "humidity": 71.87,
+        "pressure": 985,
         "last_seen": "2023-05-01T21:22:08+03:00",
         "power_outage_count": 2958,
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 26.22,
+        "cpu_temperature": 26,
         "power": 0,
         "current": 0,
         "last_seen": "2023-05-01T21:37:53+03:00",
@@ -50,11 +50,11 @@
     "0x00158d00048893ac": {
         "voltage": 2845,
         "battery": 0,
-        "temperature": 23.18,
-        "humidity": 57.57,
-        "pressure": 987.3,
+        "temperature": 23.05,
+        "humidity": 53.26,
+        "pressure": 985.2,
         "last_seen": "2023-05-01T21:20:05+03:00",
-        "power_outage_count": 4761,
+        "power_outage_count": 4762,
         "linkquality": 87
     },
     "0x00158d00048742e4": {
@@ -125,11 +125,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 14,
-        "illuminance_lux": 14,
+        "illuminance": 76,
+        "illuminance_lux": 76,
         "temperature": 24,
-        "occupancy": false,
-        "device_temperature": 29,
+        "occupancy": true,
+        "device_temperature": 28,
         "last_seen": "2023-05-01T20:47:11+03:00",
         "power_outage_count": 15,
         "linkquality": 90
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 24,
+        "local_temperature": 23.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
