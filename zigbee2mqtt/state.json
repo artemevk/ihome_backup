@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2985,
         "battery": 90,
-        "temperature": 17.73,
-        "humidity": 71.45,
-        "pressure": 980.3,
+        "temperature": 14.07,
+        "humidity": 85.23,
+        "pressure": 975.7,
         "last_seen": "2023-05-01T21:22:08+03:00",
         "power_outage_count": 2958,
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 26.67,
+        "cpu_temperature": 25.11,
         "power": 0,
         "current": 0,
         "last_seen": "2023-05-01T21:37:53+03:00",
@@ -50,11 +50,11 @@
     "0x00158d00048893ac": {
         "voltage": 2845,
         "battery": 0,
-        "temperature": 22.3,
-        "humidity": 60.45,
-        "pressure": 980.7,
+        "temperature": 21.45,
+        "humidity": 62.39,
+        "pressure": 976,
         "last_seen": "2023-05-01T21:20:05+03:00",
-        "power_outage_count": 4762,
+        "power_outage_count": 4765,
         "linkquality": 87
     },
     "0x00158d00048742e4": {
@@ -67,15 +67,15 @@
         "last_seen": "2022-06-25T09:35:00+03:00"
     },
     "0x847127fffe04dc4d": {
-        "current_heating_setpoint": 23,
-        "heat": "OFF",
-        "local_temperature": 21.5,
-        "system_mode": "off",
+        "current_heating_setpoint": 24,
+        "heat": "ON",
+        "local_temperature": 22,
+        "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
         "child_lock": "LOCK",
         "sensor": "AL",
-        "running_state": "idle",
+        "running_state": "heat",
         "program": [
             {
                 "weekdays_p1": "6h:0m 20°C"
@@ -125,8 +125,8 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 8,
-        "illuminance_lux": 8,
+        "illuminance": 64,
+        "illuminance_lux": 64,
         "temperature": 24,
         "occupancy": false,
         "device_temperature": 28,
@@ -135,9 +135,9 @@
         "linkquality": 90
     },
     "0x00124b001f2b5b39": {
-        "state_l2": "OFF",
-        "l1": 0,
-        "current_l1": 0,
+        "state_l2": "ON",
+        "l1": 0.064,
+        "current_l1": 0.064,
         "state_l1": "OFF",
         "state_l8": "OFF",
         "last_seen": "2023-05-01T21:37:25+03:00",
