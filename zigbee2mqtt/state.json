@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2985,
         "battery": 90,
-        "temperature": 17.56,
-        "humidity": 86.5,
-        "pressure": 992.4,
+        "temperature": 21.1,
+        "humidity": 74.68,
+        "pressure": 991.3,
         "last_seen": "2023-05-01T21:22:08+03:00",
         "power_outage_count": 2958,
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 26.5,
+        "cpu_temperature": 27.72,
         "power": 0,
         "current": 0,
         "last_seen": "2023-05-01T21:37:53+03:00",
@@ -50,9 +50,9 @@
     "0x00158d00048893ac": {
         "voltage": 2835,
         "battery": 0,
-        "temperature": 23.76,
-        "humidity": 60.48,
-        "pressure": 992.9,
+        "temperature": 25.02,
+        "humidity": 58.16,
+        "pressure": 991.8,
         "last_seen": "2023-05-01T21:20:05+03:00",
         "power_outage_count": 4799,
         "linkquality": 87
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 29,
         "heat": "ON",
-        "local_temperature": 24,
+        "local_temperature": 25,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -125,19 +125,19 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 7,
-        "illuminance_lux": 7,
+        "illuminance": 9,
+        "illuminance_lux": 9,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 29,
+        "device_temperature": 30,
         "last_seen": "2023-05-01T20:47:11+03:00",
         "power_outage_count": 15,
         "linkquality": 90
     },
     "0x00124b001f2b5b39": {
         "state_l2": "ON",
-        "l1": 0.111,
-        "current_l1": 0.111,
+        "l1": 0.078,
+        "current_l1": 0.078,
         "state_l1": "OFF",
         "state_l8": "OFF",
         "last_seen": "2023-05-01T21:37:25+03:00",
@@ -151,8 +151,8 @@
     },
     "0x00158d00057f6f0b": {
         "contact": true,
-        "voltage": 2995,
-        "battery": 97,
+        "voltage": 3005,
+        "battery": 100,
         "last_seen": "2023-05-01T20:40:27+03:00",
         "power_outage_count": 63,
         "linkquality": 87
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 24.5,
+        "local_temperature": 25,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
