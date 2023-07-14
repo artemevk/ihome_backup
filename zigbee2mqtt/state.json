@@ -21,7 +21,7 @@
         "linkquality": 90
     },
     "0x5c0272fffecf64fd": {
-        "battery": 79,
+        "battery": 78,
         "voltage": 2000,
         "occupancy": false,
         "tamper": false,
@@ -32,17 +32,17 @@
     "0x00158d00048681f7": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 12.98,
-        "humidity": 92.72,
-        "pressure": 980.4,
+        "temperature": 14.85,
+        "humidity": 91.51,
+        "pressure": 984,
         "last_seen": "2023-05-01T21:22:08+03:00",
         "power_outage_count": 2958,
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
         "state": "ON",
-        "cpu_temperature": 25,
-        "power": 65533.81,
+        "cpu_temperature": 24.67,
+        "power": 65533.87,
         "current": 284.93,
         "last_seen": "2023-05-01T21:37:53+03:00",
         "linkquality": 72
@@ -50,11 +50,11 @@
     "0x00158d00048893ac": {
         "voltage": 2825,
         "battery": 0,
-        "temperature": 19.09,
-        "humidity": 64.31,
-        "pressure": 980.8,
+        "temperature": 19.46,
+        "humidity": 66.25,
+        "pressure": 984.2,
         "last_seen": "2023-05-01T21:20:05+03:00",
-        "power_outage_count": 4816,
+        "power_outage_count": 4823,
         "linkquality": 87
     },
     "0x00158d00048742e4": {
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 29,
         "heat": "ON",
-        "local_temperature": 21.5,
+        "local_temperature": 21,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -125,19 +125,19 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 13,
-        "illuminance_lux": 13,
+        "illuminance": 62,
+        "illuminance_lux": 62,
         "temperature": 24,
-        "occupancy": true,
+        "occupancy": false,
         "device_temperature": 25,
         "last_seen": "2023-05-01T20:47:11+03:00",
-        "power_outage_count": 15,
+        "power_outage_count": 16,
         "linkquality": 90
     },
     "0x00124b001f2b5b39": {
         "state_l2": "ON",
-        "l1": 0.202,
-        "current_l1": 0.202,
+        "l1": 0.326,
+        "current_l1": 0.326,
         "state_l1": "OFF",
         "state_l8": "OFF",
         "last_seen": "2023-05-01T21:37:25+03:00",
