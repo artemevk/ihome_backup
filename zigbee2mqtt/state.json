@@ -32,17 +32,17 @@
     "0x00158d00048681f7": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 14.52,
-        "humidity": 74.15,
-        "pressure": 975,
+        "temperature": 14.66,
+        "humidity": 75.15,
+        "pressure": 978.3,
         "last_seen": "2023-05-01T21:22:08+03:00",
         "power_outage_count": 2958,
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
         "state": "ON",
-        "cpu_temperature": 26.28,
-        "power": 65533.99,
+        "cpu_temperature": 26.05,
+        "power": 65533.86,
         "current": 284.93,
         "last_seen": "2023-05-01T21:37:53+03:00",
         "linkquality": 72
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 23,
+        "local_temperature": 23.5,
         "local_temperature_calibration": -2,
         "heat": "ON",
         "running_state": "heat",
