@@ -32,17 +32,17 @@
     "0x00158d00048681f7": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 14.31,
-        "humidity": 87.64,
-        "pressure": 982.7,
+        "temperature": 14.54,
+        "humidity": 90.67,
+        "pressure": 979.3,
         "last_seen": "2023-05-01T21:22:08+03:00",
         "power_outage_count": 2958,
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
         "state": "ON",
-        "cpu_temperature": 26.72,
-        "power": 65533.52,
+        "cpu_temperature": 25.33,
+        "power": 65533.81,
         "current": 284.93,
         "last_seen": "2023-05-01T21:37:53+03:00",
         "linkquality": 72
