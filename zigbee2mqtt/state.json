@@ -21,7 +21,7 @@
         "linkquality": 90
     },
     "0x5c0272fffecf64fd": {
-        "battery": 78,
+        "battery": 77,
         "voltage": 2000,
         "occupancy": false,
         "tamper": false,
@@ -32,18 +32,18 @@
     "0x00158d00048681f7": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 14.54,
-        "humidity": 90.67,
-        "pressure": 979.3,
+        "temperature": 23.61,
+        "humidity": 66.16,
+        "pressure": 978,
         "last_seen": "2023-05-01T21:22:08+03:00",
         "power_outage_count": 2958,
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
-        "state": "ON",
-        "cpu_temperature": 25.33,
-        "power": 65533.81,
-        "current": 284.93,
+        "state": "OFF",
+        "cpu_temperature": 27.67,
+        "power": 0,
+        "current": 0,
         "last_seen": "2023-05-01T21:37:53+03:00",
         "linkquality": 72
     },
@@ -151,8 +151,8 @@
     },
     "0x00158d00057f6f0b": {
         "contact": true,
-        "voltage": 2995,
-        "battery": 97,
+        "voltage": 2985,
+        "battery": 90,
         "last_seen": "2023-05-01T20:40:27+03:00",
         "power_outage_count": 63,
         "linkquality": 87
@@ -167,8 +167,8 @@
         "deadzone_temperature": 1,
         "local_temperature": 23.5,
         "local_temperature_calibration": -2,
-        "heat": "ON",
-        "running_state": "heat",
+        "heat": "OFF",
+        "running_state": "idle",
         "child_lock": "UNLOCK",
         "sensor": "AL",
         "program": [
