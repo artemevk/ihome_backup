@@ -41,7 +41,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 28.39,
+        "cpu_temperature": 27.83,
         "power": 0,
         "current": 0,
         "last_seen": "2023-05-01T21:37:53+03:00",
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 24.5,
+        "local_temperature": 24,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
