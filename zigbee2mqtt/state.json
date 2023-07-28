@@ -40,10 +40,10 @@
         "linkquality": 45
     },
     "0x00124b001ed0f19e": {
-        "state": "OFF",
-        "cpu_temperature": 27.83,
-        "power": 0,
-        "current": 0,
+        "state": "ON",
+        "cpu_temperature": 27,
+        "power": 65533.74,
+        "current": 284.93,
         "last_seen": "2023-05-01T21:37:53+03:00",
         "linkquality": 72
     },
@@ -165,10 +165,10 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 24,
+        "local_temperature": 23.5,
         "local_temperature_calibration": -2,
-        "heat": "OFF",
-        "running_state": "idle",
+        "heat": "ON",
+        "running_state": "heat",
         "child_lock": "UNLOCK",
         "sensor": "AL",
         "program": [
