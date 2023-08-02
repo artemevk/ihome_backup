@@ -41,7 +41,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 28.72,
+        "cpu_temperature": 29.72,
         "power": 0,
         "current": 0,
         "last_seen": "2023-08-01T18:28:16+03:00",
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 21.5,
+        "local_temperature": 22,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -165,7 +165,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 25,
+        "local_temperature": 26,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
