@@ -24,9 +24,9 @@
   friendly_name: porch_light
 '0x00158d0006baa93b':
   friendly_name: kitchen_living_room_motion_sensor
-'0x00124b001f2b5b39':
-  friendly_name: 1st_floor_bedroom_heater
 '0x00124b00246e611a':
   friendly_name: remote_artemevk
 '0x00158d00057f6f0b':
   friendly_name: entrance_door
+'0x00124b001f2b5b39':
+  friendly_name: 1st_floor_bedroom_heater
