@@ -21,7 +21,7 @@
         "linkquality": 90
     },
     "0x5c0272fffecf64fd": {
-        "battery": 77,
+        "battery": 76,
         "voltage": 2000,
         "occupancy": false,
         "tamper": false,
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2985,
         "battery": 90,
-        "temperature": 17.1,
-        "humidity": 83.4,
-        "pressure": 997.7,
+        "temperature": 19.01,
+        "humidity": 82.16,
+        "pressure": 997.3,
         "last_seen": "2023-08-07T18:02:58+03:00",
         "power_outage_count": 2961,
         "linkquality": 63
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 27.72,
+        "cpu_temperature": 28.61,
         "power": 0,
         "current": 0,
         "last_seen": "2023-08-07T18:05:13+03:00",
@@ -69,7 +69,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 22,
+        "local_temperature": 23,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -124,10 +124,10 @@
         "linkquality": 81
     },
     "0x00158d0006baa93b": {
-        "voltage": 3065,
+        "voltage": 3055,
         "battery": 100,
-        "illuminance": 6,
-        "illuminance_lux": 6,
+        "illuminance": 7,
+        "illuminance_lux": 7,
         "temperature": 24,
         "occupancy": false,
         "device_temperature": 29,
@@ -157,7 +157,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 23.5,
+        "local_temperature": 24.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -207,8 +207,8 @@
     "0x00124b001f2b5b39": {
         "state_l1": "OFF",
         "state_l2": "ON",
-        "l1": 0.045,
-        "current_l1": 0.045,
+        "l1": 0.064,
+        "current_l1": 0.064,
         "last_seen": "2023-08-07T18:05:11+03:00",
         "linkquality": 60
     }
