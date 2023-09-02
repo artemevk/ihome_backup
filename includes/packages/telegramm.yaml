@@ -1,3 +1,4 @@
+## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
 telegramm:
 
   sensor:
@@ -136,13 +137,18 @@ telegramm:
             message:  | 
               {{"\U000023F1"}} Отчет за {{ states('sensor.time_date') }}
               {{"\U0001F6CB"}} Кухня-гостиная.
-              {{"\U0001F321"}} Температура - {{ states('sensor.kitchen_living_room_climate_temperature') }} C
-              {{"\U0001F4A1"}} Конвектор - {{ states('switch.kitchen_living_room_heater') }}
-              {{"\U0001F525"}} Состояние термостата - {{ states('climate.toilet_heater_thermostat') }}
+              {{"\U0001F321"}} Температура: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_temperature') }} C
+              {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') }} C
+              {{"\U0001F4A1"}} Конвектор: {{ states('switch.kitchen_living_room_heater') }}
               
               {{"\U0001F6BD"}} Туалет.
-              {{"\U0001F321"}} Температура - {{ states('sensor.toilet_climate_temperature') }} C
-              {{"\U0001F4A1"}} Конвектор - {{ states('switch.toilet_heater') }}
-              {{"\U0001F525"}} Состояние термостата - {{ states('climate.toilet_heater_thermostat') }}
+              {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} C
+              {{"\U0001F4A1"}} Конвектор: {{ states('switch.toilet_heater') }}
+              
+              {{"\U0001F6CF"}} Спальня на первом этаже.
+              {{"\U0001F321"}} Температура: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} C
+              {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }} C
+              {{"\U0001F4A1"}} Конвектор: {{ states('switch.1st_floor_bedroom_heater_l2') }}
+              {{"\U0001F525"}} Теплые полы: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
             inline_keyboard:
               - "Главное меню:/start"

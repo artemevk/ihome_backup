@@ -6,17 +6,24 @@ cards:
   - type: vertical-stack
     cards:
 
-    - type: markdown
-      content: >
-        **Климат**
+    # - type: markdown
+    #   content: >
+    #     **Климат**
   
     - type: thermostat
       entity: climate.1st_floor_bedroom_thermostat
-      name: " "
-      
-    - type: markdown
-      content: >
-        **Конвектор**
+      name: "Полы"
+
+  - type: vertical-stack
+    cards:
+    # - type: markdown
+    #   content: >
+    #       **Конвектор**
+
+    - type: thermostat
+      entity: climate.1st_floor_bedroom_heater_thermostat
+      name: "Конвектор"
+    
         
     # - type: glance
     #   entities:
