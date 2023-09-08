@@ -6,7 +6,10 @@ class SimpleClockCard extends HTMLElement {
 			var config = this.config;
 			const card = document.createElement('HA-card');
 			this.content = document.createElement('div');
-			this.content.style.padding = this.config.padding_size ? this.config.padding_size : '16px';
+			this.content.style.paddingLeft = this.config.paddingLeft_size ? this.config.paddingLeft_size : '0px';
+			this.content.style.paddingRight = this.config.paddingRight_size ? this.config.paddingRight_size : '0px';
+			this.content.style.paddingTop = this.config.paddingTop_size ? this.config.paddingTop_size : '60px';
+			this.content.style.paddingBottom = this.config.paddingBottom_size ? this.config.paddingBottom_size : '60px';
 			this.content.style.fontSize = this.config.font_size ? this.config.font_size : '4rem' ;
 			this.style.textAlign = 'center';
 			this.content.style.display = 'inline-block';
@@ -34,8 +37,9 @@ class SimpleClockCard extends HTMLElement {
 
 				let  use_military = config.use_military !== undefined ? config.use_military : true;
 				let  hide_seconds = config.hide_seconds !== undefined ? config.hide_seconds : false;
+				let  lead_zero = config.lead_zero !== undefined ? config.lead_zero : false;
 
-				let time_str =  (use_military ? h : ((h + 11) % 12) + 1 ) +
+				let time_str =  (use_military ? (lead_zero ? addZero(h) : h) : ((h + 11) % 12) + 1 ) +
                    ":" +
                    m +
                    (hide_seconds ? "" : ":" + s ) +
