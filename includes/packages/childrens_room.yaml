@@ -1,0 +1,15 @@
+# childrens_room:
+#   mqtt:
+#     - climate:
+#         name: childrens_room_heater
+#         modes:
+#           - "Off"
+#           - "Comfort"
+#           - "Eco"
+#           - "AntiFr"
+#           - "Standby"
+#         power_command_topic: "mac/mode/in"
+#         mode_command_topic: "mac/mode/out"
+#         mode_command_template: "{{ value if value=="off" else "on" }}"
+#         temperature_command_topic: "mac/temperature_comfort/in"
+#         precision: 1.0

@@ -1,4 +1,4 @@
-# 2nd_floor_bedroom_climate:
+# 2nd_floor_bedroom:
 
 #   climate:
 #   - platform: generic_thermostat

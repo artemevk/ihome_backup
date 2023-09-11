@@ -45,7 +45,7 @@ telegramm:
             message: 'Добро пожаловать в главное меню. Выберите действие:'
             inline_keyboard:
               - "Отчет о системе:/report, Прогноз погоды:/forecast"
-              - "Погода в доме:/home_climate_report"
+              - "Погода в доме:/home_climate_report, Подготовить дом:/prepare_the_house"
   
     - id: Отчет при запуске системы
       alias: start_message
@@ -82,7 +82,7 @@ telegramm:
             data:
               inline_keyboard:
                 - "Отчет о системе:/report, Прогноз погоды:/forecast"
-                - "Погода в доме:/home_climate_report"
+                - "Погода в доме:/home_climate_report, Подготовить дом:/prepare_the_house"
 
 
     # Отчет о системе по запросу
@@ -152,3 +152,34 @@ telegramm:
               {{"\U0001F525"}} Теплые полы: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
             inline_keyboard:
               - "Главное меню:/start"
+              
+    # Подготовить дом
+    - id: Подготовить дом
+      alias: prepare_the_house
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: '/prepare_the_house'
+        - platform: event # по запросу из telegramm
+          event_type: telegram_command
+          event_data:
+            command: '/prepare_the_house'
+      action:
+        - service: climate.set_temperature
+          target:
+            entity_id: 
+              - climate.kitchen_living_room_thermostat
+              - climate.1st_floor_bedroom_thermostat
+          data:
+            temperature: 24
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message:  | 
+              {{"\U000023F1"}} {{ states('sensor.time_date') }}
+              {{"\U0001F6CB"}} Дом подготавливается.
+            inline_keyboard:
+              - "Главное меню:/start"
+

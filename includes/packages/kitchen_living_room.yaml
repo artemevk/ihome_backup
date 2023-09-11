@@ -1,4 +1,4 @@
-kitchen_living_room_climate:
+kitchen_living_room:
 
 #   climate:
 #   - platform: generic_thermostat
