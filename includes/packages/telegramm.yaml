@@ -45,7 +45,8 @@ telegramm:
             message: 'Добро пожаловать в главное меню. Выберите действие:'
             inline_keyboard:
               - "Отчет о системе:/report, Прогноз погоды:/forecast"
-              - "Погода в доме:/home_climate_report, Подготовить дом:/prepare_the_house"
+              - "Погода в доме:/home_climate_report"
+              - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
   
     - id: Отчет при запуске системы
       alias: start_message
@@ -59,7 +60,7 @@ telegramm:
             title: "#system"
             message: | 
               {{"\U0001F4AC"}} ihome 
-              {{"\U0001F567"}} Зафиксирован запуск в {{ states('sensor.time_date') }} 
+              {{"\U0000231A"}} Зафиксирован запуск в {{ states('sensor.time_date') }} 
               {{"\U0001F4C3"}} Отчет о состоянии будет через 1 минуту
         # Задержка и отправка полного отчета через минуту
         - delay: 00:01:10
@@ -68,7 +69,7 @@ telegramm:
             title: "#system"
             message:  | 
               {{"\U0001F4CB"}} Состояние системы
-              {{"\U0001F567"}} Отчет за {{ states('sensor.time_date') }}
+              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
               {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
               {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
               {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
@@ -82,7 +83,8 @@ telegramm:
             data:
               inline_keyboard:
                 - "Отчет о системе:/report, Прогноз погоды:/forecast"
-                - "Погода в доме:/home_climate_report, Подготовить дом:/prepare_the_house"
+                - "Погода в доме:/home_climate_report"
+                - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
 
 
     # Отчет о системе по запросу
@@ -108,7 +110,7 @@ telegramm:
             title: "#system"
             message:  | 
               {{"\U0001F4CB"}} Состояние системы
-              {{"\U0001F567"}} Отчет за {{ states('sensor.time_date') }}
+              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
               {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
               {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
               {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
@@ -135,7 +137,7 @@ telegramm:
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message:  | 
-              {{"\U000023F1"}} Отчет за {{ states('sensor.time_date') }}
+              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
               {{"\U0001F6CB"}} Кухня-гостиная.
               {{"\U0001F321"}} Температура: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_temperature') }} C
               {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') }} C
@@ -167,19 +169,67 @@ telegramm:
           event_data:
             command: '/prepare_the_house'
       action:
-        - service: climate.set_temperature
+        - service: climate.TURN_ON
+          target:
+            entity_id: all
+        - service: climate.TURN_OFF
           target:
             entity_id: 
               - climate.kitchen_living_room_thermostat
-              - climate.1st_floor_bedroom_thermostat
+        - service: climate.set_temperature
+          target:
+            entity_id: all
+            #   - climate.kitchen_living_room_thermostat
+            #   - climate.1st_floor_bedroom_thermostat
           data:
             temperature: 24
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message:  | 
-              {{"\U000023F1"}} {{ states('sensor.time_date') }}
-              {{"\U0001F6CB"}} Дом подготавливается.
+              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U00002668"}} Дом подготавливается.
             inline_keyboard:
               - "Главное меню:/start"
 
+    # Дом в режим антизамерзания
+    - id: Дом в режим антизамерзания
+      alias: antifrost_mode
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: '/antifrost_mode'
+        - platform: event # по запросу из telegramm
+          event_type: telegram_command
+          event_data:
+            command: '/antifrost_mode'
+        - platform: state
+          entity_id: alarm_control_panel.8124_a01_zone_1_alarm
+          to: 
+            - 'armed_away'
+            - 'armed_vacation'
+      action:
+        - service: climate.TURN_ON
+          target:
+            entity_id: all
+        - service: climate.TURN_OFF
+          target:
+            entity_id: 
+              - climate.kitchen_living_room_thermostat
+        - service: climate.set_temperature
+          target:
+            entity_id: all
+            #   - climate.kitchen_living_room_thermostat
+            #   - climate.1st_floor_bedroom_thermostat
+          data:
+            temperature: 5
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message:  | 
+              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U00002744"}} Дом переведен в режим антизамерзания.
+            inline_keyboard:
+              - "Главное меню:/start"

@@ -5,22 +5,10 @@ cards:
 
   - type: vertical-stack
     cards:
-
-    - type: markdown
-      content: >
-        **Термостат**
-    
-    # - entity: climate.kitchen_living_room_heater_thermostat
-    #   type: thermostat
-    #   name: " "
     - type: thermostat
-      entity: climate.kitchen_living_room_thermostat
-      name: " "
-      
-    - type: markdown
-      content: >
-        **Конвектор**
-        
+      entity: climate.kitchen_living_room_heater_thermostat
+      name: "Конвектор"
+    
     - type: glance
       entities:
         - entity: switch.kitchen_living_room_heater
@@ -38,37 +26,16 @@ cards:
         - entity: sensor.kitchen_living_room_heater_linkquality
           name: Индикатор качества сигнала
 
-  - type: vertical-stack
-    cards:
-
-    - type: markdown
-      content: >
-        **Климат**
-
     - type: sensor
       entity: sensor.kitchen_living_room_temperature
       name: Температура
       graph: line
-    #   detail: 1
       
-    - type: sensor
-      entity: sensor.kitchen_living_room_climate_temperature
-      name: Температура
-      graph: line
-    #   detail: 1
-      
-    
-    - type: sensor
-      entity: sensor.kitchen_living_room_climate_humidity
-      name: Влажность
-    #   graph: line
-    #   detail: 1
-      
-    - type: sensor
-      entity: sensor.kitchen_living_room_climate_pressure
-      name: Давление
-    #   graph: line
-    #   detail: 1
+  - type: vertical-stack
+    cards:
+    - type: thermostat
+      entity: climate.kitchen_living_room_thermostat
+      name: "Полы"
 
   - type: vertical-stack
     cards:
@@ -80,7 +47,6 @@ cards:
     - type: entities
       entities:
       - input_select.scenes
-
 
     - type: light
       entity: light.corridor_lamp_1
