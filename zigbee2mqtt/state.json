@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
         "state": "OFF",
-        "energy": 2712.09,
+        "energy": 2715.54,
         "power": 0,
         "current": 0,
-        "voltage": 224,
+        "voltage": 232,
         "power_outage_memory": "restore",
         "last_seen": "2023-03-25T10:53:24+03:00",
         "indicator_mode": "off/on",
@@ -32,16 +32,16 @@
     "0x00158d00048681f7": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 15.7,
-        "humidity": 62.13,
-        "pressure": 997.1,
+        "temperature": 18.52,
+        "humidity": 70.71,
+        "pressure": 996.2,
         "last_seen": "2023-09-22T17:36:14+03:00",
         "power_outage_count": 2964,
         "linkquality": 63
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 27.78,
+        "cpu_temperature": 26.89,
         "power": 0,
         "current": 0,
         "last_seen": "2023-09-22T17:44:49+03:00",
@@ -67,9 +67,9 @@
         "last_seen": "2022-06-25T09:35:00+03:00"
     },
     "0x847127fffe04dc4d": {
-        "current_heating_setpoint": 22,
+        "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 22.5,
+        "local_temperature": 21.5,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -126,11 +126,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 14,
-        "illuminance_lux": 14,
+        "illuminance": 9,
+        "illuminance_lux": 9,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 29,
+        "device_temperature": 28,
         "last_seen": "2023-09-22T17:25:37+03:00",
         "power_outage_count": 18,
         "linkquality": 78
@@ -150,14 +150,14 @@
         "linkquality": 78
     },
     "0x847127fffe1dac9c": {
-        "system_mode": "heat",
+        "system_mode": "off",
         "preset_mode": "hold",
         "preset": "hold",
-        "current_heating_setpoint": 22,
+        "current_heating_setpoint": 5,
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 23.5,
+        "local_temperature": 22.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
