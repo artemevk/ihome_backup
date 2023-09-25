@@ -25,6 +25,26 @@ telegramm:
           friendly_name: "Всего недоступных бинарных сенсоров - "
           value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
           icon_template: mdi:counter
+
+        msg_kitchen_living_room_climate:
+          value_template: |
+            {{"\U0001F6CB"}} Кухня-гостиная.
+            {{"\U0001F321"}} Температура: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_temperature') }} °C
+            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') }} °C
+            {{"\U0001F4A1"}} Конвектор: {{ states('switch.kitchen_living_room_heater') }}
+        
+        msg_toilet_climate:
+          value_template: |
+            {{"\U0001F6BD"}} Туалет.
+            {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
+        
+        msg_1st_floor_bedroom_climate:
+          value_template: |
+            {{"\U0001F6CF"}} Спальня на первом этаже.
+            {{"\U0001F321"}} Температура: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} °C
+            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }} °C
+            {{"\U0001F4A1"}} Конвектор: {{ states('switch.1st_floor_bedroom_heater_l2') }}
+            {{"\U0001F525"}} Теплые полы: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
           
   automation:
   
@@ -32,10 +52,6 @@ telegramm:
       trigger:
         - platform: event
           event_type: telegram_callback
-          event_data:
-            command: "/start"
-        - platform: event
-          event_type: telegram_command
           event_data:
             command: "/start"
       action:
@@ -96,10 +112,6 @@ telegramm:
           event_type: telegram_callback
           event_data:
             command: '/report'
-        - platform: event # по запросу из telegramm
-          event_type: telegram_command
-          event_data:
-            command: '/report'
         - platform: numeric_state # при отвале датчиков
           entity_id: sensor.unavailable_now_sensor
           above: 0
@@ -118,18 +130,13 @@ telegramm:
             inline_keyboard:
               - "Главное меню:/start"
 
-
     # Погода в доме
-    - id: Выключение света в квартире
+    - id: Погода в доме
       alias: home_climate_report
       initial_state: true
       trigger:
         - platform: event # по запросу из telegramm
           event_type: telegram_callback
-          event_data:
-            command: '/home_climate_report'
-        - platform: event # по запросу из telegramm
-          event_type: telegram_command
           event_data:
             command: '/home_climate_report'
       action:
@@ -138,20 +145,12 @@ telegramm:
             target: "{{ trigger.event.data.user_id }}"
             message:  | 
               {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
-              {{"\U0001F6CB"}} Кухня-гостиная.
-              {{"\U0001F321"}} Температура: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_temperature') }} C
-              {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') }} C
-              {{"\U0001F4A1"}} Конвектор: {{ states('switch.kitchen_living_room_heater') }}
+              {{ states('sensor.msg_kitchen_living_room_climate') }}
               
-              {{"\U0001F6BD"}} Туалет.
-              {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} C
-              {{"\U0001F4A1"}} Конвектор: {{ states('switch.toilet_heater') }}
+              {{ states('switch.toilet_climate') }}
               
-              {{"\U0001F6CF"}} Спальня на первом этаже.
-              {{"\U0001F321"}} Температура: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} C
-              {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }} C
-              {{"\U0001F4A1"}} Конвектор: {{ states('switch.1st_floor_bedroom_heater_l2') }}
-              {{"\U0001F525"}} Теплые полы: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
+              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+              
             inline_keyboard:
               - "Главное меню:/start"
               
@@ -160,76 +159,62 @@ telegramm:
       alias: prepare_the_house
       initial_state: true
       trigger:
-        - platform: event # по запросу из telegramm
-          event_type: telegram_callback
-          event_data:
-            command: '/prepare_the_house'
-        - platform: event # по запросу из telegramm
-          event_type: telegram_command
-          event_data:
-            command: '/prepare_the_house'
+      - platform: event # по запросу из telegramm
+        event_type: telegram_callback
+        event_data:
+          command: '/prepare_the_house'
       action:
-        - service: climate.TURN_ON
-          target:
-            entity_id: all
-        - service: climate.TURN_OFF
-          target:
-            entity_id: 
-              - climate.kitchen_living_room_thermostat
-        - service: climate.set_temperature
-          target:
-            entity_id: all
-            #   - climate.kitchen_living_room_thermostat
-            #   - climate.1st_floor_bedroom_thermostat
-          data:
-            temperature: 24
-        - service: telegram_bot.send_message
-          data_template:
-            target: "{{ trigger.event.data.user_id }}"
-            message:  | 
-              {{"\U0000231A"}} {{ states('sensor.time_date') }}
-              {{"\U00002668"}} Дом подготавливается.
-            inline_keyboard:
-              - "Главное меню:/start"
+      - service: switch.turn_on
+        target:
+          entity_id: switch.water_heater
+      - service: climate.turn_on
+        target:
+          entity_id: all
+      - service: climate.set_temperature
+        target:
+          entity_id: all
+        data:
+          temperature: 24
+      - service: telegram_bot.send_message
+        data_template:
+          target: "{{ trigger.event.data.user_id }}"
+          message:  | 
+            {{"\U0000231A"}} {{ states('sensor.time_date') }}
+            {{"\U00002668"}} Дом подготавливается.
+          inline_keyboard:
+            - "Главное меню:/start"
 
     # Дом в режим антизамерзания
     - id: Дом в режим антизамерзания
       alias: antifrost_mode
       initial_state: true
       trigger:
-        - platform: event # по запросу из telegramm
-          event_type: telegram_callback
-          event_data:
-            command: '/antifrost_mode'
-        - platform: event # по запросу из telegramm
-          event_type: telegram_command
-          event_data:
-            command: '/antifrost_mode'
-        - platform: state
-          entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-          to: 
-            - 'armed_away'
-            - 'armed_vacation'
+      - platform: event # по запросу из telegramm
+        event_type: telegram_callback
+        event_data:
+          command: '/antifrost_mode'
+      - platform: state
+        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
+        to: 
+          - 'armed_away'
+          - 'armed_vacation'
       action:
-        - service: climate.TURN_ON
-          target:
-            entity_id: all
-        - service: climate.TURN_OFF
-          target:
-            entity_id: 
-              - climate.kitchen_living_room_thermostat
-        - service: climate.set_temperature
-          target:
-            entity_id: all
-            #   - climate.kitchen_living_room_thermostat
-            #   - climate.1st_floor_bedroom_thermostat
-          data:
-            temperature: 5
-        - service: telegram_bot.send_message
-          data_template:
-            target: "{{ trigger.event.data.user_id }}"
-            message:  | 
-              {{"\U0000231A"}} {{ states('sensor.time_date') }}
-              {{"\U00002744"}} Дом переведен в режим антизамерзания.
-            inline_keyboard:
-              - "Главное меню:/start"
+      - service: switch.turn_off
+        target:
+          entity_id: switch.water_heater
+      - service: climate.turn_on
+        target:
+          entity_id: all
+      - service: climate.set_temperature
+        target:
+          entity_id: all
+        data:
+          temperature: 5
+      - service: telegram_bot.send_message
+        data_template:
+          target: "{{ trigger.event.data.user_id }}"
+          message:  | 
+            {{"\U0000231A"}} {{ states('sensor.time_date') }}
+            {{"\U00002744"}} Дом переведен в режим антизамерзания.
+          inline_keyboard:
+            - "Главное меню:/start"
