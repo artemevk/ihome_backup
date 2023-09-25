@@ -33,10 +33,10 @@ telegramm:
             {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') }} °C
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.kitchen_living_room_heater') }}
         
-        msg_toilet_climate:
-          value_template: |
-            {{"\U0001F6BD"}} Туалет.
-            {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
+        # msg_toilet_climate:
+        #   value_template: |
+        #     {{"\U0001F6BD"}} Туалет.
+        #     {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
         
         msg_1st_floor_bedroom_climate:
           value_template: |
@@ -50,10 +50,19 @@ telegramm:
   
     - alias: 'Telegram bot main menu'
       trigger:
-        - platform: event
-          event_type: telegram_callback
-          event_data:
-            command: "/start"
+      - platform: event
+        event_type: telegram_callback # вызов с клавиатуры
+        event_data:
+          command: "/start"
+          trigger:
+      - platform: event
+        event_type: telegram_command # вызов из меню
+        event_data:
+          command: "/start"
+      - platform: event 
+        event_type: telegram_callback # вызов с клавиатуры
+        event_data:
+          command: '/mm'
       action:
         - service: telegram_bot.send_message
           data_template:
@@ -108,28 +117,31 @@ telegramm:
       alias: send_report
       initial_state: true
       trigger:
-        - platform: event # по запросу из telegramm
-          event_type: telegram_callback
-          event_data:
-            command: '/report'
-        - platform: numeric_state # при отвале датчиков
-          entity_id: sensor.unavailable_now_sensor
-          above: 0
+      - platform: event # по запросу из telegramm
+        event_type: telegram_callback
+        event_data:
+          command: '/report'
+      - platform: event
+        event_type: telegram_command # вызов из меню
+        event_data:
+          command: "/report"
+      - platform: numeric_state # при отвале датчиков
+        entity_id: sensor.unavailable_now_sensor
+        above: 0
       action:
-        - service: telegram_bot.send_message
-          data_template:
-            target: "{{ trigger.event.data.user_id }}"
-            title: "#system"
-            message:  | 
-              {{"\U0001F4CB"}} Состояние системы
-              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
-              {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
-              {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
-              {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
-              {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
-            inline_keyboard:
-              - "Главное меню:/start"
-
+      - service: telegram_bot.send_message
+        data_template:
+          target: "{{ trigger.event.data.user_id }}"
+          title: "#system"
+          message:  | 
+            {{"\U0001F4CB"}} Состояние системы
+            {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
+            {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
+            {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
+            {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
+            {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
+          inline_keyboard: 
+          - "Главное меню:/mm"
     # Погода в доме
     - id: Погода в доме
       alias: home_climate_report
@@ -147,12 +159,10 @@ telegramm:
               {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
               {{ states('sensor.msg_kitchen_living_room_climate') }}
               
-              {{ states('switch.toilet_climate') }}
-              
               {{ states('sensor.msg_1st_floor_bedroom_climate')}}
               
             inline_keyboard:
-              - "Главное меню:/start"
+              - "Главное меню:/mm"
               
     # Подготовить дом
     - id: Подготовить дом
@@ -181,8 +191,9 @@ telegramm:
           message:  | 
             {{"\U0000231A"}} {{ states('sensor.time_date') }}
             {{"\U00002668"}} Дом подготавливается.
+            
           inline_keyboard:
-            - "Главное меню:/start"
+            - "Главное меню:/mm"
 
     # Дом в режим антизамерзания
     - id: Дом в режим антизамерзания
@@ -216,5 +227,6 @@ telegramm:
           message:  | 
             {{"\U0000231A"}} {{ states('sensor.time_date') }}
             {{"\U00002744"}} Дом переведен в режим антизамерзания.
+            
           inline_keyboard:
-            - "Главное меню:/start"
+            - "Главное меню:/mm"

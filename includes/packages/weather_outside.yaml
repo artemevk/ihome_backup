@@ -119,6 +119,6 @@ weather_outside:
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[0].condition }}
               {% endif %}
             inline_keyboard:
-              - "Главное меню:/start"
+              - "Главное меню:/mm"
 
             #   {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'clear-night' %}{{"ясная ночь"}}

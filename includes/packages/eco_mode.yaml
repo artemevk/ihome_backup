@@ -67,7 +67,7 @@ eco_mode:
       initial_state: true
       trigger:
       - platform: time
-        at: "23:30:00"
+        at: "23:45:00"
       condition:
       - condition: state
         entity_id: input_boolean.eco_mode_resolution
@@ -75,8 +75,7 @@ eco_mode:
       - condition: state
         entity_id: binary_sensor.eco_mode_status
         state: "off"
-      - condition: template
-        value_template: >-
+      - >-
           {{ min([state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature'),
           state_attr('climate.1st_floor_bedroom_thermostat', 'temperature'),
           state_attr('climate.kitchen_living_room_heater_thermostat', 'temperature'),
@@ -112,11 +111,6 @@ eco_mode:
           entity_id: climate.kitchen_living_room_thermostat
         data:
           temperature: "{{ state_attr('climate.kitchen_living_room_thermostat', 'temperature') -2 }}"
-    #   - service: climate.set_temperature
-    #     target:
-    #       entity_id: climate.toilet_heater_thermostat
-    #     data:
-    #       temperature: "{{ state_attr('climate.toilet_heater_thermostat', 'temperature') -2 }}"
       - service: switch.turn_off
         target:
           entity_id: switch.water_heater
@@ -124,12 +118,9 @@ eco_mode:
       - service: notify.tlg_user1_id
         data:
           message:  | 
-            {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
-              {{ states('sensor.msg_kitchen_living_room_climate') }}
-              
-              {{ states('switch.toilet_climate') }}
-              
-              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+            {{ states('sensor.msg_kitchen_living_room_climate') }}
+            
+            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
 
     - id: 'Стандартный режим энергопотребления'
       alias: standard_power_consumption_mode
@@ -137,10 +128,10 @@ eco_mode:
       trigger:
       - platform: time
         at: "05:30:00"
-      condition:
-      - condition: state
+      - platform: state
         entity_id: input_boolean.eco_mode_resolution
-        state: "on"
+        to: "off"
+      condition:
       - condition: state
         entity_id: binary_sensor.eco_mode_status
         state: "on"
@@ -150,10 +141,10 @@ eco_mode:
           entity_id: input_boolean.eco_mode_status
       - service: notify.tlg_user1_id
         data:
-          message: '{{"\U0001F343"}} Стандартный режим энергопотребления активирован.'
+          message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
       - service: notify.mobile_app_artemevk
         data:
-          message: '{{"\U0001F343"}} Стандартный режим энергопотребления активирован.'
+          message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
       - service: climate.set_temperature
         target:
           entity_id: climate.1st_floor_bedroom_heater_thermostat
@@ -174,21 +165,13 @@ eco_mode:
           entity_id: climate.kitchen_living_room_thermostat
         data:
           temperature: "{{ state_attr('climate.kitchen_living_room_thermostat', 'temperature') +2 }}"
-    #   - service: climate.set_temperature
-    #     target:
-    #       entity_id: climate.toilet_heater_thermostat
-    #     data:
-    #       temperature: "{{ state_attr('climate.toilet_heater_thermostat', 'temperature') +2 }}"
       - service: switch.turn_on
         target:
           entity_id: switch.water_heater
       - delay: 00:00:30
       - service: notify.tlg_user1_id
         data:
-          message:  | 
-            {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
-              {{ states('sensor.msg_kitchen_living_room_climate') }}
-              
-              {{ states('switch.toilet_climate') }}
-              
-              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+          message:  |
+            {{ states('sensor.msg_kitchen_living_room_climate') }}
+            
+            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
