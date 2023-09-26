@@ -22,8 +22,14 @@ cards:
         #      icon: mdi:camera 
         #      tap_action:
         #         action: toggle
-        - type: picture-glance
-          title: Front garden
-          entities: []
-          camera_image: camera.courtyard
-          camera_view: live
+        # - type: picture-glance
+        #   title: Front garden
+        #   entities: []
+        #   camera_image: camera.courtyard
+        #   camera_view: live
+          
+          
+          
+          
+        - type: picture-entity
+          entity: camera.courtyard

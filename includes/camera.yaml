@@ -1,3 +1,4 @@
 - platform: ffmpeg
   name: "courtyard"
-  input: !secret courtyard_rtsp
+  input: "-rtsp_transport tcp -i rtsp://admin:IPMDJN@192.168.1.51/h264_stream:554/cam/realmonitor?channel=1&subtype=0&unicast=true"
+#   #!secret courtyard_rtsp

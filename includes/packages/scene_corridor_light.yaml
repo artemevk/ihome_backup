@@ -228,23 +228,24 @@ scene_light:
       alias: "switch_off_corridor_lamps"
       initial_state: true
       trigger:
-        - platform: state
-          entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-          to: "armed_away"
-        - platform: state
-          entity_id: binary_sensor.kitchen_living_room_motion_sensor_occupancy
-          to: "off"
-          for:
-            minutes: 5
+      - platform: state
+        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
+        to: "armed_away"
+      - platform: state
+        entity_id: binary_sensor.kitchen_living_room_motion_sensor_occupancy
+        to: "off"
+        for:
+          minutes: 5
       condition:
-        condition: or # Lamp_1 or lamp_2 is on
+      - "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
+      - condition: or # Lamp_1 or lamp_2 is on
         conditions:
-          - condition: state
-            entity_id: light.corridor_lamp_1
-            state: "on"
-          - condition: state
-            entity_id: light.corridor_lamp_2
-            state: "on"
+        - condition: state
+          entity_id: light.corridor_lamp_1
+          state: "on"
+        - condition: state
+          entity_id: light.corridor_lamp_2
+          state: "on"
       action:
         - service: scene.turn_on
           target:

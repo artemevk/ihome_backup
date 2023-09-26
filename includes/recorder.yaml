@@ -8,6 +8,8 @@
       - switch
       - light
       - alarm_control_panel
+      - input_text
+      - input_boolean
     entities: 
 #Объем БД
       - sensor.maria_db_size

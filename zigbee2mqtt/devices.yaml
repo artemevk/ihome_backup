@@ -2,16 +2,12 @@
   friendly_name: porch_motion_protect
 '0x588e81fffed39429':
   friendly_name: water_heater
-'0x00158d00047ddd4e':
-  friendly_name: kitchen_living_room_climate
 '0x00158d00048681f7':
   friendly_name: outdoor_climate
 '0x00124b001ed0f19e':
   friendly_name: kitchen_living_room_heater
 '0x00158d00048893ac':
   friendly_name: toilet_climate
-'0x00158d00048742e4':
-  friendly_name: 2nd_floor_bedroom_climate
 '0x847127fffe1dac9c':
   friendly_name: kitchen_living_room_thermostat
   debounce: 1

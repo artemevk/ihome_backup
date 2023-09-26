@@ -1,6 +1,57 @@
 perimeter_defenses:
 
+#   sql:  # почему-то не сработало
+#     - name: prev_alarm_state
+#       query: >
+#         SELECT
+#           states.state
+#         FROM
+#           states
+#         WHERE
+#           state_id = (
+#             SELECT
+#               states.old_state_id
+#             FROM
+#               states
+#             WHERE
+#               metadata_id = (
+#                 SELECT
+#                   metadata_id
+#                 FROM
+#                   states_meta
+#                 WHERE
+#                   entity_id = 'alarm_control_panel.8124_a01_zone_1_alarm'
+#               )
+#               AND old_state_id IS NOT NULL
+#             ORDER BY
+#               last_updated_ts DESC
+#             LIMIT
+#               1
+#           );
+#       column: "state"
+
+  input_text:
+    prev_alarm_state:
+      name: prev_alarm_state
+      initial: unavailable
+
   automation:
+  
+    - alias: get_prev_alarm_state
+      id: get_prev_alarm_state
+      trigger:
+      - platform: state
+        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
+      - platform: homeassistant
+        event: start
+      action:
+        - delay: 00:00:15
+        - service: input_text.set_value
+          target:
+            entity_id: input_text.prev_alarm_state
+          data:
+            value: "{{ states('alarm_control_panel.8124_a01_zone_1_alarm') }}"
+      
     - alias: "motion_notification"
       id: motion_notification
       trigger:
@@ -38,7 +89,8 @@ perimeter_defenses:
       trigger:
         platform: state
         entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        to: 'disarmed'  # 'triggered'
+        to: 'disarmed'
+      condition: "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
       action:
         service: notify.tlg_user1_id
         data:
@@ -53,6 +105,7 @@ perimeter_defenses:
         platform: state
         entity_id: alarm_control_panel.8124_a01_zone_1_alarm
         to: 'armed_away'
+      condition: "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
       action:
         service: notify.tlg_user1_id
         data:
@@ -67,7 +120,6 @@ perimeter_defenses:
       trigger:
         platform: state
         entity_id: device_tracker.artemevk
-        from: 'not_home'
         to: 'home'
       action:
         service: notify.tlg_user1_id
@@ -83,7 +135,6 @@ perimeter_defenses:
       trigger:
         platform: state
         entity_id: device_tracker.artemevp
-        from: 'not_home'
         to: 'home'
       action:
         service: notify.tlg_user3_id
