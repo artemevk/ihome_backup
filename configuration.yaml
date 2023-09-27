@@ -19,11 +19,11 @@ lovelace:
     - url: /hacsfiles/simple-clock-card/simple-clock-card.js 
       type: module
 
-hacs:
-  token: !secret HACS_github
-  appdaemon: true
-  python_script: true
-  theme: true
+# hacs:
+#   token: !secret HACS_github
+#   appdaemon: true
+#   python_script: true
+#   theme: true
 
 # Text to speech
 tts:
