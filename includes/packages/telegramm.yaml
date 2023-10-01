@@ -119,7 +119,6 @@ telegramm:
                 - "Погода в доме:/home_climate_report"
                 - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
 
-
     # Отчет о системе по запросу
     - id: Отчет о системе по запросу
       alias: send_report
@@ -153,7 +152,7 @@ telegramm:
                   states('sensor.unavailable_now_switch'),
                   states('sensor.unavailable_now_sensor'),
                   states('sensor.unavailable_now_binary_sensor'),
-                  states('input_number.test_number')]) | float > 0 }}
+                  states('input_number.test_number')]) | float >= 1 }}
       action:
       - service: notify.tlg_user1_id
         data:
@@ -167,22 +166,21 @@ telegramm:
       alias: home_climate_report
       initial_state: true
       trigger:
-        - platform: event # по запросу из telegramm
-          event_type: telegram_callback
-          event_data:
-            command: '/home_climate_report'
+      - platform: event # по запросу из telegramm
+        event_type: telegram_callback
+        event_data:
+          command: '/home_climate_report'
       action:
-        - service: telegram_bot.send_message
-          data_template:
-            target: "{{ trigger.event.data.user_id }}"
-            message:  | 
-              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
-              {{ states('sensor.msg_kitchen_living_room_climate') }}
-              
-              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
-              
-            inline_keyboard:
-              - "Главное меню:/mm"
+      - service: telegram_bot.send_message
+        data_template:
+          target: "{{ trigger.event.data.user_id }}"
+          message:  | 
+            {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
+            {{ states('sensor.msg_kitchen_living_room_climate') }}
+            
+            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+          inline_keyboard:
+            - "Главное меню:/mm"
               
     # Подготовить дом
     - id: Подготовить дом
@@ -205,13 +203,16 @@ telegramm:
           entity_id: all
         data:
           temperature: 24
+      - delay: 00:00:05
       - service: telegram_bot.send_message
         data_template:
           target: "{{ trigger.event.data.user_id }}"
           message:  | 
             {{"\U0000231A"}} {{ states('sensor.time_date') }}
             {{"\U00002668"}} Дом подготавливается.
-            
+            {{ states('sensor.msg_kitchen_living_room_climate') }}
+              
+            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
           inline_keyboard:
             - "Главное меню:/mm"
 
@@ -224,12 +225,6 @@ telegramm:
         event_type: telegram_callback
         event_data:
           command: '/antifrost_mode'
-      - platform: state
-        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        from:
-        to: 
-        - 'armed_away'
-      condition: "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
       action:
       - service: switch.turn_off
         target:
@@ -242,12 +237,15 @@ telegramm:
           entity_id: all
         data:
           temperature: 5
+      - delay: 00:00:05
       - service: telegram_bot.send_message
         data_template:
           target: "{{ trigger.event.data.user_id }}"
           message:  | 
             {{"\U0000231A"}} {{ states('sensor.time_date') }}
             {{"\U00002744"}} Дом переведен в режим антизамерзания.
-            
+            {{ states('sensor.msg_kitchen_living_room_climate') }}
+              
+            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
           inline_keyboard:
             - "Главное меню:/mm"

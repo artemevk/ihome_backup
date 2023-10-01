@@ -63,7 +63,9 @@ perimeter_defenses:
       condition:
         - condition: state
           entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-          state: 'armed_away' # disarmed
+          state: 
+            - 'armed_away'
+            - 'armed_custom_bypass'
       action:
         # Отправка сообщения
         - service: notify.tlg_user1_id
@@ -104,16 +106,25 @@ perimeter_defenses:
       trigger:
         platform: state
         entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        to: 'armed_away'
+        to: 
+          - 'armed_away'
+          - 'armed_custom_bypass'
       condition: "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
       action:
-        service: notify.tlg_user1_id
+      - service: automation.trigger
+        entity_id: automation.antifrost_mode
+      - service: notify.tlg_user1_id
         data:
           title: "#security"
-          message:
-            '{{"\U0001F6A8"}} Дом поставлен на охрану!'
-  
-  
+          message: |
+            {{"\U0001F6A8"}} Дом поставлен на охрану и переведен в режим антизамерзания {{"\U00002744"}}
+            {{ states('sensor.msg_kitchen_living_room_climate') }}
+              
+            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+          data:
+           inline_keyboard:
+           - "Главное меню:/mm"
+
     - id: Напоминание о необходимости снять дом с охраны
       alias: reminder_to_disarm_the_house
       initial_state: true
@@ -125,8 +136,11 @@ perimeter_defenses:
         service: notify.tlg_user1_id
         data:
           title: "#security"
-          message:
-            '{{"\U0001F6A8"}} Не забудь снять дом с охраны!'
+          message: |
+            {{"\U0001F6A8"}} Не забудь снять дом с охраны!
+          data:
+            inline_keyboard:
+            - "Главное меню:/mm"
 
 
     - id: Напоминание о необходимости снять дом с охраны АПН
@@ -140,6 +154,9 @@ perimeter_defenses:
         service: notify.tlg_user3_id
         data:
           title: "#security"
-          message:
-            '{{"\U0001F6A8"}} Не забудь снять дом с охраны!'
+          message: |
+            {{"\U0001F6A8"}} Не забудь снять дом с охраны!
+          data:
+            inline_keyboard:
+            - "Главное меню:/mm"
 

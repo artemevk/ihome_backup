@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
-        "state": "ON",
-        "energy": 2720.38,
+        "state": "OFF",
+        "energy": 2721.82,
         "power": 0,
         "current": 0,
-        "voltage": 231,
+        "voltage": 235,
         "power_outage_memory": "restore",
         "last_seen": "2023-09-26T15:45:27+03:00",
         "indicator_mode": "off/on",
@@ -22,16 +22,16 @@
     "0x00158d00048681f7": {
         "voltage": 2945,
         "battery": 63,
-        "temperature": 15.51,
-        "humidity": 72.64,
-        "pressure": 986.6,
+        "temperature": 9.8,
+        "humidity": 85.32,
+        "pressure": 986.5,
         "last_seen": "2023-09-26T15:37:34+03:00",
         "power_outage_count": 2964,
         "linkquality": 66
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 28.55,
+        "cpu_temperature": 24.33,
         "power": 0,
         "current": 0,
         "last_seen": "2023-09-26T15:45:07+03:00",
@@ -48,9 +48,9 @@
         "linkquality": 87
     },
     "0x847127fffe04dc4d": {
-        "current_heating_setpoint": 23,
+        "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 23,
+        "local_temperature": 19,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -107,11 +107,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 7,
-        "illuminance_lux": 7,
+        "illuminance": 3,
+        "illuminance_lux": 3,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 29,
+        "device_temperature": 25,
         "last_seen": "2023-09-26T15:38:04+03:00",
         "power_outage_count": 18,
         "linkquality": 81
@@ -138,7 +138,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 21.5,
+        "local_temperature": 20,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -187,9 +187,9 @@
     },
     "0x00124b001f2b5b39": {
         "state_l1": "OFF",
-        "state_l2": "ON",
-        "l1": 1.082,
-        "current_l1": 1.1,
+        "state_l2": "OFF",
+        "l1": 0,
+        "current_l1": 0,
         "last_seen": "2023-09-26T15:45:18+03:00",
         "linkquality": 75
     }

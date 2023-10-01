@@ -230,7 +230,9 @@ scene_light:
       trigger:
       - platform: state
         entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        to: "armed_away"
+        to: 
+          - 'armed_away'
+          - 'armed_custom_bypass'
       - platform: state
         entity_id: binary_sensor.kitchen_living_room_motion_sensor_occupancy
         to: "off"
