@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
         "state": "ON",
-        "energy": 2723.96,
+        "energy": 2724.96,
         "power": 0,
         "current": 0,
-        "voltage": 234,
+        "voltage": 233,
         "power_outage_memory": "restore",
         "last_seen": "2023-09-26T15:45:27+03:00",
         "indicator_mode": "off/on",
@@ -22,16 +22,16 @@
     "0x00158d00048681f7": {
         "voltage": 2935,
         "battery": 57,
-        "temperature": 12.15,
-        "humidity": 76.37,
-        "pressure": 986,
+        "temperature": 10.24,
+        "humidity": 80.6,
+        "pressure": 983.6,
         "last_seen": "2023-09-26T15:37:34+03:00",
         "power_outage_count": 2964,
         "linkquality": 66
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 20.39,
+        "cpu_temperature": 20.22,
         "power": 0,
         "current": 0,
         "last_seen": "2023-09-26T15:45:07+03:00",
