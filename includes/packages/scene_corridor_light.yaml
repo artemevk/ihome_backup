@@ -162,46 +162,46 @@ scene_light:
             entity_id: scene.{{trigger.to_state.state}}
             transition: 2
                
-    - id: on_off_corridor_lamps
-      alias: on_off_corridor_lamps
-      initial_state: true
-      trigger:
-        - platform: state
-          entity_id: sensor.remote_artemevk_action
-          to: "button_1_hold"               
-      action:
-        - choose:
-          - conditions:
-              - condition: state
-                entity_id: light.corridor_lamp_1
-                state: "off"               
-            sequence:
-              - service: scene.turn_on
-                entity_id: scene.on_light
-                data:
-                  transition: 3
-          - conditions:
-              - condition: state
-                entity_id: light.corridor_lamp_1
-                state: "on"
-            sequence:
-              - service: scene.turn_on
-                entity_id: scene.off_light
-                data:
-                  transition: 3
+    # - id: on_off_corridor_lamps
+    #   alias: on_off_corridor_lamps
+    #   initial_state: true
+    #   trigger:
+    #     - platform: state
+    #       entity_id: sensor.remote_artemevk_action
+    #       to: "button_1_hold"               
+    #   action:
+    #     - choose:
+    #       - conditions:
+    #           - condition: state
+    #             entity_id: light.corridor_lamp_1
+    #             state: "off"               
+    #         sequence:
+    #           - service: scene.turn_on
+    #             entity_id: scene.on_light
+    #             data:
+    #               transition: 3
+    #       - conditions:
+    #           - condition: state
+    #             entity_id: light.corridor_lamp_1
+    #             state: "on"
+    #         sequence:
+    #           - service: scene.turn_on
+    #             entity_id: scene.off_light
+    #             data:
+    #               transition: 3
 
 
-    - id: change_scene
-      alias: change_scene
-      initial_state: true
-      trigger:
-        - platform: state
-          entity_id: sensor.remote_artemevk_action
-          to: "button_1_single"
-      action:
-          service: input_select.select_next
-          data:
-            entity_id: input_select.scenes
+    # - id: change_scene
+    #   alias: change_scene
+    #   initial_state: true
+    #   trigger:
+    #     - platform: state
+    #       entity_id: sensor.remote_artemevk_action
+    #       to: "button_1_single"
+    #   action:
+    #       service: input_select.select_next
+    #       data:
+    #         entity_id: input_select.scenes
 
 
     - id: entrance_door_scene

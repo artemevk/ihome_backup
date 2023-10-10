@@ -14,6 +14,14 @@ kitchen_living_room:
         unit_of_measurement: "°C"
         value_template: "{{ state_attr('climate.kitchen_living_room_heater_thermostat', 'temperature') }}"
 
+    #   kitchen_living_room_temperature:
+    #     value_template: "{{ state_attr('climate.kitchen_living_room_thermostat', 'current_temperature') | float | round(1) }}"
+    #     unit_of_measurement: "°C"
+    #   kitchen_living_room_target_temperature:
+    #     value_template: "{{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') | float | round(1) }}"
+    #     unit_of_measurement: "°C"
+
+
   climate:
   - platform: generic_thermostat
     name: kitchen_living_room_heater_thermostat
