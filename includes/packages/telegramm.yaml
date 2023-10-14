@@ -31,10 +31,15 @@ telegramm:
           {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') }} °C
           {{"\U0001F4A1"}} Конвектор: {{ states('switch.kitchen_living_room_heater') }}
   
-      # msg_toilet_climate:
-      #   value_template: |
-      #     {{"\U0001F6BD"}} Туалет.
-      #     {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
+      msg_toilet_climate:
+        value_template: |
+          {{"\U0001F6BD"}} Туалет.
+          {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
+          
+      msg_childrens_room_climate:
+        value_template: |
+          {{"\U0001F680"}} Детская комната.
+          {{"\U0001F321"}} Температура: {{ states('sensor.childrens_room_climate_temperature') }} °C
   
       msg_1st_floor_bedroom_climate:
         value_template: |
@@ -168,7 +173,7 @@ telegramm:
             title: "#system"
             message: "{{ states('sensor.batteries_states_msg') }}"
             inline_keyboard:
-              - "Главное меню:/start"
+              - "Главное меню:/mm"
 
     # Отчет при потере объектов
     - id: Отчет при потере объектов
@@ -205,9 +210,14 @@ telegramm:
           target: "{{ trigger.event.data.user_id }}"
           message:  | 
             {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
+            
             {{ states('sensor.msg_kitchen_living_room_climate') }}
             
             {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+            
+            {{ states('sensor.msg_childrens_room_climate')}}
+            
+            {{ states('sensor.msg_toilet_climate')}}
           inline_keyboard:
             - "Главное меню:/mm"
               
@@ -239,9 +249,14 @@ telegramm:
           message:  | 
             {{"\U0000231A"}} {{ states('sensor.time_date') }}
             {{"\U00002668"}} Дом подготавливается.
+            
             {{ states('sensor.msg_kitchen_living_room_climate') }}
               
             {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+            
+            {{ states('sensor.msg_childrens_room_climate')}}
+            
+            {{ states('sensor.msg_toilet_climate')}}
           inline_keyboard:
             - "Главное меню:/mm"
 
@@ -273,8 +288,13 @@ telegramm:
           message:  | 
             {{"\U0000231A"}} {{ states('sensor.time_date') }}
             {{"\U00002744"}} Дом переведен в режим антизамерзания.
+            
             {{ states('sensor.msg_kitchen_living_room_climate') }}
               
             {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+            
+            {{ states('sensor.msg_childrens_room_climate')}}
+            
+            {{ states('sensor.msg_toilet_climate')}}
           inline_keyboard:
             - "Главное меню:/mm"
