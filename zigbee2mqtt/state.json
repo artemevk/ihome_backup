@@ -20,29 +20,29 @@
         "linkquality": 108
     },
     "0x00158d00048681f7": {
-        "voltage": 2915,
-        "battery": 43,
-        "temperature": 3.04,
-        "humidity": 90.35,
-        "pressure": 977.3,
+        "voltage": 2925,
+        "battery": 50,
+        "temperature": 3.46,
+        "humidity": 91.18,
+        "pressure": 979.3,
         "last_seen": "2023-10-14T23:18:32+03:00",
         "power_outage_count": 2969,
         "linkquality": 75
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 14.67,
+        "cpu_temperature": 13.5,
         "power": 0,
         "current": 0,
         "last_seen": "2023-10-14T23:23:22+03:00",
         "linkquality": 51
     },
     "0x00158d00048893ac": {
-        "voltage": 2975,
-        "battery": 83,
-        "temperature": 9.37,
-        "humidity": 61.57,
-        "pressure": 978,
+        "voltage": 2955,
+        "battery": 70,
+        "temperature": 8.07,
+        "humidity": 66.31,
+        "pressure": 979.7,
         "last_seen": "2023-10-14T23:07:48+03:00",
         "power_outage_count": 31062,
         "linkquality": 72
@@ -50,7 +50,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 9,
+        "local_temperature": 7.5,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -105,13 +105,13 @@
         "linkquality": 72
     },
     "0x00158d0006baa93b": {
-        "voltage": 3045,
+        "voltage": 3035,
         "battery": 100,
         "illuminance": 0,
         "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 15,
+        "device_temperature": 13,
         "last_seen": "2023-10-14T23:05:42+03:00",
         "power_outage_count": 18,
         "linkquality": 51
@@ -132,7 +132,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 9.5,
+        "local_temperature": 8.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -188,12 +188,12 @@
         "linkquality": 72
     },
     "0x00158d000485afd2": {
-        "voltage": 2925,
-        "battery": 50,
+        "voltage": 2915,
+        "battery": 43,
         "power_outage_count": 6,
-        "temperature": 9.09,
-        "humidity": 60.88,
-        "pressure": 979.1,
+        "temperature": 7.88,
+        "humidity": 62.55,
+        "pressure": 981,
         "last_seen": "2023-10-14T23:17:26+03:00",
         "linkquality": 54
     }
