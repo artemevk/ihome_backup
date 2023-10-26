@@ -11,7 +11,7 @@
         "linkquality": 63
     },
     "0x5c0272fffecf64fd": {
-        "battery": 73,
+        "battery": 72,
         "voltage": 2000,
         "occupancy": false,
         "tamper": false,
@@ -22,16 +22,16 @@
     "0x00158d00048681f7": {
         "voltage": 2905,
         "battery": 37,
-        "temperature": -1.39,
-        "humidity": 73.33,
-        "pressure": 991.7,
+        "temperature": -1.55,
+        "humidity": 69.2,
+        "pressure": 985.3,
         "last_seen": "2023-10-14T23:18:32+03:00",
-        "power_outage_count": 2969,
+        "power_outage_count": 2972,
         "linkquality": 75
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 12.83,
+        "cpu_temperature": 11.28,
         "power": 0,
         "current": 0,
         "last_seen": "2023-10-14T23:23:22+03:00",
@@ -40,9 +40,9 @@
     "0x00158d00048893ac": {
         "voltage": 2905,
         "battery": 37,
-        "temperature": 4.28,
-        "humidity": 73.02,
-        "pressure": 992.3,
+        "temperature": 4.12,
+        "humidity": 68.61,
+        "pressure": 985.8,
         "last_seen": "2023-10-14T23:07:48+03:00",
         "power_outage_count": 31062,
         "linkquality": 72
@@ -107,11 +107,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3025,
         "battery": 100,
-        "illuminance": 3,
-        "illuminance_lux": 3,
+        "illuminance": 0,
+        "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 10,
+        "device_temperature": 12,
         "last_seen": "2023-10-14T23:05:42+03:00",
         "power_outage_count": 18,
         "linkquality": 51
@@ -132,7 +132,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 5.5,
+        "local_temperature": 5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -188,12 +188,12 @@
         "linkquality": 72
     },
     "0x00158d000485afd2": {
-        "voltage": 2905,
-        "battery": 37,
+        "voltage": 2895,
+        "battery": 30,
         "power_outage_count": 6,
-        "temperature": 4.29,
-        "humidity": 66.59,
-        "pressure": 993.4,
+        "temperature": 4.1,
+        "humidity": 65.3,
+        "pressure": 987.1,
         "last_seen": "2023-10-14T23:17:26+03:00",
         "linkquality": 54
     }
