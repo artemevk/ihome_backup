@@ -14,6 +14,9 @@
         unit_of_measurement: "°C"
         value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
         
+      1st_floor_bedroom_heater_heat:
+        value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}"
+        
 #   climate:
 #   - platform: generic_thermostat
 #     name: 1st_floor_bedroom_heater_thermostat
