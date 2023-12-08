@@ -11,7 +11,7 @@
         "linkquality": 63
     },
     "0x5c0272fffecf64fd": {
-        "battery": 69,
+        "battery": 70,
         "voltage": 1900,
         "occupancy": false,
         "tamper": false,
@@ -20,29 +20,29 @@
         "linkquality": 102
     },
     "0x00158d00048681f7": {
-        "voltage": 2865,
-        "battery": 10,
-        "temperature": -11.63,
-        "humidity": 82.03,
-        "pressure": 1009.6,
+        "voltage": 2855,
+        "battery": 3,
+        "temperature": -14.78,
+        "humidity": 83.16,
+        "pressure": 1005.8,
         "last_seen": "2023-12-04T15:03:05+03:00",
-        "power_outage_count": 3193,
+        "power_outage_count": 3195,
         "linkquality": 84
     },
     "0x00124b001ed0f19e": {
         "state": "ON",
-        "cpu_temperature": 17.33,
-        "power": 1991.54,
-        "current": 8.66,
+        "cpu_temperature": 15.94,
+        "power": 1994.02,
+        "current": 8.67,
         "last_seen": "2023-12-04T15:04:16+03:00",
         "linkquality": 90
     },
     "0x00158d00048893ac": {
         "voltage": 2885,
         "battery": 23,
-        "temperature": 3.73,
-        "humidity": 48.64,
-        "pressure": 1011.3,
+        "temperature": 3.57,
+        "humidity": 45.77,
+        "pressure": 1008,
         "last_seen": "2023-12-04T14:46:11+03:00",
         "power_outage_count": 31062,
         "linkquality": 84
@@ -132,7 +132,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 5,
+        "local_temperature": 4.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -181,9 +181,9 @@
     },
     "0x00124b001f2b5b39": {
         "state_l1": "OFF",
-        "state_l2": "ON",
-        "l1": 0.819,
-        "current_l1": 0.819,
+        "state_l2": "OFF",
+        "l1": 0,
+        "current_l1": 0,
         "last_seen": "2023-12-04T15:04:15+03:00",
         "linkquality": 78
     },
@@ -191,9 +191,9 @@
         "voltage": 2905,
         "battery": 37,
         "power_outage_count": 6,
-        "temperature": 5.76,
-        "humidity": 43.19,
-        "pressure": 1012.6,
+        "temperature": 6.05,
+        "humidity": 40.79,
+        "pressure": 1009.3,
         "last_seen": "2023-12-04T14:46:15+03:00",
         "linkquality": 90
     }
