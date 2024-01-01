@@ -4,14 +4,14 @@
         "energy": 2759.05,
         "power": 0,
         "current": 0,
-        "voltage": 232,
+        "voltage": 224,
         "power_outage_memory": "restore",
         "last_seen": "2023-12-04T15:04:18+03:00",
         "indicator_mode": "off/on",
         "linkquality": 63
     },
     "0x5c0272fffecf64fd": {
-        "battery": 69,
+        "battery": 70,
         "voltage": 1900,
         "occupancy": false,
         "tamper": false,
@@ -20,18 +20,18 @@
         "linkquality": 102
     },
     "0x00158d00048681f7": {
-        "voltage": 2865,
-        "battery": 10,
-        "temperature": -11.84,
-        "humidity": 82.52,
-        "pressure": 978,
+        "voltage": 2855,
+        "battery": 3,
+        "temperature": -19.8,
+        "humidity": 82.6,
+        "pressure": 986.7,
         "last_seen": "2023-12-04T15:03:05+03:00",
-        "power_outage_count": 3328,
+        "power_outage_count": 3340,
         "linkquality": 84
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 13.05,
+        "cpu_temperature": 16.72,
         "power": 0,
         "current": 0,
         "last_seen": "2023-12-04T15:04:16+03:00",
@@ -40,9 +40,9 @@
     "0x00158d00048893ac": {
         "voltage": 2895,
         "battery": 30,
-        "temperature": 4.05,
-        "humidity": 60.98,
-        "pressure": 979.9,
+        "temperature": 3.97,
+        "humidity": 45.23,
+        "pressure": 989.7,
         "last_seen": "2023-12-04T14:46:11+03:00",
         "power_outage_count": 31062,
         "linkquality": 84
@@ -111,7 +111,7 @@
         "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 12,
+        "device_temperature": 13,
         "last_seen": "2023-12-04T14:16:37+03:00",
         "power_outage_count": 18,
         "linkquality": 87
@@ -191,9 +191,9 @@
         "voltage": 2905,
         "battery": 37,
         "power_outage_count": 6,
-        "temperature": 4.74,
-        "humidity": 58.46,
-        "pressure": 980.9,
+        "temperature": 5.51,
+        "humidity": 42.95,
+        "pressure": 990.7,
         "last_seen": "2023-12-04T14:46:15+03:00",
         "linkquality": 90
     }
