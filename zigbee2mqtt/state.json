@@ -4,14 +4,14 @@
         "energy": 2759.05,
         "power": 0,
         "current": 0,
-        "voltage": 224,
+        "voltage": 232,
         "power_outage_memory": "restore",
         "last_seen": "2023-12-04T15:04:18+03:00",
         "indicator_mode": "off/on",
         "linkquality": 63
     },
     "0x5c0272fffecf64fd": {
-        "battery": 70,
+        "battery": 69,
         "voltage": 1900,
         "occupancy": false,
         "tamper": false,
@@ -22,27 +22,27 @@
     "0x00158d00048681f7": {
         "voltage": 2855,
         "battery": 3,
-        "temperature": -19.8,
-        "humidity": 82.6,
-        "pressure": 986.7,
+        "temperature": -23,
+        "humidity": 82.49,
+        "pressure": 986.2,
         "last_seen": "2023-12-04T15:03:05+03:00",
-        "power_outage_count": 3340,
+        "power_outage_count": 3343,
         "linkquality": 84
     },
     "0x00124b001ed0f19e": {
-        "state": "OFF",
-        "cpu_temperature": 16.72,
-        "power": 0,
-        "current": 0,
+        "state": "ON",
+        "cpu_temperature": 20.05,
+        "power": 2003.24,
+        "current": 8.71,
         "last_seen": "2023-12-04T15:04:16+03:00",
         "linkquality": 90
     },
     "0x00158d00048893ac": {
         "voltage": 2895,
         "battery": 30,
-        "temperature": 3.97,
-        "humidity": 45.23,
-        "pressure": 989.7,
+        "temperature": 3.77,
+        "humidity": 34.47,
+        "pressure": 988.7,
         "last_seen": "2023-12-04T14:46:11+03:00",
         "power_outage_count": 31062,
         "linkquality": 84
@@ -105,10 +105,10 @@
         "linkquality": 108
     },
     "0x00158d0006baa93b": {
-        "voltage": 3005,
+        "voltage": 3015,
         "battery": 100,
-        "illuminance": 0,
-        "illuminance_lux": 0,
+        "illuminance": 3,
+        "illuminance_lux": 3,
         "temperature": 24,
         "occupancy": false,
         "device_temperature": 13,
@@ -191,9 +191,9 @@
         "voltage": 2905,
         "battery": 37,
         "power_outage_count": 6,
-        "temperature": 5.51,
-        "humidity": 42.95,
-        "pressure": 990.7,
+        "temperature": 4.43,
+        "humidity": 37.63,
+        "pressure": 990,
         "last_seen": "2023-12-04T14:46:15+03:00",
         "linkquality": 90
     }
