@@ -4,7 +4,7 @@
         "energy": 2759.05,
         "power": 0,
         "current": 0,
-        "voltage": 230,
+        "voltage": 234,
         "power_outage_memory": "restore",
         "last_seen": "2023-12-04T15:04:18+03:00",
         "indicator_mode": "off/on",
@@ -31,18 +31,18 @@
     },
     "0x00124b001ed0f19e": {
         "state": "ON",
-        "cpu_temperature": 22.28,
-        "power": 1967.23,
-        "current": 8.55,
+        "cpu_temperature": 21.55,
+        "power": 1998.02,
+        "current": 8.69,
         "last_seen": "2023-12-04T15:04:16+03:00",
         "linkquality": 90
     },
     "0x00158d00048893ac": {
-        "voltage": 2895,
-        "battery": 30,
-        "temperature": 3.59,
-        "humidity": 27.04,
-        "pressure": 985.2,
+        "voltage": 2885,
+        "battery": 23,
+        "temperature": 3.05,
+        "humidity": 23.94,
+        "pressure": 983.5,
         "last_seen": "2023-12-04T14:46:11+03:00",
         "power_outage_count": 31062,
         "linkquality": 84
@@ -107,19 +107,19 @@
     "0x00158d0006baa93b": {
         "voltage": 3015,
         "battery": 100,
-        "illuminance": 3,
-        "illuminance_lux": 3,
+        "illuminance": 0,
+        "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 13,
+        "device_temperature": 12,
         "last_seen": "2023-12-04T14:16:37+03:00",
         "power_outage_count": 18,
         "linkquality": 87
     },
     "0x00158d00057f6f0b": {
         "contact": true,
-        "voltage": 2945,
-        "battery": 63,
+        "voltage": 2935,
+        "battery": 57,
         "last_seen": "2023-12-04T14:52:41+03:00",
         "power_outage_count": 63,
         "linkquality": 87
@@ -132,7 +132,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 5,
+        "local_temperature": 4.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -182,8 +182,8 @@
     "0x00124b001f2b5b39": {
         "state_l1": "OFF",
         "state_l2": "ON",
-        "l1": 0.761,
-        "current_l1": 0.761,
+        "l1": 0.787,
+        "current_l1": 0.787,
         "last_seen": "2023-12-04T15:04:15+03:00",
         "linkquality": 78
     },
@@ -191,9 +191,9 @@
         "voltage": 2905,
         "battery": 37,
         "power_outage_count": 6,
-        "temperature": 3.78,
-        "humidity": 33.69,
-        "pressure": 986.5,
+        "temperature": 3.2,
+        "humidity": 31.81,
+        "pressure": 984.6,
         "last_seen": "2023-12-04T14:46:15+03:00",
         "linkquality": 90
     }
