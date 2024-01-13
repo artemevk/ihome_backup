@@ -26,6 +26,24 @@ cards:
         icon: mdi:leaf
         state_color: true
         secondary_info: last-changed
+  - type: history-graph
+    title: "Обогрев 48 ч"
+    hours_to_show: 48
+    entities:
+      - entity: sensor.kitchen_living_room_temperature
+        name: "Темп. кухня"
+      - entity: sensor.1st_floor_bedroom_temperature
+        name: "Темп. сп. 1 эт."
+      - entity: sensor.childrens_room_climate_temperature
+        name: "Темп. детская"
+      - entity: sensor.toilet_climate_temperature
+        name: "Темп. туалет"
+      - entity: switch.kitchen_living_room_heater
+        name: "Конв. кухня"
+      - entity: switch.1st_floor_bedroom_heater_l2
+        name: "Конв. сп. 1 эт."
+      - entity: sensor.1st_floor_bedroom_heater_heat
+        name: "Полы сп. 1 эт."
 
   - type: entities
     title: "Маршрут до дома"

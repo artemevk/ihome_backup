@@ -1,10 +1,10 @@
-  - platform: ping
-    host: google.com
-    count: 2
-    scan_interval: 60
-    name: google_is_available
-  - platform: ping
-    host: ya.ru
-    count: 2
-    scan_interval: 60
-    name: yandex_is_available
+#   - platform: ping
+#     host: google.com
+#     count: 2
+#     scan_interval: 60
+#     name: google_is_available
+#   - platform: ping
+#     host: ya.ru
+#     count: 2
+#     scan_interval: 60
+#     name: yandex_is_available

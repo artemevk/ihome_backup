@@ -61,7 +61,7 @@ telegramm:
         value_template: |
           {{"\U0001F50B"}}Батарейки:{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}{% set value = states(entity_id, with_unit=True) %}
           {{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
-  
+
   input_number:
     test_number:
       name: test_number

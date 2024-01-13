@@ -2,14 +2,19 @@
   sensor:
   - platform: template
     sensors:
+
       1st_floor_bedroom_temperature:
         unit_of_measurement: "°C"
         value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }}"
 
+      1st_floor_bedroom_temperature_corrected:
+        unit_of_measurement: "°C"
+        value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') + 1 }}"
+
       1st_floor_bedroom_setpoint:
         unit_of_measurement: "°C"
         value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }}"
-        
+
       1st_floor_bedroom_heater_setpoint:
         unit_of_measurement: "°C"
         value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
@@ -45,6 +50,8 @@
     max_temp: 30
     target_temp_step: 0.5
     precision: 0.5
+    cold_tolerance: 1
+    hot_tolerance: 0
     initial_hvac_mode: "heat"
 
 #   script:
