@@ -10,25 +10,20 @@
           keep_days: 60
           repack: true
 
-# - id: Очистка уведомлений о паролях
-#   alias: persistent_notification_clear_pwned
-#   initial_state: true
-#   mode: parallel
-#   trigger:
-#     - platform: event
-#       event_type: call_service
-#       event_data:
-#         domain: persistent_notification
-#         service: create
-#   condition:
-#     - condition: template
-#       value_template: >
-#         {{ 'supervisor_issue_pwned' in trigger.event.data.service_data.notification_id }}
-#   action:
-#     - service: persistent_notification.dismiss
-#       data:
-#         notification_id: >
-#           {{ trigger.event.data.service_data.notification_id }}
+- id: iflat_disconnected
+  alias: iflat_disconnected
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.iflat
+    from:
+    to: 'off'
+  action:
+  - service: notify.tlg_user1_id
+    data:
+      title: "#system"
+      message: "Сервер iFlat не отвечает!"
           
 - id: l1k3
   alias: push_HA_configuration_to_GitHub_repo

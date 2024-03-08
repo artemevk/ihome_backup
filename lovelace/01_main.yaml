@@ -28,13 +28,14 @@ cards:
           
     - type: markdown
       content: >
-         **Интернет**
+         **Ping**
           
     - type: history-graph
       entities:
         - entity: binary_sensor.google_is_available
         - entity: binary_sensor.yandex_is_available
         - entity: sensor.internet_is_available
+        - entity: binary_sensor.iflat
           
     - type: markdown
       content: >
