@@ -11,7 +11,7 @@
         "linkquality": 63
     },
     "0x5c0272fffecf64fd": {
-        "battery": 67,
+        "battery": 66,
         "voltage": 1900,
         "occupancy": false,
         "tamper": false,
@@ -31,18 +31,18 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 12.44,
+        "cpu_temperature": 18.78,
         "power": 0,
         "current": 0,
         "last_seen": "2023-12-04T15:04:16+03:00",
         "linkquality": 90
     },
     "0x00158d00048893ac": {
-        "voltage": 2905,
-        "battery": 37,
-        "temperature": 4.23,
-        "humidity": 49.33,
-        "pressure": 996.3,
+        "voltage": 2915,
+        "battery": 43,
+        "temperature": 4.34,
+        "humidity": 50.85,
+        "pressure": 996.5,
         "last_seen": "2023-12-04T14:46:11+03:00",
         "power_outage_count": 31062,
         "linkquality": 84
@@ -50,7 +50,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 4.5,
+        "local_temperature": 5,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -107,11 +107,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3025,
         "battery": 100,
-        "illuminance": 3,
-        "illuminance_lux": 3,
+        "illuminance": 0,
+        "illuminance_lux": 0,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 12,
+        "device_temperature": 10,
         "last_seen": "2023-12-04T14:16:37+03:00",
         "power_outage_count": 20,
         "linkquality": 87
@@ -132,7 +132,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 5,
+        "local_temperature": 5.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -191,9 +191,9 @@
         "voltage": 2915,
         "battery": 43,
         "power_outage_count": 6,
-        "temperature": 4.44,
-        "humidity": 45.04,
-        "pressure": 997.4,
+        "temperature": 3.59,
+        "humidity": 50.1,
+        "pressure": 997.8,
         "last_seen": "2023-12-04T14:46:15+03:00",
         "linkquality": 90
     }
