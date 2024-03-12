@@ -26,16 +26,22 @@ cards:
         - entity: binary_sensor.rpi_power_status
           
           
-    - type: markdown
-      content: >
-         **Ping**
+    # - type: markdown
+    #   content: >
+    #      **Ping**
           
     - type: history-graph
+      title: Ping
+      hours_to_show: 2
       entities:
         - entity: binary_sensor.google_is_available
+          name: google
         - entity: binary_sensor.yandex_is_available
+          name: yandex
         - entity: sensor.internet_is_available
+          name: internet
         - entity: binary_sensor.iflat
+          name: iFlat
           
     - type: markdown
       content: >
