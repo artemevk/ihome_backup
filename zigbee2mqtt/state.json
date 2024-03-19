@@ -31,7 +31,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 10.5,
+        "cpu_temperature": 10.33,
         "power": 0,
         "current": 0,
         "last_seen": "2024-03-14T08:54:04+03:00",
@@ -40,11 +40,11 @@
     "0x00158d00048893ac": {
         "voltage": 2915,
         "battery": 43,
-        "temperature": 5,
-        "humidity": 56.66,
-        "pressure": 995.6,
+        "temperature": 4.74,
+        "humidity": 57.7,
+        "pressure": 998.4,
         "last_seen": "2024-03-14T08:14:13+03:00",
-        "power_outage_count": 31066,
+        "power_outage_count": 31067,
         "linkquality": 66
     },
     "0x847127fffe04dc4d": {
@@ -191,9 +191,9 @@
         "voltage": 2915,
         "battery": 43,
         "power_outage_count": 6,
-        "temperature": 4.34,
-        "humidity": 54.12,
-        "pressure": 996.7,
+        "temperature": 4.2,
+        "humidity": 55.73,
+        "pressure": 999.5,
         "last_seen": "2024-03-14T08:31:57+03:00",
         "linkquality": 90
     }
