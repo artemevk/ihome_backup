@@ -40,7 +40,7 @@ cards:
           name: yandex
         - entity: sensor.internet_is_available
           name: internet
-        - entity: binary_sensor.iflat
+        - entity: binary_sensor.iflat_connection
           name: iFlat
           
     - type: markdown
