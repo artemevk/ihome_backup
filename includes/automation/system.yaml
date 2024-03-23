@@ -34,7 +34,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.iflat
+    - binary_sensor.iflat_connection
     to: 'off'
   action:
   - service: timer.start
@@ -62,7 +62,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.iflat
+    - binary_sensor.iflat_connection
     to: 'on'
   action:
   - service: timer.cancel
