@@ -21,7 +21,7 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather_moscow", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
-              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].native_temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
               {% if state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
@@ -46,7 +46,7 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
-              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].native_temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
               {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
@@ -82,7 +82,7 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather_moscow", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
-              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[0].native_temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
               {% if state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
@@ -107,7 +107,7 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[0].datetime) | timestamp_custom('%H:%M') }} ожидается:_
-              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].temperature}} °C
+              {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[0].native_temperature}} °C
               {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
               {% if state_attr("weather.yandex_weather", "forecast")[0].condition == 'sunny' %}{{"солнечно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[0].condition == 'cloudy' %}{{"облачно"}}
