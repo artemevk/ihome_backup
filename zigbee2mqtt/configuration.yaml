@@ -1,4 +1,7 @@
-external_converters: []
+external_converters:
+  - IKEA_VINDRIKTNING_EFEKTA_III.js
+  - IKEA_VINDRIKTNING_EFEKTA_II.js
+  - IKEA_VINDRIKTNING_EFEKTA.js
 devices:
   - devices.yaml
 groups:
