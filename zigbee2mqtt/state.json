@@ -4,7 +4,7 @@
         "energy": 2785.54,
         "power": 0,
         "current": 0,
-        "voltage": 229,
+        "voltage": 232,
         "power_outage_memory": "restore",
         "last_seen": "2024-04-13T22:21:58+03:00",
         "indicator_mode": "off/on",
@@ -38,11 +38,11 @@
         "linkquality": 78
     },
     "0x00158d00048893ac": {
-        "voltage": 2935,
-        "battery": 57,
-        "temperature": 11.51,
-        "humidity": 61.52,
-        "pressure": 985.8,
+        "voltage": 2945,
+        "battery": 63,
+        "temperature": 11.4,
+        "humidity": 62.86,
+        "pressure": 971.1,
         "last_seen": "2024-04-13T21:57:48+03:00",
         "power_outage_count": 31099,
         "linkquality": 54
@@ -191,9 +191,9 @@
         "voltage": 2935,
         "battery": 57,
         "power_outage_count": 6,
-        "temperature": 10.99,
-        "humidity": 60.44,
-        "pressure": 986.8,
+        "temperature": 10.94,
+        "humidity": 61.98,
+        "pressure": 972.3,
         "last_seen": "2024-04-13T22:21:27+03:00",
         "linkquality": 78
     }
