@@ -11,13 +11,13 @@ homeassistant:
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-lovelace:
-  mode: yaml
-  resources:
-    - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
-      type: module
-    - url: /hacsfiles/simple-clock-card/simple-clock-card.js 
-      type: module
+# lovelace:
+#   mode: storage
+#   resources:
+#     - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
+#       type: module
+#     - url: /hacsfiles/simple-clock-card/simple-clock-card.js 
+#       type: module
 
 # hacs:
 #   token: !secret HACS_github

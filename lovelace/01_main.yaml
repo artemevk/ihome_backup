@@ -112,3 +112,29 @@ cards:
       entities:
        - entity: sensor.maria_db
          name: Maria DB
+
+  - type: vertical-stack
+    cards:
+      - type: entities
+        entities:
+        - entity: sensor.min_batteries_state
+          secondary_info: last-updated
+          name: Общий минимальный уровень
+        - entity: sensor.entrance_door_battery
+          secondary_info: last-updated
+          name: Датчик открытия входной двери
+        - entity: sensor.kitchen_living_room_motion_sensor_battery
+          secondary_info: last-updated
+          name: Датчик движения в гостиной
+        - entity: sensor.outdoor_climate_battery
+          secondary_info: last-updated
+          name: Датчик климата на улице
+        - entity: sensor.porch_motion_protect_battery
+          secondary_info: last-updated
+          name: Датчик движения на крыльце
+        - entity: sensor.toilet_climate_battery
+          secondary_info: last-updated
+          name: Датчик климата в таулете
+        title: Батарейки
+        state_color: false
+        show_header_toggle: false

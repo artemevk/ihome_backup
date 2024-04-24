@@ -2,65 +2,68 @@ title: Охрана
 id: secure
 icon: mdi:shield-home
 cards:
+  - type: vertical-stack
+    cards:
+      - type: 'custom:simple-clock-card'
 
-  - type: 'custom:simple-clock-card'
-  
-  - type: alarm-panel
-    entity: alarm_control_panel.8124_a01_zone_1_alarm
-    name: "Сигнализация"
-
-#   - type: iframe
-#     url: https://embed.waze.com/iframe 
-#     aspect_ratio: 75%
-
-  - type: entities
-    entities:
-      - entity: input_boolean.eco_mode_resolution
-        name: Разрешить включение режима энергосбережения
-        state_color: true
-        secondary_info: last-changed
-    #   - entity: input_boolean.eco_mode_status
-    #     name: Режим энергосбережения
-      - entity: binary_sensor.eco_mode_status
-        name: Режим энергосбережения
-        icon: mdi:leaf
-        state_color: true
-        secondary_info: last-changed
-  - type: history-graph
-    title: "Обогрев 48 ч"
-    hours_to_show: 48
-    entities:
-      - entity: sensor.kitchen_living_room_temperature
-        name: "Темп. кухня"
-      - entity: sensor.1st_floor_bedroom_temperature
-        name: "Темп. сп. 1 эт."
-      - entity: sensor.childrens_room_climate_temperature
-        name: "Темп. детская"
-      - entity: sensor.toilet_climate_temperature
-        name: "Темп. туалет"
-      - entity: switch.kitchen_living_room_heater
-        name: "Конв. кухня"
-      - entity: switch.1st_floor_bedroom_heater_l2
-        name: "Конв. сп. 1 эт."
-      - entity: sensor.1st_floor_bedroom_heater_heat
-        name: "Полы сп. 1 эт."
-
-  - type: entities
-    title: "Маршрут до дома"
-    # icon: mdi:city
-    entities:
-    - type: weblink
-      name: "Северный бельвар, 3к1"
-    #   url: https://yandex.ru/maps/213/moscow/?ll=37.378157%2C56.044938&mode=routes&rtext=56.266282%2C37.177434~55.815974%2C37.584829
-      url: https://yandex.ru/maps/213/moscow/?ll=37.395133%2C56.073139&mode=routes&routes%5Bavoid%5D=tolls&rtext=56.266282%2C37.177434~55.866127%2C37.604547&rtt=auto&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1Njc5MDg2OBJB0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCh0LXQstC10YDQvdGL0Lkg0LHRg9C70YzQstCw0YAsIDPQujEiCg0OaxZCFep2X0I%2C&z=10.61
-      icon: mdi:car-hatchback
+      - type: alarm-panel
+        entity: alarm_control_panel.8124_a01_zone_1_alarm
+        name: "Сигнализация"
       
-    - type: weblink
-      name: "Декабристов, 22"
-      url: https://yandex.ru/maps/213/moscow/?ll=37.695470%2C55.839279&mode=routes&rtext=56.266282%2C37.177434~55.862156%2C37.606307
-      icon: mdi:car-hatchback
+      - type: entities
+        entities:
+          - entity: input_boolean.eco_mode_resolution
+            name: Разрешить включение режима энергосбережения
+            state_color: true
+            secondary_info: last-changed
+        #   - entity: input_boolean.eco_mode_status
+        #     name: Режим энергосбережения
+          - entity: binary_sensor.eco_mode_status
+            name: Режим энергосбережения
+            icon: mdi:leaf
+            state_color: true
+            secondary_info: last-changed
 
-    - type: weblink
-      name: "Декабристов, 10к1"
-      url: https://yandex.ru/maps/213/moscow/?ll=37.390928%2C56.067668&mode=routes&rtext=56.266282%2C37.177434~55.866440%2C37.596363
-      icon: mdi:car-hatchback
+  - type: vertical-stack
+    cards:
+      - type: entities
+        title: "Маршрут до дома"
+        # icon: mdi:city
+        entities:
+        - type: weblink
+          name: "Северный бельвар, 3к1"
+        #   url: https://yandex.ru/maps/213/moscow/?ll=37.378157%2C56.044938&mode=routes&rtext=56.266282%2C37.177434~55.815974%2C37.584829
+          url: https://yandex.ru/maps/213/moscow/?ll=37.395133%2C56.073139&mode=routes&routes%5Bavoid%5D=tolls&rtext=56.266282%2C37.177434~55.866127%2C37.604547&rtt=auto&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1Njc5MDg2OBJB0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCh0LXQstC10YDQvdGL0Lkg0LHRg9C70YzQstCw0YAsIDPQujEiCg0OaxZCFep2X0I%2C&z=10.61
+          icon: mdi:car-hatchback
+
+        - type: weblink
+          name: "Декабристов, 22"
+          url: https://yandex.ru/maps/213/moscow/?ll=37.695470%2C55.839279&mode=routes&rtext=56.266282%2C37.177434~55.862156%2C37.606307
+          icon: mdi:car-hatchback
+
+        - type: weblink
+          name: "Декабристов, 10к1"
+          url: https://yandex.ru/maps/213/moscow/?ll=37.390928%2C56.067668&mode=routes&rtext=56.266282%2C37.177434~55.866440%2C37.596363
+          icon: mdi:car-hatchback
+
+  - type: vertical-stack
+    cards:
+
+      - type: history-graph
+        title: "Обогрев 48 ч"
+        hours_to_show: 48
+        entities:
+          - entity: sensor.kitchen_living_room_temperature
+            name: "Темп. кухня"
+          - entity: sensor.1st_floor_bedroom_temperature
+            name: "Темп. сп. 1 эт."
+          - entity: sensor.childrens_room_climate_temperature
+            name: "Темп. детская"
+          - entity: sensor.toilet_climate_temperature
+            name: "Темп. туалет"
+          - entity: switch.kitchen_living_room_heater
+            name: "Конв. кухня"
+          - entity: switch.1st_floor_bedroom_heater_l2
+            name: "Конв. сп. 1 эт."
+          - entity: sensor.1st_floor_bedroom_heater_heat
+            name: "Полы сп. 1 эт."
