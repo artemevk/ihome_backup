@@ -81,9 +81,9 @@ telegramm:
         - service: switch.turn_on
           target:
             entity_id: switch.water_heater
-        - service: climate.turn_on
-          target:
-            entity_id: all
+        # - service: climate.turn_on
+        #   target:
+        #     entity_id: all
         - service: climate.set_temperature
           target:
             entity_id: all
@@ -206,7 +206,14 @@ telegramm:
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             title: "#system"
-            message: "{{ states('sensor.batteries_states_msg') }}"
+            message: |
+              {{ states('sensor.batteries_states_msg') }}
+              ---------------------
+              entrance door - CR1632
+              kitchen living room motion - CR2032
+              outdoor climate - CR2032
+              porch motion protect - 3xAAA
+              toilet climate - CR2032
             inline_keyboard:
               - "Главное меню:/mm"
 
