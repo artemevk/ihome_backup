@@ -5,11 +5,11 @@
 '0x00158d00048681f7':
   friendly_name: outdoor_climate
 '0x00124b001ed0f19e':
-  friendly_name: kitchen_living_room_heater
+  friendly_name: open_kitchen_heater
 '0x00158d00048893ac':
   friendly_name: toilet_climate
 '0x847127fffe1dac9c':
-  friendly_name: kitchen_living_room_thermostat
+  friendly_name: open_kitchen_thermostat
   debounce: 1
   optimistic: true
 '0x847127fffe04dc4d':
@@ -19,7 +19,7 @@
 '0x842e14fffe00c500':
   friendly_name: porch_light
 '0x00158d0006baa93b':
-  friendly_name: kitchen_living_room_motion_sensor
+  friendly_name: open_kitchen_motion_sensor
 '0x00158d00057f6f0b':
   friendly_name: entrance_door
 '0x00124b001f2b5b39':

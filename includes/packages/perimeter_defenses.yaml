@@ -1,129 +1,55 @@
 perimeter_defenses:
 
-#   sql:  # почему-то не сработало
-#     - name: prev_alarm_state
-#       query: >
-#         SELECT
-#           states.state
-#         FROM
-#           states
-#         WHERE
-#           state_id = (
-#             SELECT
-#               states.old_state_id
-#             FROM
-#               states
-#             WHERE
-#               metadata_id = (
-#                 SELECT
-#                   metadata_id
-#                 FROM
-#                   states_meta
-#                 WHERE
-#                   entity_id = 'alarm_control_panel.8124_a01_zone_1_alarm'
-#               )
-#               AND old_state_id IS NOT NULL
-#             ORDER BY
-#               last_updated_ts DESC
-#             LIMIT
-#               1
-#           );
-#       column: "state"
-
-  input_text:
-    prev_alarm_state:
-      name: prev_alarm_state
-      initial: unavailable
-
   automation:
-  
-    - alias: get_prev_alarm_state
-      id: get_prev_alarm_state
-      trigger:
-      - platform: state
-        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-      - platform: homeassistant
-        event: start
-      action:
-        - delay: 00:00:15
-        - service: input_text.set_value
-          target:
-            entity_id: input_text.prev_alarm_state
-          data:
-            value: "{{ states('alarm_control_panel.8124_a01_zone_1_alarm') }}"
-      
+
     - alias: "motion_notification"
       id: motion_notification
       trigger:
         - platform: state
           entity_id: binary_sensor.porch_motion_protect_occupancy
           to: "on"
-        # - platform: webhook
-        #   webhook_id: "motion_notification"
-      condition:
+      condition: not
+      conditions:
         - condition: state
-          entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-          state: 
-            - 'armed_away'
-            - 'armed_custom_bypass'
+          entity_id: alarm_control_panel.home_alarm
+          state: disarmed
       action:
-        # Отправка сообщения
-        - service: notify.tlg_user1_id
+        # # Сохранение фото
+        # - service: camera.snapshot
+        #   target:
+        #     entity_id: camera.courtyard
+        #   data:
+        #     filename: '/config/tmp/courtyard_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
+        # # Отправка сообщения
+        # - service: notify.tlg_user1_id
+        #   data:
+        #     title: "#security"
+        #     message: "*Движение около крыльца*"
+        #     # data:
+        #     #   photo:
+        #     #     - file: /share/motioneye/courtyard/2022-05-22/20-51-55.jpg
+        #     #       caption: Picture Title xy
+        #     #     - url: http://ihome.artemevk.keenetic.pro/api/hassio_ingress/4Ec7lFKuhRxxTNl5sahkbTCTzhceNP2AtrF-vQ1MZaU/picture/2/current/
+        #     #       caption: "Picture Title xy"
+        - service: notify.mobile_app_artemevk
           data:
-            title: "#security"
-            message: "*Движение около крыльца*"
-            # data:
-            #   photo:
-            #     - file: /share/motioneye/courtyard/2022-05-22/20-51-55.jpg
-            #       caption: Picture Title xy
-            #     - url: http://ihome.artemevk.keenetic.pro/api/hassio_ingress/4Ec7lFKuhRxxTNl5sahkbTCTzhceNP2AtrF-vQ1MZaU/picture/2/current/
-            #       caption: "Picture Title xy"
-        # Сохранение фото
-        - service: camera.snapshot
-          target:
-            entity_id: camera.courtyard
-          data:
-            filename: '/config/tmp/courtyard_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
-  
-    - id: Уведомление о снятии с охраны
-      alias: send_notification_when_alarm_is_disarmed
-      initial_state: true
-      trigger:
-        platform: state
-        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        to: 'disarmed'
-      condition: "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
-      action:
-        service: notify.tlg_user1_id
-        data:
-          title: "#security"
-          message: 
-            '{{"\U0001F6A8"}} Дом снят с охраны!'
-
-    - id: Уведомление о постановке на охрану
-      alias: send_notification_when_alarm_is_armed
-      initial_state: true
-      trigger:
-        platform: state
-        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        to: 
-          - 'armed_away'
-          - 'armed_custom_bypass'
-      condition: "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
-      action:
-      - service: automation.trigger
-        entity_id: automation.antifrost_mode
-      - service: notify.tlg_user1_id
-        data:
-          title: "#security"
-          message: |
-            {{"\U0001F6A8"}} Дом поставлен на охрану и переведен в режим антизамерзания {{"\U00002744"}}
-            {{ states('sensor.msg_kitchen_living_room_climate') }}
-              
-            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
-          data:
-           inline_keyboard:
-           - "Главное меню:/mm"
+            title: "Охрана"
+            message: "Движение около крыльца"
+            data:
+              url: "/lovelace/cameras"
+              push:
+                sound:
+                  name: "default"
+                  critical: 1
+                  volume: 0.2
+              actions:
+                - action: "ALARM" # The key you are sending for the event
+                  title: "Sound Alarm" # The button title
+                  destructive: true
+                  icon: "sfsymbols:bell"
+                - action: "SILENCE"
+                  title: "Silence Alarm"
+                  icon: "sfsymbols:bell.slash"
 
     - id: Напоминание о необходимости снять дом с охраны
       alias: reminder_to_disarm_the_house
@@ -132,31 +58,187 @@ perimeter_defenses:
         platform: state
         entity_id: device_tracker.artemevk
         to: 'home'
+      condition:
+        not:
+          - condition: state
+            entity_id: alarm_control_panel.home_alarm
+            state: "disarmed"
       action:
-        service: notify.tlg_user1_id
-        data:
-          title: "#security"
-          message: |
-            {{"\U0001F6A8"}} Не забудь снять дом с охраны!
+        - service: notify.mobile_app_artemevk
           data:
-            inline_keyboard:
-            - "Главное меню:/mm"
-
+            title: "Охрана"
+            message: "Не забудь снять дом с охраны"
+            data:
+              url: "/lovelace/secure"
+              push:
+                sound:
+                  name: "default"
+                  critical: 1
+                  volume: 0.2
+              actions:
+                - action: "disarmed" # The key you are sending for the event
+                  title: "Снять с охраны"
+                  icon: "sfsymbols:bell.slash"
 
     - id: Напоминание о необходимости снять дом с охраны АПН
-      alias: reminder_to_disarm_the_house_artemevp
       initial_state: true
       trigger:
         platform: state
         entity_id: device_tracker.artemevp
         to: 'home'
+      condition:
+        not:
+          - condition: state
+            entity_id: alarm_control_panel.home_alarm
+            state: "disarmed"
       action:
-        service: notify.tlg_user3_id
-        data:
-          title: "#security"
-          message: |
-            {{"\U0001F6A8"}} Не забудь снять дом с охраны!
+        - service: notify.mobile_app_artemevp
           data:
-            inline_keyboard:
-            - "Главное меню:/mm"
+            title: "Охрана"
+            message: "Не забудь снять дом с охраны"
+            data:
+              url: "/lovelace/secure"
+              push:
+                sound:
+                  name: "default"
+                  critical: 1
+                  volume: 0.2
+              actions:
+                - action: "disarmed" # The key you are sending for the event
+                  title: "Снять с охраны"
+                  icon: "sfsymbols:bell.slash"
 
+    - alias: "disarmed"
+      trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: "disarmed"
+      action:
+        - service: alarm_control_panel.alarm_disarm
+          target:
+            entity_id: alarm_control_panel.home_alarm
+
+    - alias: 'Trigger alarm while armed away'
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.entrance_door_contact
+          to: "on"
+        - platform: state
+          entity_id: binary_sensor.open_kitchen_motion_sensor_occupancy
+          to: "on"
+      condition:
+        - condition: state
+          entity_id: alarm_control_panel.home_alarm
+          state: armed_away
+      action:
+        service: alarm_control_panel.alarm_trigger
+        target:
+          entity_id: alarm_control_panel.home_alarm
+
+    - alias: 'Trigger alarm while armed home'
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.entrance_door_contact
+          to: "on"
+      condition:
+        - condition: state
+          entity_id: alarm_control_panel.home_alarm
+          state: armed_home
+      action:
+        service: alarm_control_panel.alarm_trigger
+        target:
+          entity_id: alarm_control_panel.home_alarm
+
+    - alias: 'Send notification when alarm triggered'
+      trigger:
+        - platform: state
+          entity_id: alarm_control_panel.home_alarm
+          to: "triggered"
+      action:
+        - service: notify.mobile_app_artemevk
+          data:
+            title: "Охрана"
+            message: "Сработала сигнализация!"
+            data:
+              url: "/lovelace/secure"
+              push:
+                sound:
+                  name: "alarm.caf"
+                  critical: 1
+                  volume: 1.0
+              actions:
+                - action: "ALARM" # The key you are sending for the event
+                  title: "Sound Alarm" # The button title
+                  destructive: true
+                  icon: "sfsymbols:bell"
+                - action: "SILENCE"
+                  title: "Silence Alarm"
+                  icon: "sfsymbols:bell.slash"
+
+          # notify.tlg_user1_id
+          # data:
+          #   message: |
+          #    {{"\U0001F6A8"}} Сработала сигнализация!
+          #   data:
+          #     inline_keyboard:
+          #       - "Главное меню:/mm"
+
+    # - alias: 'Send notification when alarm is Disarmed'
+    #   trigger:
+    #     - platform: state
+    #       entity_id: alarm_control_panel.home_alarm
+    #       to: "disarmed"
+    #   action:
+    #     - service: notify.tlg_user1_id
+    #       data:
+    #         message: |
+    #           {{"\U0001F6A8"}} Сигнализация отключена.
+    #         data:
+    #           inline_keyboard:
+    #             - "Главное меню:/mm"
+
+    # - alias: 'Send notification when alarm is in pending status'
+    #   trigger:
+    #     - platform: state
+    #       entity_id: alarm_control_panel.home_alarm
+    #       to: "pending"
+    #   action:
+    #     - service: notify.tlg_user1_id
+    #       data:
+    #         message: |
+    #           {{"\U0001F6A8"}} Сигнализация перешла в режим ожидания.
+    #         data:
+    #           inline_keyboard:
+    #             - "Главное меню:/mm"
+
+    # - alias: 'Send notification when alarm is Armed in Away mode'
+    #   trigger:
+    #     - platform: state
+    #       entity_id: alarm_control_panel.home_alarm
+    #       to: "armed_away"
+    #   action:
+    #     - service: notify.tlg_user1_id
+    #       data:
+    #         message: |
+    #           {{"\U0001F6A8"}} Сигнализация активирована.
+    #         data:
+    #           inline_keyboard:
+    #             - "Главное меню:/mm"
+    #     - service: automation.trigger
+    #       entity_id: automation.antifrost_mode
+
+    # - alias: 'Send notification when alarm is Armed in Home mode'
+    #   trigger:
+    #     - platform: state
+    #       entity_id: alarm_control_panel.home_alarm
+    #       to: "armed_home"
+    #   action:
+    #     - service: notify.tlg_user1_id
+    #       data:
+    #         # Using multi-line notation allows for easier quoting
+    #         message: >
+    #           {{"\U0001F6A8"}} Сигнализация активирована в режима Дома.
+    #         data:
+    #           inline_keyboard:
+    #             - "Главное меню:/mm"

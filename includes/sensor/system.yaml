@@ -95,7 +95,7 @@
     type: min
     entities:
      - sensor.entrance_door_battery
-     - sensor.kitchen_living_room_motion_sensor_battery
+     - sensor.open_kitchen_motion_sensor_battery
      - sensor.outdoor_climate_battery
      - sensor.porch_motion_protect_battery
      - sensor.toilet_climate_battery

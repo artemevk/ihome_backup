@@ -11,52 +11,56 @@ scene_light:
         entities:
           light.corridor_lamp_1:
             state: "on"
-            brightness_pct: 1
-            kelvin: 4000
+            brightness: 1
+            color_temp: 250
           light.corridor_lamp_2:
             state: "on"
-            brightness_pct: 1
-            kelvin: 4000
+            brightness: 1
+            color_temp: 250
 
       - name: half
         entities:
           light.corridor_lamp_1:
             state: "on"
-            brightness_pct: 50
-            kelvin: 4000
+            brightness: 125
+            color_temp: 250
           light.corridor_lamp_2:
             state: "on"
-            brightness_pct: 50
-            kelvin: 4000
+            brightness: 125
+            color_temp: 250
 
       - name: full
         entities:
           light.corridor_lamp_1:
             state: "on"
-            brightness_pct: 100
-            kelvin: 4000
+            brightness: 255
+            color_temp: 250
           light.corridor_lamp_2:
             state: "on"
-            brightness_pct: 100
-            kelvin: 4000
+            brightness: 255
+            color_temp: 250
 
       - name: warm
         entities:
           light.corridor_lamp_1:
             state: "on"
-            kelvin: 2700
+            brightness: 255
+            color_temp: 370
           light.corridor_lamp_2:
             state: "on"
-            kelvin: 2700
+            brightness: 255
+            color_temp: 370
 
       - name: cold
         entities:
           light.corridor_lamp_1:
             state: "on"
-            kelvin: 6300
+            brightness: 255
+            color_temp: 160
           light.corridor_lamp_2:
             state: "on"
-            kelvin: 6300
+            brightness: 255
+            color_temp: 160
 
 
     input_select:
@@ -92,7 +96,7 @@ scene_light:
       initial_state: true
       trigger:
         - platform: state
-          entity_id: binary_sensor.kitchen_living_room_motion_sensor_occupancy
+          entity_id: binary_sensor.open_kitchen_motion_sensor_occupancy
           to: "on"
         - platform: state
           entity_id: binary_sensor.entrance_door_contact
@@ -106,26 +110,39 @@ scene_light:
       alias: "switch_off_corridor_lamps"
       initial_state: true
       trigger:
-      - platform: state
-        entity_id: alarm_control_panel.8124_a01_zone_1_alarm
-        to:
-          - 'armed_away'
-          - 'armed_custom_bypass'
-      - platform: state
-        entity_id: binary_sensor.kitchen_living_room_motion_sensor_occupancy
-        to: "off"
-        for:
-          minutes: 5
-      condition:
-      - "{{ states('input_text.prev_alarm_state') != 'unavailable' }}"
-      - condition: or # Lamp_1 or lamp_2 is on
-        conditions:
-        - condition: state
+        - platform: state
+          entity_id: alarm_control_panel.home_alarm
+          to:
+            - 'armed_away'
+        - platform: state
+          entity_id: binary_sensor.open_kitchen_motion_sensor_occupancy
+          to: "off"
+          for:
+            minutes: 5
+        - platform: state
           entity_id: light.corridor_lamp_1
-          state: "on"
-        - condition: state
+          to: "on"
+          for:
+            minutes: 30
+        - platform: state
           entity_id: light.corridor_lamp_2
-          state: "on"
+          to: "on"
+          for:
+            minutes: 30
+      condition:
+        - condition: or # Lamp_1 or lamp_2 is on
+          conditions:
+            - condition: state
+              entity_id: light.corridor_lamp_1
+              state: "on"
+            - condition: state
+              entity_id: light.corridor_lamp_2
+              state: "on"
+        - condition: state
+          entity_id: binary_sensor.open_kitchen_motion_sensor_occupancy
+          state: "off"
+          for:
+            minutes: 4
       action:
         - service: scene.turn_on
           target:

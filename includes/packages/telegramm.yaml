@@ -10,31 +10,31 @@ telegramm:
   - platform: template
     sensors:
       unavailable_now_light:
-        friendly_name: "Всего недоступных светильников - "
+        friendly_name: "Всего недоступных светильников"
         value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter
   
       unavailable_now_switch:
-        friendly_name: "Всего недоступных реле - "
+        friendly_name: "Всего недоступных реле"
         value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter 
   
       unavailable_now_sensor:
-        friendly_name: "Всего недоступных сенсоров - "
+        friendly_name: "Всего недоступных сенсоров"
         value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter
         
       unavailable_now_binary_sensor:
-        friendly_name: "Всего недоступных бинарных сенсоров - "
+        friendly_name: "Всего недоступных бинарных сенсоров"
         value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter
   
-      msg_kitchen_living_room_climate:
+      msg_open_kitchen_climate:
         value_template: |
           {{"\U0001F6CB"}} Кухня-гостиная.
-          {{"\U0001F321"}} Температура: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_temperature') }} °C
-          {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.kitchen_living_room_thermostat', 'current_heating_setpoint') }} °C
-          {{"\U0001F4A1"}} Конвектор: {{ states('switch.kitchen_living_room_heater') }}
+          {{"\U0001F321"}} Температура: {{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') }} °C
+          {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.open_kitchen_thermostat', 'current_heating_setpoint') }} °C
+          {{"\U0001F4A1"}} Конвектор: {{ states('switch.open_kitchen_heater') }}
   
       msg_toilet_climate:
         value_template: |
@@ -253,7 +253,7 @@ telegramm:
           message:  | 
             {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
             
-            {{ states('sensor.msg_kitchen_living_room_climate') }}
+            {{ states('sensor.msg_open_kitchen_climate') }}
             
             {{ states('sensor.msg_1st_floor_bedroom_climate')}}
             
@@ -277,6 +277,11 @@ telegramm:
           target:
           entity_id:
             - script.prepare_the_house
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message:  |
+              {{"\U00002668"}} Команда принята.
         - delay: 00:00:05
         - service: telegram_bot.send_message
           data_template:
@@ -285,7 +290,7 @@ telegramm:
               {{"\U0000231A"}} {{ states('sensor.time_date') }}
               {{"\U00002668"}} Дом подготавливается.
               
-              {{ states('sensor.msg_kitchen_living_room_climate') }}
+              {{ states('sensor.msg_open_kitchen_climate') }}
                 
               {{ states('sensor.msg_1st_floor_bedroom_climate')}}
               
@@ -309,6 +314,11 @@ telegramm:
           target:
           entity_id:
             - script.antifrost_mode
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message:  |
+              {{"\U00002744"}} Команда принята.
         - delay: 00:00:05
         - service: telegram_bot.send_message
           data_template:
@@ -317,7 +327,7 @@ telegramm:
               {{"\U0000231A"}} {{ states('sensor.time_date') }}
               {{"\U00002744"}} Дом переведен в режим антизамерзания.
               
-              {{ states('sensor.msg_kitchen_living_room_climate') }}
+              {{ states('sensor.msg_open_kitchen_climate') }}
                 
               {{ states('sensor.msg_1st_floor_bedroom_climate')}}
               

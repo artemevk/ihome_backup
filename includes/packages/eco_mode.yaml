@@ -78,8 +78,8 @@ eco_mode:
       - >-
           {{ min([state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature'),
           state_attr('climate.1st_floor_bedroom_thermostat', 'temperature'),
-          state_attr('climate.kitchen_living_room_heater_thermostat', 'temperature'),
-          state_attr('climate.kitchen_living_room_thermostat', 'temperature')]) > 7
+          state_attr('climate.open_kitchen_heater_thermostat', 'temperature'),
+          state_attr('climate.open_kitchen_thermostat', 'temperature')]) > 7
           }}
       action:
       - service: input_boolean.turn_on
@@ -103,14 +103,14 @@ eco_mode:
           temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') -2 }}"
       - service: climate.set_temperature
         target:
-          entity_id: climate.kitchen_living_room_heater_thermostat
+          entity_id: climate.open_kitchen_heater_thermostat
         data:
-          temperature: "{{ state_attr('climate.kitchen_living_room_heater_thermostat', 'temperature') -2 }}"
+          temperature: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') -2 }}"
       - service: climate.set_temperature
         target:
-          entity_id: climate.kitchen_living_room_thermostat
+          entity_id: climate.open_kitchen_thermostat
         data:
-          temperature: "{{ state_attr('climate.kitchen_living_room_thermostat', 'temperature') -2 }}"
+          temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') -2 }}"
       - service: switch.turn_off
         target:
           entity_id: switch.water_heater
@@ -118,7 +118,7 @@ eco_mode:
       - service: notify.tlg_user1_id
         data:
           message:  | 
-            {{ states('sensor.msg_kitchen_living_room_climate') }}
+            {{ states('sensor.msg_open_kitchen_climate') }}
             
             {{ states('sensor.msg_1st_floor_bedroom_climate')}}
 
@@ -157,14 +157,14 @@ eco_mode:
           temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') +2 }}"
       - service: climate.set_temperature
         target:
-          entity_id: climate.kitchen_living_room_heater_thermostat
+          entity_id: climate.open_kitchen_heater_thermostat
         data:
-          temperature: "{{ state_attr('climate.kitchen_living_room_heater_thermostat', 'temperature') +2 }}"
+          temperature: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') +2 }}"
       - service: climate.set_temperature
         target:
-          entity_id: climate.kitchen_living_room_thermostat
+          entity_id: climate.open_kitchen_thermostat
         data:
-          temperature: "{{ state_attr('climate.kitchen_living_room_thermostat', 'temperature') +2 }}"
+          temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') +2 }}"
       - service: switch.turn_on
         target:
           entity_id: switch.water_heater
@@ -172,6 +172,6 @@ eco_mode:
       - service: notify.tlg_user1_id
         data:
           message:  |
-            {{ states('sensor.msg_kitchen_living_room_climate') }}
+            {{ states('sensor.msg_open_kitchen_climate') }}
             
             {{ states('sensor.msg_1st_floor_bedroom_climate')}}
