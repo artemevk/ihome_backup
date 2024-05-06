@@ -85,12 +85,12 @@ eco_mode:
       - service: input_boolean.turn_on
         target:
           entity_id: input_boolean.eco_mode_status
-      - service: notify.tlg_user1_id
-        data:
-          message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
-      - service: notify.mobile_app_artemevk
-        data:
-          message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
+      # - service: notify.tlg_user1_id
+      #   data:
+      #     message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
+      # - service: notify.mobile_app_artemevk
+      #   data:
+      #     message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
       - service: climate.set_temperature
         target:
           entity_id: climate.1st_floor_bedroom_heater_thermostat
@@ -114,13 +114,13 @@ eco_mode:
       - service: switch.turn_off
         target:
           entity_id: switch.water_heater
-      - delay: 00:00:30
-      - service: notify.tlg_user1_id
-        data:
-          message:  | 
-            {{ states('sensor.msg_open_kitchen_climate') }}
+      # - delay: 00:00:30
+      # - service: notify.tlg_user1_id
+      #   data:
+      #     message:  | 
+      #       {{ states('sensor.msg_open_kitchen_climate') }}
             
-            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+      #       {{ states('sensor.msg_1st_floor_bedroom_climate')}}
 
     - id: 'Стандартный режим энергопотребления'
       alias: standard_power_consumption_mode
@@ -139,12 +139,12 @@ eco_mode:
       - service: input_boolean.turn_off
         target:
           entity_id: input_boolean.eco_mode_status
-      - service: notify.tlg_user1_id
-        data:
-          message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
-      - service: notify.mobile_app_artemevk
-        data:
-          message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
+      # - service: notify.tlg_user1_id
+      #   data:
+      #     message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
+      # - service: notify.mobile_app_artemevk
+      #   data:
+      #     message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
       - service: climate.set_temperature
         target:
           entity_id: climate.1st_floor_bedroom_heater_thermostat
@@ -168,10 +168,10 @@ eco_mode:
       - service: switch.turn_on
         target:
           entity_id: switch.water_heater
-      - delay: 00:00:30
-      - service: notify.tlg_user1_id
-        data:
-          message:  |
-            {{ states('sensor.msg_open_kitchen_climate') }}
+      # - delay: 00:00:30
+      # - service: notify.tlg_user1_id
+      #   data:
+      #     message:  |
+      #       {{ states('sensor.msg_open_kitchen_climate') }}
             
-            {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+      #       {{ states('sensor.msg_1st_floor_bedroom_climate')}}
