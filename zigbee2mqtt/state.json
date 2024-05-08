@@ -31,18 +31,18 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 21,
+        "cpu_temperature": 16.72,
         "power": 0,
         "current": 0,
         "last_seen": "2024-05-05T23:23:50+03:00",
         "linkquality": 57
     },
     "0x00158d00048893ac": {
-        "voltage": 2975,
-        "battery": 83,
-        "temperature": 11.78,
-        "humidity": 44.79,
-        "pressure": 984.8,
+        "voltage": 2965,
+        "battery": 77,
+        "temperature": 9.52,
+        "humidity": 47.29,
+        "pressure": 990.7,
         "last_seen": "2024-05-05T22:53:10+03:00",
         "power_outage_count": 31103,
         "linkquality": 87
@@ -50,7 +50,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 13,
+        "local_temperature": 11,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -107,11 +107,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 8,
-        "illuminance_lux": 8,
+        "illuminance": 7,
+        "illuminance_lux": 7,
         "temperature": 24,
         "occupancy": true,
-        "device_temperature": 21,
+        "device_temperature": 17,
         "last_seen": "2024-05-05T22:47:11+03:00",
         "power_outage_count": 22,
         "linkquality": 90
@@ -132,7 +132,7 @@
         "max_temperature_limit": 45,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 14.5,
+        "local_temperature": 12,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -191,9 +191,9 @@
         "voltage": 2965,
         "battery": 77,
         "power_outage_count": 6,
-        "temperature": 15.39,
-        "humidity": 36.47,
-        "pressure": 986,
+        "temperature": 11.18,
+        "humidity": 41.92,
+        "pressure": 991.9,
         "last_seen": "2024-05-05T23:22:40+03:00",
         "linkquality": 48
     }

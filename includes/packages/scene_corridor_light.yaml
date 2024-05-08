@@ -102,9 +102,9 @@ scene_light:
           entity_id: binary_sensor.entrance_door_contact
           to: "on"
       action:
-          - service: scene.turn_on
-            target:
-              entity_id: scene.full
+        - service: scene.turn_on
+          target:
+            entity_id: scene.full
 
     - id: switch_off_corridor_lamps
       alias: "switch_off_corridor_lamps"
