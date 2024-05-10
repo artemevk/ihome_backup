@@ -95,9 +95,9 @@ telegramm:
         - service: switch.turn_off
           target:
             entity_id: switch.water_heater
-        - service: climate.turn_on
-          target:
-            entity_id: all
+        # - service: climate.turn_on
+        #   target:
+        #     entity_id: all
         - service: climate.set_temperature
           target:
             entity_id: all

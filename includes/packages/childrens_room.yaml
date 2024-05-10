@@ -1,15 +1,11 @@
-# childrens_room:
-#   mqtt:
-#     - climate:
-#         name: childrens_room_heater
-#         modes:
-#           - "Off"
-#           - "Comfort"
-#           - "Eco"
-#           - "AntiFr"
-#           - "Standby"
-#         power_command_topic: "mac/mode/in"
-#         mode_command_topic: "mac/mode/out"
-#         mode_command_template: "{{ value if value=="off" else "on" }}"
-#         temperature_command_topic: "mac/temperature_comfort/in"
-#         precision: 1.0
+kids_room:
+  climate:
+  - platform: generic_thermostat
+    name: kids_room_heater_thermostat
+    heater: switch.kids_room_heater
+    target_sensor: sensor.kids_room_climate_temperature
+    min_temp: 5
+    max_temp: 30
+    target_temp_step: 0.5
+    precision: 0.5
+    initial_hvac_mode: "heat"

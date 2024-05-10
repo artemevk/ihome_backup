@@ -25,4 +25,6 @@
 '0x00124b001f2b5b39':
   friendly_name: 1st_floor_bedroom_heater
 '0x00158d000485afd2':
-  friendly_name: childrens_room_climate
+  friendly_name: kids_room_climate
+'0x588e81fffed39305':
+  friendly_name: kids_room_heater
