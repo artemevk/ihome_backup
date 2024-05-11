@@ -8,11 +8,12 @@ perimeter_defenses:
         - platform: state
           entity_id: binary_sensor.porch_motion_protect_occupancy
           to: "on"
-      condition: not
-      conditions:
-        - condition: state
-          entity_id: alarm_control_panel.home_alarm
-          state: disarmed
+      condition:
+        alias: "alarm not disarmed"
+        not:
+          - condition: state
+            entity_id: alarm_control_panel.home_alarm
+            state: disarmed
       action:
         # # Сохранение фото
         # - service: camera.snapshot
@@ -78,7 +79,7 @@ perimeter_defenses:
               actions:
                 - action: "disarmed" # The key you are sending for the event
                   title: "Снять с охраны"
-                  icon: "sfsymbols:bell.slash"
+                  icon: "sfsymbols:lock.open"
 
     - id: Напоминание о необходимости снять дом с охраны АПН
       initial_state: true
@@ -106,7 +107,7 @@ perimeter_defenses:
               actions:
                 - action: "disarmed" # The key you are sending for the event
                   title: "Снять с охраны"
-                  icon: "sfsymbols:bell.slash"
+                  icon: "sfsymbols:lock.open"
 
     - alias: "disarmed"
       trigger:
@@ -175,6 +176,9 @@ perimeter_defenses:
                 - action: "SILENCE"
                   title: "Silence Alarm"
                   icon: "sfsymbols:bell.slash"
+                - action: "disarmed"
+                  title: "Снять с охраны"
+                  icon: "sfsymbols:lock.open"
 
           # notify.tlg_user1_id
           # data:
