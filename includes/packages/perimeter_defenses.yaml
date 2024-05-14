@@ -140,7 +140,7 @@ perimeter_defenses:
     - alias: 'Trigger alarm while armed home'
       trigger:
         - platform: state
-          entity_id: binary_sensor.entrance_door_contact
+          entity_id: sensor.smartintercom_line_status
           to: "on"
       condition:
         - condition: state

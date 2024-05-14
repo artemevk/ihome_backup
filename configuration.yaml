@@ -16,7 +16,7 @@ default_config:
 #   resources:
 #     - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
 #       type: module
-#     - url: /hacsfiles/simple-clock-card/simple-clock-card.js 
+#     - url: /hacsfiles/simple-clock-card/simple-clock-card.js
 #       type: module
 
 # hacs:
@@ -45,7 +45,7 @@ tts:
 # Вынос во внешние файлы
 # timer: !include includes/timer.yaml
 sensor: !include_dir_merge_list includes/sensor
-binary_sensor: !include_dir_merge_list includes/binary_sensor
+# binary_sensor: !include_dir_merge_list includes/binary_sensor
 # group: !include includes/groups.yaml
 # script: !include includes/scripts.yaml
 # scene: !include includes/scenes.yaml
@@ -73,7 +73,6 @@ telegram_bot:
       - !secret tlg_user4_id
       - !secret tlg_user5_id
 
-
 # Платформа телеграмм уведомлений
 notify:
   - platform: telegram
@@ -91,7 +90,7 @@ notify:
   - platform: telegram
     name: tlg_user5_id
     chat_id: !secret tlg_user5_id
-  - platform: group 
+  - platform: group
     name: all_telegram
     services:
       - service: tlg_user1_id
@@ -99,8 +98,6 @@ notify:
       - service: tlg_user3_id
       - service: tlg_user4_id
       - service: tlg_user5_id
-    
-    
-    
+
 shell_command:
   push_to_github: cd /config && bash ./ha_gitpush.sh
