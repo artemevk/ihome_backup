@@ -6,6 +6,6 @@ kids_room:
     target_sensor: sensor.kids_room_climate_temperature
     min_temp: 5
     max_temp: 30
-    target_temp_step: 0.5
-    precision: 0.5
+    target_temp_step: 1
+    precision: 0.1
     initial_hvac_mode: "heat"

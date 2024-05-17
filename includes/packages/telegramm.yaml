@@ -10,24 +10,41 @@ telegramm:
   - platform: template
     sensors:
       unavailable_now_light:
-        friendly_name: "Всего недоступных светильников"
+        friendly_name: "Недоступно светильников"
         value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter
   
       unavailable_now_switch:
-        friendly_name: "Всего недоступных реле"
+        friendly_name: "Недоступно реле"
         value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter 
   
       unavailable_now_sensor:
-        friendly_name: "Всего недоступных сенсоров"
+        friendly_name: "Недоступно сенсоров"
         value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter
         
       unavailable_now_binary_sensor:
-        friendly_name: "Всего недоступных бинарных сенсоров"
+        friendly_name: "Недоступно бинарных сенсоров"
         value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
         icon_template: mdi:counter
+      
+      unavailable_objects:
+        friendly_name: "Недоступно объектов"
+        value_template: >
+          {{ int(states.sensor.unavailable_now_light.state) + 
+             int(states.sensor.unavailable_now_switch.state) + 
+             int(states.sensor.unavailable_now_sensor.state) + 
+             int(states.sensor.unavailable_now_binary_sensor.state) }}
+        icon_template: >
+          {% if int(states.sensor.unavailable_now_light.state) + 
+             int(states.sensor.unavailable_now_switch.state) + 
+             int(states.sensor.unavailable_now_sensor.state) + 
+             int(states.sensor.unavailable_now_binary_sensor.state) == 0 %}
+            mdi:thumb-up
+          {% else %}
+            mdi:thumb-down
+          {% endif %}
   
       msg_open_kitchen_climate:
         value_template: |

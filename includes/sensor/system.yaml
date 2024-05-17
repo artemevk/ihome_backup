@@ -91,7 +91,7 @@
   - platform: group
     name: "min_batteries_state"
     device_class: battery
-    ignore_non_numeric: true
+    ignore_non_numeric: false
     type: min
     entities:
      - sensor.entrance_door_battery

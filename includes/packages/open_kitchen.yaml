@@ -9,7 +9,7 @@ open_kitchen:
       open_kitchen_setpoint:
         unit_of_measurement: "°C"
         value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'current_heating_setpoint') }}"
-        
+
       open_kitchen_heater_setpoint:
         unit_of_measurement: "°C"
         value_template: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') }}"
@@ -29,7 +29,7 @@ open_kitchen:
     target_sensor: sensor.open_kitchen_temperature
     min_temp: 5
     max_temp: 30
-    target_temp_step: 0.5
+    target_temp_step: 1
     precision: 0.5
     initial_hvac_mode: "heat"
 
@@ -44,7 +44,7 @@ open_kitchen:
             entity_id: climate.open_kitchen_heater_thermostat
           data:
             temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'current_heating_setpoint') }}"
-            
+
     - alias: 'open_kitchen_thermostat Set Temperature'
       trigger:
         - platform: state
