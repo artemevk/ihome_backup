@@ -1,12 +1,19 @@
 perimeter_defenses:
-
   automation:
-
     - alias: "motion_notification"
       id: motion_notification
       trigger:
         - platform: state
           entity_id: binary_sensor.porch_motion_protect_occupancy
+          to: "on"
+        - platform: state
+          entity_id: binary_sensor.parking_camera_cell_motion_detection
+          to: "on"
+        - platform: state
+          entity_id: binary_sensor.porch_camera_cell_motion_detection
+          to: "on"
+        - platform: state
+          entity_id: binary_sensor.courtyard_camera_cell_motion_detection
           to: "on"
       condition:
         alias: "alarm not disarmed"
@@ -15,23 +22,36 @@ perimeter_defenses:
             entity_id: alarm_control_panel.home_alarm
             state: disarmed
       action:
-        # # Сохранение фото
-        # - service: camera.snapshot
-        #   target:
-        #     entity_id: camera.courtyard
-        #   data:
-        #     filename: '/config/tmp/courtyard_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
-        # # Отправка сообщения
-        # - service: notify.tlg_user1_id
-        #   data:
-        #     title: "#security"
-        #     message: "*Движение около крыльца*"
-        #     # data:
-        #     #   photo:
-        #     #     - file: /share/motioneye/courtyard/2022-05-22/20-51-55.jpg
-        #     #       caption: Picture Title xy
-        #     #     - url: http://ihome.artemevk.keenetic.pro/api/hassio_ingress/4Ec7lFKuhRxxTNl5sahkbTCTzhceNP2AtrF-vQ1MZaU/picture/2/current/
-        #     #       caption: "Picture Title xy"
+        # Сохранение фото
+        - service: camera.snapshot
+          target:
+            entity_id: camera.parking_camera_mainstream
+          data:
+            filename: "/config/tmp/parking_camera_last_snapshot.jpg"
+        - service: camera.snapshot
+          target:
+            entity_id: camera.porch_camera_mainstream
+          data:
+            filename: "/config/tmp/porch_camera_last_snapshot.jpg"
+        - service: camera.snapshot
+          target:
+            entity_id: camera.courtyard_camera_mainstream
+          data:
+            filename: "/config/tmp/courtyard_camera_last_snapshot.jpg"
+        - delay: 00:00:05
+          # Отправка сообщения
+        - service: telegram_bot.send_photo
+          data:
+            file: "/config/tmp/parking_camera_last_snapshot.jpg"
+            target: !secret tlg_user1_id
+        - service: telegram_bot.send_photo
+          data:
+            file: "/config/tmp/porch_camera_last_snapshot.jpg"
+            target: !secret tlg_user1_id
+        - service: telegram_bot.send_photo
+          data:
+            file: "/config/tmp/courtyard_camera_last_snapshot.jpg"
+            target: !secret tlg_user1_id
         - service: notify.mobile_app_artemevk
           data:
             title: "Охрана"
@@ -58,7 +78,7 @@ perimeter_defenses:
       trigger:
         platform: state
         entity_id: device_tracker.artemevk
-        to: 'home'
+        to: "home"
       condition:
         not:
           - condition: state
@@ -86,7 +106,7 @@ perimeter_defenses:
       trigger:
         platform: state
         entity_id: device_tracker.artemevp
-        to: 'home'
+        to: "home"
       condition:
         not:
           - condition: state
@@ -120,7 +140,7 @@ perimeter_defenses:
           target:
             entity_id: alarm_control_panel.home_alarm
 
-    - alias: 'Trigger alarm while armed away'
+    - alias: "Trigger alarm while armed away"
       trigger:
         - platform: state
           entity_id: binary_sensor.entrance_door_contact
@@ -137,7 +157,7 @@ perimeter_defenses:
         target:
           entity_id: alarm_control_panel.home_alarm
 
-    - alias: 'Trigger alarm while armed home'
+    - alias: "Trigger alarm while armed home"
       trigger:
         - platform: state
           entity_id: sensor.smartintercom_line_status
@@ -151,7 +171,7 @@ perimeter_defenses:
         target:
           entity_id: alarm_control_panel.home_alarm
 
-    - alias: 'Send notification when alarm triggered'
+    - alias: "Send notification when alarm triggered"
       trigger:
         - platform: state
           entity_id: alarm_control_panel.home_alarm
@@ -180,69 +200,53 @@ perimeter_defenses:
                   title: "Снять с охраны"
                   icon: "sfsymbols:lock.open"
 
-          # notify.tlg_user1_id
-          # data:
-          #   message: |
-          #    {{"\U0001F6A8"}} Сработала сигнализация!
-          #   data:
-          #     inline_keyboard:
-          #       - "Главное меню:/mm"
+    - id: "automatic arming"
+      alias: "automatic arming"
+      trigger:
+        - platform: template
+          value_template: "{{ states.zone.home.state | int == 1 }}"
+      condition:
+        not:
+          - condition: state
+            entity_id: alarm_control_panel.home_alarm
+            state: "armed_away"
+      action:
+        - service: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id: alarm_control_panel.home_alarm
 
-    # - alias: 'Send notification when alarm is Disarmed'
-    #   trigger:
-    #     - platform: state
-    #       entity_id: alarm_control_panel.home_alarm
-    #       to: "disarmed"
-    #   action:
-    #     - service: notify.tlg_user1_id
-    #       data:
-    #         message: |
-    #           {{"\U0001F6A8"}} Сигнализация отключена.
-    #         data:
-    #           inline_keyboard:
-    #             - "Главное меню:/mm"
+    - id: "automatic disarming"
+      alias: "automatic disarming"
+      trigger:
+        - platform: template
+          value_template: "{{ states.zone.home.state | int > 1 }}"
+      condition:
+        not:
+          - condition: state
+            entity_id: alarm_control_panel.home_alarm
+            state: "disarmed"
+      action:
+        - service: alarm_control_panel.alarm_disarm
+          target:
+            entity_id: alarm_control_panel.home_alarm
 
-    # - alias: 'Send notification when alarm is in pending status'
-    #   trigger:
-    #     - platform: state
-    #       entity_id: alarm_control_panel.home_alarm
-    #       to: "pending"
-    #   action:
-    #     - service: notify.tlg_user1_id
-    #       data:
-    #         message: |
-    #           {{"\U0001F6A8"}} Сигнализация перешла в режим ожидания.
-    #         data:
-    #           inline_keyboard:
-    #             - "Главное меню:/mm"
-
-    # - alias: 'Send notification when alarm is Armed in Away mode'
-    #   trigger:
-    #     - platform: state
-    #       entity_id: alarm_control_panel.home_alarm
-    #       to: "armed_away"
-    #   action:
-    #     - service: notify.tlg_user1_id
-    #       data:
-    #         message: |
-    #           {{"\U0001F6A8"}} Сигнализация активирована.
-    #         data:
-    #           inline_keyboard:
-    #             - "Главное меню:/mm"
-    #     - service: automation.trigger
-    #       entity_id: automation.antifrost_mode
-
-    # - alias: 'Send notification when alarm is Armed in Home mode'
-    #   trigger:
-    #     - platform: state
-    #       entity_id: alarm_control_panel.home_alarm
-    #       to: "armed_home"
-    #   action:
-    #     - service: notify.tlg_user1_id
-    #       data:
-    #         # Using multi-line notation allows for easier quoting
-    #         message: >
-    #           {{"\U0001F6A8"}} Сигнализация активирована в режима Дома.
-    #         data:
-    #           inline_keyboard:
-    #             - "Главное меню:/mm"
+    - id: "alarm notify"
+      alias: "alarm notify"
+      trigger:
+        - platform: state
+          entity_id: alarm_control_panel.home_alarm
+          to:
+            - "armed_away"
+            - "disarmed"
+      action:
+        - service: notify.mobile_app_artemevk
+          data:
+            title: "Охрана"
+            message: |
+              {% if states('alarm_control_panel.home_alarm') == 'disarmed' %}
+                Дом снят с охраны.
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}
+                Дом поставлен на охрану.
+              {% endif %}
+            data:
+              url: "/lovelace/secure"

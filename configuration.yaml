@@ -7,23 +7,11 @@ homeassistant:
   country: RU
   time_zone: Europe/Moscow
   packages: !include_dir_merge_named includes/packages
+  allowlist_external_dirs:
+    - "/config/tmp/"
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-
-# lovelace:
-#   mode: storage
-#   resources:
-#     - url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
-#       type: module
-#     - url: /hacsfiles/simple-clock-card/simple-clock-card.js
-#       type: module
-
-# hacs:
-#   token: !secret HACS_github
-#   appdaemon: true
-#   python_script: true
-#   theme: true
 
 alarm_control_panel:
   - platform: manual

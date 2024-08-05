@@ -1,16 +1,21 @@
 weather_outside:
-## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
+  ## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
 
   automation:
-  
     # Отправка ежедневного утреннего отчета о погоде
     - alias: send_morning_climate_report
       id: Утренний отчет о погоде
       initial_state: true
       trigger:
         - platform: time
-          at: '07:30:00'
+          at: "07:30:00"
       action:
+        - service: camera.record
+          target:
+            entity_id: camera.courtyard_camera_mainstream
+          data:
+            duration: 15
+            filename: "/config/tmp/courtyard_camera_last_video.mp4"
         - service: notify.all_telegram
           data:
             title: "#weather"
@@ -57,7 +62,15 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[1].condition }}
               {% endif %}
-
+        - delay: 00:00:03
+        - service: notify.all_telegram
+          data:
+            message: ""
+            data:
+              video:
+                file: /config/tmp/courtyard_camera_last_video.mp4
+              inline_keyboard:
+                - "Главное меню:/mm"
 
     # Отправка отчета о погоде по запросу
     - alias: send_climate_report
@@ -67,34 +80,36 @@ weather_outside:
         - platform: event
           event_type: telegram_callback
           event_data:
-            command: '/forecast'
+            command: "/forecast"
         - platform: event
           event_type: telegram_command
           event_data:
-            command: '/forecast'
+            command: "/forecast"
       action:
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             title: "#weather"
             message: >
-              {{"\U0001F3E2"}} *МОСКВА:*
+              {{"\U0001F300"}} Климат отчет за {{ states("sensor.time_date") }}
+              {{ "\n" -}}
+              {{ "\n" -}}{{"\U0001F3E2"}} *МОСКВА:*
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Температура: {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather_moscow", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecast")[1].datetime) | timestamp_custom('%H:%M') }} ожидается:_
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather_moscow", "forecast")[1].native_temperature}} °C
-              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
+              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
               {% if state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'sunny' %}{{"солнечно"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'cloudy' %}{{"облачно"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'partlycloudy' %}{{"переменная облачность"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'pouring' %}{{"ливень"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'rainy' %}{{"дождь"}}
-              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'clear-night' %}{{"ясно"}}
               {% elif state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'snowy' %}{{"снег"}}
+              {% elif state_attr("weather.yandex_weather_moscow", "forecast")[1].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather_moscow", "forecast")[1].condition }}
               {% endif %}
               {{ "\n" -}}
-              {{ "\n" }}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
+              {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
                {{-  "\n"}}{{"\U0001F321"}} Температура: {% if is_state('sensor.outdoor_climate_temperature', 'unavailable') %}{{"-" -}}
                 {% else %}{{states('sensor.outdoor_climate_temperature') | round(1)}} {{"°C" -}}
               {% endif %}
@@ -108,7 +123,7 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F32C"}} Яндекс.Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
               {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[1].datetime) | timestamp_custom('%H:%M') }} ожидается:_
               {{ "\n" -}}{{"\U0001F321"}} Яндекс.Прогноз: {{state_attr("weather.yandex_weather", "forecast")[1].native_temperature}} °C
-              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия: 
+              {{ "\n" -}}{{"\U0001F326"}} Яндекс.Условия:
               {% if state_attr("weather.yandex_weather", "forecast")[1].condition == 'sunny' %}{{"солнечно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'cloudy' %}{{"облачно"}}
               {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'partlycloudy' %}{{"переменная облачность"}}
@@ -118,7 +133,16 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[1].condition }}
               {% endif %}
+        - service: camera.record
+          target:
+            entity_id: camera.courtyard_camera_mainstream
+          data:
+            duration: 15
+            filename: "/config/tmp/courtyard_camera_last_video.mp4"
+        - delay: 00:00:05
+        - service: telegram_bot.send_video
+          data:
+            file: "/config/tmp/courtyard_camera_last_video.mp4"
+            target: "{{ trigger.event.data.user_id }}"
             inline_keyboard:
               - "Главное меню:/mm"
-
-            #   {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'clear-night' %}{{"ясная ночь"}}
