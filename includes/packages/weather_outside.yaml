@@ -62,7 +62,7 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[1].condition }}
               {% endif %}
-        - delay: 00:00:03
+        - delay: 00:00:05
         - service: notify.all_telegram
           data:
             message: ""
@@ -70,7 +70,7 @@ weather_outside:
               video:
                 file: /config/tmp/courtyard_camera_last_video.mp4
               inline_keyboard:
-                - "Главное меню:/mm"
+                - Главное меню:/mm
 
     # Отправка отчета о погоде по запросу
     - alias: send_climate_report
