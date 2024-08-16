@@ -16,6 +16,7 @@ weather_outside:
           data:
             duration: 15
             filename: "/config/tmp/courtyard_camera_last_video.mp4"
+        - delay: 00:00:10
         - service: notify.all_telegram
           data:
             title: "#weather"
@@ -62,7 +63,7 @@ weather_outside:
               {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'clear-night' %}{{"ясно"}}
               {% else %}{{ state_attr("weather.yandex_weather", "forecast")[1].condition }}
               {% endif %}
-        - delay: 00:00:05
+        - delay: 00:00:03
         - service: notify.all_telegram
           data:
             message: ""
