@@ -4,14 +4,14 @@
         "energy": 153.06,
         "power": 0,
         "current": 0,
-        "voltage": 236,
+        "voltage": 239,
         "power_outage_memory": "restore",
         "last_seen": "2024-08-03T22:09:25+03:00",
         "indicator_mode": "off/on",
         "linkquality": 63
     },
     "0x5c0272fffecf64fd": {
-        "battery": 65,
+        "battery": 64,
         "voltage": 1900,
         "occupancy": false,
         "tamper": false,
@@ -22,16 +22,16 @@
     "0x00158d00048681f7": {
         "voltage": 3005,
         "battery": 100,
-        "temperature": 14.14,
-        "humidity": 80.45,
-        "pressure": 989.9,
+        "temperature": 17.19,
+        "humidity": 77.41,
+        "pressure": 986.9,
         "last_seen": "2024-08-03T21:59:41+03:00",
         "power_outage_count": 3348,
         "linkquality": 87
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 25.55,
+        "cpu_temperature": 25,
         "power": 0,
         "current": 0,
         "last_seen": "2024-08-03T22:09:50+03:00",
@@ -40,17 +40,17 @@
     "0x00158d00048893ac": {
         "voltage": 2975,
         "battery": 83,
-        "temperature": 19.97,
-        "humidity": 63.22,
-        "pressure": 990.5,
+        "temperature": 19.66,
+        "humidity": 67.76,
+        "pressure": 987.1,
         "last_seen": "2024-08-03T21:49:02+03:00",
-        "power_outage_count": 41426,
+        "power_outage_count": 41430,
         "linkquality": 60
     },
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 21,
+        "local_temperature": 20.5,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -115,7 +115,7 @@
         "illuminance_lux": 3,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 26,
+        "device_temperature": 25,
         "last_seen": "2024-08-03T22:02:34+03:00",
         "power_outage_count": 22,
         "linkquality": 81
@@ -196,9 +196,9 @@
         "voltage": 2975,
         "battery": 83,
         "power_outage_count": 6,
-        "temperature": 19.94,
-        "humidity": 61.69,
-        "pressure": 991.7,
+        "temperature": 19.49,
+        "humidity": 64.62,
+        "pressure": 988.5,
         "last_seen": "2024-08-03T22:03:25+03:00",
         "linkquality": 129
     },
@@ -209,7 +209,7 @@
         "energy": 141.99,
         "power": 0,
         "current": 0,
-        "voltage": 236,
+        "voltage": 239,
         "last_seen": "2024-08-03T22:09:29+03:00",
         "linkquality": 99
     }

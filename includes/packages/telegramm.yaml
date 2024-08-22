@@ -129,7 +129,6 @@ telegramm:
           event_type: telegram_callback # вызов с клавиатуры
           event_data:
             command: "/start"
-            trigger:
         - platform: event
           event_type: telegram_command # вызов из меню
           event_data:
@@ -238,17 +237,19 @@ telegramm:
       alias: send_report_when_objects_are_lost
       initial_state: true
       trigger:
-        - platform: template # при потере объектов
-          value_template: >-
-            {{ max([states('sensor.unavailable_now_light'),
-                    states('sensor.unavailable_now_switch'),
-                    states('sensor.unavailable_now_sensor'),
-                    states('sensor.unavailable_now_binary_sensor'),
-                    states('input_number.test_number')]) | float >= 1 }}
+        - platform: state # при потере объектов
+          entity_id: sensor.unavailable_objects
+      condition:
+        condition: and
+        conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state > trigger.from_state.state }}"
       action:
         - service: notify.tlg_user1_id
           data:
-            message: "{{ states('sensor.msg_report') }}"
+            message: |
+              {{"\U0000203C"}} Обнаружена новая неисправность
+              "{{ states('sensor.msg_report') }}"
             data:
               inline_keyboard:
                 - "Главное меню:/mm"
