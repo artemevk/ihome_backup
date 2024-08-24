@@ -205,7 +205,7 @@ perimeter_defenses:
       alias: "automatic arming"
       trigger:
         - platform: template
-          value_template: "{{ states.zone.home.state | int == 1 }}"
+          value_template: "{{ states.zone.home.state | int == 0 }}"
       condition:
         not:
           - condition: state
@@ -220,7 +220,7 @@ perimeter_defenses:
       alias: "automatic disarming"
       trigger:
         - platform: template
-          value_template: "{{ states.zone.home.state | int > 1 }}"
+          value_template: "{{ states.zone.home.state | int > 0 }}"
       condition:
         not:
           - condition: state
