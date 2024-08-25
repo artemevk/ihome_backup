@@ -1,0 +1,10 @@
+- platform: switch
+  name: "porch"
+  entity_id: switch.porch_light
+
+- platform: group
+  name: "all"
+  entities:
+    - light.porch
+    - light.corridor_lamp_1
+    - light.corridor_lamp_2
