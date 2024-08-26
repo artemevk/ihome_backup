@@ -4,7 +4,7 @@
         "energy": 160.12,
         "power": 0,
         "current": 0,
-        "voltage": 236,
+        "voltage": 234,
         "power_outage_memory": "restore",
         "last_seen": "2024-08-25T00:01:10+03:00",
         "indicator_mode": "off/on",
@@ -20,18 +20,18 @@
         "linkquality": 51
     },
     "0x00158d00048681f7": {
-        "voltage": 3005,
+        "voltage": 3015,
         "battery": 100,
-        "temperature": 18.18,
-        "humidity": 88.25,
-        "pressure": 993.6,
+        "temperature": 18.22,
+        "humidity": 87.63,
+        "pressure": 995.5,
         "last_seen": "2024-08-24T23:52:17+03:00",
         "power_outage_count": 3348,
         "linkquality": 75
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 28.28,
+        "cpu_temperature": 28.22,
         "power": 0,
         "current": 0,
         "last_seen": "2024-08-25T00:00:50+03:00",
@@ -40,11 +40,11 @@
     "0x00158d00048893ac": {
         "voltage": 2955,
         "battery": 70,
-        "temperature": 22.9,
-        "humidity": 69.82,
-        "pressure": 994.2,
+        "temperature": 23.34,
+        "humidity": 68.13,
+        "pressure": 996,
         "last_seen": "2024-08-24T23:19:34+03:00",
-        "power_outage_count": 41490,
+        "power_outage_count": 41502,
         "linkquality": 72
     },
     "0x847127fffe04dc4d": {
@@ -196,9 +196,9 @@
         "voltage": 2975,
         "battery": 83,
         "power_outage_count": 6,
-        "temperature": 22.64,
-        "humidity": 68.27,
-        "pressure": 995.3,
+        "temperature": 22.66,
+        "humidity": 68.07,
+        "pressure": 997.1,
         "last_seen": "2024-08-24T23:39:13+03:00",
         "linkquality": 57
     },
@@ -209,7 +209,7 @@
         "energy": 143.6,
         "power": 0,
         "current": 0,
-        "voltage": 235,
+        "voltage": 234,
         "last_seen": "2024-08-25T00:01:10+03:00",
         "linkquality": 72
     }
