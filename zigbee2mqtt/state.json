@@ -22,16 +22,16 @@
     "0x00158d00048681f7": {
         "voltage": 3015,
         "battery": 100,
-        "temperature": 15,
-        "humidity": 85.87,
-        "pressure": 1000.1,
+        "temperature": 14.52,
+        "humidity": 86.88,
+        "pressure": 1000.3,
         "last_seen": "2024-08-24T23:52:17+03:00",
         "power_outage_count": 3348,
         "linkquality": 75
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 26.5,
+        "cpu_temperature": 26.05,
         "power": 0,
         "current": 0,
         "last_seen": "2024-08-25T00:00:50+03:00",
@@ -50,7 +50,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 22,
+        "local_temperature": 21.5,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -136,7 +136,7 @@
         "max_temperature_limit": 28,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 22,
+        "local_temperature": 21.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -196,8 +196,8 @@
         "voltage": 2975,
         "battery": 83,
         "power_outage_count": 6,
-        "temperature": 20.9,
-        "humidity": 64.92,
+        "temperature": 20.42,
+        "humidity": 65.44,
         "pressure": 1001.9,
         "last_seen": "2024-08-24T23:39:13+03:00",
         "linkquality": 57
@@ -209,7 +209,7 @@
         "energy": 143.6,
         "power": 0,
         "current": 0,
-        "voltage": 234,
+        "voltage": 236,
         "last_seen": "2024-08-25T00:01:10+03:00",
         "linkquality": 72
     }
