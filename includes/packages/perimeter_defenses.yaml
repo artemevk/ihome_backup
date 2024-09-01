@@ -42,6 +42,7 @@ perimeter_defenses:
                 - action: "SILENCE"
                   title: "Silence Alarm"
                   icon: "sfsymbols:bell.slash"
+        - delay: 00:00:02
         # Сохранение фото
         - service: camera.snapshot
           target:
