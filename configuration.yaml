@@ -45,6 +45,12 @@ recorder: !include includes/recorder.yaml
 sensor: !include_dir_merge_list includes/sensor
 # timer: !include includes/timer.yaml
 # yeelight: !include includes/yeelight.yaml
+template: !include includes/template.yaml
+
+lovelace:
+  resources:
+    - url: /local/simple-thermostat.js?v=1
+      type: module
 
 command_line:
   - sensor:

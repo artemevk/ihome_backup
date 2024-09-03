@@ -1,0 +1,9 @@
+binary_sensor:
+  - name: antifrost_mode #"Режим антизамерзания"
+    state: >
+      {{ max([state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature'),
+      state_attr('climate.1st_floor_bedroom_thermostat', 'temperature'),
+      state_attr('climate.open_kitchen_heater_thermostat', 'temperature'),
+      state_attr('climate.open_kitchen_thermostat', 'temperature'),
+      state_attr('climate.kids_room_heater_thermostat', 'temperature')]) == 5
+      }}

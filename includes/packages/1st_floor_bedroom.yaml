@@ -1,54 +1,53 @@
 1st_floor_bedroom:
   sensor:
-  - platform: template
-    sensors:
+    - platform: template
+      sensors:
+        1st_floor_bedroom_temperature:
+          unit_of_measurement: "°C"
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }}"
 
-      1st_floor_bedroom_temperature:
-        unit_of_measurement: "°C"
-        value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }}"
+        1st_floor_bedroom_temperature_corrected:
+          unit_of_measurement: "°C"
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') + 1 }}"
 
-      1st_floor_bedroom_temperature_corrected:
-        unit_of_measurement: "°C"
-        value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') + 1 }}"
+        1st_floor_bedroom_setpoint:
+          unit_of_measurement: "°C"
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }}"
 
-      1st_floor_bedroom_setpoint:
-        unit_of_measurement: "°C"
-        value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }}"
+        1st_floor_bedroom_heater_setpoint:
+          unit_of_measurement: "°C"
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
 
-      1st_floor_bedroom_heater_setpoint:
-        unit_of_measurement: "°C"
-        value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
-
-      1st_floor_bedroom_heater_heat:
-        value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}"
+        1st_floor_bedroom_heater_heat:
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}"
 
   climate:
-  - platform: generic_thermostat
-    name: 1st_floor_bedroom_heater_thermostat
-    heater: switch.1st_floor_bedroom_heater_l2
-    target_sensor: sensor.1st_floor_bedroom_temperature
-    min_temp: 5
-    max_temp: 30
-    target_temp_step: 1
-    precision: 0.5
-    cold_tolerance: 1
-    hot_tolerance: 0
-    initial_hvac_mode: "heat"
+    - platform: generic_thermostat
+      name: 1st_floor_bedroom_heater_thermostat
+      heater: switch.1st_floor_bedroom_heater_l2
+      target_sensor: sensor.1st_floor_bedroom_temperature
+      min_temp: 5
+      max_temp: 30
+      target_temp_step: 1
+      precision: 0.5
+      cold_tolerance: 1.5
+      hot_tolerance: 0
+      initial_hvac_mode: "heat"
 
-#   script:
-    # 1st_floor_bedroom_climate_report:
-    #   alias: Отчет о климате в спальне первого этажа
-    #   sequence:
-    #     - service: notify.tlg_user1_id
-    #       data:
-    #         message: |
-    #           {{"\U0001F6CF"}} Спальня на первом этаже.
-    #           {{"\U0001F321"}} Температура - {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} C
-    #           {{"\U0001F4A1"}} Конвектор - {{ states('switch.1st_floor_bedroom_heater_l2') }}
-    #           {{"\U0001F525"}} Теплые полы - {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
+  #   script:
+  # 1st_floor_bedroom_climate_report:
+  #   alias: Отчет о климате в спальне первого этажа
+  #   sequence:
+  #     - service: notify.tlg_user1_id
+  #       data:
+  #         message: |
+  #           {{"\U0001F6CF"}} Спальня на первом этаже.
+  #           {{"\U0001F321"}} Температура - {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} C
+  #           {{"\U0001F4A1"}} Конвектор - {{ states('switch.1st_floor_bedroom_heater_l2') }}
+  #           {{"\U0001F525"}} Теплые полы - {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
 
   automation:
-    - alias: '1st_floor_bedroom_heater_thermostat Set Temperature'
+    - alias: "1st_floor_bedroom_heater_thermostat Set Temperature"
       trigger:
         - platform: state
           entity_id: sensor.1st_floor_bedroom_setpoint
@@ -59,7 +58,7 @@
           data:
             temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }}"
 
-    - alias: '1st_floor_bedroom_thermostat Set Temperature'
+    - alias: "1st_floor_bedroom_thermostat Set Temperature"
       trigger:
         - platform: state
           entity_id: sensor.1st_floor_bedroom_heater_setpoint
@@ -69,7 +68,6 @@
             entity_id: climate.1st_floor_bedroom_thermostat
           data:
             temperature: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
-
 
     # - alias: '1st_floor_bedroom_thermostat Set Temperature'
     #   trigger:

@@ -55,9 +55,6 @@
           {% endif %}
       icon_template: mdi:clock
 
-# Это приведет к неисправностям в версии 2022.12.0. Пожалуйста, устраните эту проблему перед обновлением.
-#   - platform: uptime
-#     name: online
 
 - platform: template
   sensors:
