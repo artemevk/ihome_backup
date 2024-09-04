@@ -239,6 +239,7 @@ telegramm:
       trigger:
         - platform: state # при потере объектов
           entity_id: sensor.unavailable_objects
+          for: "00:03:00"
       condition:
         condition: and
         conditions:
@@ -249,7 +250,7 @@ telegramm:
           data:
             message: |
               {{"\U0000203C"}} Обнаружена новая неисправность
-              "{{ states('sensor.msg_report') }}"
+              {{ states('sensor.msg_report') }}
             data:
               inline_keyboard:
                 - "Главное меню:/mm"

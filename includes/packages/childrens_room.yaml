@@ -8,4 +8,6 @@ kids_room:
     max_temp: 30
     target_temp_step: 1
     precision: 0.1
-    initial_hvac_mode: "heat"
+    # initial_hvac_mode: "heat"
+    keep_alive:
+        minutes: 3

@@ -32,7 +32,9 @@ open_kitchen:
       precision: 0.5
       cold_tolerance: 1.5
       hot_tolerance: 0
-      initial_hvac_mode: "heat"
+      # initial_hvac_mode: "heat"
+      keep_alive:
+        minutes: 3
 
   automation:
     - alias: "open_kitchen_heater_thermostat Set Temperature"
