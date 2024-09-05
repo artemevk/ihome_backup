@@ -4,14 +4,14 @@
         "energy": 170.21,
         "power": 0,
         "current": 0,
-        "voltage": 237,
+        "voltage": 238,
         "power_outage_memory": "restore",
         "last_seen": "2024-09-03T23:38:00+03:00",
         "indicator_mode": "off/on",
         "linkquality": 42
     },
     "0x5c0272fffecf64fd": {
-        "battery": 64,
+        "battery": 63,
         "voltage": 1900,
         "occupancy": false,
         "tamper": false,
@@ -22,16 +22,16 @@
     "0x00158d00048681f7": {
         "voltage": 3005,
         "battery": 100,
-        "temperature": 12.71,
-        "humidity": 78.45,
-        "pressure": 1004.2,
+        "temperature": 10.93,
+        "humidity": 85.46,
+        "pressure": 1005.8,
         "last_seen": "2024-09-03T23:24:33+03:00",
         "power_outage_count": 3348,
         "linkquality": 96
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 25.44,
+        "cpu_temperature": 23.78,
         "power": 0,
         "current": 0,
         "last_seen": "2024-09-03T23:38:13+03:00",
@@ -50,7 +50,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 21,
+        "local_temperature": 19,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -109,13 +109,13 @@
         "power_on_behavior": "previous"
     },
     "0x00158d0006baa93b": {
-        "voltage": 3055,
+        "voltage": 3045,
         "battery": 100,
         "illuminance": 8,
         "illuminance_lux": 8,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 26,
+        "device_temperature": 24,
         "last_seen": "2024-09-03T22:45:09+03:00",
         "power_outage_count": 22,
         "linkquality": 51
@@ -196,9 +196,9 @@
         "voltage": 2975,
         "battery": 83,
         "power_outage_count": 6,
-        "temperature": 19.7,
-        "humidity": 63.34,
-        "pressure": 1006.1,
+        "temperature": 17.85,
+        "humidity": 62.35,
+        "pressure": 1007.6,
         "last_seen": "2024-09-03T23:10:38+03:00",
         "linkquality": 51
     },
