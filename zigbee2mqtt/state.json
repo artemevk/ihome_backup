@@ -4,7 +4,7 @@
         "energy": 170.21,
         "power": 0,
         "current": 0,
-        "voltage": 238,
+        "voltage": 239,
         "power_outage_memory": "restore",
         "last_seen": "2024-09-03T23:38:00+03:00",
         "indicator_mode": "off/on",
@@ -22,16 +22,16 @@
     "0x00158d00048681f7": {
         "voltage": 3005,
         "battery": 100,
-        "temperature": 10.93,
-        "humidity": 85.46,
-        "pressure": 1005.8,
+        "temperature": 11.44,
+        "humidity": 85.18,
+        "pressure": 1005.3,
         "last_seen": "2024-09-03T23:24:33+03:00",
         "power_outage_count": 3348,
         "linkquality": 96
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 23.78,
+        "cpu_temperature": 23,
         "power": 0,
         "current": 0,
         "last_seen": "2024-09-03T23:38:13+03:00",
@@ -50,7 +50,7 @@
     "0x847127fffe04dc4d": {
         "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 19,
+        "local_temperature": 18.5,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -111,11 +111,11 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 8,
-        "illuminance_lux": 8,
+        "illuminance": 7,
+        "illuminance_lux": 7,
         "temperature": 24,
         "occupancy": false,
-        "device_temperature": 24,
+        "device_temperature": 23,
         "last_seen": "2024-09-03T22:45:09+03:00",
         "power_outage_count": 22,
         "linkquality": 51
@@ -196,9 +196,9 @@
         "voltage": 2975,
         "battery": 83,
         "power_outage_count": 6,
-        "temperature": 17.85,
-        "humidity": 62.35,
-        "pressure": 1007.6,
+        "temperature": 17.18,
+        "humidity": 62.74,
+        "pressure": 1007,
         "last_seen": "2024-09-03T23:10:38+03:00",
         "linkquality": 51
     },
@@ -209,7 +209,7 @@
         "energy": 147.34,
         "power": 0,
         "current": 0,
-        "voltage": 237,
+        "voltage": 238,
         "last_seen": "2024-09-03T23:38:14+03:00",
         "linkquality": 72
     }
