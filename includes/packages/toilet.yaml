@@ -1,0 +1,46 @@
+# toilet_climate:
+
+#   climate:
+#   - platform: generic_thermostat
+#     name: toilet_heater_thermostat
+#     heater: switch.toilet_heater
+#     target_sensor: sensor.toilet_climate_temperature
+#     min_temp: 5
+#     max_temp: 30
+#     target_temp_step: 0.5
+#     precision: 0.5
+#     initial_hvac_mode: "heat"
+#     keep_alive:
+#         minutes: 3
+
+#   script:
+#     toilet_climate_report:
+#       alias: Отчет о климате в туалете
+#       sequence:
+#         - service: notify.tlg_user1_id
+#           data:
+#             message: |
+#               {{"\U0001F6BD"}} Климат в туалете. Отчет за {{ states('sensor.time_date') }}
+
+#               {{"\U0001F321"}} Температура - {{ states('sensor.toilet_climate_temperature') }} C
+#               {{"\U0001F4A7"}} Влажность - {{ states('sensor.toilet_climate_humidity') }} %
+#               {{"\U0001F4AA"}} Давление - {{ states('sensor.toilet_climate_pressure') }} kPa
+
+#               {{"\U0001F4A1"}} Состояние конвектора - {{ states('switch.toilet_heater') }}
+
+#               {{"\U0001F525"}} Состояние термостата - {{ states('climate.toilet_heater_thermostat') }}
+
+#   automation:
+#     - id: Запрос на отчет о климате в туалете
+#       alias: send_toilet_climate_report
+#       initial_state: true
+#       trigger:
+#         - platform: event
+#           event_type: telegram_command
+#           event_data:
+#             command: '/toilet_climate_report'
+
+#       action:
+#         - service: script.turn_on
+#           entity_id:
+#             - script.toilet_climate_report

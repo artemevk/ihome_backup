@@ -1,0 +1,42 @@
+'0x5c0272fffecf64fd':
+  friendly_name: porch_motion_protect
+'0x588e81fffed39429':
+  friendly_name: water_heater
+'0x00124b001ed0f19e':
+  friendly_name: open_kitchen_heater
+'0x00158d00048893ac':
+  friendly_name: toilet_climate
+'0x847127fffe1dac9c':
+  friendly_name: open_kitchen_thermostat
+  debounce: 1
+  optimistic: true
+'0x847127fffe04dc4d':
+  friendly_name: 1st_floor_bedroom_thermostat
+  debounce: 1
+  optimistic: true
+'0x842e14fffe00c500':
+  friendly_name: porch_light
+'0x00158d0006baa93b':
+  friendly_name: open_kitchen_motion_sensor
+'0x00158d00057f6f0b':
+  friendly_name: entrance_door
+'0x00124b001f2b5b39':
+  friendly_name: 1st_floor_bedroom_heater
+'0x00158d000485afd2':
+  friendly_name: childrens_room_climate
+'0x588e81fffed39305':
+  friendly_name: childrens_room_heater
+'0x385cfbfffe850809':
+  friendly_name: courtyard_light
+'0x00158d000710ffc4':
+  friendly_name: toilet_water_leak
+'0x00158d00047def18':
+  friendly_name: second_floor_climate
+'0xf84477fffe4cb612':
+  friendly_name: A
+'0xf84477fffe4ecff6':
+  friendly_name: B
+'0x7cc6b6fffea5501c':
+  friendly_name: C
+'0x54ef441000b8d412':
+  friendly_name: gate

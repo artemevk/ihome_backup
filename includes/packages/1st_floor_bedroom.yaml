@@ -1,0 +1,126 @@
+1st_floor_bedroom:
+  sensor:
+    - platform: template
+      sensors:
+        1st_floor_bedroom_temperature:
+          unit_of_measurement: "°C"
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }}"
+
+        1st_floor_bedroom_setpoint:
+          unit_of_measurement: "°C"
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') }}"
+
+        1st_floor_bedroom_heater_setpoint:
+          unit_of_measurement: "°C"
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
+
+        1st_floor_bedroom_heater_heat:
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' }}"
+
+  climate:
+    - platform: generic_thermostat
+      name: 1st_floor_bedroom_heater_thermostat
+      heater: switch.1st_floor_bedroom_heater_l2
+      target_sensor: sensor.1st_floor_bedroom_temperature
+      min_temp: 5
+      max_temp: 30
+      target_temp_step: 1
+      precision: 0.5
+      cold_tolerance: 1.5
+      hot_tolerance: 0
+      # initial_hvac_mode: "heat"
+      keep_alive:
+        minutes: 3
+
+  #   script:
+  # 1st_floor_bedroom_climate_report:
+  #   alias: Отчет о климате в спальне первого этажа
+  #   sequence:
+  #     - service: notify.tlg_user1_id
+  #       data:
+  #         message: |
+  #           {{"\U0001F6CF"}} Спальня на первом этаже.
+  #           {{"\U0001F321"}} Температура - {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} C
+  #           {{"\U0001F4A1"}} Конвектор - {{ states('switch.1st_floor_bedroom_heater_l2') }}
+  #           {{"\U0001F525"}} Теплые полы - {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
+
+  automation:
+    - alias: "1st_floor_bedroom_heater_thermostat Set Temperature"
+      trigger:
+        - platform: state
+          entity_id: sensor.1st_floor_bedroom_setpoint
+      action:
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.1st_floor_bedroom_heater_thermostat
+          data:
+            temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') }}"
+
+    - alias: "1st_floor_bedroom_thermostat Set Temperature"
+      trigger:
+        - platform: state
+          entity_id: sensor.1st_floor_bedroom_heater_setpoint
+      action:
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.1st_floor_bedroom_thermostat
+          data:
+            temperature: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
+
+    # - alias: '1st_floor_bedroom_thermostat Set Temperature'
+    #   trigger:
+    #     - platform: state
+    #       entity_id: sensor.basement_target_temp_high
+    #     - platform: state
+    #       entity_id: sensor.basement_target_temp_low
+    #   action:
+    #     - service: climate.set_temperature
+    #       entity_id: climate.thermostat
+    #       data_template:
+    #         target_temp_high: "{{ states.climate['basement_thermostat'].attributes.target_temp_high }}"
+    #         target_temp_low: "{{ states.climate['basement_thermostat'].attributes.target_temp_low }}"
+
+    # - id: Запрос на отчет о климате в спальне первого этажа
+    #   alias: send_1st_floor_bedroom_climate_report
+    #   initial_state: true
+    #   trigger:
+    #     - platform: event
+    #       event_type: telegram_command
+    #       event_data:
+    #         command: '/1st_floor_bedroom_climate_report'
+    #   action:
+    #     - service: script.turn_on
+    #       entity_id:
+    #         - script.1st_floor_bedroom_climate_report
+
+    # - alias: "sync_1st_floor_bedroom_heater"
+    #   trigger:
+    #     - platform: time_pattern
+    #       minutes: "/30"
+    #   action:
+    #     service: >
+    #       {% if is_state_attr('climate.1st_floor_bedroom_thermostat', 'heat', 'ON') %}
+    #         switch.turn_on
+    #       {% else %}
+    #         switch.turn_off
+    #       {% endif %}
+    #     target:
+    #       entity_id: switch.1st_floor_bedroom_heater_l2
+
+    # - alias: "sync_1st_floor_bedroom_heater_turn_on"
+    #   trigger:
+    #     - platform: template
+    #       value_template: "{% if is_state_attr('climate.1st_floor_bedroom_thermostat', 'heat', 'ON') %}true{% endif %}"
+    #   action:
+    #     service: switch.turn_on
+    #     target:
+    #       entity_id: switch.1st_floor_bedroom_heater_l2
+
+    # - alias: "sync_1st_floor_bedroom_heater_turn_off"
+    #   trigger:
+    #     - platform: template
+    #       value_template: "{% if is_state_attr('climate.1st_floor_bedroom_thermostat', 'heat', 'OFF') %}true{% endif %}"
+    #   action:
+    #     service: switch.turn_off
+    #     target:
+    #       entity_id: switch.1st_floor_bedroom_heater_l2

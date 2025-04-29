@@ -1,0 +1,37 @@
+gate:
+  script:
+    gate_step_mode:
+      sequence:
+        - action: switch.toggle
+          metadata: {}
+          data: {}
+          target:
+            entity_id: switch.gate_l1
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 2
+            milliseconds: 0
+        # - action: switch.turn_off
+        #   metadata: {}
+        #   data: {}
+        #   target:
+        #     entity_id: switch.gate_l1
+
+    gate_pedestrian_crossing:
+      sequence:
+        - action: switch.toggle
+          metadata: {}
+          data: {}
+          target:
+            entity_id: switch.gate_l2
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 2
+            milliseconds: 0
+        # - action: switch.turn_off
+        #   metadata: {}
+        #   data: {}
+        #   target:
+        #     entity_id: switch.gate_l2

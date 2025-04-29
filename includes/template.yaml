@@ -1,0 +1,61 @@
+binary_sensor:
+  - name: antifrost_mode #"Режим антизамерзания"
+    state: >
+      {{ max([state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature'),
+      state_attr('climate.1st_floor_bedroom_thermostat', 'temperature'),
+      state_attr('climate.open_kitchen_heater_thermostat', 'temperature'),
+      state_attr('climate.open_kitchen_thermostat', 'temperature'),
+      state_attr('climate.childrens_room_heater_thermostat', 'temperature')]) == 5
+      }}
+
+  - name: cameras_motion
+    device_class: motion
+    state: >
+      {{ is_state('binary_sensor.parking_camera_cell_motion_detection', 'on')
+         or is_state('binary_sensor.porch_camera_cell_motion_detection', 'on')
+         or is_state('binary_sensor.courtyard_camera_cell_motion_detection', 'on') }}
+
+sensor:
+  - name: last_google_backup
+    state: "{{ as_timestamp(state_attr('sensor.backup_state', 'last_backup')) | timestamp_custom('%d.%m.%Y %H:%M:%S %Z') }}"
+    icon: >
+      {% if is_state("binary_sensor.backups_stale", "off") %}
+        mdi:calendar-check-outline
+      {% else %}
+        mdi:calendar-alert
+      {% endif %}
+    attributes:
+      icon_color: >
+        {{'green' if states('binary_sensor.backups_stale') == 'off' else 'red'}}
+
+  - name: snapshots_in_google_drive
+    state: "{{ state_attr('sensor.backup_state', 'backups_in_google_drive') }}"
+    icon: mdi:folder-google-drive
+
+  - name: snapshots_in_hassio
+    state: "{{ state_attr('sensor.backup_state', 'backups_in_home_assistant') }}"
+    icon: mdi:home-assistant
+
+  - name: outdoor_temperature
+    state: "{{ state_attr('weather.yandex_weather', 'temperature') }}"
+    icon: mdi:temperature
+    state_class: measurement
+    unit_of_measurement: "°C"
+    device_class: temperature
+
+  - name: outdoor_humidity
+    state: "{{ state_attr('weather.yandex_weather', 'humidity') }}"
+    icon: mdi:humidity
+    state_class: measurement
+    unit_of_measurement: "%"
+    device_class: humidity
+
+  - name: total_power
+    unit_of_measurement: "Вт"
+    device_class: power
+    state: >
+      {{ states('sensor.a_power') | int +
+      states('sensor.b_power') | int +
+      states('sensor.c_power') | int
+      }}
+    icon: mdi:flash

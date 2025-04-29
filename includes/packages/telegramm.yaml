@@ -1,0 +1,357 @@
+## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
+telegramm:
+  timer:
+    iflat_offline:
+      duration: "00:03:00"
+      icon: mdi:lan-disconnect
+
+  sensor:
+    - platform: template
+      sensors:
+        unavailable_now_light:
+          friendly_name: "Недоступно светильников"
+          value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter
+
+        unavailable_now_switch:
+          friendly_name: "Недоступно реле"
+          value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter
+
+        unavailable_now_sensor:
+          friendly_name: "Недоступно сенсоров"
+          value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter
+
+        unavailable_now_binary_sensor:
+          friendly_name: "Недоступно бинарных сенсоров"
+          value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon_template: mdi:counter
+
+        unavailable_objects:
+          friendly_name: "Недоступно объектов"
+          value_template: >
+            {{ int(states('sensor.unavailable_now_light')) +
+               int(states('sensor.unavailable_now_switch')) +
+               int(states('sensor.unavailable_now_sensor')) +
+               int(states('sensor.unavailable_now_binary_sensor')) }}
+          icon_template: >
+            {% if int(states('sensor.unavailable_now_light')) +
+               int(states('sensor.unavailable_now_switch')) +
+               int(states('sensor.unavailable_now_sensor')) +
+               int(states('sensor.unavailable_now_binary_sensor')) == 0 %}
+              mdi:thumb-up
+            {% else %}
+              mdi:thumb-down
+            {% endif %}
+
+        msg_open_kitchen_climate:
+          value_template: |
+            {{"\U0001F6CB"}} Кухня-гостиная.
+            {{"\U0001F321"}} Температура: {{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') }} °C
+            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.open_kitchen_thermostat', 'current_heating_setpoint') }} °C
+            {{"\U0001F4A1"}} Конвектор: {{ states('switch.open_kitchen_heater') }}
+
+        msg_toilet_climate:
+          value_template: |
+            {{"\U0001F6BD"}} Туалет.
+            {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
+
+        msg_childrens_room_climate:
+          value_template: |
+            {{"\U0001F680"}} Детская комната.
+            {{"\U0001F321"}} Температура: {{ states('sensor.childrens_room_climate_temperature') }} °C
+            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.childrens_room_heater_thermostat', 'temperature') }} °C
+            {{"\U0001F4A1"}} Конвектор: {{ states('switch.childrens_room_heater') }}
+
+        msg_1st_floor_bedroom_climate:
+          value_template: |
+            {{"\U0001F6CF"}} Спальня на первом этаже.
+            {{"\U0001F321"}} Температура: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} °C
+            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }} °C
+            {{"\U0001F4A1"}} Конвектор: {{ states('switch.1st_floor_bedroom_heater_l2') }}
+            {{"\U0001F525"}} Теплые полы: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
+
+        msg_report:
+          value_template: |
+            {{"\U0001F4CB"}} Состояние системы:
+            {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
+            {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
+            {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
+            {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
+
+        batteries_states_msg:
+          value_template: |
+            {{"\U0001F50B"}}Батарейки:{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}{% set value = states(entity_id, with_unit=True) %}
+            {{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
+
+  input_number:
+    test_number:
+      name: test_number
+      initial: 0
+      min: -20
+      max: 35
+      step: 1
+
+  script:
+    prepare_the_house:
+      sequence:
+        - service: switch.turn_on
+          target:
+            entity_id: switch.water_heater
+        # - service: climate.turn_on
+        #   target:
+        #     entity_id: all
+        - service: climate.set_temperature
+          target:
+            entity_id: all
+          data:
+            temperature: 24
+
+    antifrost_mode:
+      sequence:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.water_heater
+        # - service: climate.turn_on
+        #   target:
+        #     entity_id: all
+        - service: climate.set_temperature
+          target:
+            entity_id: all
+          data:
+            temperature: 5
+
+  automation:
+    - alias: "Telegram bot main menu"
+      trigger:
+        - platform: event
+          event_type: telegram_callback # вызов с клавиатуры
+          event_data:
+            command: "/start"
+        - platform: event
+          event_type: telegram_command # вызов из меню
+          event_data:
+            command: "/start"
+        - platform: event
+          event_type: telegram_callback # вызов с клавиатуры
+          event_data:
+            command: "/mm"
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: "Добро пожаловать в главное меню. Выберите действие:"
+            inline_keyboard:
+              - "Отчет о системе:/report, Батарейки:/battaries_states"
+              - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
+              - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
+
+    - id: Отчет при запуске системы
+      alias: start_message
+      initial_state: true
+      trigger:
+        - platform: homeassistant
+          event: start
+      action:
+        - service: notify.tlg_user1_id
+          data:
+            title: "#system"
+            message: |
+              {{"\U0001F5A5"}} Зафиксирован запуск. Отчет о состоянии будет через 1 минуту.
+        # Задержка и отправка полного отчета через минуту
+        - delay: 00:01:00
+        - service: notify.tlg_user1_id
+          data:
+            title: "#system"
+            message: |
+              {{ states('sensor.msg_report') }}
+
+              {{ states('sensor.batteries_states_msg') }}
+        # Задержка 2 с
+        - delay: 00:00:01
+        - service: notify.tlg_user1_id
+          data:
+            # title: "#system"
+            message: "Добро пожаловать в главное меню. Выберите действие:"
+            data:
+              inline_keyboard:
+                - "Отчет о системе:/report, Батарейки:/battaries_states"
+                - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
+                - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
+
+    # Отчет о системе по запросу
+    - id: Отчет о системе по запросу
+      alias: send_report
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/report"
+        - platform: event
+          event_type: telegram_command # вызов из меню
+          event_data:
+            command: "/report"
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#system"
+            message: |
+              {{ states('sensor.msg_report') }}
+
+              {{ states('sensor.batteries_states_msg') }}
+            inline_keyboard:
+              - "Главное меню:/mm"
+
+    - id: Отправить отчет о состоянии батареек
+      alias: send_battaries_states_msg
+      initial_state: true
+      trigger:
+        - platform: event
+          event_type: telegram_callback # встроенная клавиатура telegramm
+          event_data:
+            command: "/battaries_states"
+        - platform: numeric_state
+          entity_id: sensor.min_batteries_state
+          below: 40
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#system"
+            message: |
+              {{ states('sensor.batteries_states_msg') }}
+              ---------------------
+              entrance door - CR1632
+              kitchen living room motion - CR2032
+              childrens room climate - CR2032
+              porch motion protect - 3xAAA
+              toilet climate - CR2032
+              toilet water leak - CR2032
+            inline_keyboard:
+              - "Главное меню:/mm"
+
+    # Отчет при потере объектов
+    - id: Отчет при потере объектов
+      alias: send_report_when_objects_are_lost
+      initial_state: true
+      trigger:
+        - platform: state # при потере объектов
+          entity_id: sensor.unavailable_objects
+          for: "00:03:00"
+      condition:
+        condition: and
+        conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.state > trigger.from_state.state }}"
+      action:
+        - service: notify.tlg_user1_id
+          data:
+            message: |
+              {{"\U0000203C"}} Обнаружена новая неисправность
+              {{ states('sensor.msg_report') }}
+            data:
+              inline_keyboard:
+                - "Главное меню:/mm"
+
+    # Погода в доме
+    - id: Погода в доме
+      alias: home_climate_report
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/home_climate_report"
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
+
+              {{ states('sensor.msg_open_kitchen_climate') }}
+
+              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+
+              {{ states('sensor.msg_childrens_room_climate')}}
+
+              {{ states('sensor.msg_toilet_climate')}}
+            inline_keyboard:
+              - "Главное меню:/mm"
+
+    # Подготовить дом
+    - id: Подготовить дом
+      alias: tlg_prepare_the_house
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/prepare_the_house"
+      action:
+        - service: script.turn_on
+          target:
+            entity_id:
+              - script.prepare_the_house
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U00002668"}} Команда принята.
+        - delay: 00:00:05
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U00002668"}} Дом подготавливается.
+
+              {{ states('sensor.msg_open_kitchen_climate') }}
+
+              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+
+              {{ states('sensor.msg_childrens_room_climate')}}
+
+              {{ states('sensor.msg_toilet_climate')}}
+            inline_keyboard:
+              - "Главное меню:/mm"
+
+    # Дом в режим антизамерзания
+    - id: Дом в режим антизамерзания
+      alias: tlg_antifrost_mode
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/antifrost_mode"
+      action:
+        - service: script.turn_on
+          target:
+            entity_id:
+              - script.antifrost_mode
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U00002744"}} Команда принята.
+        - delay: 00:00:05
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U00002744"}} Дом переведен в режим антизамерзания.
+
+              {{ states('sensor.msg_open_kitchen_climate') }}
+
+              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+
+              {{ states('sensor.msg_childrens_room_climate')}}
+
+              {{ states('sensor.msg_toilet_climate')}}
+            inline_keyboard:
+              - "Главное меню:/mm"

@@ -1,0 +1,28 @@
+#   - platform: command_line
+#     name: joke
+#     command: python3 -c "import requests; print(requests.get('http://rzhunemogu.ru/RandJSON.aspx?CType=11').json()['content'])"
+
+#   - platform: rest
+#     name: temperature_goncharova
+#     unit_of_measurement: "°C"
+#     resource: http://artemev.ddns.net/api/zigbee?dev=0x00158D00047DEF18&action=getStateValue&name=temperature
+
+#   - platform: rest
+#     name: humidity_goncharova
+#     unit_of_measurement: "%"
+#     resource: http://artemev.ddns.net/api/zigbee?dev=0x00158D00047DEF18&action=getStateValue&name=humidity
+    
+#   - platform: rest
+#     name: pressure_goncharova
+#     unit_of_measurement: "мм рт. ст."
+#     resource: http://artemev.ddns.net/api/zigbee?dev=0x00158D00047DEF18&action=getStateValue&name=pressure
+
+#   - platform: rest
+#     name: sensor_battery_goncharova
+#     unit_of_measurement: "%"
+#     resource: http://artemev.ddns.net/api/zigbee?dev=0x00158D00047DEF18&action=getStateValue&name=battery
+
+  - platform: template
+    sensors:
+      internet_is_available:
+        value_template: "{{ is_state('binary_sensor.google_is_available', 'on') or is_state('binary_sensor.yandex_is_available', 'on') }}"

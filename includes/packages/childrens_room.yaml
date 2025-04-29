@@ -1,0 +1,13 @@
+childrens_room:
+  climate:
+  - platform: generic_thermostat
+    name: childrens_room_heater_thermostat
+    heater: switch.childrens_room_heater
+    target_sensor: sensor.childrens_room_climate_temperature
+    min_temp: 5
+    max_temp: 30
+    target_temp_step: 1
+    precision: 0.1
+    # initial_hvac_mode: "heat"
+    keep_alive:
+        minutes: 3

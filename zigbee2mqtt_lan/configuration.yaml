@@ -1,0 +1,49 @@
+homeassistant:
+  enabled: true
+advanced:
+  network_key:
+    - 128
+    - 13
+    - 38
+    - 1
+    - 76
+    - 101
+    - 76
+    - 164
+    - 141
+    - 123
+    - 89
+    - 221
+    - 32
+    - 128
+    - 63
+    - 102
+  pan_id: 58006
+  ext_pan_id:
+    - 250
+    - 249
+    - 32
+    - 167
+    - 162
+    - 229
+    - 198
+    - 134
+mqtt:
+  base_topic: zigbee2mqtt_lan
+  server: mqtt://core-mosquitto:1883
+  user: addons
+  password: eich9ia5ahvae7rahmee1AewavushohChohc4theet6Ienaiphei1Oim8iedooxu
+serial:
+  port: tcp://192.168.1.41:6638
+  adapter: zstack
+  baudrate: 115200
+frontend:
+  enabled: true
+  port: 8099
+device_options: {}
+version: 4
+devices:
+  '0xa4c138cd256aef56':
+    friendly_name: protherm
+  '0x00158d00048681f7':
+    friendly_name: bathhouse_climate

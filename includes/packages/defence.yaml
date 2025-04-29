@@ -1,0 +1,23 @@
+defence:
+  automation:
+    - id: "water leak"
+      alias: "water leak"
+      description: "water leak"
+      mode: single
+      triggers:
+        - trigger: state
+          entity_id:
+            - binary_sensor.toilet_water_leak
+          to: "on"
+      action:
+        - service: notify.mobile_app_artemevk
+          data:
+            title: "Протечка!"
+            message: "Обнаружена протечка!"
+            data:
+              url: "/lovelace/main"
+              push:
+                sound:
+                  name: "alarm.caf"
+                  critical: 1
+                  volume: 1.0

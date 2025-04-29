@@ -1,0 +1,13 @@
+bathhouse:
+  climate:
+  - platform: generic_thermostat
+    name: bathhouse_thermostat
+    heater: switch.protherm
+    target_sensor: sensor.bathhouse_climate_temperature
+    min_temp: 5
+    max_temp: 30
+    target_temp_step: 1
+    precision: 0.1
+    initial_hvac_mode: "heat"
+    keep_alive:
+        minutes: 3

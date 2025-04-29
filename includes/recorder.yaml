@@ -1,0 +1,28 @@
+purge_keep_days: 5
+db_url: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
+#   include:
+#     domains:
+#       - person
+#       - sensor
+#       - binary_sensor
+#       - switch
+#       - light
+#       - alarm_control_panel
+#       - input_text
+#       - input_boolean
+#     entities:
+# #Объем БД
+#       - sensor.maria_db_size
+exclude:
+  domains:
+    - camera
+  entity_globs:
+    - sensor.time*
+    - sensor.*_last_seen
+    - sensor.*_heater_action
+    - number.*_temperature_limit
+    - number.*_deadzone_temperature
+  entities:
+    - sensor.last_boot_custom
+    - sensor.uptime_custom
+    - sensor.online_custom

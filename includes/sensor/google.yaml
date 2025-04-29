@@ -1,0 +1,16 @@
+# - platform: template
+#   sensors:
+#     last_google_backup_train:
+#        friendly_name: 'Последний бэкап'
+#        value_template: "{{ as_timestamp(state_attr('sensor.backup_state', 'last_backup')) | timestamp_custom('%d.%m.%Y %H:%M:%S %Z') }}"
+#        icon_template: mdi:calendar-check-outline
+
+#     snapshots_in_google_drive_train:
+#        friendly_name: 'Снапшотов на Googe Drive'
+#        value_template: "{{ state_attr('sensor.backup_state', 'backups_in_google_drive') }}"
+#        icon_template: mdi:folder-google-drive
+       
+#     snapshots_in_hassio_train:
+#        friendly_name: 'Снапшотов в Наssio'
+#        value_template: "{{ state_attr('sensor.backup_state', 'backups_in_home_assistant') }}"
+#        icon_template: mdi:home-assistant

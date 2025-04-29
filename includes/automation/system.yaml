@@ -1,0 +1,86 @@
+- id: Сжатие базы
+  alias: 00_purge_everyday
+  initial_state: true
+  trigger:
+    - platform: time
+      at: "01:00:00"
+  action:
+    - service: recorder.purge
+      data:
+        keep_days: 5
+        repack: true
+
+- id: l1k3
+  alias: push_HA_configuration_to_GitHub_repo
+  initial_state: true
+  trigger:
+    # Everyday at 23:23:23 time
+    - platform: time
+      at: "23:23:23"
+  action:
+    - service: shell_command.push_to_github
+
+      # https://peyanski.com/automatic-home-assistant-backup-to-github/
+      # Чтобы сделать бэкап на Github нужно выполнить команды:
+      # 1. ls config
+      # 2. git remote set-url origin https://github.com/artemevk/country_house_backup.git
+      # 3. ./ha_gitpush.sh
+
+- id: start_offline_timer
+  alias: start_offline_timer
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.iflat_connection
+      to: "off"
+  action:
+    - service: timer.start
+      entity_id: timer.iflat_offline
+
+- id: iflat_disconnected
+  alias: iflat_disconnected
+  trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.iflat_offline
+  action:
+    - service: notify.tlg_user1_id
+      data:
+        title: "#system"
+        message: "Сервер iFlat не отвечает!"
+    - service: notify.mobile_app_artemevk
+      data:
+        message: "Сервер iFlat не отвечает!"
+
+- id: cancel_offline_timer
+  alias: cancel_offline_timer
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.iflat_connection
+      to: "on"
+  action:
+    - service: timer.cancel
+      entity_id: timer.iflat_offline
+
+- id: porch_timelapce
+  alias: porch_timelapce
+  initial_state: false
+  trigger:
+    - platform: time_pattern
+      minutes: "/15"
+  condition:
+    alias: "Time 9~18"
+    condition: time
+    # At least one of the following is required.
+    after: "9:00:00"
+    before: "18:00:00"
+  action:
+    - service: camera.snapshot
+      target:
+        entity_id: camera.courtyard_camera_mainstream
+      data:
+        filename: '/config/tmp/courtyard_camera_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'

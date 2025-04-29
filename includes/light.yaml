@@ -1,0 +1,21 @@
+- platform: switch
+  name: "porch"
+  entity_id: switch.porch_light
+
+- platform: switch
+  name: "courtyard"
+  entity_id: switch.courtyard_light
+
+- platform: group
+  name: "outdoor"
+  entities:
+    - light.porch
+    - light.courtyard
+
+- platform: group
+  name: "all"
+  entities:
+    - light.porch
+    - light.courtyard
+    - light.corridor_lamp_1
+    - light.corridor_lamp_2

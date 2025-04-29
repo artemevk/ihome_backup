@@ -1,0 +1,54 @@
+# 2nd_floor_bedroom:
+
+#   climate:
+#   - platform: generic_thermostat
+#     name: 2nd_floor_bedroom_heater_thermostat
+#     heater: switch.2nd_floor_bedroom_heater_relay_switch
+#     target_sensor: sensor.2nd_floor_bedroom_climate_temperature
+#     min_temp: 5
+#     max_temp: 30
+#     ac_mode: false
+#     # target_temp: 5
+#     cold_tolerance: 0.3
+#     hot_tolerance: 0
+#     min_cycle_duration:
+#       seconds: 5
+#     keep_alive:
+#       minutes: 3
+#     initial_hvac_mode: "heat"
+#     away_temp: 5
+#     precision: 0.1
+
+#   script:
+#     2nd_floor_bedroom_climate_report:
+#       alias: Отчет о климате в спальне второго этажа
+#       sequence:
+#         - service: notify.tlg_user1_id
+#           data:
+#             message: | 
+#               {{"\U0001F6CF"}} Климат в спальне второго этаже. Отчет за {{ states('sensor.time_date') }}
+              
+#               {{"\U0001F321"}} Температура - {{ states('sensor.2nd_floor_bedroom_climate_temperature') }} C
+#               {{"\U0001F4A7"}} Влажность - {{ states('sensor.2nd_floor_bedroom_climate_humidity') }} %
+#               {{"\U0001F4AA"}} Давление - {{ states('sensor.2nd_floor_bedroom_climate_pressure') }} kPa
+              
+#               {{"\U0001F4A1"}} Состояние конвектора - {{ states('switch.2nd_floor_bedroom_heater') }}
+#               {{"\U00003030"}} Потребляемый ток - {{ states('sensor.2nd_floor_bedroom_heater_relay_current') }} A
+#               {{"\U000026A1"}} Потребляемая мощность - {{ states('sensor.2nd_floor_bedroom_heater_relay_power') }} W
+              
+#               {{"\U0001F525"}} Состояние термостата - {{ states('climate.2nd_floor_bedroom_heater_thermostat') }}
+            
+#   automation:   
+#     - id: Запрос на отчет о климате в спальне второго этажа
+#       alias: send_2nd_floor_bedroom_climate_report
+#       initial_state: true
+#       trigger:
+#         - platform: event
+#           event_type: telegram_command
+#           event_data:
+#             command: '/2nd_floor_bedroom_climate_report'
+ 
+#       action:
+#         - service: script.turn_on
+#           entity_id: 
+#             - script.2nd_floor_bedroom_climate_report

@@ -1,0 +1,143 @@
+scene_light:
+  scene:
+    - name: off_light
+      entities:
+        light.corridor_lamp_1: off
+        light.corridor_lamp_2: off
+
+    - name: min
+      entities:
+        light.corridor_lamp_1:
+          state: "on"
+          brightness: 1
+          color_temp: 250
+        light.corridor_lamp_2:
+          state: "on"
+          brightness: 1
+          color_temp: 250
+
+    - name: half
+      entities:
+        light.corridor_lamp_1:
+          state: "on"
+          brightness: 125
+          color_temp: 250
+        light.corridor_lamp_2:
+          state: "on"
+          brightness: 125
+          color_temp: 250
+
+    - name: full
+      entities:
+        light.corridor_lamp_1:
+          state: "on"
+          brightness: 255
+          color_temp: 250
+        light.corridor_lamp_2:
+          state: "on"
+          brightness: 255
+          color_temp: 250
+
+    - name: warm
+      entities:
+        light.corridor_lamp_1:
+          state: "on"
+          brightness: 255
+          color_temp: 370
+        light.corridor_lamp_2:
+          state: "on"
+          brightness: 255
+          color_temp: 370
+
+    - name: cold
+      entities:
+        light.corridor_lamp_1:
+          state: "on"
+          brightness: 255
+          color_temp: 160
+        light.corridor_lamp_2:
+          state: "on"
+          brightness: 255
+          color_temp: 160
+
+  input_select:
+    scenes:
+      name: scene
+      options:
+        - off_light
+        - min
+        - half
+        - full
+        - warm
+        - cold
+      initial: full
+
+  automation:
+    - id: apply_scene
+      alias: apply_scene
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: input_select.scenes
+      action:
+        - service: scene.turn_on
+          data_template:
+            entity_id: scene.{{trigger.to_state.state}}
+            transition: 2
+
+    - id: switch_on_full_corridor_lamps
+      alias: "switch_on_full_corridor_lamps"
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.open_kitchen_motion_sensor
+          to: "on"
+        - platform: state
+          entity_id: binary_sensor.entrance_door_contact
+          to: "on"
+      action:
+        - service: scene.turn_on
+          target:
+            entity_id: scene.full
+
+    - id: switch_off_corridor_lamps
+      alias: "switch_off_corridor_lamps"
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: alarm_control_panel.home_alarm
+          to:
+            - "armed_away"
+        - platform: state
+          entity_id: binary_sensor.open_kitchen_motion_sensor
+          to: "off"
+          for:
+            minutes: 5
+        - platform: state
+          entity_id: light.corridor_lamp_1
+          to: "on"
+          for:
+            minutes: 30
+        - platform: state
+          entity_id: light.corridor_lamp_2
+          to: "on"
+          for:
+            minutes: 30
+      condition:
+        - condition: or # Lamp_1 or lamp_2 is on
+          conditions:
+            - condition: state
+              entity_id: light.corridor_lamp_1
+              state: "on"
+            - condition: state
+              entity_id: light.corridor_lamp_2
+              state: "on"
+        - condition: state
+          entity_id: binary_sensor.open_kitchen_motion_sensor
+          state: "off"
+          for:
+            minutes: 4
+      action:
+        - service: scene.turn_on
+          target:
+            entity_id: scene.off_light

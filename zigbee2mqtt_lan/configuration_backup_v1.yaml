@@ -1,0 +1,43 @@
+homeassistant: true
+advanced:
+  network_key:
+    - 128
+    - 13
+    - 38
+    - 1
+    - 76
+    - 101
+    - 76
+    - 164
+    - 141
+    - 123
+    - 89
+    - 221
+    - 32
+    - 128
+    - 63
+    - 102
+  pan_id: 58006
+  ext_pan_id:
+    - 250
+    - 249
+    - 32
+    - 167
+    - 162
+    - 229
+    - 198
+    - 134
+  homeassistant_legacy_entity_attributes: false
+  legacy_api: false
+  legacy_availability_payload: false
+mqtt:
+  base_topic: zigbee2mqtt_lan
+  server: tcp://192.168.0.66:6638
+  user: mqtt
+  password: mqtt
+serial:
+  port: /dev/ttyUSB0
+frontend:
+  port: 8099
+device_options:
+  legacy: false
