@@ -7,9 +7,9 @@
         "linkquality": 83
     },
     "0x00158d00048681f7": {
-        "temperature": 13.16,
-        "humidity": 63.37,
-        "pressure": 978.8,
+        "temperature": 12.63,
+        "humidity": 64.77,
+        "pressure": 978.1,
         "linkquality": 80,
         "voltage": 2955,
         "battery": 70,
