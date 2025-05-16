@@ -15,6 +15,14 @@ binary_sensor:
          or is_state('binary_sensor.porch_camera_cell_motion_detection', 'on')
          or is_state('binary_sensor.courtyard_camera_cell_motion_detection', 'on') }}
 
+  - name: outdoor_motion
+    device_class: motion
+    state: >
+      {{ is_state('binary_sensor.parking_camera_cell_motion_detection', 'on')
+         or is_state('binary_sensor.porch_camera_cell_motion_detection', 'on')
+         or is_state('binary_sensor.courtyard_camera_cell_motion_detection', 'on') 
+         or is_state('binary_sensor.porch_motion_protect_occupancy', 'on') }}
+
 sensor:
   - name: last_google_backup
     state: "{{ as_timestamp(state_attr('sensor.backup_state', 'last_backup')) | timestamp_custom('%d.%m.%Y %H:%M:%S %Z') }}"

@@ -1,8 +1,20 @@
 porch:
   input_boolean:
     outdoor_light_auto_mode:
-      #   initial: true
       icon: mdi:lightbulb-auto
+
+  input_number:
+    outdoor_light_limit_minutes:
+      min: 1
+      max: 20
+      initial: 8
+      step: 1
+      mode: slider
+      icon: mdi:timer
+
+  timer:
+    outdoor_light:
+      duration: "00:08:00"
 
   automation:
     - alias: "outdoor_light_auto_mode_reset"
@@ -34,10 +46,7 @@ porch:
       id: "switch_on_light_porch"
       triggers:
         - trigger: state
-          entity_id: binary_sensor.cameras_motion
-          to: "on"
-        - trigger: state
-          entity_id: binary_sensor.porch_motion_protect_occupancy
+          entity_id: binary_sensor.outdoor_motion
           to: "on"
         - trigger: template
           value_template: "{{ states('zone.home') | int > 0 }}"
@@ -51,47 +60,56 @@ porch:
         - condition: state
           entity_id: sun.sun
           state: "below_horizon" # "above_horizon"
-      action:
-        service: light.turn_on
-        target:
-          entity_id: light.outdoor
+      actions:
+        - action: light.turn_on
+          target:
+            entity_id: light.outdoor
 
-    - alias: "switch_off_light_porch"
-      id: "switch_off_light_porch"
+    - alias: "start_restart_outdoor_light_timer"
+      id: "start_restart_outdoor_light_timer"
       triggers:
         - trigger: state
-          entity_id: binary_sensor.cameras_motion
+          entity_id: binary_sensor.outdoor_motion
+          from: "on"
           to: "off"
-          for:
-            minutes: 5
-        - trigger: state
-          entity_id: binary_sensor.porch_motion_protect_occupancy
-          to: "off"
-          for:
-            minutes: 5
         - trigger: state
           entity_id: light.outdoor
           to: "on"
-          for:
-            minutes: 30
-      condition:
+      conditions:
         - condition: state
           entity_id: input_boolean.outdoor_light_auto_mode
           state: "on"
         - condition: state
           entity_id: light.outdoor
           state: "on"
+      actions:
+        # - action: timer.start
+        #   target:
+        #     entity_id: timer.outdoor_light
+        #     duration: "{{states('input_datetime.countdowntime')}}"
+        - action: timer.start
+          data_template:
+            entity_id: timer.outdoor_light
+            duration: "{{states('input_number.outdoor_light_limit_minutes') * 60}}"
+
+    - alias: "switch_off_light_porch"
+      id: "switch_off_light_porch"
+      triggers:
+        - trigger: event
+          event_type: timer.finished
+          event_data:
+            entity_id: timer.outdoor_light
+      conditions:
         - condition: state
-          entity_id: binary_sensor.cameras_motion
-          state: "off"
-          for:
-            minutes: 4
+          entity_id: input_boolean.outdoor_light_auto_mode
+          state: "on"
         - condition: state
-          entity_id: binary_sensor.porch_motion_protect_occupancy
+          entity_id: binary_sensor.outdoor_motion
           state: "off"
-          for:
-            minutes: 4
-      action:
-        service: light.turn_off
-        target:
+        - condition: state
           entity_id: light.outdoor
+          state: "on"
+      actions:
+        - action: light.turn_off
+          target:
+            entity_id: light.outdoor

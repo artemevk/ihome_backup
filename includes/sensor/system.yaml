@@ -90,10 +90,12 @@
   ignore_non_numeric: false
   type: min
   entities:
+    - sensor.bathhouse_climate_battery
+    - sensor.childrens_room_climate_battery
     - sensor.entrance_door_battery
     - sensor.open_kitchen_motion_sensor_battery
-    - sensor.childrens_room_climate_battery
     - sensor.porch_motion_protect_battery
+    - sensor.second_floor_climate_battery
     - sensor.toilet_climate_battery
     - sensor.toilet_water_leak_battery
 # - platform: group
