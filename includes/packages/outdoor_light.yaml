@@ -59,7 +59,7 @@ porch:
           state: "off"
         - condition: state
           entity_id: sun.sun
-          state: "below_horizon" # "above_horizon"
+          state: "below_horizon" # "above_horizon" below_horizon
       actions:
         - action: light.turn_on
           target:
@@ -88,9 +88,10 @@ porch:
         #     entity_id: timer.outdoor_light
         #     duration: "{{states('input_datetime.countdowntime')}}"
         - action: timer.start
-          data_template:
+          data:
+            duration: "{{ states('input_number.outdoor_light_limit_minutes') | int * 60 }}"
+          target:
             entity_id: timer.outdoor_light
-            duration: "{{states('input_number.outdoor_light_limit_minutes') * 60}}"
 
     - alias: "switch_off_light_porch"
       id: "switch_off_light_porch"
