@@ -1,7 +1,7 @@
 {
     "0x588e81fffed39429": {
         "state": "ON",
-        "energy": 545.26,
+        "energy": 545.36,
         "power": 0,
         "current": 0,
         "voltage": 234,
@@ -21,7 +21,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 26.83,
+        "cpu_temperature": 26.89,
         "power": 0,
         "current": 0,
         "last_seen": "2025-04-21T13:14:25+03:00",
@@ -30,20 +30,20 @@
     "0x00158d00048893ac": {
         "voltage": 3005,
         "battery": 100,
-        "temperature": 22.1,
-        "humidity": 61.96,
-        "pressure": 992.1,
+        "temperature": 22.51,
+        "humidity": 51.64,
+        "pressure": 993.1,
         "last_seen": "2025-04-21T12:44:00+03:00",
         "power_outage_count": 41534,
         "linkquality": 60
     },
     "0x847127fffe04dc4d": {
-        "current_heating_setpoint": 12,
+        "current_heating_setpoint": 5,
         "heat": "OFF",
-        "local_temperature": 22,
+        "local_temperature": 22.5,
         "system_mode": "heat",
-        "preset_mode": "hold",
-        "preset": "hold",
+        "preset_mode": "program",
+        "preset": "program",
         "child_lock": "UNLOCK",
         "sensor": "AL",
         "running_state": "idle",
@@ -101,7 +101,7 @@
     "0x00158d0006baa93b": {
         "voltage": 3045,
         "battery": 100,
-        "illuminance": 75,
+        "illuminance": 4,
         "temperature": 24,
         "occupancy": false,
         "device_temperature": 28,
@@ -121,11 +121,11 @@
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
-        "current_heating_setpoint": 23,
+        "current_heating_setpoint": 5,
         "max_temperature_limit": 28,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 23,
+        "local_temperature": 22.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -185,9 +185,9 @@
         "voltage": 3005,
         "battery": 100,
         "power_outage_count": 742,
-        "temperature": 21.2,
-        "humidity": 54.56,
-        "pressure": 993.2,
+        "temperature": 21.74,
+        "humidity": 51.93,
+        "pressure": 994.2,
         "last_seen": "2025-04-21T12:41:50+03:00",
         "linkquality": 108
     },
@@ -198,13 +198,13 @@
         "energy": 2413.8,
         "power": 0,
         "current": 0,
-        "voltage": 236,
+        "voltage": 237,
         "last_seen": "2025-04-21T13:14:25+03:00",
         "linkquality": 87
     },
     "0x385cfbfffe850809": {
         "current": 0,
-        "voltage": 242,
+        "voltage": 241,
         "power": 0,
         "last_seen": "2025-04-21T13:14:12+03:00",
         "linkquality": 96,
@@ -214,7 +214,7 @@
     "0x00158d000710ffc4": {
         "voltage": 3005,
         "battery": 100,
-        "device_temperature": 23,
+        "device_temperature": 25,
         "power_outage_count": 167,
         "trigger_count": 0,
         "water_leak": false,
@@ -224,38 +224,38 @@
         "linkquality": 87
     },
     "0x00158d00047def18": {
-        "temperature": 25.3,
-        "humidity": 41.26,
-        "pressure": 993.6,
+        "temperature": 26.51,
+        "humidity": 39.17,
+        "pressure": 994.5,
         "last_seen": "2025-04-21T13:11:21+03:00",
         "linkquality": 90,
-        "voltage": 3015,
+        "voltage": 3025,
         "battery": 100,
         "power_outage_count": 2737
     },
     "0xf84477fffe4cb612": {
-        "voltage": 236,
+        "voltage": 239.6,
         "last_seen": "2025-04-21T13:14:38+03:00",
         "linkquality": 72,
-        "current": 4.74,
-        "power": 1118.7,
-        "energy": 0.15
+        "current": 0.11,
+        "power": 16.2,
+        "energy": 0.01
     },
     "0xf84477fffe4ecff6": {
-        "current": 0.61,
-        "power": 132.6,
-        "voltage": 235.9,
+        "current": 0.76,
+        "power": 121.5,
+        "voltage": 236,
         "last_seen": "2025-04-21T13:14:40+03:00",
         "linkquality": 63,
-        "energy": 0.19
+        "energy": 0.02
     },
     "0x7cc6b6fffea5501c": {
-        "power": 32.8,
-        "voltage": 241.5,
+        "power": 34.4,
+        "voltage": 240.5,
         "current": 0.44,
         "last_seen": "2025-04-21T13:14:38+03:00",
         "linkquality": 51,
-        "energy": 0.02
+        "energy": 0.01
     },
     "0x54ef441000b8d412": {
         "switch_type": "none",
