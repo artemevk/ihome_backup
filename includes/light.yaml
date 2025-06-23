@@ -13,6 +13,12 @@
     - light.courtyard
 
 - platform: group
+  name: "corridor"
+  entities:
+    - light.corridor_lamp_1
+    - light.corridor_lamp_2
+
+- platform: group
   name: "all"
   entities:
     - light.porch

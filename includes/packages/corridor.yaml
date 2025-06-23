@@ -1,4 +1,21 @@
-scene_light:
+corridor:
+  input_boolean:
+    corridor_light_auto_mode:
+      icon: mdi:lightbulb-auto
+
+  input_number:
+    corridor_light_limit_minutes:
+      min: 1
+      max: 20
+      initial: 8
+      step: 1
+      mode: slider
+      icon: mdi:timer
+
+  timer:
+    corridor_light:
+      duration: "00:08:00"
+
   scene:
     - name: off_light
       entities:
@@ -73,6 +90,32 @@ scene_light:
       initial: full
 
   automation:
+    - alias: "corridor_light_auto_mode_reset"
+      id: "corridor_light_auto_mode_reset"
+      initial_state: true
+      triggers:
+        - trigger: numeric_state
+          entity_id: sun.sun
+          attribute: elevation
+          above: -2.0
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity_id: input_boolean.corridor_light_auto_mode
+              state: "off"
+            - condition: state
+              entity_id: light.corridor
+              state: "on"
+      actions:
+        - action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.corridor_light_auto_mode
+        - action: scene.turn_on
+          data_template:
+            entity_id: scene.off_light
+            transition: 2
+
     - id: apply_scene
       alias: apply_scene
       initial_state: true
@@ -100,44 +143,55 @@ scene_light:
           target:
             entity_id: scene.full
 
-    - id: switch_off_corridor_lamps
-      alias: "switch_off_corridor_lamps"
-      initial_state: true
-      trigger:
-        - platform: state
-          entity_id: alarm_control_panel.home_alarm
-          to:
-            - "armed_away"
-        - platform: state
+    - alias: "start_restart_corridor_light_timer"
+      id: "start_restart_corridor_light_timer"
+      triggers:
+        - trigger: state
           entity_id: binary_sensor.open_kitchen_motion_sensor
+          from: "on"
           to: "off"
-          for:
-            minutes: 5
-        - platform: state
-          entity_id: light.corridor_lamp_1
+        - trigger: state
+          entity_id: binary_sensor.entrance_door_contact
+          from: "on"
+          to: "off"
+        - trigger: state
+          entity_id: light.corridor
           to: "on"
-          for:
-            minutes: 30
-        - platform: state
-          entity_id: light.corridor_lamp_2
-          to: "on"
-          for:
-            minutes: 30
-      condition:
-        - condition: or # Lamp_1 or lamp_2 is on
-          conditions:
-            - condition: state
-              entity_id: light.corridor_lamp_1
-              state: "on"
-            - condition: state
-              entity_id: light.corridor_lamp_2
-              state: "on"
+      conditions:
+        - condition: state
+          entity_id: input_boolean.corridor_light_auto_mode
+          state: "on"
+        - condition: state
+          entity_id: light.corridor
+          state: "on"
+      actions:
+        - action: timer.start
+          data:
+            duration: "{{ states('input_number.corridor_light_limit_minutes') | int * 60 }}"
+          target:
+            entity_id: timer.corridor_light
+
+    - alias: "switch_off_corridor_lamps"
+      id: "switch_off_corridor_lamps"
+      triggers:
+        - trigger: event
+          event_type: timer.finished
+          event_data:
+            entity_id: timer.corridor_light
+      conditions:
+        - condition: state
+          entity_id: input_boolean.corridor_light_auto_mode
+          state: "on"
         - condition: state
           entity_id: binary_sensor.open_kitchen_motion_sensor
           state: "off"
-          for:
-            minutes: 4
-      action:
+        - condition: state
+          entity_id: binary_sensor.entrance_door_contact
+          state: "off"
+        - condition: state
+          entity_id: light.corridor
+          state: "on"
+      actions:
         - service: scene.turn_on
           target:
             entity_id: scene.off_light
