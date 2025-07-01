@@ -143,6 +143,7 @@ telegramm:
             target: "{{ trigger.event.data.user_id }}"
             message: "Добро пожаловать в главное меню. Выберите действие:"
             inline_keyboard:
+              - "Ворота:/gate_step_mode, Калитка:/gate_pedestrian_crossing"
               - "Отчет о системе:/report, Батарейки:/battaries_states"
               - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
               - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
@@ -176,6 +177,7 @@ telegramm:
             message: "Добро пожаловать в главное меню. Выберите действие:"
             data:
               inline_keyboard:
+                - "Ворота:/gate_step_mode, Калитка:/gate_pedestrian_crossing"
                 - "Отчет о системе:/report, Батарейки:/battaries_states"
                 - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
                 - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"

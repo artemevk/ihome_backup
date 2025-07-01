@@ -35,3 +35,47 @@ gate:
         #   data: {}
         #   target:
         #     entity_id: switch.gate_l2
+
+  automation:
+    - id: Управление воротами из тлг
+      alias: gate_step_mode_tlg
+      triggers:
+        - trigger: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/gate_step_mode"
+        - trigger: mqtt
+          topic: "zigbee2mqtt/remote/action"
+          payload: button_4_single
+        - trigger: mqtt
+          topic: "zigbee2mqtt/remote/action"
+          payload: button_5_single
+
+      actions:
+        - action: script.turn_on
+          target:
+            entity_id:
+              - script.gate_step_mode
+
+    - id: Управление калиткой из тлг
+      alias: gate_pedestrian_crossing_tlg
+      triggers:
+        - trigger: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/gate_pedestrian_crossing"
+        - trigger: device
+          domain: mqtt # пультом
+          device_id: 1483a1bf0791f39b789ccac73cc01fa8
+          type: action
+          subtype: button_1_single
+        - trigger: device
+          domain: mqtt # пультом
+          device_id: 1483a1bf0791f39b789ccac73cc01fa8
+          type: action
+          subtype: button_8_single
+      actions:
+        - action: script.turn_on
+          target:
+            entity_id:
+              - script.gate_pedestrian_crossing

@@ -13,6 +13,13 @@ homeassistant:
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+homekit:
+  filter:
+    include_entities:
+      - alarm_control_panel.home_alarm
+      - script.gate_step_mode
+      - script.gate_pedestrian_crossing
+
 alarm_control_panel:
   - platform: manual
     name: Home Alarm

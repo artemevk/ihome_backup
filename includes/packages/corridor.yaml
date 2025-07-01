@@ -122,8 +122,8 @@ corridor:
       trigger:
         - platform: state
           entity_id: input_select.scenes
-      action:
-        - service: scene.turn_on
+      actions:
+        - action: scene.turn_on
           data_template:
             entity_id: scene.{{trigger.to_state.state}}
             transition: 2
@@ -139,7 +139,7 @@ corridor:
           entity_id: binary_sensor.entrance_door_contact
           to: "on"
       action:
-        - service: scene.turn_on
+        - action: scene.turn_on
           target:
             entity_id: scene.full
 
@@ -192,6 +192,6 @@ corridor:
           entity_id: light.corridor
           state: "on"
       actions:
-        - service: scene.turn_on
+        - action: scene.turn_on
           target:
             entity_id: scene.off_light
