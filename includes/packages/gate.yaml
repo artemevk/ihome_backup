@@ -37,7 +37,7 @@ gate:
         #     entity_id: switch.gate_l2
 
   automation:
-    - id: Управление воротами из тлг
+    - id: Управление воротами
       alias: gate_step_mode_tlg
       triggers:
         - trigger: event # по запросу из telegramm
@@ -50,14 +50,16 @@ gate:
         - trigger: mqtt
           topic: "zigbee2mqtt/remote/action"
           payload: button_5_single
-
+        - trigger: mqtt
+          topic: "zigbee2mqtt/gates_remote/action"
+          payload: 1_single
       actions:
         - action: script.turn_on
           target:
             entity_id:
               - script.gate_step_mode
 
-    - id: Управление калиткой из тлг
+    - id: Управление калиткой
       alias: gate_pedestrian_crossing_tlg
       triggers:
         - trigger: event # по запросу из telegramm
@@ -74,6 +76,9 @@ gate:
           device_id: 1483a1bf0791f39b789ccac73cc01fa8
           type: action
           subtype: button_8_single
+        - trigger: mqtt
+          topic: "zigbee2mqtt/gates_remote/action"
+          payload: 2_single
       actions:
         - action: script.turn_on
           target:
