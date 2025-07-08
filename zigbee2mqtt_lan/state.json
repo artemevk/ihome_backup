@@ -1,18 +1,18 @@
 {
     "0xa4c138cd256aef56": {
-        "state": "ON",
+        "state": "OFF",
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
         "linkquality": 3
     },
     "0x00158d00048681f7": {
-        "temperature": 25,
-        "humidity": 63.13,
-        "pressure": 983.8,
+        "temperature": 26.49,
+        "humidity": 70.11,
+        "pressure": 982.1,
         "linkquality": 134,
-        "voltage": 2995,
-        "battery": 97,
+        "voltage": 3005,
+        "battery": 100,
         "power_outage_count": 24354
     }
 }
