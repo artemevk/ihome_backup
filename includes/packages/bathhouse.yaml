@@ -1,13 +1,83 @@
 bathhouse:
   climate:
-  - platform: generic_thermostat
-    name: bathhouse_thermostat
-    heater: switch.protherm
-    target_sensor: sensor.bathhouse_climate_temperature
-    min_temp: 5
-    max_temp: 30
-    target_temp_step: 1
-    precision: 0.1
-    initial_hvac_mode: "heat"
-    keep_alive:
+    - platform: generic_thermostat
+      name: bathhouse_thermostat
+      heater: switch.protherm
+      target_sensor: sensor.bathhouse_climate_temperature
+      min_temp: 5
+      max_temp: 30
+      target_temp_step: 1
+      precision: 0.1
+      initial_hvac_mode: "heat"
+      keep_alive:
         minutes: 3
+
+  input_number:
+    bathhouse_drying_time:
+      min: 8
+      max: 48
+      initial: 24
+      step: 2
+      mode: slider
+      icon: mdi:timer
+
+    bathhouse_target_temperature_after_drying:
+      min: 5
+      max: 30
+      initial: 5
+      step: 1
+      mode: slider
+      icon: mdi:thermometer
+
+  timer:
+    bathhouse_drying_timer:
+      duration: "24:00:00"
+
+  script:
+    bathhouse_drying_on:
+      sequence:
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.bathhouse_thermostat
+          data:
+            temperature: 30
+
+    bathhouse_drying_timer_finish:
+      sequence:
+        - service: timer.finish
+          target:
+            entity_id: timer.bathhouse_drying_timer
+
+    bathhouse_drying_off:
+      sequence:
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.bathhouse_thermostat
+          data:
+            temperature: "{{ states('input_number.bathhouse_target_temperature_after_drying') | int }}"
+
+  automation:
+    - alias: "bathhouse_drying_timer_restart"
+      id: "bathhouse_drying_timer_restart"
+      triggers:
+        - trigger: state
+          entity_id:
+            - script.bathhouse_drying_on
+      actions:
+        - action: timer.start
+          data:
+            duration: "{{ states('input_number.bathhouse_drying_time') | int * 60 * 60 }}"
+          target:
+            entity_id: timer.bathhouse_drying_timer
+
+    - alias: "bathhouse_drying_off"
+      id: "bathhouse_drying_off"
+      triggers:
+        - trigger: event
+          event_type: timer.finished
+          event_data:
+            entity_id: timer.bathhouse_drying_timer
+      actions:
+        - action: script.turn_on
+          target:
+            entity_id: script.bathhouse_drying_off

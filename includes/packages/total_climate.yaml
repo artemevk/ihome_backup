@@ -1,0 +1,153 @@
+total_climate:
+  input_datetime:
+    prepare_the_house_dt:
+      has_date: true
+      has_time: true
+
+  script:
+    prepare_the_house:
+      sequence:
+        - service: switch.turn_on
+          target:
+            entity_id: switch.water_heater
+        # - service: climate.turn_on
+        #   target:
+        #     entity_id: all
+        - service: climate.set_temperature
+          target:
+            entity_id: group.house_radiators
+          data:
+            temperature: 24
+
+    antifrost_mode:
+      sequence:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.water_heater
+        # - service: climate.turn_on
+        #   target:
+        #     entity_id: all
+        - service: climate.set_temperature
+          target:
+            entity_id: group.house_radiators
+          data:
+            temperature: 5
+
+  automation:
+    # Погода в доме
+    - id: Погода в доме
+      alias: home_climate_report
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/home_climate_report"
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
+
+              {{ states('sensor.msg_open_kitchen_climate') }}
+
+              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+
+              {{ states('sensor.msg_childrens_room_climate')}}
+
+              {{ states('sensor.msg_toilet_climate')}}
+            inline_keyboard:
+              - "Главное меню:/mm"
+
+    # Подготовить дом
+    - id: Подготовить дом тлг
+      alias: tlg_prepare_the_house
+      initial_state: true
+      triggers:
+        - trigger: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/prepare_the_house"
+      action:
+        - service: script.turn_on
+          target:
+            entity_id:
+              - script.prepare_the_house
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U00002668"}} Команда принята.
+        - delay: 00:00:05
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U00002668"}} Дом подготавливается.
+
+              {{ states('sensor.msg_open_kitchen_climate') }}
+
+              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+
+              {{ states('sensor.msg_childrens_room_climate')}}
+
+              {{ states('sensor.msg_toilet_climate')}}
+            inline_keyboard:
+              - "Главное меню:/mm"
+
+    - id: Подготовить дом
+      alias: prepare_the_house
+      initial_state: true
+      triggers:
+        - trigger: time
+          at: input_datetime.prepare_the_house_dt
+      actions:
+        - action: script.turn_on
+          target:
+            entity_id:
+              - script.prepare_the_house
+        - action: notify.mobile_app_artemevk
+          data:
+            title: Отопление
+            message: Активирована подготовка дома
+            data:
+              url: /lovelace/main
+
+    # Дом в режим антизамерзания
+    - id: Дом в режим антизамерзания
+      alias: tlg_antifrost_mode
+      initial_state: true
+      trigger:
+        - platform: event # по запросу из telegramm
+          event_type: telegram_callback
+          event_data:
+            command: "/antifrost_mode"
+      action:
+        - service: script.turn_on
+          target:
+            entity_id:
+              - script.antifrost_mode
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U00002744"}} Команда принята.
+        - delay: 00:00:05
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U00002744"}} Дом переведен в режим антизамерзания.
+
+              {{ states('sensor.msg_open_kitchen_climate') }}
+
+              {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+
+              {{ states('sensor.msg_childrens_room_climate')}}
+
+              {{ states('sensor.msg_toilet_climate')}}
+            inline_keyboard:
+              - "Главное меню:/mm"
