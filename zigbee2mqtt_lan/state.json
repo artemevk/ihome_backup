@@ -4,14 +4,14 @@
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
-        "linkquality": 76
+        "linkquality": 36
     },
     "0x00158d00048681f7": {
-        "temperature": 56.94,
-        "humidity": 36.43,
-        "pressure": 982.4,
-        "linkquality": 40,
-        "voltage": 3015,
+        "temperature": 27.2,
+        "humidity": 65.13,
+        "pressure": 982.1,
+        "linkquality": 43,
+        "voltage": 3035,
         "battery": 100,
         "power_outage_count": 24354
     }
