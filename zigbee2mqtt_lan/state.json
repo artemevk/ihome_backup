@@ -7,12 +7,12 @@
         "linkquality": 36
     },
     "0x00158d00048681f7": {
-        "temperature": 16.82,
-        "humidity": 72.45,
-        "pressure": 984.4,
+        "temperature": 15.97,
+        "humidity": 73.02,
+        "pressure": 982.1,
         "linkquality": 43,
-        "voltage": 2985,
-        "battery": 90,
+        "voltage": 2975,
+        "battery": 83,
         "power_outage_count": 24354
     }
 }
