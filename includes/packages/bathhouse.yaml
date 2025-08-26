@@ -39,6 +39,7 @@ bathhouse:
         - service: climate.turn_off
           target:
             entity_id: climate.bathhouse_thermostat
+        - delay: "00:00:01"
         - service: switch.turn_on
           target:
             entity_id: switch.protherm
