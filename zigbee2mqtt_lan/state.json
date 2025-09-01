@@ -1,15 +1,15 @@
 {
     "0xa4c138cd256aef56": {
-        "state": "OFF",
+        "state": "ON",
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
         "linkquality": 36
     },
     "0x00158d00048681f7": {
-        "temperature": 24.68,
-        "humidity": 63.59,
-        "pressure": 984.6,
+        "temperature": 23.49,
+        "humidity": 63.33,
+        "pressure": 984.2,
         "linkquality": 43,
         "voltage": 3005,
         "battery": 100,
