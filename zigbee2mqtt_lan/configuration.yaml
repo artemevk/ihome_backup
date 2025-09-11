@@ -47,3 +47,5 @@ devices:
     friendly_name: protherm
   '0x00158d00048681f7':
     friendly_name: bathhouse_climate
+  '0xa4c138357ecf3e4c':
+    friendly_name: '0xa4c138357ecf3e4c'
