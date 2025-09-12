@@ -4,24 +4,24 @@
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
-        "linkquality": 32
+        "linkquality": 58
     },
     "0x00158d00048681f7": {
-        "temperature": 20.68,
-        "humidity": 63.04,
-        "pressure": 1002.8,
-        "linkquality": 25,
+        "temperature": 19.55,
+        "humidity": 61.1,
+        "pressure": 1005.7,
+        "linkquality": 134,
         "voltage": 2985,
         "battery": 90,
         "power_outage_count": 24354
     },
     "0xa4c138357ecf3e4c": {
-        "state_l1": "OFF",
+        "state_l1": "ON",
         "power_on_behavior_l1": "previous",
-        "state_l2": "OFF",
+        "state_l2": "ON",
         "power_on_behavior_l2": "previous",
         "switch_mode_l1": "switch",
         "switch_mode_l2": "switch",
-        "linkquality": 142
+        "linkquality": 72
     }
 }

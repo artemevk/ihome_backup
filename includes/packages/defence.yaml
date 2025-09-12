@@ -21,3 +21,45 @@ defence:
                   name: "alarm.caf"
                   critical: 1
                   volume: 1.0
+
+    - id: "power_protection"
+      alias: "power protection"
+      description: "power protection"
+      mode: single
+      triggers:
+        - trigger: numeric_state
+          entity_id:
+            - sensor.a_power
+            - sensor.b_power
+            - sensor.c_power
+          for:
+            hours: 0
+            minutes: 1
+            seconds: 0
+          above: 6000
+      action:
+        - service: notify.mobile_app_artemevk
+          data:
+            title: "Потребление электроэнергии!"
+            message: |
+              {{"\U000026A1"}} Превышено потребление электроэнергии!
+              A: {{ states('sensor.a_power') }}; B: {{ states('sensor.b_power') }}; C:{{ states('sensor.c_power') }}
+            data:
+              url: "/lovelace/main"
+              importance: high
+              persistent: true
+              vibrationPattern: 100, 1000, 100, 1000, 100
+              push:
+                sound:
+                  name: "alarm.caf"
+                  critical: 1
+                  volume: 0.2
+        - service: telegram_bot.send_message
+          data_template:
+            target: !secret tlg_user1_id
+            title: "#system"
+            message: |
+              {{"\U000026A1"}} Превышено потребление электроэнергии!
+              A: {{ states('sensor.a_power') }}; B: {{ states('sensor.b_power') }}; C:{{ states('sensor.c_power') }}
+            inline_keyboard:
+              - "Главное меню:/mm"
