@@ -1,4 +1,30 @@
 defence:
+
+  sensor:
+    - platform: template
+      sensors:
+
+        msg_power_protection:
+          friendly_name: "Уведомление о превышение потребления электроэнергии"
+          value_template: |
+            {{"\U000026A1"}} Превышено потребление электроэнергии!
+            A: {{ states('sensor.a_power') }}; B: {{ states('sensor.b_power') }}; C:{{ states('sensor.c_power') }}
+          icon_template: mdi:transmission-tower
+
+        msg_temperature_protection:
+          friendly_name: "Уведомление о падении температуры ниже 5 °C"
+          value_template: |
+            {{"\U0001F321"}} Температура упала ниже 5 °C!
+            Спальня на первом этаже: {{ states('sensor.1st_floor_bedroom_temperature') }} °C
+            Детская: {{ states('sensor.childrens_room_climate_temperature') }} °C
+            Кухня-гостиная: {{ states('sensor.open_kitchen_temperature') }} °C
+            Второй этаж: {{ states('sensor.second_floor_climate_temperature') }} °C
+            Туалет: {{ states('sensor.toilet_climate_temperature') }} °C
+            Баня: {{ states('sensor.bathhouse_climate_temperature') }} °C
+          icon_template: mdi:transmission-tower
+
+
+
   automation:
     - id: "water leak"
       alias: "water leak"
@@ -41,9 +67,7 @@ defence:
         - service: notify.mobile_app_artemevk
           data:
             title: "Потребление электроэнергии!"
-            message: |
-              {{"\U000026A1"}} Превышено потребление электроэнергии!
-              A: {{ states('sensor.a_power') }}; B: {{ states('sensor.b_power') }}; C:{{ states('sensor.c_power') }}
+            message: "{{ states('sensor.msg_power_protection') }}"
             data:
               url: "/lovelace/main"
               importance: high
@@ -57,9 +81,48 @@ defence:
         - service: telegram_bot.send_message
           data_template:
             target: !secret tlg_user1_id
-            title: "#system"
-            message: |
-              {{"\U000026A1"}} Превышено потребление электроэнергии!
-              A: {{ states('sensor.a_power') }}; B: {{ states('sensor.b_power') }}; C:{{ states('sensor.c_power') }}
+            title: "#alarm"
+            message: "{{ states('sensor.msg_power_protection') }}"
+            inline_keyboard:
+              - "Главное меню:/mm"
+
+    - id: "temperature_protection"
+      alias: "temperature protection"
+      description: "temperature protection"
+      mode: single
+      triggers:
+        - trigger: numeric_state
+          entity_id:
+            - sensor.1st_floor_bedroom_temperature
+            - sensor.bathhouse_climate_temperature
+            - sensor.childrens_room_climate_temperature
+            - sensor.open_kitchen_temperature
+            - sensor.second_floor_climate_temperature
+            - sensor.toilet_climate_temperature
+          for:
+            hours: 0
+            minutes: 5
+            seconds: 0
+          below: 5
+      action:
+        - service: notify.mobile_app_artemevk
+          data:
+            title: "Потребление электроэнергии!"
+            message: "{{ states('sensor.msg_temperature_protection') }}"
+            data:
+              url: "/lovelace/main"
+              importance: high
+              persistent: true
+              vibrationPattern: 100, 1000, 100, 1000, 100
+              push:
+                sound:
+                  name: "alarm.caf"
+                  critical: 1
+                  volume: 0.2
+        - service: telegram_bot.send_message
+          data_template:
+            target: !secret tlg_user1_id
+            title: "#alarm"
+            message: "{{ states('sensor.msg_temperature_protection') }}"
             inline_keyboard:
               - "Главное меню:/mm"

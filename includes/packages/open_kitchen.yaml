@@ -35,6 +35,10 @@ open_kitchen:
       # initial_hvac_mode: "heat"
       keep_alive:
         minutes: 3
+      away_temp: 5
+      comfort_temp: 24
+      sleep_temp: 22
+      eco_temp: 16
 
   automation:
     - alias: "open_kitchen_heater_thermostat Set Temperature" # не срабатывает

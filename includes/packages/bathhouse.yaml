@@ -11,6 +11,10 @@ bathhouse:
       initial_hvac_mode: "heat"
       keep_alive:
         minutes: 3
+      away_temp: 5
+      comfort_temp: 24
+      sleep_temp: 22
+      eco_temp: 16
 
   input_number:
     bathhouse_drying_time:

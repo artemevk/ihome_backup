@@ -119,8 +119,8 @@ corridor:
     - id: apply_scene
       alias: apply_scene
       initial_state: true
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: input_select.scenes
       actions:
         - action: scene.turn_on
@@ -131,14 +131,18 @@ corridor:
     - id: switch_on_full_corridor_lamps
       alias: "switch_on_full_corridor_lamps"
       initial_state: true
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: binary_sensor.open_kitchen_motion_sensor
           to: "on"
-        - platform: state
+        - trigger: state
           entity_id: binary_sensor.entrance_door_contact
           to: "on"
-      action:
+      conditions:
+        - condition: state
+          entity_id: input_boolean.corridor_light_auto_mode
+          state: "on"
+      actions:
         - action: scene.turn_on
           target:
             entity_id: scene.full

@@ -4,12 +4,12 @@
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
-        "linkquality": 58
+        "linkquality": 61
     },
     "0x00158d00048681f7": {
-        "temperature": 19.52,
-        "humidity": 61.05,
-        "pressure": 1005.8,
+        "temperature": 17.34,
+        "humidity": 61.57,
+        "pressure": 1006.9,
         "linkquality": 134,
         "voltage": 2985,
         "battery": 90,

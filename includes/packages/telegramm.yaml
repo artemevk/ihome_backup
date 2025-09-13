@@ -49,7 +49,7 @@ telegramm:
           value_template: |
             {{"\U0001F6CB"}} Кухня-гостиная.
             {{"\U0001F321"}} Температура: {{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') }} °C
-            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.open_kitchen_thermostat', 'current_heating_setpoint') }} °C
+            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.open_kitchen_thermostat', 'temperature') }} °C
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.open_kitchen_heater') }}
 
         msg_toilet_climate:
@@ -68,9 +68,9 @@ telegramm:
           value_template: |
             {{"\U0001F6CF"}} Спальня на первом этаже.
             {{"\U0001F321"}} Температура: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} °C
-            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_heating_setpoint') }} °C
+            {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') }} °C
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.1st_floor_bedroom_heater_l2') }}
-            {{"\U0001F525"}} Теплые полы: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'heat') }}
+            {{"\U0001F525"}} Теплые полы: {%- if state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' %} on {% else %}, off {% endif -%}
 
         msg_report:
           value_template: |
