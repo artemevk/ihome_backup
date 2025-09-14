@@ -3,38 +3,38 @@ gate:
     gate_step_mode:
       sequence:
         - action: switch.toggle
-          metadata: {}
-          data: {}
           target:
             entity_id: switch.gate_l1
-        - delay:
-            hours: 0
-            minutes: 0
-            seconds: 2
-            milliseconds: 0
-        # - action: switch.turn_off
-        #   metadata: {}
-        #   data: {}
-        #   target:
-        #     entity_id: switch.gate_l1
+        - condition: and
+          conditions:
+            - condition: numeric_state
+              entity_id: sun.sun
+              attribute: elevation
+              below: 4
+            - condition: state
+              entity_id: light.outdoor
+              state: "off"
+        - action: light.turn_on
+          target:
+            entity_id: light.outdoor
 
     gate_pedestrian_crossing:
       sequence:
         - action: switch.toggle
-          metadata: {}
-          data: {}
           target:
             entity_id: switch.gate_l2
-        - delay:
-            hours: 0
-            minutes: 0
-            seconds: 2
-            milliseconds: 0
-        # - action: switch.turn_off
-        #   metadata: {}
-        #   data: {}
-        #   target:
-        #     entity_id: switch.gate_l2
+        - condition: and
+          conditions:
+            - condition: numeric_state
+              entity_id: sun.sun
+              attribute: elevation
+              below: 4
+            - condition: state
+              entity_id: light.outdoor
+              state: "off"
+        - action: light.turn_on
+          target:
+            entity_id: light.outdoor
 
   automation:
     - id: Управление воротами

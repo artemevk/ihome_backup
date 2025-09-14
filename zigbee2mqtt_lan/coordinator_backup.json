@@ -4,7 +4,7 @@
     "version": 1,
     "source": "zigbee-herdsman@6.0.4",
     "internal": {
-      "date": "2025-09-12T18:03:43.519Z",
+      "date": "2025-09-13T22:01:21.677Z",
       "znpVersion": 1
     }
   },
@@ -25,7 +25,7 @@
   "network_key": {
     "key": "800d26014c654ca48d7b59dd20803f66",
     "sequence_number": 0,
-    "frame_counter": 1007724
+    "frame_counter": 1018984
   },
   "devices": [
     {
@@ -35,7 +35,7 @@
       "link_key": {
         "key": "d726f373868fa70f44690885a610cd7b",
         "rx_counter": 0,
-        "tx_counter": 242
+        "tx_counter": 253
       }
     },
     {
@@ -45,7 +45,7 @@
       "link_key": {
         "key": "912a9482622d7e28fb5e07cd99db5eb7",
         "rx_counter": 0,
-        "tx_counter": 220
+        "tx_counter": 231
       }
     },
     {
@@ -55,7 +55,7 @@
       "link_key": {
         "key": "5eb8adde5e10cd7bcdf756287e8fa70f",
         "rx_counter": 0,
-        "tx_counter": 11
+        "tx_counter": 22
       }
     },
     {
@@ -65,7 +65,7 @@
       "link_key": {
         "key": "ba5420c611a197ef253e54555e5a61cf",
         "rx_counter": 0,
-        "tx_counter": 11
+        "tx_counter": 22
       }
     }
   ]

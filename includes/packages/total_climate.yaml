@@ -44,6 +44,10 @@ total_climate:
           event_data:
             command: "/home_climate_report"
       action:
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
@@ -70,16 +74,24 @@ total_climate:
           event_data:
             command: "/prepare_the_house"
       action:
-        - service: script.turn_on
-          target:
-            entity_id:
-              - script.prepare_the_house
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message: |
-              {{"\U00002668"}} Команда принята.
+              {{"\U00002668"}} Команда принята. Подтвержение будет через 5 секунд
+        - service: script.turn_on
+          target:
+            entity_id:
+              - script.prepare_the_house
         - delay: 00:00:05
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "last"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
@@ -125,16 +137,24 @@ total_climate:
           event_data:
             command: "/antifrost_mode"
       action:
-        - service: script.turn_on
-          target:
-            entity_id:
-              - script.antifrost_mode
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message: |
-              {{"\U00002744"}} Команда принята.
+              {{"\U00002744"}} Команда принята. Подтвержение будет через 5 секунд
+        - service: script.turn_on
+          target:
+            entity_id:
+              - script.antifrost_mode
         - delay: 00:00:05
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "last"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"

@@ -70,7 +70,7 @@ telegramm:
             {{"\U0001F321"}} Температура: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} °C
             {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') }} °C
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.1st_floor_bedroom_heater_l2') }}
-            {{"\U0001F525"}} Теплые полы: {%- if state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' %} on {% else %}, off {% endif -%}
+            {{"\U0001F525"}} Теплые полы: {%- if state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' %} on {% else %} off {% endif -%}
 
         msg_report:
           value_template: |
@@ -118,6 +118,31 @@ telegramm:
               - "Отчет о системе:/report, Батарейки:/battaries_states"
               - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
               - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
+              - "Фото:/photo"
+              - "Меню охраны:/alarm_panel"
+
+    - alias: "Telegram alarm menu"
+      trigger:
+        - platform: event
+          event_type: telegram_callback # вызов с клавиатуры
+          event_data:
+            command: "/alarm_panel"
+      action:
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              Меню cигнализации.
+              Текущий режим:
+              {% if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{"Нет охраны"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{"Дома"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{"Не дома"}}
+              Выберите режим:
+            inline_keyboard:
+              - "Не дома:/alarm_arm_away"
+              - "Дома:/alarm_arm_home"
+              - "Нет охраны:/alarm_disarm"
+              - "Главное меню:/mm"
 
     - id: Отчет при запуске системы
       alias: start_message
@@ -140,7 +165,7 @@ telegramm:
               {{ states('sensor.msg_report') }}
 
               {{ states('sensor.batteries_states_msg') }}
-        # Задержка 2 с
+        # Задержка 1 с
         - delay: 00:00:01
         - service: notify.tlg_user1_id
           data:
@@ -152,6 +177,7 @@ telegramm:
                 - "Отчет о системе:/report, Батарейки:/battaries_states"
                 - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
                 - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
+                - "Фото:/photo"
 
     # Отчет о системе по запросу
     - id: Отчет о системе по запросу
@@ -167,6 +193,10 @@ telegramm:
           event_data:
             command: "/report"
       action:
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
@@ -190,6 +220,10 @@ telegramm:
           entity_id: sensor.min_batteries_state
           below: 40
       action:
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
@@ -228,3 +262,46 @@ telegramm:
             data:
               inline_keyboard:
                 - "Главное меню:/mm"
+
+    # Фото по запросу
+    - id: Фото по запросу
+      alias: send_photos_tlg
+      initial_state: true
+      trigger:
+        - platform: event
+          event_type: telegram_callback # встроенная клавиатура telegramm
+          event_data:
+            command: "/photo"
+      action:
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            message: |
+              {{"\U0001F4F8"}} Команда принята. Фотографии будут отправлены через 5 секунд
+        - service: script.create_photos
+        - delay: 00:00:05
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "last"
+        - service: telegram_bot.send_photo
+          data:
+            file: "/media/parking_camera_last_snapshot.jpg"
+            target: "{{ trigger.event.data.chat_id }}"
+            disable_notification: true
+        - service: telegram_bot.send_photo
+          data:
+            file: "/media/porch_camera_last_snapshot.jpg"
+            target: "{{ trigger.event.data.chat_id }}"
+            disable_notification: true
+        - service: telegram_bot.send_photo
+          data:
+            file: "/media/courtyard_camera_last_snapshot.jpg"
+            target: "{{ trigger.event.data.chat_id }}"
+            inline_keyboard:
+              - "Главное меню:/mm"
+

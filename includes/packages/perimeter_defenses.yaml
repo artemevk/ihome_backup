@@ -308,3 +308,34 @@ perimeter_defenses:
               persistent: true
               vibrationPattern: 100, 1000, 100, 1000, 100
               ledColor: red
+
+    - id: tlg_action_disarm
+      alias: 'tlg_action_disarm'
+      initial_state: true
+      mode: single
+      triggers:
+        - trigger: event
+          event_type: telegram_callback
+          event_data:
+            command: /alarm_disarm
+      actions:
+        - action: alarm_control_panel.alarm_disarm
+          target:
+            entity_id: alarm_control_panel.home_alarm
+        # Задержка 1 с
+        - delay: 00:00:01
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#system"
+            message: |
+              Текущий режим:
+              {% if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{"Нет охраны"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{"Дома"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{"Не дома"}}
+              {% endif %}
+            inline_keyboard:
+              - "Не дома:/alarm_arm_away"
+              - "Дома:/alarm_arm_home"
+              - "Нет охраны:/alarm_disarm"
+              - "Главное меню:/mm"
