@@ -322,20 +322,89 @@ perimeter_defenses:
         - action: alarm_control_panel.alarm_disarm
           target:
             entity_id: alarm_control_panel.home_alarm
-        # Задержка 1 с
-        - delay: 00:00:01
-        - service: telegram_bot.send_message
-          data_template:
-            target: "{{ trigger.event.data.user_id }}"
-            title: "#system"
+        - service: telegram_bot.edit_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
+            title: "#охрана"
             message: |
+              {{'\U0001F6A8'}} Меню охраны
               Текущий режим:
-              {% if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{"Нет охраны"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{"Дома"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{"Не дома"}}
-              {% endif %}
+              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
+              {% endif -%}
+              Выберите режим:
             inline_keyboard:
-              - "Не дома:/alarm_arm_away"
-              - "Дома:/alarm_arm_home"
+              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
+              - "Нет охраны:/alarm_disarm"
+              - "Главное меню:/mm"
+
+    - id: tlg_action_arm_home
+      alias: 'tlg_action_arm_home'
+      initial_state: true
+      mode: single
+      triggers:
+        - trigger: event
+          event_type: telegram_callback
+          event_data:
+            command: /alarm_arm_home
+      actions:
+        - action: alarm_control_panel.alarm_arm_home
+          target:
+            entity_id: alarm_control_panel.home_alarm
+        - service: telegram_bot.edit_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
+            title: "#охрана"
+            message: |
+              {{'\U0001F6A8'}} Меню охраны
+              Текущий режим:
+              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
+              {% endif -%}
+              Выберите режим:
+            inline_keyboard:
+              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
+              - "Нет охраны:/alarm_disarm"
+              - "Главное меню:/mm"
+
+    - id: tlg_action_arm_away
+      alias: 'tlg_action_arm_away'
+      initial_state: true
+      mode: single
+      triggers:
+        - trigger: event
+          event_type: telegram_callback
+          event_data:
+            command: /alarm_arm_away
+      actions:
+        - action: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id: alarm_control_panel.home_alarm
+        - service: telegram_bot.edit_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
+            title: "#охрана"
+            message: "Команда принята. Время постановки на охрану 30 секунд. Ожидайте подтверждение."
+        - delay: 31
+        - service: telegram_bot.edit_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
+            title: "#охрана"
+            message: |
+              {{'\U0001F6A8'}} Меню охраны
+              Текущий режим:
+              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
+              {% endif -%}
+              Выберите режим:
+            inline_keyboard:
+              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
               - "Нет охраны:/alarm_disarm"
               - "Главное меню:/mm"

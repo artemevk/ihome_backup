@@ -95,21 +95,21 @@ telegramm:
 
   automation:
     - alias: "Telegram bot main menu"
-      trigger:
-        - platform: event
-          event_type: telegram_callback # вызов с клавиатуры
+      triggers:
+        - trigger: event
+          event_type: telegram_command # ввод с клавиатуры / меню бота
           event_data:
             command: "/start"
-        - platform: event
-          event_type: telegram_command # вызов из меню
-          event_data:
-            command: "/start"
-        - platform: event
-          event_type: telegram_callback # вызов с клавиатуры
+        - trigger: event
+          event_type: telegram_command # ввод с клавиатуры / меню бота
           event_data:
             command: "/mm"
-      action:
-        - service: telegram_bot.send_message
+        - trigger: event
+          event_type: telegram_callback # кнопка / inline_keyboard
+          event_data:
+            command: "/mm"
+      actions:
+        - action: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message: "Добро пожаловать в главное меню. Выберите действие:"
@@ -119,7 +119,7 @@ telegramm:
               - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
               - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
               - "Фото:/photo"
-              - "Меню охраны:/alarm_panel"
+              - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
 
     - alias: "Telegram alarm menu"
       trigger:
@@ -128,19 +128,24 @@ telegramm:
           event_data:
             command: "/alarm_panel"
       action:
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
         - service: telegram_bot.send_message
           data_template:
             target: "{{ trigger.event.data.user_id }}"
+            title: "#охрана"
             message: |
-              Меню cигнализации.
+              {{'\U0001F6A8'}} Меню охраны
               Текущий режим:
-              {% if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{"Нет охраны"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{"Дома"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{"Не дома"}}
+              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
+              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
+              {% endif -%}
               Выберите режим:
             inline_keyboard:
-              - "Не дома:/alarm_arm_away"
-              - "Дома:/alarm_arm_home"
+              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
               - "Нет охраны:/alarm_disarm"
               - "Главное меню:/mm"
 
