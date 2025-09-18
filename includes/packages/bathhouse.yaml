@@ -37,6 +37,70 @@ bathhouse:
     bathhouse_drying_timer:
       duration: "24:00:00"
 
+  scene:
+    - name: off_light
+      entities:
+        light.corridor_lamp_1: off
+        light.corridor_lamp_2: off
+
+    - id: "cleaning"
+      name: cleaning
+      icon: mdi:white-balance-sunny
+      entities:
+        light.bathhouse_room_main:
+          state: "on"
+        light.bathhouse_room_backlight:
+          state: "on"
+        light.bathhouse_bath:
+          state: "on"
+        light.bathhouse_steam_lamps:
+          state: "on"
+        light.bathhouse_steam_lamps_controller:
+          brightness: 255
+          state: "on"
+        light.bathhouse_steam_stove:
+          state: "on"
+        light.bathhouse_steam_stove_controller:
+          brightness: 255
+          state: "on"
+        light.bathhouse_steam_bench:
+          state: "on"
+        light.bathhouse_steam_bench_controller:
+          brightness: 255
+          state: "on"
+
+    - id: "steaming"
+      name: steaming
+      icon: mdi:hot-tub
+      entities:
+        light.bathhouse_room_main:
+          state: "off"
+        light.bathhouse_room_backlight:
+          state: "on"
+        light.bathhouse_bath:
+          state: "on"
+        light.bathhouse_steam_lamps:
+          state: "off"
+        light.bathhouse_steam_lamps_controller:
+          state: "off"
+        light.bathhouse_steam_stove:
+          state: "on"
+        light.bathhouse_steam_stove_controller:
+          brightness: 2
+          state: "on"
+        light.bathhouse_steam_bench:
+          state: "on"
+        light.bathhouse_steam_bench_controller:
+          brightness: 2
+          state: "on"
+
+  input_select:
+    bathhouse_scenes:
+      name: bathhouse_scenes
+      options:
+        - steaming
+        - cleaning
+
   script:
     bathhouse_drying_on:
       sequence:
@@ -90,3 +154,16 @@ bathhouse:
         - action: script.turn_on
           target:
             entity_id: script.bathhouse_drying_off
+
+    - id: apply_bathhouse_scene
+      alias: apply_bathhouse_scene
+      initial_state: true
+      triggers:
+        - trigger: state
+          entity_id: input_select.bathhouse_scenes
+      actions:
+        - action: scene.turn_on
+          target:
+            entity_id: scene.{{trigger.to_state.state}}
+          data:
+            transition: 2.5
