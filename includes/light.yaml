@@ -1,106 +1,120 @@
-- platform: switch
-  name: "porch"
-  entity_id: switch.porch_light
+# - platform: switch
+#   name: "porch"
+#   entity_id: switch.porch_light
 
-- platform: switch
-  name: "courtyard"
-  entity_id: switch.courtyard_light
+# - platform: switch
+#   name: "courtyard"
+#   entity_id: switch.courtyard_light
 
-- platform: switch
-  name: "second_floor_hall"
-  entity_id: switch.smart_socket_socket_1
+# - platform: switch
+#   name: "second_floor_hall"
+#   entity_id: switch.smart_socket_socket_1
 
-- platform: switch
-  name: "bathhouse_room_l1"
-  entity_id: switch.bathhouse_room_light_l1
+# - platform: switch
+#   name: "bathhouse_room_main"
+#   entity_id: switch.bathhouse_room_light_l1
 
-- platform: switch
-  name: "bathhouse_room_l2"
-  entity_id: switch.bathhouse_room_light_l2
+# - platform: switch
+#   name: "bathhouse_room_backlight"
+#   entity_id: switch.bathhouse_room_light_l2
 
-- platform: switch
-  name: "bathhouse_porch"
-  entity_id: switch.bathhouse_outdoor_light_group1_l1
+# - platform: switch
+#   name: "bathhouse_porch_window"
+#   entity_id: switch.bathhouse_porch_light_l1
 
-- platform: switch
-  name: "bathhouse_spotlight"
-  entity_id: switch.bathhouse_outdoor_light_group1_l2
+# - platform: switch
+#   name: "bathhouse_porch_door"
+#   entity_id: switch.bathhouse_porch_light_l2
 
-- platform: switch
-  name: "bathhouse_led"
-  entity_id: switch.bathhouse_outdoor_light_group2_l1
+# - platform: switch
+#   name: "bathhouse_barbecue"
+#   entity_id: switch.bathhouse_outdoor_light_l1
 
-- platform: switch
-  name: "bathhouse_barbecue"
-  entity_id: switch.bathhouse_outdoor_light_group2_l1
+# - platform: switch
+#   name: "bathhouse_led"
+#   entity_id: switch.bathhouse_outdoor_light_l2
 
-- platform: switch
-  name: "bathhouse_bath"
-  entity_id: switch.bathhouse_bath_light_group1_l1
+# - platform: switch
+#   name: "bathhouse_bath"
+#   entity_id: switch.bathhouse_bath_light_group1_l1
 
-- platform: switch
-  name: "bathhouse_steam_lamps"
-  entity_id: switch.bathhouse_bath_light_group1_l2
+# - platform: switch
+#   name: "bathhouse_steam_lamps"
+#   entity_id: switch.bathhouse_bath_light_group1_l2
 
-- platform: switch
-  name: "bathhouse_steam_bench"
-  entity_id: switch.bathhouse_bath_light_group2_l1
+# - platform: switch
+#   name: "bathhouse_steam_bench"
+#   entity_id: switch.bathhouse_bath_light_group2_l1
 
-- platform: switch
-  name: "bathhouse_steam_stove"
-  entity_id: switch.bathhouse_bath_light_group2_l2
+# - platform: switch
+#   name: "bathhouse_steam_stove"
+#   entity_id: switch.bathhouse_bath_light_group2_l2
 
-- platform: group
-  name: "bathhouse"
-  entities:
-    - light.bathhouse_room_l1
-    - light.bathhouse_room_l2
-    - light.bathhouse_porch
-    - light.bathhouse_spotlight
-    - light.bathhouse_led
-    - light.bathhouse_barbecue
-    - light.bathhouse_bath
-    - light.bathhouse_steam_lamps
-    - light.bathhouse_steam_bench
-    - light.bathhouse_steam_stove
+# - platform: group
+#   name: "bathhouse"
+#   entities:
+#     - light.bathhouse_room_main
+#     - light.bathhouse_room_backlight
+#     - light.bathhouse_porch_window
+#     - light.bathhouse_porch_door
+#     - light.bathhouse_barbecue
+#     - light.bathhouse_led
+#     - light.bathhouse_bath
+#     - light.bathhouse_steam_lamps
+#     - light.bathhouse_steam_bench
+#     - light.bathhouse_steam_stove
 
-- platform: group
-  name: "bathhouse_room"
-  entities:
-    - light.bathhouse_room_l1
-    - light.bathhouse_room_l2
+# - platform: group
+#   name: "bathhouse_indoor"
+#   entities:
+#     - light.bathhouse_room_main
+#     - light.bathhouse_room_backlight
+#     - light.bathhouse_bath
+#     - light.bathhouse_steam_lamps
+#     - light.bathhouse_steam_bench
+#     - light.bathhouse_steam_stove
 
-- platform: group
-  name: "bathhouse_outdoor"
-  entities:
-    - light.bathhouse_porch
-    - light.bathhouse_spotlight
-    - light.bathhouse_led
-    - light.bathhouse_barbecue
+# - platform: group
+#   name: "bathhouse_outdoor"
+#   entities:
+#     - light.bathhouse_porch_window
+#     - light.bathhouse_porch_door
+#     - light.bathhouse_barbecue
+#     - light.bathhouse_led
 
-- platform: group
-  name: "bathhouse_steam"
-  entities:
-    - light.bathhouse_steam_lamps
-    - light.bathhouse_steam_bench
-    - light.bathhouse_steam_stove
+# - platform: group
+#   name: "bathhouse_room"
+#   entities:
+#     - light.bathhouse_room_main
+#     - light.bathhouse_room_backlight
 
-- platform: group
-  name: "outdoor"
-  entities:
-    - light.porch
-    - light.courtyard
+# - platform: group
+#   name: "bathhouse_steam"
+#   entities:
+#     - light.bathhouse_steam_lamps
+#     - light.bathhouse_steam_bench
+#     - light.bathhouse_steam_stove
 
-- platform: group
-  name: "corridor"
-  entities:
-    - light.corridor_lamp_1
-    - light.corridor_lamp_2
+# - platform: group
+#   name: "outdoor"
+#   entities:
+#     - light.porch
+#     - light.courtyard
+#     - light.bathhouse_porch_window
+#     - light.bathhouse_porch_door
+#     - light.bathhouse_barbecue
+#     - light.bathhouse_led
 
-- platform: group
-  name: "all"
-  entities:
-    - light.porch
-    - light.courtyard
-    - light.corridor_lamp_1
-    - light.corridor_lamp_2
+# - platform: group
+#   name: "corridor"
+#   entities:
+#     - light.corridor_lamp_1
+#     - light.corridor_lamp_2
+
+# - platform: group
+#   name: "all"
+#   entities:
+#     - light.porch
+#     - light.courtyard
+#     - light.corridor_lamp_1
+#     - light.corridor_lamp_2

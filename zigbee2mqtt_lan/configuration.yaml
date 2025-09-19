@@ -49,6 +49,28 @@ devices:
     friendly_name: bathhouse_climate
   '0xa4c138357ecf3e4c':
     friendly_name: bathhouse_room_light
+  '0xa49e69fffe014ee0':
+    friendly_name: bathhouse_ir_heater
+  '0xa4c13877995a1c32':
+    friendly_name: bathhouse_porch_light
+  '0xa4c138f1fa6eae89':
+    friendly_name: bathhouse_heater
+  '0xa4c138d847ff5892':
+    friendly_name: bathhouse_bath_light_group1
+  '0xa4c138a6644f5c50':
+    friendly_name: bathhouse_steam_lamps_controller
+  '0xa4c138d3859eb05c':
+    friendly_name: bathhouse_bath_light_group2
+  '0xa4c138f5ad2c4a13':
+    friendly_name: bathhouse_steam_bench_controller
+  '0xa4c138f66453ad9f':
+    friendly_name: bathhouse_steam_stove_controller
+  '0xa4c138bb122b0448':
+    friendly_name: bathhouse_heat_pump
+  '0xa4c1386a9f805cb5':
+    friendly_name: shoe_dryer
+  '0xa4c1381d6d20d4a8':
+    friendly_name: bathhouse_outdoor_light
 availability:
   passive:
     timeout: 120

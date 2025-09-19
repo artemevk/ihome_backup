@@ -42,8 +42,8 @@ porch:
           target:
             entity_id: input_boolean.outdoor_light_auto_mode
 
-    - alias: "switch_on_light_porch"
-      id: "switch_on_light_porch"
+    - alias: "switch_on_outdoor_light"
+      id: "switch_on_outdoor_light"
       triggers:
         - trigger: state
           entity_id: binary_sensor.outdoor_motion
@@ -114,3 +114,19 @@ porch:
         - action: light.turn_off
           target:
             entity_id: light.outdoor
+
+    - alias: "finish_timer_light_outdoor"
+      id: "finish_timer_light_outdoor"
+      triggers:
+        - trigger: state
+          entity_id:
+            - light.outdoor
+          to: "off"
+      conditions:
+        - condition: state
+          entity_id: timer.outdoor_light
+          state: active
+      actions:
+        - action: timer.finish
+          target:
+            entity_id: timer.outdoor_light

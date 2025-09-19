@@ -23,14 +23,14 @@ binary_sensor:
          or is_state('binary_sensor.courtyard_camera_cell_motion_detection', 'on') 
          or is_state('binary_sensor.porch_motion_protect_occupancy', 'on') }}
 
-  - name: bathhouse_drying
-    state: "{{ is_state('timer.bathhouse_drying_timer', 'active') }}"
-    icon: >
-      {% if is_state("timer.bathhouse_drying_timer", 'active') %}
-        mdi:radiator
-      {% else %}
-        mdi:radiator-off
-      {% endif %}
+  # - name: bathhouse_drying
+  #   state: "{{ is_state('timer.bathhouse_drying_timer', 'active') }}"
+  #   icon: >
+  #     {% if is_state("timer.bathhouse_drying_timer", 'active') %}
+  #       mdi:radiator
+  #     {% else %}
+  #       mdi:radiator-off
+  #     {% endif %}
 
 sensor:
   - name: last_google_backup

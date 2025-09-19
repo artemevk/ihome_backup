@@ -25,6 +25,14 @@ bathhouse:
       mode: slider
       icon: mdi:timer
 
+    bathhouse_shoe_drying_time:
+      min: 2
+      max: 14
+      initial: 8
+      step: 1
+      mode: slider
+      icon: mdi:timer
+
     # bathhouse_target_temperature_after_drying:
     #   min: 5
     #   max: 30
@@ -36,6 +44,9 @@ bathhouse:
   timer:
     bathhouse_drying_timer:
       duration: "24:00:00"
+
+    bathhouse_shoe_drying_timer:
+      duration: "08:00:00"
 
   script:
     bathhouse_drying_on:
@@ -59,11 +70,95 @@ bathhouse:
         - service: climate.turn_on
           target:
             entity_id: climate.bathhouse_thermostat
-        # - service: climate.set_temperature
-        #   target:
-        #     entity_id: climate.bathhouse_thermostat
-        #   data:
-        #     temperature: "{{ states('input_number.bathhouse_target_temperature_after_drying') | int }}"
+        - service: timer.finish
+          target:
+            entity_id: timer.bathhouse_drying_timer
+
+    bathhouse_shoe_drying_on:
+      sequence:
+        - service: switch.turn_on
+          target:
+            entity_id: switch.shoe_dryer
+
+    bathhouse_shoe_drying_timer_finish:
+      sequence:
+        - service: timer.finish
+          target:
+            entity_id: timer.bathhouse_shoe_drying_timer
+
+    bathhouse_shoe_drying_off:
+      sequence:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.shoe_dryer
+        - service: timer.finish
+          target:
+            entity_id: timer.bathhouse_shoe_drying_timer
+
+
+  scene:
+    - id: "bathhouse_indoor_full"
+      name: bathhouse_indoor_full
+      icon: mdi:white-balance-sunny
+      entities:
+        light.bathhouse_room_main: on
+        light.bathhouse_room_backlight: on
+        light.bathhouse_bath: on
+        light.bathhouse_steam_lamps: on
+        light.bathhouse_steam_lamps_controller:
+          state: "on"
+          brightness: 255
+        light.bathhouse_steam_bench: on
+        light.bathhouse_steam_bench_controller:
+          state: "on"
+          brightness: 255
+        light.bathhouse_steam_stove: on
+        light.bathhouse_steam_stove_controller:
+          state: "on"
+          brightness: 255
+
+    - id: "bathhouse_indoor_half"
+      name: bathhouse_indoor_half
+      icon: mdi:circle-half-full
+      entities:
+        light.bathhouse_room_main: on
+        light.bathhouse_room_backlight: off
+        light.bathhouse_bath: on
+        light.bathhouse_steam_lamps: off
+        light.bathhouse_steam_bench: on
+        light.bathhouse_steam_bench_controller:
+          state: "on"
+          brightness: 125
+        light.bathhouse_steam_stove: on
+        light.bathhouse_steam_stove_controller:
+          state: "on"
+          brightness: 125
+
+    - id: "bathhouse_steaming"
+      name: bathhouse_steaming
+      icon: mdi:hot-tub
+      entities:
+        light.bathhouse_room_main: off
+        light.bathhouse_room_backlight: on
+        light.bathhouse_bath: on
+        light.bathhouse_steam_lamps: off
+        light.bathhouse_steam_bench: on
+        light.bathhouse_steam_bench_controller:
+          state: "on"
+          brightness: 2
+        light.bathhouse_steam_stove: on
+        light.bathhouse_steam_stove_controller:
+          state: "on"
+          brightness: 2
+
+  input_select:
+    bathhouse_preset:
+      name: bathhouse_scenes
+      options:
+        - bathhouse_indoor_full
+        - bathhouse_indoor_half
+        - bathhouse_steaming
+      icon: mdi:palette-swatch-variant
 
   automation:
     - alias: "bathhouse_drying_timer_restart"
@@ -79,6 +174,7 @@ bathhouse:
           target:
             entity_id: timer.bathhouse_drying_timer
 
+
     - alias: "bathhouse_drying_off"
       id: "bathhouse_drying_off"
       triggers:
@@ -90,3 +186,92 @@ bathhouse:
         - action: script.turn_on
           target:
             entity_id: script.bathhouse_drying_off
+
+    - alias: "bathhouse_shoe_drying_timer_restart"
+      id: "bathhouse_shoe_drying_timer_restart"
+      triggers:
+        - trigger: state
+          entity_id:
+            - script.bathhouse_shoe_drying_on
+        - trigger: state
+          entity_id: switch.shoe_dryer
+          to: "on"
+      actions:
+        - action: timer.start
+          data:
+            duration: "{{ states('input_number.bathhouse_shoe_drying_time') | int * 60 * 60 }}"
+          target:
+            entity_id: timer.bathhouse_shoe_drying_timer
+
+    - alias: "bathhouse_shoe_drying_off"
+      id: "bathhouse_shoe_drying_off"
+      triggers:
+        - trigger: event
+          event_type: timer.finished
+          event_data:
+            entity_id: timer.bathhouse_drying_timer
+        - trigger: state
+          entity_id: switch.shoe_dryer
+          to: "off"
+      actions:
+        - action: script.turn_on
+          target:
+            entity_id: script.bathhouse_shoe_drying_off
+
+    - id: apply_bathhouse_scene
+      alias: apply_bathhouse_scene
+      initial_state: true
+      triggers:
+        - trigger: state
+          entity_id: input_select.bathhouse_preset
+      actions:
+        - action: scene.turn_on
+          data_template:
+            entity_id: scene.{{trigger.to_state.state}}
+            transition: 2
+
+            # Попытки сделать автоматический свет на улице на кральце бани
+#     - alias: "bathhouse_shoe_drying_off"
+#       id: "bathhouse_shoe_drying_off"
+#       triggers:
+#         - trigger: event
+#           event_type: timer.finished
+#           event_data:
+#             entity_id: timer.bathhouse_drying_timer
+#         - trigger: state
+#           entity_id: switch.shoe_dryer
+#           to: "off"
+#       conditions:
+#         - condition: numeric_state
+#           entity_id: sun.sun
+#           attribute: elevation
+#           above: -2.0
+#       actions:
+#         - action: script.turn_on
+#           target:
+#             entity_id: script.bathhouse_shoe_drying_off
+
+
+#     - alias: "switch_on_outdoor_light"
+#       id: "switch_on_outdoor_light"
+#       triggers:
+#         - trigger: state
+#           entity_id: binary_sensor.bathhouse_entrance_door_sensor_contact
+#           to: "on"
+#       condition:
+#         - condition: state
+#           entity_id: input_boolean.outdoor_light_auto_mode
+#           state: "on"
+#         - condition: state
+#           entity_id: light.outdoor
+#           state: "off"
+#         - condition: state
+#           entity_id: sun.sun
+#           state: "below_horizon" # "above_horizon" below_horizon
+#       actions:
+#         - action: light.turn_on
+#           target:
+#             entity_id: light.outdoor
+
+
+# bathhouse_entrance_door_sensor_contact
