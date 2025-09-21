@@ -1,22 +1,22 @@
 {
     "0xa4c138cd256aef56": {
-        "state": "OFF",
+        "state": "ON",
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
         "linkquality": 47
     },
     "0x00158d00048681f7": {
-        "temperature": 24.84,
-        "humidity": 73.14,
-        "pressure": 989.4,
+        "temperature": 26.21,
+        "humidity": 65.86,
+        "pressure": 987,
         "linkquality": 153,
         "voltage": 3005,
         "battery": 100,
         "power_outage_count": 24354
     },
     "0xa4c138357ecf3e4c": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
@@ -28,7 +28,7 @@
         "energy": 0.09,
         "power": 0,
         "current": 0,
-        "voltage": 226,
+        "voltage": 230,
         "state": "OFF",
         "linkquality": 160,
         "power_outage_memory": "restore"
@@ -44,7 +44,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 225,
+        "voltage": 228,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -55,7 +55,7 @@
         "linkquality": 18
     },
     "0xa4c138d847ff5892": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
@@ -64,9 +64,9 @@
         "switch_mode_l2": "switch"
     },
     "0xa4c138d3859eb05c": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
-        "state_l2": "ON",
+        "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
         "linkquality": 127,
         "switch_mode_l2": "switch",
@@ -74,7 +74,7 @@
     },
     "0xa4c138f66453ad9f": {
         "state": "ON",
-        "brightness": 125,
+        "brightness": 0,
         "update": {
             "state": "idle",
             "installed_version": 671166465,
@@ -98,7 +98,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 226,
+        "voltage": 222,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -111,7 +111,7 @@
     "0xa4c1386a9f805cb5": {
         "energy": 0,
         "voltage": 228,
-        "state": "ON",
+        "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
@@ -137,7 +137,7 @@
         },
         "linkquality": 200,
         "state": "ON",
-        "brightness": 125,
+        "brightness": 0,
         "color_temp": 500,
         "color_mode": "color_temp"
     }
