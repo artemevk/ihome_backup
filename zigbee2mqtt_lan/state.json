@@ -7,9 +7,9 @@
         "linkquality": 47
     },
     "0x00158d00048681f7": {
-        "temperature": 25.44,
-        "humidity": 63.36,
-        "pressure": 985,
+        "temperature": 21.94,
+        "humidity": 60.43,
+        "pressure": 989.1,
         "linkquality": 153,
         "voltage": 3005,
         "battery": 100,
@@ -98,7 +98,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 237,
+        "voltage": 236,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
