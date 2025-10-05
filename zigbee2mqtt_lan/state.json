@@ -7,16 +7,16 @@
         "linkquality": 72
     },
     "0x00158d00048681f7": {
-        "temperature": 18.79,
-        "humidity": 92.53,
-        "pressure": 992,
+        "temperature": 23.17,
+        "humidity": 57.79,
+        "pressure": 984.6,
         "linkquality": 163,
-        "voltage": 2965,
-        "battery": 77,
+        "voltage": 2985,
+        "battery": 90,
         "power_outage_count": 24354
     },
     "0xa4c138357ecf3e4c": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
@@ -30,7 +30,7 @@
         "energy": 0.09,
         "power": 0,
         "current": 0,
-        "voltage": 199,
+        "voltage": 228,
         "state": "OFF",
         "linkquality": 163,
         "power_outage_memory": "restore"
@@ -48,7 +48,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 200,
+        "voltage": 227,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -59,7 +59,7 @@
         "linkquality": 91
     },
     "0xa4c138d847ff5892": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
@@ -70,9 +70,9 @@
         "countdown_l2": 0
     },
     "0xa4c138d3859eb05c": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
-        "state_l2": "ON",
+        "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
         "linkquality": 102,
         "switch_mode_l2": "switch",
@@ -82,7 +82,7 @@
     },
     "0xa4c138f66453ad9f": {
         "state": "ON",
-        "brightness": 125,
+        "brightness": 0,
         "update": {
             "state": "idle",
             "installed_version": 671166465,
@@ -106,7 +106,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 197,
+        "voltage": 227,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -118,7 +118,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 198,
+        "voltage": 226,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -147,7 +147,7 @@
         },
         "linkquality": 207,
         "state": "ON",
-        "brightness": 125,
+        "brightness": 0,
         "color_temp": 500,
         "color_mode": "color_temp"
     }
