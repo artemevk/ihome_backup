@@ -118,7 +118,7 @@ telegramm:
               - "Отчет о системе:/report, Батарейки:/battaries_states"
               - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
               - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
-              - "Фото:/photo"
+              - "{{'\U0001F4F8'}} Фото:/photo"
               - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
 
     - alias: "Telegram alarm menu"
@@ -182,7 +182,9 @@ telegramm:
                 - "Отчет о системе:/report, Батарейки:/battaries_states"
                 - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
                 - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
-                - "Фото:/photo"
+                - "{{'\U0001F4F8'}} Фото:/photo"
+                - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
+
 
     # Отчет о системе по запросу
     - id: Отчет о системе по запросу

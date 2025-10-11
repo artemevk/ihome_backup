@@ -52,9 +52,9 @@ perimeter_defenses:
             entity_id: alarm_control_panel.home_alarm
             state: disarmed
       action:
-        - delay: 3
-        - service: script.create_photos
         - delay: 5
+        - service: script.create_photos
+        - delay: 10
         - service: script.send_photos
         - service: notify.alarm
           data:

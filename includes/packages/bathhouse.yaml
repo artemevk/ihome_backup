@@ -95,6 +95,28 @@ bathhouse:
           target:
             entity_id: timer.bathhouse_shoe_drying_timer
 
+    bathhouse_prepare:
+      sequence:
+        - service: climate.set_preset_mode
+          target:
+            entity_id: climate.bathhouse_thermostat
+          data:
+            preset_mode: "comfort_temp"
+        - servise: switch.turn_on
+          target:
+            entity_id: switch.bathhouse_boiler
+
+    bathhouse_antifrost:
+      sequence:
+        - service: climate.set_preset_mode
+          target:
+            entity_id: climate.bathhouse_thermostat
+          data:
+            preset_mode: "away_temp"
+        - servise: switch.turn_off
+          target:
+            entity_id: switch.bathhouse_boiler
+
 
   scene:
     - id: "bathhouse_indoor_full"
