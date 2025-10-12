@@ -71,6 +71,8 @@ devices:
     friendly_name: shoe_dryer
   '0xa4c1381d6d20d4a8':
     friendly_name: bathhouse_outdoor_light
+  '0xa4c138e3d37737ce':
+    friendly_name: '0xa4c138e3d37737ce'
 availability:
   passive:
     timeout: 120
