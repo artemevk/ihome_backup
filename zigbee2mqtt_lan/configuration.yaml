@@ -72,7 +72,7 @@ devices:
   '0xa4c1381d6d20d4a8':
     friendly_name: bathhouse_outdoor_light
   '0xa4c138e3d37737ce':
-    friendly_name: '0xa4c138e3d37737ce'
+    friendly_name: bathhouse_boiler
 availability:
   passive:
     timeout: 120
