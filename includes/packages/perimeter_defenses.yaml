@@ -18,6 +18,7 @@ perimeter_defenses:
             entity_id: camera.courtyard_camera_mainstream
           data:
             filename: "/media/courtyard_camera_last_snapshot.jpg"
+        - delay: 00:00:10
 
     send_photos:
       sequence:
@@ -54,7 +55,6 @@ perimeter_defenses:
       action:
         - delay: 5
         - service: script.create_photos
-        - delay: 10
         - service: script.send_photos
         - service: notify.alarm
           data:
@@ -255,16 +255,6 @@ perimeter_defenses:
           target:
             entity_id: alarm_control_panel.home_alarm
 
-    - id: "Create photos when arming"
-      alias: Create photos when arming
-      triggers:
-        - trigger: state
-          entity_id:
-            - alarm_control_panel.home_alarm
-          to: arming
-      actions:
-        - action: script.create_photos
-
     - id: "alarm notify armed"
       alias: "alarm notify armed"
       trigger:
@@ -272,9 +262,10 @@ perimeter_defenses:
           entity_id: alarm_control_panel.home_alarm
           to:
             - "armed_away"
-      action:
-        - service: script.send_photos
-        - service: notify.alarm
+      actions:
+        - action: script.create_photos
+        - action: script.send_photos
+        - action: notify.alarm
           data:
             title: "Охрана"
             message: Дом поставлен на охрану.

@@ -22,7 +22,7 @@ weather_outside:
             target: [!secret tlg_user1_id, !secret tlg_user2_id, !secret tlg_user3_id,
                      !secret tlg_user4_id, !secret tlg_user5_id]
             caption: >
-              {{"\U0001F300"}} Климат отчет за {{ states("sensor.time_date") }}
+              {{"\U0001F300"}} Климат отчет за {{ states("sensor.yandex_weather_data_update_time") }}
               {{ "\n" -}}
               {{ "\n" -}}{{"\U0001F3E2"}} *МОСКВА:*
               {{ "\n" -}}{{"\U0001F321"}} Температура: {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
@@ -43,18 +43,11 @@ weather_outside:
               {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:*
               {{ "\n" -}}{{"\U0001F321"}} Температура: {{state_attr("weather.yandex_weather", "temperature")}} °C
               {{ "\n" -}}{{"\U0001F32C"}} Ветер: {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
-              {{ "\n" -}}_К {{ as_timestamp(state_attr("weather.yandex_weather", "forecast")[1].datetime) | timestamp_custom('%H:%M') }} ожидается:_
-              {{ "\n" -}}{{"\U0001F321"}} Прогноз: {{state_attr("weather.yandex_weather", "forecast")[1].native_temperature}} °C
-              {{ "\n" -}}{{"\U0001F326"}} Условия:
-              {% if state_attr("weather.yandex_weather", "forecast")[1].condition == 'sunny' %}{{"солнечно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'cloudy' %}{{"облачно"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'partlycloudy' %}{{"переменная облачность"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'pouring' %}{{"ливень"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'rainy' %}{{"дождь"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'snowy' %}{{"снег"}}
-              {% elif state_attr("weather.yandex_weather", "forecast")[1].condition == 'clear-night' %}{{"ясно"}}
-              {% else %}{{ state_attr("weather.yandex_weather", "forecast")[1].condition }}
-              {% endif %}
+              {{ "\n" -}}_Прогноз к {{ as_timestamp(state_attr("weather.yandex_weather", "forecastHourly")[2].datetime) | timestamp_custom('%H:%M') }}:_
+              {{ "\n" -}}{{"\U0001F321"}} Температура: {{state_attr("weather.yandex_weather", "forecastHourly")[2].native_temperature}} °C
+              {{ "\n" -}}{{"\U0001F326"}} Погодные условия: {{ state_attr("weather.yandex_weather", "forecastHourly")[2].condition }}
+
+
             inline_keyboard:
               - "Главное меню:/mm"
 
