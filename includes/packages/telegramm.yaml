@@ -116,10 +116,11 @@ telegramm:
             inline_keyboard:
               - "Ворота:/gate_step_mode, Калитка:/gate_pedestrian_crossing"
               - "Отчет о системе:/report, Батарейки:/battaries_states"
-              - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
+              - "{{'\U0001F326'}} Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
               - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
               - "{{'\U0001F4F8'}} Фото:/photo"
               - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
+              - "{{'\U0001F9D6'}} Баня:/bathhouse_mm"
 
     - alias: "Telegram alarm menu"
       trigger:
@@ -180,10 +181,11 @@ telegramm:
               inline_keyboard:
                 - "Ворота:/gate_step_mode, Калитка:/gate_pedestrian_crossing"
                 - "Отчет о системе:/report, Батарейки:/battaries_states"
-                - "Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
+                - "{{'\U0001F326'}} Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
                 - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
                 - "{{'\U0001F4F8'}} Фото:/photo"
                 - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
+                - "{{'\U0001F9D6'}} Баня:/bathhouse_mm"
 
 
     # Отчет о системе по запросу
@@ -288,9 +290,8 @@ telegramm:
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message: |
-              {{"\U0001F4F8"}} Команда принята. Фотографии будут отправлены через 5 секунд
+              {{"\U0001F4F8"}} Команда принята, ожидайте.
         - service: script.create_photos
-        - delay: 00:00:05
         - service: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"

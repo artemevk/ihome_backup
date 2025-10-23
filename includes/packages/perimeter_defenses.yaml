@@ -18,7 +18,7 @@ perimeter_defenses:
             entity_id: camera.courtyard_camera_mainstream
           data:
             filename: "/media/courtyard_camera_last_snapshot.jpg"
-        - delay: 00:00:10
+        - delay: 00:00:06
 
     send_photos:
       sequence:

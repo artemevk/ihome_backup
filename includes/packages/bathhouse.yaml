@@ -297,3 +297,38 @@ bathhouse:
 
 
 # bathhouse_entrance_door_sensor_contact
+
+    # Telegram
+    - id: tlg bathhouse main menu
+      alias: tlg_bathhouse_mm
+      initial_state: true
+      trigger:
+        - platform: event
+          event_type: telegram_callback # встроенная клавиатура telegramm
+          event_data:
+            command: "/bathhouse_mm"
+      actions:
+        - action: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
+        - action: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#system"
+            message: |
+              {{"\U0001F9D6"}} Баня
+              {{"\U0001F321"}} {{ states('sensor.bathhouse_climate_temperature') }}
+              {{- " " }}{{"\U0001F3AF"}} {{ state_attr("climate.bathhouse_thermostat", "temperature") }}
+              {{- " " }}{{"\U00002668"}} {% if state_attr("climate.bathhouse_thermostat", "hvac_action") == "idle" %}выкл.{% else %}вкл.{% endif %}
+              {{"\U0001F4A7"}} {{ states('sensor.bathhouse_climate_humidity') }}
+              {{"\U0001F6E2"}} {% if states("switch.bathhouse_boiler") == "off" %}выкл.{% else %}вкл.{% endif %}
+              {{"\U0001F4A1"}} {% if states('light.bathhouse') == "off" %}выкл.{% else %}вкл.{% endif %}
+              Просушка: {% if states("timer.bathhouse_drying_timer") == "idle" %}выкл.{% else %}вкл.{% endif %}
+              Потребляемая мощность: {{"\U000026A1"}}{{ states("sensor.a_power") }} Вт
+            inline_keyboard:
+              - "Подготовить баню:/bathhouse_prepare, Вкл. антизамерз.:/bathhouse_antifrost_mode"
+              - "Вкл. бойлер.:/bathhouse_boiler_switch_on, Выкл. бойлер.:/bathhouse_boiler_switch_off"
+              - "Вкл. просушку:/start_drying, Выкл. просушку:/stop_drying"
+              - "Выкл. освещение:/bathhouse_light_switch_off"
+              - "Главное меню:/mm"
