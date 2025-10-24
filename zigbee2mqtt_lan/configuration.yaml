@@ -28,6 +28,7 @@ advanced:
     - 229
     - 198
     - 134
+  log_level: debug
 mqtt:
   base_topic: zigbee2mqtt_lan
   server: mqtt://core-mosquitto:1883

@@ -8,11 +8,11 @@ weather_outside:
           friendly_name: "Общие погодные условия (прогноз)"
           value_template: >
             {% if state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'clear' %}{{"Ясно"}}
-            {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'partly_cloudy' %}{{"Переменная облачность"}}
+            {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'partlycloudy' %}{{"Переменная облачность"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'cloudy' %}{{"Облачно"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'overcast' %}{{"Пасмурно"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'light_rain' %}{{"Слабый дождь"}}
-            {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'rain' %}{{"Дождь"}}
+            {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'rainy' %}{{"Дождь"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'heavy_rain' %}{{"Сильный дождь"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'showers' %}{{"Ливень"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'sleet' %}{{"Слякоть"}}
@@ -30,11 +30,11 @@ weather_outside:
           friendly_name: "Общие погодные условия (прогноз)"
           value_template: >
             {% if state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'clear' %}{{"Ясно"}}
-            {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'partly_cloudy' %}{{"Переменная облачность"}}
+            {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'partlycloudy' %}{{"Переменная облачность"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'cloudy' %}{{"Облачно"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'overcast' %}{{"Пасмурно"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'light_rain' %}{{"Слабый дождь"}}
-            {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'rain' %}{{"Дождь"}}
+            {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'rainy' %}{{"Дождь"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'heavy_rain' %}{{"Сильный дождь"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'showers' %}{{"Ливень"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'sleet' %}{{"Слякоть"}}
@@ -80,8 +80,14 @@ weather_outside:
         - service: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
-            target: [!secret tlg_user1_id, !secret tlg_user2_id, !secret tlg_user3_id,
-                     !secret tlg_user4_id, !secret tlg_user5_id]
+            target:
+              [
+                !secret tlg_user1_id,
+                !secret tlg_user2_id,
+                !secret tlg_user3_id,
+                !secret tlg_user4_id,
+                !secret tlg_user5_id,
+              ]
             caption: >
               {{ states('sensor.weather_msg') }}
             inline_keyboard:
