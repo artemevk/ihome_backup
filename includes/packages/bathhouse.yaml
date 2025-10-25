@@ -328,7 +328,8 @@ bathhouse:
       alias: bathhouse_steam_next_scene_by_switch
       triggers:
         - trigger: mqtt
-          topic: zigbee2mqtt_lan/bathhouse_bath_light_group2
+          topic: zigbee2mqtt_lan/bathhouse_bath_light_group2/action
+          payload: 1_single
       actions:
         action: input_select.select_next
         target:
@@ -338,7 +339,8 @@ bathhouse:
       alias: bathhouse_steam_previous_scene_by_switch
       triggers:
         - trigger: mqtt
-          topic: zigbee2mqtt_lan/bathhouse_bath_light_group2_l2
+          topic: zigbee2mqtt_lan/bathhouse_bath_light_group2_l2/action
+          payload: 2_single
       actions:
         action: input_select.select_previous
         target:
@@ -347,15 +349,14 @@ bathhouse:
     - id: bathhouse_steam_toggle_light
       alias: bathhouse_steam_toggle_light
       triggers:
-        # - trigger: mqtt
-        #   topic: zigbee2mqtt_lan/bathhouse_bath_light_group1
-        #   payload: "on"
-        #   value_template: button_2
-        - trigger: device
-          domain: mqtt
-          device_id: 500a3133c1d9cc98c27aa33ef24fcfac
-          type: action
-          subtype: 2_single
+        - trigger: mqtt
+          topic: zigbee2mqtt_lan/bathhouse_bath_light_group1/action
+          value_template: button_2
+        # - trigger: device
+        #   domain: mqtt
+        #   device_id: 500a3133c1d9cc98c27aa33ef24fcfac
+        #   type: action
+        #   subtype: 2_single
       actions: 
         - choose:
           - conditions:
@@ -367,9 +368,10 @@ bathhouse:
                 target:
                   entity_id: light.bathhouse_steam
           default:
-            - action: light.turn_on
-              target:
-                entity_id: light.bathhouse_steam
+            - action: scene.turn_on
+              data_template:
+                entity_id: scene.{{ states("input_select.bathhouse_steam_preset") }}
+                transition: 2
 
     - id: apply_bathhouse_scene
       alias: apply_bathhouse_scene

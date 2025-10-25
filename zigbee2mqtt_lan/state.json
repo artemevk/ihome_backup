@@ -7,9 +7,9 @@
         "linkquality": 47
     },
     "0x00158d00048681f7": {
-        "temperature": 8.57,
-        "humidity": 69.71,
-        "pressure": 982.4,
+        "temperature": 9.28,
+        "humidity": 71.68,
+        "pressure": 974.2,
         "linkquality": 153,
         "voltage": 2965,
         "battery": 77,
@@ -32,7 +32,7 @@
         "energy": 0.1,
         "power": 0,
         "current": 0,
-        "voltage": 231,
+        "voltage": 225,
         "state": "OFF",
         "linkquality": 171,
         "power_outage_memory": "restore"
@@ -50,7 +50,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 225,
+        "voltage": 222,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -84,7 +84,7 @@
     },
     "0xa4c138f66453ad9f": {
         "state": "ON",
-        "brightness": 254,
+        "brightness": 2,
         "update": {
             "state": "idle",
             "installed_version": 671166465,
@@ -108,7 +108,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 228,
+        "voltage": 223,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -120,7 +120,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 229,
+        "voltage": 221,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -149,13 +149,13 @@
         },
         "linkquality": 200,
         "state": "ON",
-        "brightness": 254,
+        "brightness": 2,
         "color_temp": 500,
         "color_mode": "color_temp"
     },
     "0xa4c138e3d37737ce": {
         "energy": 13.47,
-        "voltage": 231,
+        "voltage": 225,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
