@@ -24,7 +24,7 @@ porch:
         - trigger: numeric_state
           entity_id: sun.sun
           attribute: elevation
-          above: -2.0
+          above: 2.0
       conditions:
         - condition: or
           conditions:
@@ -46,7 +46,10 @@ porch:
       id: "switch_on_outdoor_light"
       triggers:
         - trigger: state
-          entity_id: binary_sensor.outdoor_motion
+          entity_id: 
+            - binary_sensor.outdoor_motion
+            - binary_sensor.entrance_door_contact
+            - binary_sensor.bathhouse_entrance_door_sensor_contact
           to: "on"
         - trigger: template
           value_template: "{{ states('zone.home') | int > 0 }}"
@@ -57,9 +60,10 @@ porch:
         - condition: state
           entity_id: light.outdoor
           state: "off"
-        - condition: state
+        - condition: numeric_state
           entity_id: sun.sun
-          state: "below_horizon" # "above_horizon" below_horizon
+          attribute: elevation
+          below: -2.0
       actions:
         - action: light.turn_on
           target:
