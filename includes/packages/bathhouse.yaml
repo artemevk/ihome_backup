@@ -207,7 +207,7 @@ bathhouse:
 
     - id: "bathhouse_steam_full"
       name: bathhouse_steam_full
-      icon: mdi:white-balance-sunny
+      icon: mdi:circle-slice-8
       entities:
         light.bathhouse_steam_lamps: on
         light.bathhouse_steam_lamps_controller:
@@ -222,9 +222,23 @@ bathhouse:
           state: "on"
           brightness: 255
 
+    - id: "bathhouse_steam_tree_quarter"
+      name: bathhouse_steam_tree_quarter
+      icon: mdi:circle-slice-6
+      entities:
+        light.bathhouse_steam_lamps: off
+        light.bathhouse_steam_bench: on
+        light.bathhouse_steam_bench_controller:
+          state: "on"
+          brightness: 192
+        light.bathhouse_steam_stove: on
+        light.bathhouse_steam_stove_controller:
+          state: "on"
+          brightness: 192
+
     - id: "bathhouse_steam_half"
       name: bathhouse_steam_half
-      icon: mdi:circle-half-full
+      icon: mdi:circle-slice-4
       entities:
         light.bathhouse_steam_lamps: off
         light.bathhouse_steam_bench: on
@@ -235,6 +249,20 @@ bathhouse:
         light.bathhouse_steam_stove_controller:
           state: "on"
           brightness: 125
+
+    - id: "bathhouse_steam_quarter"
+      name: bathhouse_steam_quarter
+      icon: mdi:circle-slice-2
+      entities:
+        light.bathhouse_steam_lamps: off
+        light.bathhouse_steam_bench: on
+        light.bathhouse_steam_bench_controller:
+          state: "on"
+          brightness: 64
+        light.bathhouse_steam_stove: on
+        light.bathhouse_steam_stove_controller:
+          state: "on"
+          brightness: 64
 
     - id: "bathhouse_steam_min"
       name: bathhouse_steam_min
@@ -263,7 +291,9 @@ bathhouse:
       name: bathhouse_steam_scenes
       options:
         - bathhouse_steam_full
+        - bathhouse_steam_tree_quarter
         - bathhouse_steam_half
+        - bathhouse_steam_quarter
         - bathhouse_steam_min
       icon: mdi:palette-swatch-variant
 
@@ -329,7 +359,7 @@ bathhouse:
       triggers:
         - trigger: mqtt
           topic: zigbee2mqtt_lan/bathhouse_bath_light_group2/action
-          payload: 1_single
+          payload: scene_2
       actions:
         action: input_select.select_next
         target:
@@ -339,8 +369,8 @@ bathhouse:
       alias: bathhouse_steam_previous_scene_by_switch
       triggers:
         - trigger: mqtt
-          topic: zigbee2mqtt_lan/bathhouse_bath_light_group2_l2/action
-          payload: 2_single
+          topic: zigbee2mqtt_lan/bathhouse_bath_light_group2/action
+          payload: scene_1
       actions:
         action: input_select.select_previous
         target:
@@ -351,27 +381,22 @@ bathhouse:
       triggers:
         - trigger: mqtt
           topic: zigbee2mqtt_lan/bathhouse_bath_light_group1/action
-          value_template: button_2
-        # - trigger: device
-        #   domain: mqtt
-        #   device_id: 500a3133c1d9cc98c27aa33ef24fcfac
-        #   type: action
-        #   subtype: 2_single
-      actions: 
+          value_template: scene_2
+      actions:
         - choose:
-          - conditions:
-              - condition: state
-                entity_id: light.bathhouse_steam
-                state: 'on'
-            sequence:
-              - action: light.turn_off
-                target:
+            - conditions:
+                - condition: state
                   entity_id: light.bathhouse_steam
+                  state: "on"
+              sequence:
+                - action: light.turn_off
+                  target:
+                    entity_id: light.bathhouse_steam
           default:
             - action: scene.turn_on
               data_template:
                 entity_id: scene.{{ states("input_select.bathhouse_steam_preset") }}
-                transition: 2
+                transition: 1
 
     - id: apply_bathhouse_scene
       alias: apply_bathhouse_scene
@@ -385,7 +410,7 @@ bathhouse:
         - action: scene.turn_on
           data_template:
             entity_id: scene.{{trigger.to_state.state}}
-            transition: 2
+            transition: 1
 
             # Попытки сделать автоматический свет на улице на кральце бани
     #     - alias: "bathhouse_shoe_drying_off"

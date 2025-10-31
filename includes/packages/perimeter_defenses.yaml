@@ -1,24 +1,61 @@
 perimeter_defenses:
-
   script:
-    create_photos:
+    creating_photos:
       sequence:
-        - service: camera.snapshot
+        - action: camera.snapshot
           target:
             entity_id: camera.parking_camera_mainstream
           data:
             filename: "/media/parking_camera_last_snapshot.jpg"
-        - service: camera.snapshot
+        - action: camera.snapshot
           target:
             entity_id: camera.porch_camera_mainstream
           data:
             filename: "/media/porch_camera_last_snapshot.jpg"
-        - service: camera.snapshot
+        - action: camera.snapshot
           target:
             entity_id: camera.courtyard_camera_mainstream
           data:
             filename: "/media/courtyard_camera_last_snapshot.jpg"
         - delay: 00:00:06
+
+    create_photos:
+      sequence:
+        - if:
+            - condition: template
+              value_template: "{{ state_attr('sun.sun', 'elevation') < -2 }}"
+          then:
+            - sequence:
+                - action: automation.trigger
+                  data:
+                    skip_condition: false
+                  target:
+                    entity_id: automation.switch_on_outdoor_light
+                - delay: 5
+                - action: script.creating_photos
+          else:
+            - action: script.creating_photos
+
+    update_todo_departure_prep:
+      sequence:
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Вода в доме
+            status: needs_action
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Вода в бане
+            status: needs_action
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Калитка
+            status: needs_action
 
     send_photos:
       sequence:
@@ -53,7 +90,6 @@ perimeter_defenses:
             entity_id: alarm_control_panel.home_alarm
             state: disarmed
       action:
-        - delay: 5
         - service: script.create_photos
         - service: script.send_photos
         - service: notify.alarm
@@ -250,8 +286,8 @@ perimeter_defenses:
           - condition: state
             entity_id: alarm_control_panel.home_alarm
             state: "disarmed"
-      action:
-        - service: alarm_control_panel.alarm_disarm
+      actions:
+        - action: alarm_control_panel.alarm_disarm
           target:
             entity_id: alarm_control_panel.home_alarm
 
@@ -268,7 +304,8 @@ perimeter_defenses:
         - action: notify.alarm
           data:
             title: "Охрана"
-            message: Дом поставлен на охрану.
+            message: |
+              Дом поставлен на охрану. Проверьте чек-лист.
             data:
               url: "/lovelace/security"
               importance: high
@@ -288,8 +325,8 @@ perimeter_defenses:
             - "armed_home"
           to:
             - "disarmed"
-      action:
-        - service: notify.alarm
+      actions:
+        - action: notify.alarm
           data:
             title: "Охрана"
             message: Дом снят с охраны.
@@ -299,9 +336,10 @@ perimeter_defenses:
               persistent: true
               vibrationPattern: 100, 1000, 100, 1000, 100
               ledColor: red
+        - action: script.update_todo_departure_prep
 
     - id: tlg_action_disarm
-      alias: 'tlg_action_disarm'
+      alias: "tlg_action_disarm"
       initial_state: true
       mode: single
       triggers:
@@ -326,13 +364,13 @@ perimeter_defenses:
               {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
               {% endif -%}
               Выберите режим:
-            inline_keyboard:
+            inline_keyboard: &alarm_keyb
               - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
               - "Нет охраны:/alarm_disarm"
               - "Главное меню:/mm"
 
     - id: tlg_action_arm_home
-      alias: 'tlg_action_arm_home'
+      alias: "tlg_action_arm_home"
       initial_state: true
       mode: single
       triggers:
@@ -357,13 +395,10 @@ perimeter_defenses:
               {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
               {% endif -%}
               Выберите режим:
-            inline_keyboard:
-              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
-              - "Нет охраны:/alarm_disarm"
-              - "Главное меню:/mm"
+            inline_keyboard: *alarm_keyb
 
     - id: tlg_action_arm_away
-      alias: 'tlg_action_arm_away'
+      alias: "tlg_action_arm_away"
       initial_state: true
       mode: single
       triggers:
@@ -375,14 +410,26 @@ perimeter_defenses:
         - action: alarm_control_panel.alarm_arm_away
           target:
             entity_id: alarm_control_panel.home_alarm
-        - service: telegram_bot.edit_message
+        - action: todo.get_items
+          target:
+            entity_id: todo.departure_prep
+          data:
+            status:
+              - needs_action
+          response_variable: todo_list
+        - action: telegram_bot.edit_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
             title: "#охрана"
-            message: "Команда принята. Время постановки на охрану 30 секунд. Ожидайте подтверждение."
+            message: |
+              Команда принята. Время постановки на охрану 30 секунд. Ожидайте подтверждение.
+              Проверьте чек-лист:
+              {%- set tasks = todo_list['todo.departure_prep']['items'] -%}
+              {% set headings = tasks | map(attribute='summary') | list %}
+              - {{ (headings | join('\n- ')) }}
         - delay: 31
-        - service: telegram_bot.edit_message
+        - action: telegram_bot.edit_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
@@ -395,7 +442,4 @@ perimeter_defenses:
               {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
               {% endif -%}
               Выберите режим:
-            inline_keyboard:
-              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
-              - "Нет охраны:/alarm_disarm"
-              - "Главное меню:/mm"
+            inline_keyboard: *alarm_keyb
