@@ -89,10 +89,6 @@ porch:
           entity_id: light.outdoor
           state: "on"
       actions:
-        # - action: timer.start
-        #   target:
-        #     entity_id: timer.outdoor_light
-        #     duration: "{{states('input_datetime.countdowntime')}}"
         - action: timer.start
           data:
             duration: "{{ states('input_number.outdoor_light_limit_minutes') | int * 60 }}"

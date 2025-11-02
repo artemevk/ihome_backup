@@ -517,6 +517,13 @@ bathhouse:
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
 
+        # - action: telegram_bot.edit_message
+        #   data:
+        #     chat_id: "{{ trigger.event.data.chat_id }}"
+        #     message_id: "{{ trigger.event.data.message.message_id }}"
+        #     message: '{{ states("sensor.bathhouse_mm") }}'
+        #     inline_keyboard: *keyb_bh
+
     # Antifrost mode
     - id: Режим антизамерзания бани
       alias: bathhouse_antifrost_tlg
