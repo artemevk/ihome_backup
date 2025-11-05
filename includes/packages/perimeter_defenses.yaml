@@ -1,4 +1,16 @@
 perimeter_defenses:
+  sensor:
+    - platform: template
+      sensors:
+        alarm_control_panel_arm_mode:
+          friendly_name: "Недоступно светильников"
+          icon_template: mdi:shield
+          value_template: |
+            {%- if states('alarm_control_panel.master') == 'disarmed' %}{{" Нет охраны"}}
+            {% elif states('alarm_control_panel.master') == 'armed_home' %}{{" Дома"}}
+            {% elif states('alarm_control_panel.master') == 'armed_away' %}{{" Не дома"}}
+            {% endif -%}
+
   script:
     creating_photos:
       sequence:
@@ -87,7 +99,7 @@ perimeter_defenses:
         alias: "alarm not disarmed"
         not:
           - condition: state
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
             state: disarmed
       action:
         - service: script.create_photos
@@ -128,7 +140,7 @@ perimeter_defenses:
       condition:
         not:
           - condition: state
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
             state: "disarmed"
       action:
         - service: notify.mobile_app_artemevk
@@ -160,7 +172,7 @@ perimeter_defenses:
       condition:
         not:
           - condition: state
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
             state: "disarmed"
       action:
         - service: notify.mobile_app_artemevp
@@ -191,7 +203,7 @@ perimeter_defenses:
       action:
         - service: alarm_control_panel.alarm_disarm
           target:
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
 
     - alias: "Trigger alarm while armed away"
       trigger:
@@ -203,12 +215,12 @@ perimeter_defenses:
           to: "on"
       condition:
         - condition: state
-          entity_id: alarm_control_panel.home_alarm
+          entity_id: alarm_control_panel.master
           state: armed_away
       action:
         service: alarm_control_panel.alarm_trigger
         target:
-          entity_id: alarm_control_panel.home_alarm
+          entity_id: alarm_control_panel.master
 
     - alias: "Trigger alarm while armed home"
       triggers:
@@ -219,7 +231,7 @@ perimeter_defenses:
           to: "on"
       conditions:
         - condition: state
-          entity_id: alarm_control_panel.home_alarm
+          entity_id: alarm_control_panel.master
           state: armed_home
         - condition: state
           entity_id: binary_sensor.porch_motion_protect_occupancy
@@ -230,12 +242,12 @@ perimeter_defenses:
       actions:
         - action: alarm_control_panel.alarm_trigger
           target:
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
 
     - alias: "Send notification when alarm triggered"
       trigger:
         - platform: state
-          entity_id: alarm_control_panel.home_alarm
+          entity_id: alarm_control_panel.master
           to: "triggered"
       action:
         - service: notify.alarm
@@ -269,12 +281,12 @@ perimeter_defenses:
       condition:
         not:
           - condition: state
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
             state: "armed_away"
       action:
         - service: alarm_control_panel.alarm_arm_away
           target:
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
 
     - id: "automatic disarming"
       alias: "automatic disarming"
@@ -284,18 +296,18 @@ perimeter_defenses:
       condition:
         not:
           - condition: state
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
             state: "disarmed"
       actions:
         - action: alarm_control_panel.alarm_disarm
           target:
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
 
     - id: "alarm notify armed"
       alias: "alarm notify armed"
       trigger:
         - platform: state
-          entity_id: alarm_control_panel.home_alarm
+          entity_id: alarm_control_panel.master
           to:
             - "armed_away"
       actions:
@@ -319,7 +331,7 @@ perimeter_defenses:
       alias: "alarm notify disarmed"
       trigger:
         - platform: state
-          entity_id: alarm_control_panel.home_alarm
+          entity_id: alarm_control_panel.master
           not_from:
             - "arming"
             - "armed_home"
@@ -338,6 +350,32 @@ perimeter_defenses:
               ledColor: red
         - action: script.update_todo_departure_prep
 
+    - id: tlg_alarm_menu
+      alias: "tlg_alarm_menu"
+      trigger:
+        - platform: event
+          event_type: telegram_callback # вызов с клавиатуры
+          event_data:
+            command: "/alarm_panel"
+      action:
+        - service: telegram_bot.delete_message
+          data:
+            chat_id: "{{ trigger.event.data.chat_id }}"
+            message_id: "{{ trigger.event.data.message.message_id }}"
+        - service: telegram_bot.send_message
+          data_template:
+            target: "{{ trigger.event.data.user_id }}"
+            title: "#охрана"
+            message: |
+              {{'\U0001F6A8'}} Меню охраны
+              Текущий режим:
+              {{- " "}}{{ states('sensor.alarm_control_panel_arm_mode') }}
+              Выберите режим:
+            inline_keyboard: &alarm_keyb
+              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
+              - "Нет охраны:/alarm_disarm"
+              - "Главное меню:/mm"
+
     - id: tlg_action_disarm
       alias: "tlg_action_disarm"
       initial_state: true
@@ -350,7 +388,7 @@ perimeter_defenses:
       actions:
         - action: alarm_control_panel.alarm_disarm
           target:
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
         - service: telegram_bot.edit_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
@@ -359,15 +397,9 @@ perimeter_defenses:
             message: |
               {{'\U0001F6A8'}} Меню охраны
               Текущий режим:
-              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
-              {% endif -%}
+              {{- " "}}{{ states('sensor.alarm_control_panel_arm_mode') }}
               Выберите режим:
-            inline_keyboard: &alarm_keyb
-              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
-              - "Нет охраны:/alarm_disarm"
-              - "Главное меню:/mm"
+            inline_keyboard: *alarm_keyb
 
     - id: tlg_action_arm_home
       alias: "tlg_action_arm_home"
@@ -381,7 +413,7 @@ perimeter_defenses:
       actions:
         - action: alarm_control_panel.alarm_arm_home
           target:
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
         - service: telegram_bot.edit_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
@@ -390,10 +422,7 @@ perimeter_defenses:
             message: |
               {{'\U0001F6A8'}} Меню охраны
               Текущий режим:
-              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
-              {% endif -%}
+              {{- " "}}{{ states('sensor.alarm_control_panel_arm_mode') }}
               Выберите режим:
             inline_keyboard: *alarm_keyb
 
@@ -409,7 +438,7 @@ perimeter_defenses:
       actions:
         - action: alarm_control_panel.alarm_arm_away
           target:
-            entity_id: alarm_control_panel.home_alarm
+            entity_id: alarm_control_panel.master
         - action: todo.get_items
           target:
             entity_id: todo.departure_prep
@@ -437,9 +466,6 @@ perimeter_defenses:
             message: |
               {{'\U0001F6A8'}} Меню охраны
               Текущий режим:
-              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
-              {% endif -%}
+              {{- " "}}{{ states('sensor.alarm_control_panel_arm_mode') }}
               Выберите режим:
             inline_keyboard: *alarm_keyb

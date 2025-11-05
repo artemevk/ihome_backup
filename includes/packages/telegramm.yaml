@@ -122,34 +122,6 @@ telegramm:
               - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
               - "{{'\U0001F9D6'}} Баня:/bathhouse_mm"
 
-    - alias: "Telegram alarm menu"
-      trigger:
-        - platform: event
-          event_type: telegram_callback # вызов с клавиатуры
-          event_data:
-            command: "/alarm_panel"
-      action:
-        - service: telegram_bot.delete_message
-          data:
-            chat_id: "{{ trigger.event.data.chat_id }}"
-            message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
-          data_template:
-            target: "{{ trigger.event.data.user_id }}"
-            title: "#охрана"
-            message: |
-              {{'\U0001F6A8'}} Меню охраны
-              Текущий режим:
-              {%- if states('alarm_control_panel.home_alarm') == 'disarmed' %}{{" Нет охраны"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_home' %}{{" Дома"}}
-              {% elif states('alarm_control_panel.home_alarm') == 'armed_away' %}{{" Не дома"}}
-              {% endif -%}
-              Выберите режим:
-            inline_keyboard:
-              - "Не дома:/alarm_arm_away, Дома:/alarm_arm_home"
-              - "Нет охраны:/alarm_disarm"
-              - "Главное меню:/mm"
-
     - id: Отчет при запуске системы
       alias: start_message
       initial_state: true
@@ -186,7 +158,6 @@ telegramm:
                 - "{{'\U0001F4F8'}} Фото:/photo"
                 - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
                 - "{{'\U0001F9D6'}} Баня:/bathhouse_mm"
-
 
     # Отчет о системе по запросу
     - id: Отчет о системе по запросу
@@ -312,4 +283,3 @@ telegramm:
             target: "{{ trigger.event.data.chat_id }}"
             inline_keyboard:
               - "Главное меню:/mm"
-
