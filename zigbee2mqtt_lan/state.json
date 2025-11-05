@@ -50,7 +50,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 229,
+        "voltage": 235,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -107,7 +107,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 233,
+        "voltage": 234,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
