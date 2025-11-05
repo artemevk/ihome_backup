@@ -68,6 +68,36 @@ perimeter_defenses:
           data:
             item: Калитка
             status: needs_action
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Помыть посуду в бане
+            status: needs_action        
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Забрать мусор
+            status: needs_action        
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Баня. Чайник не на базе
+            status: needs_action        
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Открыт туалет
+            status: needs_action
+        - action: todo.update_item
+          target:
+            entity_id: todo.departure_prep
+          data:
+            item: Зеркало в бане
+            status: needs_action
 
     send_photos:
       sequence:
