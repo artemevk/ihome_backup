@@ -266,7 +266,7 @@ bathhouse:
 
     - id: "bathhouse_steam_min"
       name: bathhouse_steam_min
-      icon: mdi:hot-tub
+      icon: mdi:circle-slice-1
       entities:
         light.bathhouse_steam_lamps: off
         light.bathhouse_steam_bench: on
@@ -277,6 +277,18 @@ bathhouse:
         light.bathhouse_steam_stove_controller:
           state: "on"
           brightness: 2
+
+    - id: "bathhouse_steam_off"
+      name: bathhouse_steam_off
+      icon: mdi:circle-outline
+      entities:
+        light.bathhouse_steam_lamps: off
+        light.bathhouse_steam_bench: on
+        light.bathhouse_steam_bench_controller:
+          state: "off"
+        light.bathhouse_steam_stove: on
+        light.bathhouse_steam_stove_controller:
+          state: "off"
 
   input_select:
     bathhouse_preset:
@@ -389,9 +401,9 @@ bathhouse:
                   entity_id: light.bathhouse_steam
                   state: "on"
               sequence:
-                - action: light.turn_off
+                - action: scene.turn_on
                   target:
-                    entity_id: light.bathhouse_steam
+                    entity_id: scene.bathhouse_steam_off
           default:
             - action: scene.turn_on
               data_template:

@@ -98,6 +98,7 @@
     - sensor.second_floor_climate_battery
     - sensor.toilet_climate_battery
     - sensor.toilet_water_leak_battery
+    - sensor.gates_remote_battery
 # - platform: group
 #   name: "total_power"
 #   device_class: power

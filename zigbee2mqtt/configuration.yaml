@@ -54,5 +54,5 @@ frontend:
 availability:
   enabled: true
   passive:
-    timeout: 120
+    timeout: 360
 version: 4
