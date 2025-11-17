@@ -17,7 +17,7 @@ weather_outside:
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'showers' %}{{"Ливень"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'sleet' %}{{"Слякоть"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'light_snow' %}{{"Лёгкий снег"}}
-            {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'snow' %}{{"Снег"}}
+            {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'snowy' %}{{"Снег"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'snowfall' %}{{"Снегопад"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'hail' %}{{"Град"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'thunderstorm' %}{{"Грозы"}}
@@ -40,7 +40,7 @@ weather_outside:
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'showers' %}{{"Ливень"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'sleet' %}{{"Слякоть"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'light_snow' %}{{"Лёгкий снег"}}
-            {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'snow' %}{{"Снег"}}
+            {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'snowy' %}{{"Снег"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'snowfall' %}{{"Снегопад"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'hail' %}{{"Град"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'thunderstorm' %}{{"Грозы"}}

@@ -46,9 +46,9 @@
       event_data:
         entity_id: timer.iflat_offline
   action:
-    - service: notify.tlg_user1_id
-      data:
-        title: "#system"
+    - service: telegram_bot.send_message
+      data_template:
+        target: !secret tlg_user1_id
         message: "Сервер iFlat не отвечает!"
     - service: notify.mobile_app_artemevk
       data:

@@ -129,15 +129,17 @@ telegramm:
         - platform: homeassistant
           event: start
       action:
-        - service: notify.tlg_user1_id
-          data:
+        - service: telegram_bot.send_message
+          data_template:
+            target: !secret tlg_user1_id
             title: "#system"
             message: |
               {{"\U0001F5A5"}} Зафиксирован запуск. Отчет о состоянии будет через 1 минуту.
         # Задержка и отправка полного отчета через минуту
         - delay: 00:01:00
-        - service: notify.tlg_user1_id
-          data:
+        - service: telegram_bot.send_message
+          data_template:
+            target: !secret tlg_user1_id
             title: "#system"
             message: |
               {{ states('sensor.msg_report') }}
@@ -145,8 +147,9 @@ telegramm:
               {{ states('sensor.batteries_states_msg') }}
         # Задержка 1 с
         - delay: 00:00:01
-        - service: notify.tlg_user1_id
-          data:
+        - service: telegram_bot.send_message
+          data_template:
+            target: !secret tlg_user1_id
             # title: "#system"
             message: "Добро пожаловать в главное меню. Выберите действие:"
             data:
@@ -234,8 +237,9 @@ telegramm:
           - condition: template
             value_template: "{{ trigger.to_state.state > trigger.from_state.state }}"
       action:
-        - service: notify.tlg_user1_id
-          data:
+        - service: telegram_bot.send_message
+          data_template:
+            target: !secret tlg_user1_id
             message: |
               {{"\U0000203C"}} Обнаружена новая неисправность
               {{ states('sensor.msg_report') }}

@@ -13,11 +13,19 @@ total_climate:
         # - service: climate.turn_on
         #   target:
         #     entity_id: all
-        - service: climate.set_temperature
+        # - service: climate.set_temperature
+        #   target:
+        #     entity_id: group.house_radiators
+        #   data:
+        #     temperature: 24
+        - service: climate.set_preset_mode
           target:
-            entity_id: group.house_radiators
+            entity_id:
+              - climate.1st_floor_bedroom_heater_thermostat
+              - climate.childrens_room_heater_thermostat
+              - climate.open_kitchen_heater_thermostat
           data:
-            temperature: 24
+            preset_mode: "comfort"
 
     antifrost_mode:
       sequence:

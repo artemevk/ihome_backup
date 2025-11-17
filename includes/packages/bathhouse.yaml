@@ -64,6 +64,11 @@ bathhouse:
     bathhouse_shoe_drying_timer:
       duration: "08:00:00"
 
+  input_datetime:
+    prepare_the_bathhouse_dt:
+      has_date: true
+      has_time: true
+
   script:
     bathhouse_drying_on:
       sequence:

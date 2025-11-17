@@ -1,8 +1,8 @@
-- platform: time_date
-  display_options:
-    - "time"
-    - "date"
-    - "time_date"
+# - platform: time_date
+#   display_options:
+#     - "time"
+#     - "date"
+#     - "time_date"
 
 #   - platform: systemmonitor
 #     resources:
@@ -14,91 +14,91 @@
 #     - type: disk_free
 #       arg: /
 
-- platform: sql
-  db_url: !secret db_link
-  queries:
-    - name: maria_db
-      query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576, 2) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
-      column: "value"
-      unit_of_measurement: MB
+# - platform: sql
+#   db_url: !secret db_link
+#   queries:
+#     - name: maria_db
+#       query: 'SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576, 2) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+#       column: "value"
+#       unit_of_measurement: MB
 
 # Время с последней перезагрузки
-- platform: template
-  sensors:
-    last_boot_custom:
-      friendly_name: "Последняя перезагрузка"
-      entity_id:
-        - sensor.time
-      value_template: >
-        {% set uptime = as_timestamp (now()) -as_timestamp(states('sensor.last_boot')) | int %}
-        {% set minutes = (( uptime % 3600) / 60) | int %}
-        {% set hours = ((uptime % 86400) / 3600) | int %}
-        {% set days = (uptime / 86400) | int %}
-          {% if uptime < 1 %}
-            Меньше минуты
-          {% else %}
-            {% if days > 0 %}
-              {{ days }} д.
-            {% endif %}
-            {% if hours > 0 %}
-              {% if days > 0 %}
-                {{ ' ' }}
-              {% endif %}
-              {{ hours }} ч.
-            {% endif %}
-            {% if minutes > 0 %}
-              {% if days > 0 or hours > 0 %}
-                {{ ' ' }}
-              {% endif %}
-                {{ minutes }} мин.
-            {% endif %}
-          {% endif %}
-      icon_template: mdi:clock
+# - platform: template
+#   sensors:
+#     last_boot_custom:
+#       friendly_name: "Последняя перезагрузка"
+#       entity_id:
+#         - sensor.time
+#       value_template: >
+#         {% set uptime = as_timestamp (now()) -as_timestamp(states('sensor.last_boot')) | int %}
+#         {% set minutes = (( uptime % 3600) / 60) | int %}
+#         {% set hours = ((uptime % 86400) / 3600) | int %}
+#         {% set days = (uptime / 86400) | int %}
+#           {% if uptime < 1 %}
+#             Меньше минуты
+#           {% else %}
+#             {% if days > 0 %}
+#               {{ days }} д.
+#             {% endif %}
+#             {% if hours > 0 %}
+#               {% if days > 0 %}
+#                 {{ ' ' }}
+#               {% endif %}
+#               {{ hours }} ч.
+#             {% endif %}
+#             {% if minutes > 0 %}
+#               {% if days > 0 or hours > 0 %}
+#                 {{ ' ' }}
+#               {% endif %}
+#                 {{ minutes }} мин.
+#             {% endif %}
+#           {% endif %}
+#       icon_template: mdi:clock
 
-- platform: template
-  sensors:
-    online_custom:
-      friendly_name: "HA онлайн"
-      value_template: >
-        {% set uptime = (as_timestamp(now()) - as_timestamp(states('sensor.online'))) / 60 | int %}
-        {% set minutes = (( uptime % 60) / 1) | int %}
-        {% set hours = ((uptime % 1440) / 60) | int %}
-        {% set days = (uptime / 1440) | int %}
-          {% if uptime < 1 %}
-            Меньше минуты
-          {% else %}
-            {% if days > 0 %}
-              {{ days }} д.
-            {% endif %}
-            {% if hours > 0 %}
-              {% if days > 0 %}
-                {{ ' ' }}
-              {% endif %}
-              {{ hours }} ч.
-            {% endif %}
-            {% if minutes > 0 %}
-              {% if days > 0 or hours > 0 %}
-                {{ ' ' }}
-              {% endif %}
-                {{ minutes }} мин.
-            {% endif %}
-          {% endif %}
+# - platform: template
+#   sensors:
+#     online_custom:
+#       friendly_name: "HA онлайн"
+#       value_template: >
+#         {% set uptime = (as_timestamp(now()) - as_timestamp(states('sensor.online'))) / 60 | int %}
+#         {% set minutes = (( uptime % 60) / 1) | int %}
+#         {% set hours = ((uptime % 1440) / 60) | int %}
+#         {% set days = (uptime / 1440) | int %}
+#           {% if uptime < 1 %}
+#             Меньше минуты
+#           {% else %}
+#             {% if days > 0 %}
+#               {{ days }} д.
+#             {% endif %}
+#             {% if hours > 0 %}
+#               {% if days > 0 %}
+#                 {{ ' ' }}
+#               {% endif %}
+#               {{ hours }} ч.
+#             {% endif %}
+#             {% if minutes > 0 %}
+#               {% if days > 0 or hours > 0 %}
+#                 {{ ' ' }}
+#               {% endif %}
+#                 {{ minutes }} мин.
+#             {% endif %}
+#           {% endif %}
 
-- platform: group
-  name: "min_batteries_state"
-  device_class: battery
-  ignore_non_numeric: false
-  type: min
-  entities:
-    - sensor.bathhouse_climate_battery
-    - sensor.childrens_room_climate_battery
-    - sensor.entrance_door_battery
-    - sensor.open_kitchen_motion_sensor_battery
-    - sensor.porch_motion_protect_battery
-    - sensor.second_floor_climate_battery
-    - sensor.toilet_climate_battery
-    - sensor.toilet_water_leak_battery
-    - sensor.gates_remote_battery
+# - platform: group
+#   name: "min_batteries_state"
+#   device_class: battery
+#   ignore_non_numeric: false
+#   type: min
+#   entities:
+#     - sensor.bathhouse_climate_battery
+#     - sensor.childrens_room_climate_battery
+#     - sensor.entrance_door_battery
+#     - sensor.open_kitchen_motion_sensor_battery
+#     - sensor.porch_motion_protect_battery
+#     - sensor.second_floor_climate_battery
+#     - sensor.toilet_climate_battery
+#     - sensor.toilet_water_leak_battery
+#     - sensor.gates_remote_battery
 # - platform: group
 #   name: "total_power"
 #   device_class: power
