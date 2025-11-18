@@ -1,9 +1,7 @@
 defence:
-
   sensor:
     - platform: template
       sensors:
-
         msg_power_protection:
           friendly_name: "Уведомление о превышение потребления электроэнергии"
           value_template: |
@@ -12,9 +10,9 @@ defence:
           icon_template: mdi:transmission-tower
 
         msg_temperature_protection:
-          friendly_name: "Уведомление о падении температуры ниже 5 °C"
+          friendly_name: "Уведомление о падении температуры ниже 4 °C"
           value_template: |
-            {{"\U0001F321"}} Температура упала ниже 5 °C!
+            {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 4 °C!
             Спальня на первом этаже: {{ states('sensor.1st_floor_bedroom_temperature') }} °C
             Детская: {{ states('sensor.childrens_room_climate_temperature') }} °C
             Кухня-гостиная: {{ states('sensor.open_kitchen_temperature') }} °C
@@ -22,8 +20,6 @@ defence:
             Туалет: {{ states('sensor.toilet_climate_temperature') }} °C
             Баня: {{ states('sensor.bathhouse_climate_temperature') }} °C
           icon_template: mdi:transmission-tower
-
-
 
   automation:
     - id: "water leak"
@@ -107,7 +103,7 @@ defence:
       action:
         - service: notify.mobile_app_artemevk
           data:
-            title: "Потребление электроэнергии!"
+            title: "Низкая температура {{ trigger.entity_id }}!"
             message: "{{ states('sensor.msg_temperature_protection') }}"
             data:
               url: "/lovelace/main"
