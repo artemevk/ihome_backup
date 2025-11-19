@@ -230,12 +230,12 @@ telegramm:
       trigger:
         - platform: state # при потере объектов
           entity_id: sensor.unavailable_objects
-          for: "00:03:00"
+          for: "00:02:00"
       condition:
         condition: and
         conditions:
           - condition: template
-            value_template: "{{ trigger.to_state.state > trigger.from_state.state }}"
+            value_template: "{{ trigger.to_state.state > states('sensor.unavailable_objects_3_minutes_ago') }}"
       action:
         - service: telegram_bot.send_message
           data_template:

@@ -12,7 +12,6 @@ defence:
         msg_temperature_protection:
           friendly_name: "Уведомление о падении температуры ниже 4 °C"
           value_template: |
-            {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 4 °C!
             Спальня на первом этаже: {{ states('sensor.1st_floor_bedroom_temperature') }} °C
             Детская: {{ states('sensor.childrens_room_climate_temperature') }} °C
             Кухня-гостиная: {{ states('sensor.open_kitchen_temperature') }} °C
@@ -58,7 +57,7 @@ defence:
             hours: 0
             minutes: 1
             seconds: 0
-          above: 6000
+          above: 6500
       action:
         - service: notify.mobile_app_artemevk
           data:
@@ -103,7 +102,7 @@ defence:
       action:
         - service: notify.mobile_app_artemevk
           data:
-            title: "Низкая температура {{ trigger.entity_id }}!"
+            title: '{{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 5 °C!'
             message: "{{ states('sensor.msg_temperature_protection') }}"
             data:
               url: "/lovelace/main"
@@ -119,6 +118,8 @@ defence:
           data_template:
             target: !secret tlg_user1_id
             title: "#alarm"
-            message: "{{ states('sensor.msg_temperature_protection') }}"
+            message: |
+              {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 5 °C!
+              {{ states('sensor.msg_temperature_protection') }}
             inline_keyboard:
               - "Главное меню:/mm"
