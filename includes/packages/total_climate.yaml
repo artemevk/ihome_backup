@@ -26,6 +26,12 @@ total_climate:
               - climate.open_kitchen_heater_thermostat
           data:
             preset_mode: "comfort"
+        - service: notify.mobile_app_artemevk
+          data:
+            title: Отопление
+            message: Активирована подготовка дома
+            data:
+              url: /lovelace/main
 
     antifrost_mode:
       sequence:
@@ -60,7 +66,7 @@ total_climate:
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message: |
-              {{"\U0000231A"}} Отчет за {{ states('sensor.time_date') }}
+              {{"\U0000231A"}} Отчет за {{ states('sensor.date_time') }}
 
               {{ states('sensor.msg_open_kitchen_climate') }}
 
@@ -104,7 +110,7 @@ total_climate:
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message: |
-              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U0000231A"}} {{ states('sensor.date_time') }}
               {{"\U00002668"}} Дом подготавливается.
 
               {{ states('sensor.msg_open_kitchen_climate') }}
@@ -128,12 +134,6 @@ total_climate:
           target:
             entity_id:
               - script.prepare_the_house
-        - action: notify.mobile_app_artemevk
-          data:
-            title: Отопление
-            message: Активирована подготовка дома
-            data:
-              url: /lovelace/main
 
     # Дом в режим антизамерзания
     - id: Дом в режим антизамерзания
@@ -167,7 +167,7 @@ total_climate:
           data_template:
             target: "{{ trigger.event.data.user_id }}"
             message: |
-              {{"\U0000231A"}} {{ states('sensor.time_date') }}
+              {{"\U0000231A"}} {{ states('sensor.date_time') }}
               {{"\U00002744"}} Дом переведен в режим антизамерзания.
 
               {{ states('sensor.msg_open_kitchen_climate') }}

@@ -152,15 +152,14 @@ telegramm:
             target: !secret tlg_user1_id
             # title: "#system"
             message: "Добро пожаловать в главное меню. Выберите действие:"
-            data:
-              inline_keyboard:
-                - "Ворота:/gate_step_mode, Калитка:/gate_pedestrian_crossing"
-                - "Отчет о системе:/report, Батарейки:/battaries_states"
-                - "{{'\U0001F326'}} Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
-                - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
-                - "{{'\U0001F4F8'}} Фото:/photo"
-                - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
-                - "{{'\U0001F9D6'}} Баня:/bathhouse_mm"
+            inline_keyboard:
+              - "Ворота:/gate_step_mode, Калитка:/gate_pedestrian_crossing"
+              - "Отчет о системе:/report, Батарейки:/battaries_states"
+              - "{{'\U0001F326'}} Прогноз погоды:/forecast, Погода в доме:/home_climate_report"
+              - "Подготовить дом:/prepare_the_house, Вкл. антизамерз.:/antifrost_mode"
+              - "{{'\U0001F4F8'}} Фото:/photo"
+              - "{{'\U0001F6A8'}} Меню охраны:/alarm_panel"
+              - "{{'\U0001F9D6'}} Баня:/bathhouse_mm"
 
     # Отчет о системе по запросу
     - id: Отчет о системе по запросу
@@ -230,12 +229,12 @@ telegramm:
       trigger:
         - platform: state # при потере объектов
           entity_id: sensor.unavailable_objects
-          for: "00:02:00"
+          for: "00:03:00"
       condition:
         condition: and
         conditions:
           - condition: template
-            value_template: "{{ trigger.to_state.state > states('sensor.unavailable_objects_3_minutes_ago') }}"
+            value_template: "{{ trigger.to_state.state > states('sensor.unavailable_objects_5_minutes_ago') }}"
       action:
         - service: telegram_bot.send_message
           data_template:
@@ -243,9 +242,8 @@ telegramm:
             message: |
               {{"\U0000203C"}} Обнаружена новая неисправность
               {{ states('sensor.msg_report') }}
-            data:
-              inline_keyboard:
-                - "Главное меню:/mm"
+            inline_keyboard:
+              - "Главное меню:/mm"
 
     # Фото по запросу
     - id: Фото по запросу

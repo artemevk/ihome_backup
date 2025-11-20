@@ -65,7 +65,7 @@ bathhouse:
       duration: "08:00:00"
 
   input_datetime:
-    prepare_the_bathhouse_dt:
+    bathhouse_prepare_dt:
       has_date: true
       has_time: true
 
@@ -126,6 +126,12 @@ bathhouse:
         - service: switch.turn_on
           target:
             entity_id: switch.bathhouse_boiler
+        - service: notify.mobile_app_artemevk
+          data:
+            title: Отопление
+            message: Активирована подготовка бани
+            data:
+              url: /lovelace/bathhouse
 
     bathhouse_antifrost:
       sequence:
@@ -504,7 +510,7 @@ bathhouse:
               - "Главное меню:/mm"
 
     # Подготовить баню
-    - id: Подготовить баню
+    - id: Подготовить баню тлг
       alias: bathhouse_prepare_tlg
       initial_state: true
       trigger:
@@ -533,13 +539,21 @@ bathhouse:
             target: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
-
         # - action: telegram_bot.edit_message
         #   data:
         #     chat_id: "{{ trigger.event.data.chat_id }}"
         #     message_id: "{{ trigger.event.data.message.message_id }}"
         #     message: '{{ states("sensor.bathhouse_mm") }}'
         #     inline_keyboard: *keyb_bh
+
+    - id: Подготовить баню
+      alias: bathhouse_prepare
+      initial_state: true
+      triggers:
+        - trigger: time
+          at: input_datetime.bathhouse_prepare_dt
+      actions:
+        - action: script.bathhouse_prepare
 
     # Antifrost mode
     - id: Режим антизамерзания бани

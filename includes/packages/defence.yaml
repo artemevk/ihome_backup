@@ -57,7 +57,7 @@ defence:
             hours: 0
             minutes: 1
             seconds: 0
-          above: 6500
+          above: 6700
       action:
         - service: notify.mobile_app_artemevk
           data:
@@ -98,11 +98,11 @@ defence:
             hours: 0
             minutes: 5
             seconds: 0
-          below: 5
+          below: 4
       action:
         - service: notify.mobile_app_artemevk
           data:
-            title: '{{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 5 °C!'
+            title: '{{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 4 °C!'
             message: "{{ states('sensor.msg_temperature_protection') }}"
             data:
               url: "/lovelace/main"
@@ -119,7 +119,7 @@ defence:
             target: !secret tlg_user1_id
             title: "#alarm"
             message: |
-              {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 5 °C!
+              {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 4 °C!
               {{ states('sensor.msg_temperature_protection') }}
             inline_keyboard:
               - "Главное меню:/mm"
