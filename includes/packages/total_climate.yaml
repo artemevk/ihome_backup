@@ -38,14 +38,18 @@ total_climate:
         - service: switch.turn_off
           target:
             entity_id: switch.water_heater
-        # - service: climate.turn_on
-        #   target:
-        #     entity_id: all
+        - service: switch.turn_off
+          target:
+            entity_id:
+              - switch.schedule_05e577
+              - switch.schedule_0c5617
+              - switch.schedule_aaa3bc
         - service: climate.set_temperature
           target:
             entity_id: group.house_radiators
           data:
             temperature: 5
+        
 
   automation:
     # Погода в доме

@@ -379,6 +379,12 @@ perimeter_defenses:
               vibrationPattern: 100, 1000, 100, 1000, 100
               ledColor: red
         - action: script.update_todo_departure_prep
+        - action: switch.turn_on
+          target:
+            entity_id:
+              - switch.schedule_05e577
+              - switch.schedule_0c5617
+              - switch.schedule_aaa3bc
 
     - id: tlg_alarm_menu
       alias: "tlg_alarm_menu"

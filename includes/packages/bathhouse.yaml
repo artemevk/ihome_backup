@@ -383,6 +383,9 @@ bathhouse:
         - trigger: mqtt
           topic: zigbee2mqtt_lan/bathhouse_bath_light_group2/action
           payload: scene_2
+        - trigger: mqtt
+          topic: zigbee2mqtt_lan/bathhouse_steam_scene_switch/action
+          payload: single
       actions:
         action: input_select.select_next
         target:
@@ -394,6 +397,9 @@ bathhouse:
         - trigger: mqtt
           topic: zigbee2mqtt_lan/bathhouse_bath_light_group2/action
           payload: scene_1
+        - trigger: mqtt
+          topic: zigbee2mqtt_lan/bathhouse_steam_scene_switch/action
+          payload: double
       actions:
         action: input_select.select_previous
         target:
@@ -405,6 +411,9 @@ bathhouse:
         - trigger: mqtt
           topic: zigbee2mqtt_lan/bathhouse_bath_light_group1/action
           value_template: scene_2
+        - trigger: mqtt
+          topic: zigbee2mqtt_lan/bathhouse_steam_scene_switch/action
+          payload: hold
       actions:
         - choose:
             - conditions:
