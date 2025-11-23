@@ -170,9 +170,6 @@ bathhouse:
         light.bathhouse_room_backlight: on
         light.bathhouse_bath: on
         light.bathhouse_steam_lamps: on
-        light.bathhouse_steam_lamps_controller:
-          state: "on"
-          brightness: 255
         light.bathhouse_steam_bench: on
         light.bathhouse_steam_bench_controller:
           state: "on"
@@ -221,9 +218,6 @@ bathhouse:
       icon: mdi:circle-slice-8
       entities:
         light.bathhouse_steam_lamps: on
-        light.bathhouse_steam_lamps_controller:
-          state: "on"
-          brightness: 255
         light.bathhouse_steam_bench: on
         light.bathhouse_steam_bench_controller:
           state: "on"

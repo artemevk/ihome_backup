@@ -1,187 +1,187 @@
-eco_mode:
-  input_boolean:
-    eco_mode_resolution:
-      initial: true
-      icon: mdi:leaf-circle-outline
+# eco_mode:
+#   input_boolean:
+#     eco_mode_resolution:
+#       initial: true
+#       icon: mdi:leaf-circle-outline
 
-    eco_mode_status:
-      icon: mdi:leaf
+#     eco_mode_status:
+#       icon: mdi:leaf
 
-  binary_sensor:
-    - platform: template
-      sensors:
-        eco_mode_status:
-          value_template: "{{ states('input_boolean.eco_mode_status') == 'on'}}"
+#   binary_sensor:
+#     - platform: template
+#       sensors:
+#         eco_mode_status:
+#           value_template: "{{ states('input_boolean.eco_mode_status') == 'on'}}"
 
-  automation:
-    - id: Разрешить перевод в режим энергосбережения
-      alias: eco_mode_resolution_on
-      initial_state: true
-      trigger:
-        - platform: time
-          at: "15:32:00"
-      condition:
-        - condition: state
-          entity_id: input_boolean.eco_mode_resolution
-          state: "off"
-      action:
-        - service: input_boolean.turn_on
-          target:
-            entity_id: input_boolean.eco_mode_resolution
+#   automation:
+#     - id: Разрешить перевод в режим энергосбережения
+#       alias: eco_mode_resolution_on
+#       initial_state: true
+#       trigger:
+#         - platform: time
+#           at: "15:32:00"
+#       condition:
+#         - condition: state
+#           entity_id: input_boolean.eco_mode_resolution
+#           state: "off"
+#       action:
+#         - service: input_boolean.turn_on
+#           target:
+#             entity_id: input_boolean.eco_mode_resolution
 
-    - id: Уведомление о разрешении перевода в режим энергосбережения
-      alias: eco_mode_resolution_on_notify
-      initial_state: true
-      trigger:
-        - platform: state
-          entity_id: input_boolean.eco_mode_resolution
-          to: "on"
-      action:
-        - service: telegram_bot.send_message
-          data_template:
-            target: !secret tlg_user1_id
-            message: '{{"\U0001F343"}} Разрешен перевод в режим энергосбережения.'
-        - service: notify.mobile_app_artemevk
-          data:
-            message: '{{"\U0001F343"}} Разрешен перевод в режим энергосбережения.'
+#     - id: Уведомление о разрешении перевода в режим энергосбережения
+#       alias: eco_mode_resolution_on_notify
+#       initial_state: true
+#       trigger:
+#         - platform: state
+#           entity_id: input_boolean.eco_mode_resolution
+#           to: "on"
+#       action:
+#         - service: telegram_bot.send_message
+#           data_template:
+#             target: !secret tlg_user1_id
+#             message: '{{"\U0001F343"}} Разрешен перевод в режим энергосбережения.'
+#         - service: notify.mobile_app_artemevk
+#           data:
+#             message: '{{"\U0001F343"}} Разрешен перевод в режим энергосбережения.'
 
-    - id: Уведомление об активировации запрета включения режима энергосбережения
-      alias: eco_mode_resolution_off_notify
-      initial_state: true
-      trigger:
-        - platform: state
-          entity_id: input_boolean.eco_mode_resolution
-          to: "off"
-      action:
-        - service: telegram_bot.send_message
-          data_template:
-            target: !secret tlg_user1_id
-            message: '{{"\U0001F342"}} Активировирован запрет включения режима энергосбережения.'
-        - service: notify.mobile_app_artemevk
-          data:
-            message: '{{"\U0001F342"}} Активировирован запрет включения режима энергосбережения.'
+#     - id: Уведомление об активировации запрета включения режима энергосбережения
+#       alias: eco_mode_resolution_off_notify
+#       initial_state: true
+#       trigger:
+#         - platform: state
+#           entity_id: input_boolean.eco_mode_resolution
+#           to: "off"
+#       action:
+#         - service: telegram_bot.send_message
+#           data_template:
+#             target: !secret tlg_user1_id
+#             message: '{{"\U0001F342"}} Активировирован запрет включения режима энергосбережения.'
+#         - service: notify.mobile_app_artemevk
+#           data:
+#             message: '{{"\U0001F342"}} Активировирован запрет включения режима энергосбережения.'
 
-    - id: "Экономичный режим энергопотребления"
-      alias: economical_power_consumption_mode
-      initial_state: true
-      trigger:
-        - platform: time
-          at: "23:45:00"
-      condition:
-        - condition: state
-          entity_id: input_boolean.eco_mode_resolution
-          state: "on"
-        - condition: state
-          entity_id: binary_sensor.eco_mode_status
-          state: "off"
-        - >-
-          {{ min([state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature'),
-          state_attr('climate.1st_floor_bedroom_thermostat', 'temperature'),
-          state_attr('climate.open_kitchen_heater_thermostat', 'temperature'),
-          state_attr('climate.open_kitchen_thermostat', 'temperature'),
-          state_attr('climate.childrens_room_heater_thermostat', 'temperature')]) > 7
-          }}
-      action:
-        - service: input_boolean.turn_on
-          target:
-            entity_id: input_boolean.eco_mode_status
-        # - service: notify.tlg_user1_id
-        #   data:
-        #     message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
-        # - service: notify.mobile_app_artemevk
-        #   data:
-        #     message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.1st_floor_bedroom_heater_thermostat
-          data:
-            temperature: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') -2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.1st_floor_bedroom_thermostat
-          data:
-            temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') -2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.open_kitchen_heater_thermostat
-          data:
-            temperature: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') -2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.open_kitchen_thermostat
-          data:
-            temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') -2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.childrens_room_heater_thermostat
-          data:
-            temperature: "{{ state_attr('climate.childrens_room_heater_thermostat', 'temperature') -2 }}"
-        - service: switch.turn_off
-          target:
-            entity_id: switch.water_heater
-      # - delay: 00:00:30
-      # - service: notify.tlg_user1_id
-      #   data:
-      #     message:  |
-      #       {{ states('sensor.msg_open_kitchen_climate') }}
+#     - id: "Экономичный режим энергопотребления"
+#       alias: economical_power_consumption_mode
+#       initial_state: true
+#       trigger:
+#         - platform: time
+#           at: "23:45:00"
+#       condition:
+#         - condition: state
+#           entity_id: input_boolean.eco_mode_resolution
+#           state: "on"
+#         - condition: state
+#           entity_id: binary_sensor.eco_mode_status
+#           state: "off"
+#         - >-
+#           {{ min([state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature'),
+#           state_attr('climate.1st_floor_bedroom_thermostat', 'temperature'),
+#           state_attr('climate.open_kitchen_heater_thermostat', 'temperature'),
+#           state_attr('climate.open_kitchen_thermostat', 'temperature'),
+#           state_attr('climate.childrens_room_heater_thermostat', 'temperature')]) > 7
+#           }}
+#       action:
+#         - service: input_boolean.turn_on
+#           target:
+#             entity_id: input_boolean.eco_mode_status
+#         # - service: notify.tlg_user1_id
+#         #   data:
+#         #     message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
+#         # - service: notify.mobile_app_artemevk
+#         #   data:
+#         #     message: '{{"\U0001F343"}} Экономичный режим энергопотребления активирован.'
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.1st_floor_bedroom_heater_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') -2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.1st_floor_bedroom_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') -2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.open_kitchen_heater_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') -2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.open_kitchen_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') -2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.childrens_room_heater_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.childrens_room_heater_thermostat', 'temperature') -2 }}"
+#         - service: switch.turn_off
+#           target:
+#             entity_id: switch.water_heater
+#       # - delay: 00:00:30
+#       # - service: notify.tlg_user1_id
+#       #   data:
+#       #     message:  |
+#       #       {{ states('sensor.msg_open_kitchen_climate') }}
 
-      #       {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+#       #       {{ states('sensor.msg_1st_floor_bedroom_climate')}}
 
-    - id: "Стандартный режим энергопотребления"
-      alias: standard_power_consumption_mode
-      initial_state: true
-      trigger:
-        - platform: time
-          at: "05:30:00"
-        - platform: state
-          entity_id: input_boolean.eco_mode_resolution
-          to: "off"
-      condition:
-        - condition: state
-          entity_id: binary_sensor.eco_mode_status
-          state: "on"
-      action:
-        - service: input_boolean.turn_off
-          target:
-            entity_id: input_boolean.eco_mode_status
-        # - service: notify.tlg_user1_id
-        #   data:
-        #     message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
-        # - service: notify.mobile_app_artemevk
-        #   data:
-        #     message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.1st_floor_bedroom_heater_thermostat
-          data:
-            temperature: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') +2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.1st_floor_bedroom_thermostat
-          data:
-            temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') +2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.open_kitchen_heater_thermostat
-          data:
-            temperature: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') +2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.open_kitchen_thermostat
-          data:
-            temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') +2 }}"
-        - service: climate.set_temperature
-          target:
-            entity_id: climate.childrens_room_heater_thermostat
-          data:
-            temperature: "{{ state_attr('climate.childrens_room_heater_thermostat', 'temperature') +2 }}"
-        - service: switch.turn_on
-          target:
-            entity_id: switch.water_heater
-      # - delay: 00:00:30
-      # - service: notify.tlg_user1_id
-      #   data:
-      #     message:  |
-      #       {{ states('sensor.msg_open_kitchen_climate') }}
+#     - id: "Стандартный режим энергопотребления"
+#       alias: standard_power_consumption_mode
+#       initial_state: true
+#       trigger:
+#         - platform: time
+#           at: "05:30:00"
+#         - platform: state
+#           entity_id: input_boolean.eco_mode_resolution
+#           to: "off"
+#       condition:
+#         - condition: state
+#           entity_id: binary_sensor.eco_mode_status
+#           state: "on"
+#       action:
+#         - service: input_boolean.turn_off
+#           target:
+#             entity_id: input_boolean.eco_mode_status
+#         # - service: notify.tlg_user1_id
+#         #   data:
+#         #     message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
+#         # - service: notify.mobile_app_artemevk
+#         #   data:
+#         #     message: '{{"\U0001F342"}} Стандартный режим энергопотребления активирован.'
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.1st_floor_bedroom_heater_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') +2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.1st_floor_bedroom_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') +2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.open_kitchen_heater_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') +2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.open_kitchen_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') +2 }}"
+#         - service: climate.set_temperature
+#           target:
+#             entity_id: climate.childrens_room_heater_thermostat
+#           data:
+#             temperature: "{{ state_attr('climate.childrens_room_heater_thermostat', 'temperature') +2 }}"
+#         - service: switch.turn_on
+#           target:
+#             entity_id: switch.water_heater
+#       # - delay: 00:00:30
+#       # - service: notify.tlg_user1_id
+#       #   data:
+#       #     message:  |
+#       #       {{ states('sensor.msg_open_kitchen_climate') }}
 
-      #       {{ states('sensor.msg_1st_floor_bedroom_climate')}}
+#       #       {{ states('sensor.msg_1st_floor_bedroom_climate')}}
