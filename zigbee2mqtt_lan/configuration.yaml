@@ -78,5 +78,7 @@ devices:
     friendly_name: bathhouse_climate_secondary
 availability:
   passive:
-    timeout: 120
+    timeout: 240
   enabled: true
+  active:
+    timeout: 10
