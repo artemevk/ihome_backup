@@ -5,7 +5,7 @@ bathhouse:
       heater: switch.protherm
       target_sensor: sensor.bathhouse_climate_temperature
       min_temp: 5
-      max_temp: 30
+      max_temp: 28
       target_temp_step: 1
       precision: 0.1
       initial_hvac_mode: "heat"

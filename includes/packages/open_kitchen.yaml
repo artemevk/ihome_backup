@@ -27,7 +27,7 @@ open_kitchen:
       heater: switch.open_kitchen_heater
       target_sensor: sensor.open_kitchen_temperature
       min_temp: 5
-      max_temp: 30
+      max_temp: 28
       target_temp_step: 1
       precision: 0.5
       cold_tolerance: 1.5
