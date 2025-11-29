@@ -12,11 +12,14 @@ homeassistant:
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /local/card-mod.js
 
 homekit:
   filter:
     include_entities:
-      - alarm_control_panel.home_alarm
       - script.gate_step_mode
       - script.gate_pedestrian_crossing
 
@@ -53,10 +56,6 @@ sensor: !include_dir_merge_list includes/sensor
 # timer: !include includes/timer.yaml
 # yeelight: !include includes/yeelight.yaml
 template: !include includes/template.yaml
-
-frontend:
-  extra_module_url:
-    - /local/card-mod.js
 
 lovelace:
   resources:
