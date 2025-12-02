@@ -4,13 +4,13 @@
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
-        "linkquality": 43
+        "linkquality": 65
     },
     "0x00158d00048681f7": {
-        "temperature": 19.77,
-        "humidity": 53.51,
-        "pressure": 996.4,
-        "linkquality": 160,
+        "temperature": 17.6,
+        "humidity": 52.64,
+        "pressure": 1000.2,
+        "linkquality": 156,
         "voltage": 2985,
         "battery": 90,
         "power_outage_count": 24354
@@ -22,7 +22,7 @@
         "power_on_behavior_l2": "previous",
         "switch_mode_l1": "switch",
         "switch_mode_l2": "switch",
-        "linkquality": 61,
+        "linkquality": 65,
         "countdown_l1": 0,
         "countdown_l2": 0,
         "backlight_mode": "ON",
@@ -32,7 +32,7 @@
         "energy": 2.9,
         "power": 0,
         "current": 0,
-        "voltage": 211,
+        "voltage": 217,
         "state": "OFF",
         "linkquality": 174,
         "power_outage_memory": "restore"
@@ -42,7 +42,7 @@
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
-        "linkquality": 156,
+        "linkquality": 145,
         "switch_mode_l1": "switch",
         "switch_mode_l2": "switch",
         "countdown_l1": 0,
@@ -58,14 +58,14 @@
         "child_lock": "UNLOCK",
         "power": 0,
         "current": 0,
-        "linkquality": 61
+        "linkquality": 80
     },
     "0xa4c138d847ff5892": {
         "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
-        "linkquality": 109,
+        "linkquality": 120,
         "switch_mode_l1": "switch",
         "switch_mode_l2": "scene",
         "countdown_l1": 0,
@@ -84,18 +84,6 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 207,
-        "state": "OFF",
-        "countdown": 0,
-        "power_outage_memory": "restore",
-        "indicator_mode": "off/on",
-        "child_lock": "UNLOCK",
-        "power": 0,
-        "current": 0,
-        "linkquality": 40
-    },
-    "0xa4c1386a9f805cb5": {
-        "energy": 0,
         "voltage": 211,
         "state": "OFF",
         "countdown": 0,
@@ -104,14 +92,26 @@
         "child_lock": "UNLOCK",
         "power": 0,
         "current": 0,
-        "linkquality": 116
+        "linkquality": 61
+    },
+    "0xa4c1386a9f805cb5": {
+        "energy": 0,
+        "voltage": 210,
+        "state": "OFF",
+        "countdown": 0,
+        "power_outage_memory": "restore",
+        "indicator_mode": "off/on",
+        "child_lock": "UNLOCK",
+        "power": 0,
+        "current": 0,
+        "linkquality": 127
     },
     "0xa4c1381d6d20d4a8": {
         "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
-        "linkquality": 171,
+        "linkquality": 174,
         "switch_mode_l1": "switch",
         "switch_mode_l2": "switch",
         "countdown_l1": 0,
@@ -134,14 +134,14 @@
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 62.55,
-        "voltage": 210,
+        "voltage": 212,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
         "child_lock": "UNLOCK",
         "power": 0,
         "current": 0,
-        "linkquality": 47
+        "linkquality": 69
     },
     "0xe0798dfffec10ca5": {
         "operation_mode": "event",
@@ -152,7 +152,7 @@
     "0xa4c138f66453ad9f": {
         "state": "OFF",
         "brightness": 254,
-        "linkquality": 178,
+        "linkquality": 163,
         "color_temp": 153,
         "color_mode": "color_temp",
         "power_on_behavior": "previous",
@@ -163,9 +163,9 @@
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 90.5,
-        "temperature": 19.65,
-        "humidity": 47.19,
+        "battery": 90,
+        "temperature": 17.42,
+        "humidity": 46.65,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
@@ -174,7 +174,7 @@
         "comfort_temperature_max": 26,
         "comfort_humidity_min": 30,
         "comfort_humidity_max": 60,
-        "linkquality": 29,
+        "linkquality": 58,
         "update": {
             "state": "idle",
             "installed_version": 285224961,
