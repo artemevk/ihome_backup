@@ -3,16 +3,19 @@ open_kitchen:
     - platform: template
       sensors:
         open_kitchen_temperature:
-          unit_of_measurement: "°C"
-          value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') }}"
+          device_class: temperature
+          unit_of_measurement: °C
+          value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') | float }}"
 
         open_kitchen_setpoint:
-          unit_of_measurement: "°C"
-          value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') }}"
+          device_class: temperature
+          unit_of_measurement: °C
+          value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') | float }}"
 
         open_kitchen_heater_setpoint:
-          unit_of_measurement: "°C"
-          value_template: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') }}"
+          device_class: temperature
+          unit_of_measurement: °C
+          value_template: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') | float }}"
 
       #   open_kitchen_temperature:
       #     value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') | float | round(1) }}"

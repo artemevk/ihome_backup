@@ -3,16 +3,19 @@
     - platform: template
       sensors:
         1st_floor_bedroom_temperature:
-          unit_of_measurement: "°C"
-          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }}"
+          device_class: temperature
+          unit_of_measurement: °C
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') | float }}"
 
         1st_floor_bedroom_setpoint:
-          unit_of_measurement: "°C"
-          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') }}"
+          device_class: temperature
+          unit_of_measurement: °C
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') | float }}"
 
         1st_floor_bedroom_heater_setpoint:
-          unit_of_measurement: "°C"
-          value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') }}"
+          device_class: temperature
+          unit_of_measurement: °C
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') | float }}"
 
         # 1st_floor_bedroom_heater_heat:
         #   value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' }}"
