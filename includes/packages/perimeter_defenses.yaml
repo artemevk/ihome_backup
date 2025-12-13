@@ -1,11 +1,10 @@
 perimeter_defenses:
-  sensor:
-    - platform: template
-      sensors:
-        alarm_control_panel_arm_mode:
-          friendly_name: "Недоступно светильников"
-          icon_template: mdi:shield
-          value_template: |
+  template:
+    - sensor:
+        - default_entity_id: sensor.alarm_control_panel_arm_mode
+          name: "Недоступно светильников"
+          icon: mdi:shield
+          state: |
             {%- if states('alarm_control_panel.master') == 'disarmed' %}{{" Нет охраны"}}
             {% elif states('alarm_control_panel.master') == 'armed_home' %}{{" Дома"}}
             {% elif states('alarm_control_panel.master') == 'armed_away' %}{{" Не дома"}}

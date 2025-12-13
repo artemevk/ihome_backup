@@ -23,6 +23,11 @@ binary_sensor:
          or is_state('binary_sensor.courtyard_camera_cell_motion_detection', 'on') 
          or is_state('binary_sensor.porch_motion_protect_occupancy', 'on') }}
 
+  - name: internet_is_available
+    device_class: connectivity
+    state: >
+      {{ is_state('binary_sensor.google_is_available', 'on') or is_state('binary_sensor.yandex_is_available', 'on') }}
+
   # - name: bathhouse_drying
   #   state: "{{ is_state('timer.bathhouse_drying_timer', 'active') }}"
   #   icon: >
@@ -66,13 +71,3 @@ sensor:
     state_class: measurement
     unit_of_measurement: "%"
     device_class: humidity
-
-  - name: total_power
-    unit_of_measurement: "Вт"
-    device_class: power
-    state: >
-      {{ states('sensor.a_power') | int +
-      states('sensor.b_power') | int +
-      states('sensor.c_power') | int
-      }}
-    icon: mdi:flash

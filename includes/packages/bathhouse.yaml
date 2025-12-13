@@ -16,21 +16,21 @@ bathhouse:
       sleep_temp: 22
       eco_temp: 16
 
-  sensor:
-    - platform: template
-      sensors:
-        bathhouse_mm:
-          friendly_name: "tlg menu bathhouse"
-          value_template: >
-            {{"\U0001F9D6"}} Баня {{"\U000026A1"}}{{ states("sensor.a_power") }} Вт
-            {{ "\n" }}{{"\U0001F321"}} {{ states('sensor.bathhouse_climate_temperature') }} °C
-            {{- " " }}{{"\U0001F3AF"}} {{ state_attr("climate.bathhouse_thermostat", "temperature") }} °C
-            {{- " " }}{{"\U00002668"}} {% if state_attr("climate.bathhouse_thermostat", "hvac_action") == "idle" %}выкл.{% else %}вкл.{% endif %}
-            {{ "\n" }}{{"\U0001F4A7"}} {{ states('sensor.bathhouse_climate_humidity') }} %
-            {{ "\n" }}{{"\U0001F4A1"}} {% if states('light.bathhouse') == "off" %}выкл.{% else %}вкл.{% endif %}
-            {{ "\n" }}Бойлер: {% if states("switch.bathhouse_boiler") == "off" %}выкл.{% else %}вкл.{% endif %}
-            {{ "\n" }}Просушка: {% if states("timer.bathhouse_drying_timer") == "idle" %}выкл.{% else %}вкл. до {{ as_timestamp(state_attr("timer.bathhouse_drying_timer", "finishes_at")) | timestamp_custom('%d.%m.%Y %H:%M') }}{% endif %}
-          icon_template: mdi:hot-tub
+  template:
+    sensor:
+      - default_entity_id: sensor.bathhouse_mm
+        icon: mdi:hot-tub
+        name: tlg menu bathhouse
+        state: >
+          {{"\U0001F9D6"}} Баня {{"\U000026A1"}}{{ states("sensor.a_power") }} Вт
+          {{ "\n" }}{{"\U0001F321"}} {{ states('sensor.bathhouse_climate_temperature') }} °C
+          {{- " " }}{{"\U0001F3AF"}} {{ state_attr("climate.bathhouse_thermostat", "temperature") }} °C
+          {{- " " }}{{"\U00002668"}} {% if state_attr("climate.bathhouse_thermostat", "hvac_action") == "idle" %}выкл.{% else %}вкл.{% endif %}
+          {{ "\n" }}{{"\U0001F4A7"}} {{ states('sensor.bathhouse_climate_humidity') }} %
+          {{ "\n" }}{{"\U0001F4A1"}} {% if states('light.bathhouse') == "off" %}выкл.{% else %}вкл.{% endif %}
+          {{ "\n" }}Бойлер: {% if states("switch.bathhouse_boiler") == "off" %}выкл.{% else %}вкл.{% endif %}
+          {{ "\n" }}Просушка: {% if states("timer.bathhouse_drying_timer") == "idle" %}выкл.{% else %}вкл. до {{ as_timestamp(state_attr("timer.bathhouse_drying_timer", "finishes_at")) | timestamp_custom('%d.%m.%Y %H:%M') }}{% endif %}
+          
 
   input_number:
     bathhouse_drying_time:

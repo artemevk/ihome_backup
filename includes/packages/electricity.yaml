@@ -68,15 +68,25 @@ electricity:
       icon: mdi:cash-multiple
       unit_of_measurement: "₽/кВт*ч"
 
-  sensor:
-    - platform: template
-      sensors:
-        daily_total_energy_day:
-          friendly_name: "Daily Energy Total Day"
+
+  template:
+    sensor:
+        - name: total_power
+          unit_of_measurement: "Вт"
+          device_class: power
+          state: >
+            {{ states('sensor.a_power') | int +
+            states('sensor.b_power') | int +
+            states('sensor.c_power') | int
+            }}
+          icon: mdi:flash
+
+        - default_entity_id: sensor.daily_total_energy_day
+          name: "Daily Energy Total Day"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_day'))
             and is_number(states('sensor.electricity_meter_b_daily_day'))
             and is_number(states('sensor.electricity_meter_c_daily_day')) %}
@@ -87,12 +97,12 @@ electricity:
               None
             {% endif %}
 
-        daily_total_energy_night:
-          friendly_name: "Daily Energy Total Night"
+        - default_entity_id: sensor.daily_total_energy_night
+          name: "Daily Energy Total Night"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_night'))
             and is_number(states('sensor.electricity_meter_b_daily_night'))
             and is_number(states('sensor.electricity_meter_c_daily_night')) %}
@@ -103,12 +113,12 @@ electricity:
               None
             {% endif %}
 
-        daily_total_energy:
-          friendly_name: "Daily Energy Total"
+        - default_entity_id: sensor.daily_total_energy
+          name: "Daily Energy Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_day')) 
             and is_number(states('sensor.electricity_meter_a_daily_night'))
             and is_number(states('sensor.electricity_meter_b_daily_day'))
@@ -125,12 +135,12 @@ electricity:
               None
             {% endif %}
 
-        daily_total_energy_a:
-          friendly_name: "Daily Energy A Total"
+        - default_entity_id: sensor.daily_total_energy_a
+          name: "Daily Energy A Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_day')) 
             and is_number(states('sensor.electricity_meter_a_daily_night')) %}
               {{ states('sensor.electricity_meter_a_daily_day') | float 
@@ -139,48 +149,48 @@ electricity:
               None
             {% endif %}
 
-        money_daily_total_energy_day:
-          friendly_name: "Стоимость за текущий день (день)"
+        - default_entity_id: sensor.money_daily_total_energy_day
+          name: "Стоимость за текущий день (день)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.daily_total_energy_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.daily_total_energy_day") | float) * (states("input_number.tariff_day") | float) | round }}'
 
-        money_daily_total_energy_night:
-          friendly_name: "Стоимость за текущий день (ночь)"
+        - default_entity_id: sensor.money_daily_total_energy_night
+          name: "Стоимость за текущий день (ночь)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.daily_total_energy_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.daily_total_energy_night") | float) * (states("input_number.tariff_night") | float) | round }}'
 
-        money_daily_total_energy:
-          friendly_name: "Стоимость за текущий день"
+        - default_entity_id: sensor.money_daily_total_energy
+          name: "Стоимость за текущий день"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ states("sensor.money_daily_total_energy_day") | float + states("sensor.money_daily_total_energy_night") | float }}'
+          icon: mdi:cash-multiple
+          state: '{{ states("sensor.money_daily_total_energy_day") | float + states("sensor.money_daily_total_energy_night") | float }}'
 
-        money_daily_energy_a_day:
-          friendly_name: "Стоимость A за текущий день (день)"
+        - default_entity_id: sensor.money_daily_energy_a_day
+          name: "Стоимость A за текущий день (день)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.electricity_meter_a_daily_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.electricity_meter_a_daily_day") | float) * (states("input_number.tariff_day") | float) | round }}'
 
-        money_daily_energy_a_night:
-          friendly_name: "Стоимость A за текущий день (ночь)"
+        - default_entity_id: sensor.money_daily_energy_a_night
+          name: "Стоимость A за текущий день (ночь)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.electricity_meter_a_daily_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.electricity_meter_a_daily_night") | float) * (states("input_number.tariff_night") | float) | round }}'
 
-        money_daily_energy_a:
-          friendly_name: "Стоимость A за текущий день"
+        - default_entity_id: sensor.money_daily_energy_a
+          name: "Стоимость A за текущий день"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ states("sensor.money_daily_energy_a_day") | float + states("sensor.money_daily_energy_a_night") | float }}'
+          icon: mdi:cash-multiple
+          state: '{{ states("sensor.money_daily_energy_a_day") | float + states("sensor.money_daily_energy_a_night") | float }}'
 
-        monthly_total_energy_day:
-          friendly_name: "Monthly Energy Total Day"
+        - default_entity_id: sensor.monthly_total_energy_day
+          name: "Monthly Energy Total Day"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_day'))
             and is_number(states('sensor.electricity_meter_b_monthly_day'))
             and is_number(states('sensor.electricity_meter_c_monthly_day')) %}
@@ -191,12 +201,12 @@ electricity:
               None
             {% endif %}
 
-        monthly_total_energy_night:
-          friendly_name: "Monthly Energy Total Night"
+        - default_entity_id: sensor.monthly_total_energy_night
+          name: "Monthly Energy Total Night"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_night'))
             and is_number(states('sensor.electricity_meter_b_monthly_night'))
             and is_number(states('sensor.electricity_meter_c_monthly_night')) %}
@@ -207,12 +217,12 @@ electricity:
               None
             {% endif %}
 
-        monthly_total_energy:
-          friendly_name: "Monthly Energy Total"
+        - default_entity_id: sensor.monthly_total_energy
+          name: "Monthly Energy Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_day')) 
             and is_number(states('sensor.electricity_meter_a_monthly_night'))
             and is_number(states('sensor.electricity_meter_b_monthly_day'))
@@ -229,12 +239,12 @@ electricity:
               None
             {% endif %}
 
-        monthly_total_energy_a:
-          friendly_name: "Monthly Energy A Total"
+        - default_entity_id: sensor.monthly_total_energy_a
+          name: "Monthly Energy A Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon_template: mdi:flash
-          value_template: >
+          icon: mdi:flash
+          state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_day')) 
             and is_number(states('sensor.electricity_meter_a_monthly_night')) %}
               {{ states('sensor.electricity_meter_a_monthly_day') | float 
@@ -243,41 +253,41 @@ electricity:
               None
             {% endif %}
 
-        money_monthly_total_energy_day:
-          friendly_name: "Стоимость за текущий месяц (день)"
+        - default_entity_id: sensor.money_monthly_total_energy_day
+          name: "Стоимость за текущий месяц (день)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.monthly_total_energy_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.monthly_total_energy_day") | float) * (states("input_number.tariff_day") | float) | round }}'
 
-        money_monthly_total_energy_night:
-          friendly_name: "Стоимость за текущий месяц (ночь)"
+        - default_entity_id: sensor.money_monthly_total_energy_night
+          name: "Стоимость за текущий месяц (ночь)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.monthly_total_energy_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.monthly_total_energy_night") | float) * (states("input_number.tariff_night") | float) | round }}'
 
-        money_monthly_total_energy:
-          friendly_name: "Стоимость за текущий месяц"
+        - default_entity_id: sensor.money_monthly_total_energy
+          name: "Стоимость за текущий месяц"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ states("sensor.money_monthly_total_energy_day") | float + states("sensor.money_monthly_total_energy_night") | float }}'
+          icon: mdi:cash-multiple
+          state: '{{ states("sensor.money_monthly_total_energy_day") | float + states("sensor.money_monthly_total_energy_night") | float }}'
 
-        money_monthly_energy_a_day:
-          friendly_name: "Стоимость A за текущий месяц (день)"
+        - default_entity_id: sensor.money_monthly_energy_a_day
+          name: "Стоимость A за текущий месяц (день)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.electricity_meter_a_monthly_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.electricity_meter_a_monthly_day") | float) * (states("input_number.tariff_day") | float) | round }}'
 
-        money_monthly_energy_a_night:
-          friendly_name: "Стоимость A за текущий месяц (ночь)"
+        - default_entity_id: sensor.money_monthly_energy_a_night
+          name: "Стоимость A за текущий месяц (ночь)"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ (states("sensor.electricity_meter_a_monthly_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          icon: mdi:cash-multiple
+          state: '{{ (states("sensor.electricity_meter_a_monthly_night") | float) * (states("input_number.tariff_night") | float) | round }}'
 
-        money_monthly_energy_a:
-          friendly_name: "Стоимость A за текущий месяц"
+        - default_entity_id: sensor.money_monthly_energy_a
+          name: "Стоимость A за текущий месяц"
           unit_of_measurement: "₽"
-          icon_template: mdi:cash-multiple
-          value_template: '{{ states("sensor.money_monthly_energy_a_day") | float + states("sensor.money_monthly_energy_a_night") | float }}'
+          icon: mdi:cash-multiple
+          state: '{{ states("sensor.money_monthly_energy_a_day") | float + states("sensor.money_monthly_energy_a_night") | float }}'
 
   automation:
     - alias: Set day tariff

@@ -5,37 +5,36 @@ telegramm:
       duration: "00:03:00"
       icon: mdi:lan-disconnect
 
-  sensor:
-    - platform: template
-      sensors:
-        unavailable_now_light:
-          friendly_name: "Недоступно светильников"
-          value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-          icon_template: mdi:counter
+  template:
+    - sensor:
+        - default_entity_id: sensor.unavailable_now_light
+          name: "Недоступно светильников"
+          state: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon: mdi:counter
 
-        unavailable_now_switch:
-          friendly_name: "Недоступно реле"
-          value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-          icon_template: mdi:counter
+        - default_entity_id: sensor.unavailable_now_switch
+          name: "Недоступно реле"
+          state: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon: mdi:counter
 
-        unavailable_now_sensor:
-          friendly_name: "Недоступно сенсоров"
-          value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-          icon_template: mdi:counter
+        - default_entity_id: sensor.unavailable_now_sensor
+          name: "Недоступно сенсоров"
+          state: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon: mdi:counter
 
-        unavailable_now_binary_sensor:
-          friendly_name: "Недоступно бинарных сенсоров"
-          value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-          icon_template: mdi:counter
+        - default_entity_id: sensor.unavailable_now_binary_sensor
+          name: "Недоступно бинарных сенсоров"
+          state: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+          icon: mdi:counter
 
-        unavailable_objects:
-          friendly_name: "Недоступно объектов"
-          value_template: >
+        - default_entity_id: sensor.unavailable_objects
+          name: "Недоступно объектов"
+          state: >
             {{ int(states('sensor.unavailable_now_light')) +
                int(states('sensor.unavailable_now_switch')) +
                int(states('sensor.unavailable_now_sensor')) +
                int(states('sensor.unavailable_now_binary_sensor')) }}
-          icon_template: >
+          icon: >
             {% if int(states('sensor.unavailable_now_light')) +
                int(states('sensor.unavailable_now_switch')) +
                int(states('sensor.unavailable_now_sensor')) +
@@ -45,43 +44,43 @@ telegramm:
               mdi:thumb-down
             {% endif %}
 
-        msg_open_kitchen_climate:
-          value_template: |
+        - default_entity_id: sensor.msg_open_kitchen_climate
+          state: |
             {{"\U0001F6CB"}} Кухня-гостиная.
             {{"\U0001F321"}} Температура: {{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') }} °C
             {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.open_kitchen_thermostat', 'temperature') }} °C
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.open_kitchen_heater') }}
 
-        msg_toilet_climate:
-          value_template: |
+        - default_entity_id: sensor.msg_toilet_climate
+          state: |
             {{"\U0001F6BD"}} Туалет.
             {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
 
-        msg_childrens_room_climate:
-          value_template: |
+        - default_entity_id: sensor.msg_childrens_room_climate
+          state: |
             {{"\U0001F680"}} Детская комната.
             {{"\U0001F321"}} Температура: {{ states('sensor.childrens_room_climate_temperature') }} °C
             {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.childrens_room_heater_thermostat', 'temperature') }} °C
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.childrens_room_heater') }}
 
-        msg_1st_floor_bedroom_climate:
-          value_template: |
+        - default_entity_id: sensor.msg_1st_floor_bedroom_climate
+          state: |
             {{"\U0001F6CF"}} Спальня на первом этаже.
             {{"\U0001F321"}} Температура: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') }} °C
             {{"\U0001F3AF"}} Уставка: {{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') }} °C
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.1st_floor_bedroom_heater_l2') }}
             {{"\U0001F525"}} Теплые полы: {%- if state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' %} on {% else %} off {% endif -%}
 
-        msg_report:
-          value_template: |
+        - default_entity_id: sensor.msg_report
+          state: |
             {{"\U0001F4CB"}} Состояние системы:
             {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
             {{"\U0001F321"}} Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }}
             {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
             {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
 
-        batteries_states_msg:
-          value_template: |
+        - default_entity_id: sensor.batteries_states_msg
+          state: |
             {{"\U0001F50B"}}Батарейки:{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}{% set value = states(entity_id, with_unit=True) %}
             {{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
 

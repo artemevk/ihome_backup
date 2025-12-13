@@ -1,24 +1,23 @@
 defence:
-  sensor:
-    - platform: template
-      sensors:
-        msg_power_protection:
-          friendly_name: "Уведомление о превышение потребления электроэнергии"
-          value_template: |
+  template:
+    - sensor:
+        - default_entity_id: sensor.msg_power_protection
+          name: "Уведомление о превышение потребления электроэнергии"
+          state: |
             {{"\U000026A1"}} Превышено потребление электроэнергии!
             A: {{ states('sensor.a_power') }}; B: {{ states('sensor.b_power') }}; C:{{ states('sensor.c_power') }}
-          icon_template: mdi:transmission-tower
+          icon: mdi:transmission-tower
 
-        msg_temperature_protection:
-          friendly_name: "Уведомление о падении температуры ниже 4 °C"
-          value_template: |
+        - default_entity_id: sensor.msg_temperature_protection
+          name: "Уведомление о падении температуры ниже 4 °C"
+          state: |
             Спальня на первом этаже: {{ states('sensor.1st_floor_bedroom_temperature') }} °C
             Детская: {{ states('sensor.childrens_room_climate_temperature') }} °C
             Кухня-гостиная: {{ states('sensor.open_kitchen_temperature') }} °C
             Второй этаж: {{ states('sensor.second_floor_climate_temperature') }} °C
             Туалет: {{ states('sensor.toilet_climate_temperature') }} °C
             Баня: {{ states('sensor.bathhouse_climate_temperature') }} °C
-          icon_template: mdi:transmission-tower
+          icon: mdi:transmission-tower
 
   automation:
     - id: "water leak"

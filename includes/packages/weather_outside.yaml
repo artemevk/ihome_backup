@@ -1,12 +1,11 @@
 weather_outside:
   ## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
 
-  sensor:
-    - platform: template
-      sensors:
-        weather_forecast_condition:
-          friendly_name: "Общие погодные условия (прогноз)"
-          value_template: >
+  template:
+    - sensor:
+        - default_entity_id: sensor.weather_forecast_condition
+          name: "Общие погодные условия (прогноз)"
+          state: >
             {% if state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'clear' %}{{"Ясно"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'partlycloudy' %}{{"Переменная облачность"}}
             {% elif state_attr("weather.yandex_weather", "forecastHourly")[2].condition == 'cloudy' %}{{"Облачно"}}
@@ -27,9 +26,9 @@ weather_outside:
             {% else %}{{ state_attr("weather.yandex_weather", "forecastHourly")[2].condition }}
             {% endif %}
 
-        weather_moscow_forecast_condition:
-          friendly_name: "Общие погодные условия (прогноз)"
-          value_template: >
+        - default_entity_id: sensor.weather_moscow_forecast_condition
+          name: "Общие погодные условия (прогноз)"
+          state: >
             {% if state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'clear' %}{{"Ясно"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'partlycloudy' %}{{"Переменная облачность"}}
             {% elif state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition == 'cloudy' %}{{"Облачно"}}
@@ -50,8 +49,8 @@ weather_outside:
             {% else %}{{ state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition }}
             {% endif %}
 
-        weather_msg:
-          value_template: |
+        - default_entity_id: sensor.weather_msg
+          state: |
             {{"\U0001F3E2"}} *МОСКВА:* {{ states("sensor.weather_moscow_forecast_condition")}}
             {{"\U0001F321"}} {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
             {{"\U0001F4A8"}} {{state_attr("weather.yandex_weather_moscow", "wind_speed")}} м/с
