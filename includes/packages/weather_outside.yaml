@@ -49,7 +49,7 @@ weather_outside:
             {% else %}{{ state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].condition }}
             {% endif %}
 
-        - default_entity_id: sensor.weather_msg
+        - default_entity_id: sensor.msg_weather
           state: |
             {{"\U0001F3E2"}} *МОСКВА:* {{ states("sensor.weather_moscow_forecast_condition")}}
             {{"\U0001F321"}} {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
@@ -90,7 +90,7 @@ weather_outside:
                 !secret tlg_user5_id,
               ]
             caption: >
-              {{ states('sensor.weather_msg') }}
+              {{ states('sensor.msg_weather') }}
             inline_keyboard:
               - "Главное меню:/mm"
 
@@ -134,6 +134,6 @@ weather_outside:
             file: "/media/courtyard_camera_last_snapshot.jpg"
             target: "{{ trigger.event.data.user_id }}"
             caption: >
-              {{ states('sensor.weather_msg') }}
+              {{ states('sensor.msg_weather') }}
             inline_keyboard:
               - "Главное меню:/mm"

@@ -45,6 +45,7 @@ telegramm:
             {% endif %}
 
         - default_entity_id: sensor.msg_open_kitchen_climate
+          icon: mdi:alphabetical-variant
           state: |
             {{"\U0001F6CB"}} Кухня-гостиная.
             {{"\U0001F321"}} Температура: {{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') }} °C
@@ -52,11 +53,13 @@ telegramm:
             {{"\U0001F4A1"}} Конвектор: {{ states('switch.open_kitchen_heater') }}
 
         - default_entity_id: sensor.msg_toilet_climate
+          icon: mdi:alphabetical-variant
           state: |
             {{"\U0001F6BD"}} Туалет.
             {{"\U0001F321"}} Температура: {{ states('sensor.toilet_climate_temperature') }} °C
 
         - default_entity_id: sensor.msg_childrens_room_climate
+          icon: mdi:alphabetical-variant
           state: |
             {{"\U0001F680"}} Детская комната.
             {{"\U0001F321"}} Температура: {{ states('sensor.childrens_room_climate_temperature') }} °C
@@ -72,6 +75,7 @@ telegramm:
             {{"\U0001F525"}} Теплые полы: {%- if state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' %} on {% else %} off {% endif -%}
 
         - default_entity_id: sensor.msg_report
+          icon: mdi:alphabetical-variant
           state: |
             {{"\U0001F4CB"}} Состояние системы:
             {{"\U0001F50C"}} Свичей недоступно - {{ states('sensor.unavailable_now_switch') }}
@@ -79,10 +83,15 @@ telegramm:
             {{"\U0001F51F"}} Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
             {{"\U0001F4A1"}} Светильников недоступно - {{ states('sensor.unavailable_now_light') }}
 
-        - default_entity_id: sensor.batteries_states_msg
-          state: |
-            {{"\U0001F50B"}}Батарейки:{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}{% set value = states(entity_id, with_unit=True) %}
-            {{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
+        # - default_entity_id: sensor.msg_batteries_states
+        #   name: msg_batteries_states
+        #   icon: mdi:alphabetical-variant
+        #   state: |
+        #     {{"\U0001F50B"}}Батарейки:
+        #     {{- " "}}{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}
+        #     {{- " "}}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}
+        #     {{- " "}}{% set value = states(entity_id, with_unit=True) %}
+        #     {{- "\n"}}{{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
 
   input_number:
     test_number:
@@ -143,7 +152,11 @@ telegramm:
             message: |
               {{ states('sensor.msg_report') }}
 
-              {{ states('sensor.batteries_states_msg') }}
+              {{"\U0001F50B"}}Батарейки:
+              {{- " "}}{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}
+              {{- " "}}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}
+              {{- " "}}{% set value = states(entity_id, with_unit=True) %}
+              {{- "\n"}}{{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
         # Задержка 1 с
         - delay: 00:00:01
         - service: telegram_bot.send_message
@@ -185,12 +198,16 @@ telegramm:
             message: |
               {{ states('sensor.msg_report') }}
 
-              {{ states('sensor.batteries_states_msg') }}
+              {{"\U0001F50B"}}Батарейки:
+              {{- " "}}{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}
+              {{- " "}}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}
+              {{- " "}}{% set value = states(entity_id, with_unit=True) %}
+              {{- "\n"}}{{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
             inline_keyboard:
               - "Главное меню:/mm"
 
     - id: Отправить отчет о состоянии батареек
-      alias: send_battaries_states_msg
+      alias: send_battaries_states
       initial_state: true
       trigger:
         - platform: event
@@ -210,14 +227,11 @@ telegramm:
             target: "{{ trigger.event.data.user_id }}"
             title: "#system"
             message: |
-              {{ states('sensor.batteries_states_msg') }}
-              ---------------------
-              entrance door - CR1632
-              kitchen living room motion - CR2032
-              childrens room climate - CR2032
-              porch motion protect - 3xAAA
-              toilet climate - CR2032
-              toilet water leak - CR2032
+              {{"\U0001F50B"}}Батарейки:
+              {{- " "}}{% for entity_id in state_attr('sensor.min_batteries_state', 'entity_id') %}
+              {{- " "}}{% set friendly_name = entity_id.split('.')[1].split('_bat')[0] %}
+              {{- " "}}{% set value = states(entity_id, with_unit=True) %}
+              {{- "\n"}}{{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
             inline_keyboard:
               - "Главное меню:/mm"
 

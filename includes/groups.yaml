@@ -1,8 +1,0 @@
-house_radiators:
-  name: house_radiators
-  entities:
-    - climate.1st_floor_bedroom_heater_thermostat
-    - climate.1st_floor_bedroom_thermostat
-    - climate.childrens_room_heater_thermostat
-    - climate.open_kitchen_heater_thermostat
-    - climate.open_kitchen_thermostat

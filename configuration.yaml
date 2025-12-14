@@ -47,7 +47,7 @@ tts:
 automation: !include_dir_merge_list includes/automation
 # binary_sensor: !include_dir_merge_list includes/binary_sensor
 # camera: !include includes/camera.yaml
-group: !include includes/groups.yaml
+# group: !include includes/groups.yaml
 light: !include includes/light.yaml
 recorder: !include includes/recorder.yaml
 # scene: !include includes/scenes.yaml
@@ -62,50 +62,8 @@ lovelace:
     - url: /local/simple-thermostat.js?v=1
       type: module
 
-# command_line:
-#   - sensor:
-#       name: CPU Temperature
-#       command: "cat /sys/class/thermal/thermal_zone0/temp"
-#       # If errors occur, make sure configuration file is encoded as UTF-8
-#       unit_of_measurement: "°C"
-#       value_template: "{{ value | multiply(0.001) | round(1) }}"
-
-# Платформа телеграмм бота
-# telegram_bot:
-#   - platform: polling
-#     api_key: !secret api_token_bot
-#     allowed_chat_ids:
-#       - !secret tlg_user1_id
-#       - !secret tlg_user2_id
-#       - !secret tlg_user3_id
-#       - !secret tlg_user4_id
-#       - !secret tlg_user5_id
-
 # Платформа телеграмм уведомлений
 notify:
-  #   - platform: telegram
-  #     name: tlg_user1_id
-  #     chat_id: !secret tlg_user1_id
-  #   - platform: telegram
-  #     name: tlg_user2_id
-  #     chat_id: !secret tlg_user2_id
-  #   - platform: telegram
-  #     name: tlg_user3_id
-  #     chat_id: !secret tlg_user3_id
-  #   - platform: telegram
-  #     name: tlg_user4_id
-  #     chat_id: !secret tlg_user4_id
-  #   - platform: telegram
-  #     name: tlg_user5_id
-  #     chat_id: !secret tlg_user5_id
-  #   - platform: group
-  #     name: all_telegram
-  #     services:
-  #       - service: tlg_user1_id
-  #       - service: tlg_user2_id
-  #       - service: tlg_user3_id
-  #       - service: tlg_user4_id
-  #       - service: tlg_user5_id
   - platform: group
     name: alarm
     services:

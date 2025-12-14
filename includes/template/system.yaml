@@ -57,17 +57,3 @@ sensor:
   - name: snapshots_in_hassio
     state: "{{ state_attr('sensor.backup_state', 'backups_in_home_assistant') }}"
     icon: mdi:home-assistant
-
-  - name: outdoor_temperature
-    state: "{{ state_attr('weather.yandex_weather', 'temperature') }}"
-    icon: mdi:temperature
-    state_class: measurement
-    unit_of_measurement: "°C"
-    device_class: temperature
-
-  - name: outdoor_humidity
-    state: "{{ state_attr('weather.yandex_weather', 'humidity') }}"
-    icon: mdi:humidity
-    state_class: measurement
-    unit_of_measurement: "%"
-    device_class: humidity
