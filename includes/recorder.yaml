@@ -1,4 +1,4 @@
-purge_keep_days: 5
+purge_keep_days: 180
 db_url: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
 include:
     domains:
@@ -6,6 +6,7 @@ include:
       - light
       - switch
       - climate
+      - person
     entity_globs:
       - binary_sensor.*_occupancy
       - sensor.electricity_meter_*
@@ -16,9 +17,19 @@ include:
       - sensor.*_battery
       - sensor.*_power
       - sensor.*_voltage
+      - sensor.monthly_total_energy*
+    entities:
+      - sensor.disk_free
+      - sensor.disk_use_percent
+      - sensor.fans
+      - sensor.maria_db
+      - sensor.min_batteries_state
 exclude:
   domains:
     - camera
+    - number
+    - select
+    - sensor
   entity_globs:
     - sensor.time*
     - sensor.msg_*
