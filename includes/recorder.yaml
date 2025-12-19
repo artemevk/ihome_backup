@@ -29,13 +29,13 @@ exclude:
     - camera
     - number
     - select
-    - sensor
+    # - sensor
   entity_globs:
-    - sensor.time*
-    - sensor.msg_*
-    - sensor.*_last_seen
-    - number.*_temperature_limit
-    - number.*_deadzone_temperature
+    # - sensor.time*
+    # - sensor.msg_*
+    # - sensor.*_last_seen
+    # - number.*_temperature_limit
+    # - number.*_deadzone_temperature
     - switch.schedule_*
     - switch.zigbee2mqtt_*
     - switch.*camera*
