@@ -1,43 +1,32 @@
 purge_keep_days: 180
 db_url: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
 include:
-    domains:
-      - alarm_control_panel
-      - light
-      - switch
-      - climate
-      - person
-    entity_globs:
-      - binary_sensor.*_occupancy
-      - sensor.electricity_meter_*
-      - sensor.money_*
-      - select.electricity_meter_*
-      - sensor.*_temperature
-      - sensor.*_humidity
-      - sensor.*_battery
-      - sensor.*_power
-      - sensor.*_voltage
-      - sensor.monthly_total_energy*
-    entities:
-      - sensor.disk_free
-      - sensor.disk_use_percent
-      - sensor.fans
-      - sensor.maria_db
-      - sensor.min_batteries_state
-exclude:
   domains:
-    - camera
-    - number
-    - select
-    # - sensor
+    - alarm_control_panel
+    - light
+    - switch
+    - climate
+    - person
   entity_globs:
-    # - sensor.time*
-    # - sensor.msg_*
-    # - sensor.*_last_seen
-    # - number.*_temperature_limit
-    # - number.*_deadzone_temperature
+    - binary_sensor.*_occupancy
+    - sensor.*_battery
+    - sensor.*_humidity
+    - sensor.*_power
+    - sensor.*_temperature
+    - sensor.*_voltage
+    - sensor.electricity_meter_*
+    - sensor.cost_*
+    - sensor.monthly_total_energy*
+  entities:
+    - sensor.disk_free
+    - sensor.disk_use_percent
+    - sensor.fans
+    - sensor.maria_db
+    - sensor.min_batteries_state
+exclude:
+  entity_globs:
+    - switch.*_child_lock
+    - switch.*_mode
+    - switch.*camera*
     - switch.schedule_*
     - switch.zigbee2mqtt_*
-    - switch.*camera*
-    - switch.*_mode
-    - switch.*_child_lock

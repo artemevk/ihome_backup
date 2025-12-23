@@ -4,6 +4,7 @@ homeassistant:
   longitude: !secret longitude_coord
   elevation: 211
   unit_system: metric
+  currency: RUB
   country: RU
   time_zone: Europe/Moscow
   packages: !include_dir_merge_named includes/packages

@@ -57,7 +57,7 @@ electricity:
       step: 0.01
       mode: box
       icon: mdi:cash-multiple
-      unit_of_measurement: "₽/кВт*ч"
+      unit_of_measurement: RUB/kWh
 
     tariff_night:
       min: 3
@@ -66,26 +66,27 @@ electricity:
       step: 0.01
       mode: box
       icon: mdi:cash-multiple
-      unit_of_measurement: "₽/кВт*ч"
+      unit_of_measurement: RUB/kWh
 
 
   template:
     sensor:
         - name: total_power
-          unit_of_measurement: "Вт"
+          unit_of_measurement: "W"
           device_class: power
           state: >
             {{ states('sensor.a_power') | int +
             states('sensor.b_power') | int +
             states('sensor.c_power') | int
             }}
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
+          state_class: measurement
 
         - default_entity_id: sensor.daily_total_energy_day
           name: "Daily Energy Total Day"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_day'))
             and is_number(states('sensor.electricity_meter_b_daily_day'))
@@ -96,12 +97,13 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
         - default_entity_id: sensor.daily_total_energy_night
           name: "Daily Energy Total Night"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_night'))
             and is_number(states('sensor.electricity_meter_b_daily_night'))
@@ -112,12 +114,13 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
         - default_entity_id: sensor.daily_total_energy
           name: "Daily Energy Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_day')) 
             and is_number(states('sensor.electricity_meter_a_daily_night'))
@@ -134,12 +137,13 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
         - default_entity_id: sensor.daily_total_energy_a
           name: "Daily Energy A Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_daily_day')) 
             and is_number(states('sensor.electricity_meter_a_daily_night')) %}
@@ -148,48 +152,61 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_daily_total_energy_day
-          name: "Стоимость за текущий день (день)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_daily_total_energy_day
+          name: "Расход за сутки (день)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.daily_total_energy_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_daily_total_energy_night
-          name: "Стоимость за текущий день (ночь)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_daily_total_energy_night
+          name: "Расход за сутки (ночь)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.daily_total_energy_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_daily_total_energy
-          name: "Стоимость за текущий день"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_daily_total_energy
+          name: "Расход за сутки"
           icon: mdi:cash-multiple
-          state: '{{ states("sensor.money_daily_total_energy_day") | float + states("sensor.money_daily_total_energy_night") | float }}'
+          state: '{{ states("sensor.cost_daily_total_energy_day") | float + states("sensor.cost_daily_total_energy_night") | float }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_daily_energy_a_day
-          name: "Стоимость A за текущий день (день)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_daily_energy_a_day
+          name: "Расход A за сутки (день)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.electricity_meter_a_daily_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_daily_energy_a_night
-          name: "Стоимость A за текущий день (ночь)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_daily_energy_a_night
+          name: "Расход A за сутки (ночь)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.electricity_meter_a_daily_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_daily_energy_a
-          name: "Стоимость A за текущий день"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_daily_energy_a
+          name: "Расход A за сутки"
           icon: mdi:cash-multiple
-          state: '{{ states("sensor.money_daily_energy_a_day") | float + states("sensor.money_daily_energy_a_night") | float }}'
+          state: '{{ states("sensor.cost_daily_energy_a_day") | float + states("sensor.cost_daily_energy_a_night") | float }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
         - default_entity_id: sensor.monthly_total_energy_day
           name: "Monthly Energy Total Day"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_day'))
             and is_number(states('sensor.electricity_meter_b_monthly_day'))
@@ -200,12 +217,13 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
         - default_entity_id: sensor.monthly_total_energy_night
           name: "Monthly Energy Total Night"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_night'))
             and is_number(states('sensor.electricity_meter_b_monthly_night'))
@@ -216,12 +234,13 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
         - default_entity_id: sensor.monthly_total_energy
           name: "Monthly Energy Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_day')) 
             and is_number(states('sensor.electricity_meter_a_monthly_night'))
@@ -238,12 +257,13 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
         - default_entity_id: sensor.monthly_total_energy_a
           name: "Monthly Energy A Total"
           device_class: energy
           unit_of_measurement: kWh
-          icon: mdi:flash
+          icon: mdi:lightning-bolt
           state: >
             {% if is_number(states('sensor.electricity_meter_a_monthly_day')) 
             and is_number(states('sensor.electricity_meter_a_monthly_night')) %}
@@ -252,66 +272,68 @@ electricity:
             {% else %}
               None
             {% endif %}
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_monthly_total_energy_day
-          name: "Стоимость за текущий месяц (день)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_monthly_total_energy_day
+          name: "Расход за месяц (день)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.monthly_total_energy_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_monthly_total_energy_night
-          name: "Стоимость за текущий месяц (ночь)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_monthly_total_energy_night
+          name: "Расход за месяц (ночь)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.monthly_total_energy_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_monthly_total_energy
-          name: "Стоимость за текущий месяц"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_monthly_total_energy
+          name: "Расход за месяц"
           icon: mdi:cash-multiple
-          state: '{{ states("sensor.money_monthly_total_energy_day") | float + states("sensor.money_monthly_total_energy_night") | float }}'
+          state: '{{ states("sensor.cost_monthly_total_energy_day") | float + states("sensor.cost_monthly_total_energy_night") | float }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_monthly_energy_a_day
-          name: "Стоимость A за текущий месяц (день)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_monthly_energy_a_day
+          name: "Расход A за месяц (день)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.electricity_meter_a_monthly_day") | float) * (states("input_number.tariff_day") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_monthly_energy_a_night
-          name: "Стоимость A за текущий месяц (ночь)"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_monthly_energy_a_night
+          name: "Расход A за месяц (ночь)"
           icon: mdi:cash-multiple
           state: '{{ (states("sensor.electricity_meter_a_monthly_night") | float) * (states("input_number.tariff_night") | float) | round }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
-        - default_entity_id: sensor.money_monthly_energy_a
-          name: "Стоимость A за текущий месяц"
-          unit_of_measurement: "₽"
+        - default_entity_id: sensor.cost_monthly_energy_a
+          name: "Расход A за месяц"
           icon: mdi:cash-multiple
-          state: '{{ states("sensor.money_monthly_energy_a_day") | float + states("sensor.money_monthly_energy_a_night") | float }}'
+          state: '{{ states("sensor.cost_monthly_energy_a_day") | float + states("sensor.cost_monthly_energy_a_night") | float }}'
+          unit_of_measurement: RUB
+          device_class: monetary
+          state_class: total_increasing
 
   automation:
-    - alias: Set day tariff
+    - alias: Set tariff
       initial_state: true
       trigger:
         - platform: time
           at: "07:00:00"
-      action:
-        - service: select.select_option
-          entity_id:
-            - select.electricity_meter_a_daily
-            - select.electricity_meter_a_monthly
-            - select.electricity_meter_b_daily
-            - select.electricity_meter_b_monthly
-            - select.electricity_meter_c_daily
-            - select.electricity_meter_c_monthly
-          data:
-            option: day
-
-    - alias: Set night tariff
-      initial_state: true
-      trigger:
+          variables:
+            tariff: "day"
         - platform: time
           at: "23:00:00"
+          variables:
+           tariff: "night"
       action:
         - service: select.select_option
           entity_id:
@@ -322,4 +344,4 @@ electricity:
             - select.electricity_meter_c_daily
             - select.electricity_meter_c_monthly
           data:
-            option: night
+            option: "{{ tariff }}"
