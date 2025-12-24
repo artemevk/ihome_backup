@@ -51,6 +51,10 @@ porch:
             - binary_sensor.entrance_door_contact
             - binary_sensor.bathhouse_entrance_door_contact
           to: "on"
+        - trigger: state
+          entity_id:
+            - switch.gate_l1
+            - switch.gate_l2
         - trigger: template
           value_template: "{{ states('zone.home') | int > 0 }}"
       condition:
@@ -81,6 +85,10 @@ porch:
         - trigger: state
           entity_id: light.outdoor
           to: "on"
+        - trigger: state
+          entity_id:
+            - switch.gate_l1
+            - switch.gate_l2
       conditions:
         - condition: state
           entity_id: input_boolean.outdoor_light_auto_mode

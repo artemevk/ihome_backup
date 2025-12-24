@@ -4,14 +4,14 @@
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
-        "linkquality": 76,
+        "linkquality": 72,
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 11.02,
-        "humidity": 40.45,
-        "pressure": 1001.6,
-        "linkquality": 167,
+        "temperature": 7.98,
+        "humidity": 42.73,
+        "pressure": 998,
+        "linkquality": 163,
         "voltage": 2975,
         "battery": 83,
         "power_outage_count": 24354
@@ -23,7 +23,7 @@
         "power_on_behavior_l2": "previous",
         "switch_mode_l1": "switch",
         "switch_mode_l2": "switch",
-        "linkquality": 61,
+        "linkquality": 65,
         "countdown_l1": 0,
         "countdown_l2": 0,
         "backlight_mode": "ON",
@@ -33,7 +33,7 @@
         "energy": 2.91,
         "power": 0,
         "current": 0,
-        "voltage": 203,
+        "voltage": 208,
         "state": "OFF",
         "linkquality": 174,
         "power_outage_memory": "restore",
@@ -44,7 +44,7 @@
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
-        "linkquality": 156,
+        "linkquality": 167,
         "switch_mode_l1": "switch",
         "switch_mode_l2": "switch",
         "countdown_l1": 0,
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 201,
+        "voltage": 208,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -62,7 +62,7 @@
         "child_lock": "UNLOCK",
         "power": 0,
         "current": 0,
-        "linkquality": 25
+        "linkquality": 32
     },
     "0xa4c138d847ff5892": {
         "state_l1": "OFF",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 200,
+        "voltage": 207,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -100,11 +100,11 @@
         "child_lock": "UNLOCK",
         "power": 0,
         "current": 0,
-        "linkquality": 83
+        "linkquality": 80
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 200,
+        "voltage": 207,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -133,7 +133,7 @@
             "installed_version": 671166465,
             "latest_version": 671166465
         },
-        "linkquality": 204,
+        "linkquality": 153,
         "state": "OFF",
         "brightness": 254,
         "color_temp": 500,
@@ -144,14 +144,14 @@
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 67.05,
-        "voltage": 203,
+        "voltage": 209,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
         "child_lock": "UNLOCK",
         "power": 0,
         "current": 0,
-        "linkquality": 76
+        "linkquality": 80
     },
     "0xe0798dfffec10ca5": {
         "operation_mode": "event",
@@ -173,9 +173,9 @@
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 83,
-        "temperature": 10.48,
-        "humidity": 35.65,
+        "battery": 81,
+        "temperature": 7.83,
+        "humidity": 37.17,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",

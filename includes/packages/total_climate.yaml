@@ -7,25 +7,19 @@ total_climate:
   script:
     prepare_the_house:
       sequence:
-        - service: switch.turn_on
-          target:
-            entity_id: switch.water_heater
-        # - service: climate.turn_on
-        #   target:
-        #     entity_id: all
-        # - service: climate.set_temperature
-        #   target:
-        #     entity_id: group.house_radiators
-        #   data:
-        #     temperature: 24
-        - service: climate.set_preset_mode
+        - service: switch.turn_off
           target:
             entity_id:
-              - climate.1st_floor_bedroom_heater_thermostat
-              - climate.childrens_room_heater_thermostat
-              - climate.open_kitchen_heater_thermostat
-          data:
-            preset_mode: "comfort"
+              - switch.schedule_180e40
+              - switch.schedule_a12a90
+              - switch.schedule_d02526
+        - service: switch.turn_on
+          target:
+            entity_id:
+              - switch.schedule_05e577
+              - switch.schedule_0c5617
+              - switch.schedule_aaa3bc
+              - switch.water_heater
         - service: notify.mobile_app_artemevk
           data:
             title: Отопление
@@ -37,19 +31,17 @@ total_climate:
       sequence:
         - service: switch.turn_off
           target:
-            entity_id: switch.water_heater
-        - service: switch.turn_off
-          target:
             entity_id:
               - switch.schedule_05e577
               - switch.schedule_0c5617
               - switch.schedule_aaa3bc
-        - service: climate.set_temperature
+              - switch.water_heater
+        - service: switch.turn_on
           target:
-            entity_id: group.house_radiators
-          data:
-            temperature: 5
-        
+            entity_id:
+              - switch.schedule_180e40
+              - switch.schedule_a12a90
+              - switch.schedule_d02526
 
   automation:
     # Погода в доме

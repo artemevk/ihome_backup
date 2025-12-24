@@ -2,7 +2,7 @@ perimeter_defenses:
   template:
     - sensor:
         - default_entity_id: sensor.alarm_control_panel_arm_mode
-          name: "Недоступно светильников"
+          name: "Режим охраны"
           icon: mdi:shield
           state: |
             {%- if states('alarm_control_panel.master') == 'disarmed' %}{{" Нет охраны"}}
@@ -378,12 +378,6 @@ perimeter_defenses:
               vibrationPattern: 100, 1000, 100, 1000, 100
               ledColor: red
         - action: script.update_todo_departure_prep
-        - action: switch.turn_on
-          target:
-            entity_id:
-              - switch.schedule_05e577
-              - switch.schedule_0c5617
-              - switch.schedule_aaa3bc
 
     - id: tlg_alarm_menu
       alias: "tlg_alarm_menu"

@@ -51,17 +51,26 @@ weather_outside:
 
         - default_entity_id: sensor.msg_weather
           state: |
-            {{"\U0001F3E2"}} *МОСКВА:* {{ states("sensor.weather_moscow_forecast_condition")}}
-            {{"\U0001F321"}} {{state_attr("weather.yandex_weather_moscow", "temperature")}} °C
-            {{"\U0001F4A8"}} {{state_attr("weather.yandex_weather_moscow", "wind_speed")}} м/с
+            {{"\U0001F3E2"}} *МОСКВА:* {{ states("sensor.weather_moscow_forecast_condition") }}
+            {{"\U0001F321"}} {{state_attr("weather.yandex_weather_moscow", "temperature") | int}} °C
+            {{"\U0001F4A8"}} {{state_attr("weather.yandex_weather_moscow", "wind_speed") | int}} м/с
             В {{ as_timestamp(state_attr("weather.yandex_weather_moscow", "forecastHourly")[2].datetime) | timestamp_custom('%H:%M') }} {{ states('sensor.weather_moscow_forecast_condition') }}
             {{"\U0001F321"}} {{state_attr("weather.yandex_weather_moscow", "forecastHourly")[1].native_temperature}} °C
             {{ "\n" -}}{{"\U0001F3E1"}} *МАТВЕЙКОВО:* {{ states("sensor.weather_forecast_condition")}}
-            {{"\U0001F321"}} {{state_attr("weather.yandex_weather", "temperature")}} °C
-            {{"\U0001F4A8"}} {{state_attr("weather.yandex_weather", "wind_speed")}} м/с
+            {{"\U0001F321"}} {{state_attr("weather.yandex_weather", "temperature") | int}} °C
+            {{"\U0001F4A8"}} {{state_attr("weather.yandex_weather", "wind_speed") | int}} м/с
             В {{ as_timestamp(state_attr("weather.yandex_weather", "forecastHourly")[2].datetime) | timestamp_custom('%H:%M') }} {{ states('sensor.weather_forecast_condition') }}
             {{"\U0001F321"}} {{state_attr("weather.yandex_weather", "forecastHourly")[2].native_temperature}} °C
             {{ "\n" -}}{{"\U0000231A"}} Данные получены в {{ as_timestamp(states("sensor.yandex_weather_data_update_time")) | timestamp_custom('%H:%M') }}
+
+        - default_entity_id: sensor.outdoor_temperature
+          unit_of_measurement: "°C"
+          device_class: temperature
+          state_class: measurement
+          icon: mdi:thermometer
+          name: "Температура на улице"
+          state: |
+            {{ state_attr("weather.yandex_weather_moscow", "temperature") | int }}
 
   automation:
     # Отправка ежедневного утреннего отчета о погоде

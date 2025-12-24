@@ -131,6 +131,8 @@ bathhouse:
             message: Активирована подготовка бани
             data:
               url: /lovelace/bathhouse
+   
+  # switch.schedule_f094e3
 
     bathhouse_antifrost:
       sequence:
