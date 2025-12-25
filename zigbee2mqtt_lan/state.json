@@ -8,12 +8,12 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 7.98,
-        "humidity": 42.73,
-        "pressure": 998,
+        "temperature": 8.59,
+        "humidity": 47.07,
+        "pressure": 972.5,
         "linkquality": 163,
-        "voltage": 2975,
-        "battery": 83,
+        "voltage": 2965,
+        "battery": 77,
         "power_outage_count": 24354
     },
     "0xa4c138357ecf3e4c": {
@@ -33,7 +33,7 @@
         "energy": 2.91,
         "power": 0,
         "current": 0,
-        "voltage": 208,
+        "voltage": 210,
         "state": "OFF",
         "linkquality": 174,
         "power_outage_memory": "restore",
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 208,
+        "voltage": 212,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 207,
+        "voltage": 211,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -144,7 +144,7 @@
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 67.05,
-        "voltage": 209,
+        "voltage": 213,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
@@ -155,7 +155,7 @@
     },
     "0xe0798dfffec10ca5": {
         "operation_mode": "event",
-        "battery": 86,
+        "battery": 85,
         "voltage": 2900,
         "linkquality": 65
     },
@@ -173,9 +173,9 @@
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 81,
-        "temperature": 7.83,
-        "humidity": 37.17,
+        "battery": 75.5,
+        "temperature": 8.63,
+        "humidity": 41.55,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
