@@ -9,6 +9,7 @@ include:
     - person
   entity_globs:
     - binary_sensor.*_occupancy
+    - binary_sensor.*_heater_heat
     - sensor.*_battery
     - sensor.*_humidity
     - sensor.*_power
@@ -17,12 +18,14 @@ include:
     - sensor.electricity_meter_*
     - sensor.cost_*
     - sensor.monthly_total_energy*
+    - sensor.daily_total_energy*
   entities:
     - sensor.disk_free
     - sensor.disk_use_percent
     - sensor.fans
     - sensor.maria_db
     - sensor.min_batteries_state
+    - zone.home
 exclude:
   entity_globs:
     - switch.*_child_lock

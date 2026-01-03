@@ -55,8 +55,6 @@ porch:
           entity_id:
             - switch.gate_l1
             - switch.gate_l2
-        - trigger: template
-          value_template: "{{ states('zone.home') | int > 0 }}"
       condition:
         - condition: state
           entity_id: input_boolean.outdoor_light_auto_mode
@@ -66,6 +64,19 @@ porch:
           state: "off"
         - condition: template
           value_template: "{{ state_attr('sun.sun', 'elevation') < -2 }}"
+      actions:
+        - action: light.turn_on
+          target:
+            entity_id: light.outdoor
+
+    - alias: "switch_on_outdoor_light_from_zone"
+      id: "switch_on_outdoor_light_from_zone"
+      triggers:
+        - trigger: state
+          entity_id: zone.home
+      condition:
+        - condition: template
+          value_template: "{{ trigger.from_state.state < states.zone.home.state }}"
       actions:
         - action: light.turn_on
           target:
@@ -96,6 +107,21 @@ porch:
         - condition: state
           entity_id: light.outdoor
           state: "on"
+      actions:
+        - action: timer.start
+          data:
+            duration: "{{ states('input_number.outdoor_light_limit_minutes') | int * 60 }}"
+          target:
+            entity_id: timer.outdoor_light
+
+    - alias: "start_restart_outdoor_light_timer_from_zone"
+      id: "start_restart_outdoor_light_timer_from_zone"
+      triggers:
+        - trigger: state
+          entity_id: zone.home
+      condition:
+        - condition: template
+          value_template: "{{ trigger.from_state.state < states.zone.home.state }}"
       actions:
         - action: timer.start
           data:

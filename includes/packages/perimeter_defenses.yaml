@@ -115,6 +115,28 @@ perimeter_defenses:
             file: "/media/courtyard_camera_last_snapshot.jpg"
             target: [!secret tlg_user1_id, !secret tlg_user3_id]
 
+    arm_away:
+      sequence:
+        - action: input_number.set_value
+          target:
+            entity_id: input_number.outdoor_light_limit_minutes
+          data:
+            value: 1
+        - action: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id: alarm_control_panel.master
+
+    disarm:
+      sequence:
+        - action: input_number.set_value
+          target:
+            entity_id: input_number.outdoor_light_limit_minutes
+          data:
+            value: 8
+        - action: alarm_control_panel.alarm_disarm
+          target:
+            entity_id: alarm_control_panel.master
+
   automation:
     - alias: "motion_notification"
       id: motion_notification
@@ -230,9 +252,7 @@ perimeter_defenses:
           event_data:
             action: "disarmed"
       action:
-        - service: alarm_control_panel.alarm_disarm
-          target:
-            entity_id: alarm_control_panel.master
+        - action: script.disarm
 
     - alias: "Trigger alarm while armed away"
       trigger:
@@ -312,10 +332,8 @@ perimeter_defenses:
           - condition: state
             entity_id: alarm_control_panel.master
             state: "armed_away"
-      action:
-        - service: alarm_control_panel.alarm_arm_away
-          target:
-            entity_id: alarm_control_panel.master
+      actions:
+        - action: script.arm_away
 
     - id: "automatic disarming"
       alias: "automatic disarming"
@@ -328,9 +346,7 @@ perimeter_defenses:
             entity_id: alarm_control_panel.master
             state: "disarmed"
       actions:
-        - action: alarm_control_panel.alarm_disarm
-          target:
-            entity_id: alarm_control_panel.master
+        - action: script.disarm
 
     - id: "alarm notify armed"
       alias: "alarm notify armed"
@@ -415,10 +431,8 @@ perimeter_defenses:
           event_data:
             command: /alarm_disarm
       actions:
-        - action: alarm_control_panel.alarm_disarm
-          target:
-            entity_id: alarm_control_panel.master
-        - service: telegram_bot.edit_message
+        - action: script.disarm
+        - action: telegram_bot.edit_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
@@ -443,7 +457,7 @@ perimeter_defenses:
         - action: alarm_control_panel.alarm_arm_home
           target:
             entity_id: alarm_control_panel.master
-        - service: telegram_bot.edit_message
+        - action: telegram_bot.edit_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
@@ -465,9 +479,7 @@ perimeter_defenses:
           event_data:
             command: /alarm_arm_away
       actions:
-        - action: alarm_control_panel.alarm_arm_away
-          target:
-            entity_id: alarm_control_panel.master
+        - action: script.arm_away
         - action: todo.get_items
           target:
             entity_id: todo.departure_prep
