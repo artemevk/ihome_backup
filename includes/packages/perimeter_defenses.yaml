@@ -1,4 +1,8 @@
 perimeter_defenses:
+  input_boolean:
+    mobile_app_motion_notify_resolution:
+      icon: mdi:square-rounded-badge-outline
+
   template:
     - sensor:
         - default_entity_id: sensor.alarm_control_panel_arm_mode
@@ -117,22 +121,22 @@ perimeter_defenses:
 
     arm_away:
       sequence:
-        - action: input_number.set_value
-          target:
-            entity_id: input_number.outdoor_light_limit_minutes
-          data:
-            value: 1
+        # - action: input_number.set_value
+        #   target:
+        #     entity_id: input_number.outdoor_light_limit_minutes
+        #   data:
+        #     value: 1
         - action: alarm_control_panel.alarm_arm_away
           target:
             entity_id: alarm_control_panel.master
 
     disarm:
       sequence:
-        - action: input_number.set_value
-          target:
-            entity_id: input_number.outdoor_light_limit_minutes
-          data:
-            value: 8
+        # - action: input_number.set_value
+        #   target:
+        #     entity_id: input_number.outdoor_light_limit_minutes
+        #   data:
+        #     value: 8
         - action: alarm_control_panel.alarm_disarm
           target:
             entity_id: alarm_control_panel.master
@@ -152,10 +156,13 @@ perimeter_defenses:
           - condition: state
             entity_id: alarm_control_panel.master
             state: disarmed
-      action:
-        - service: script.create_photos
-        - service: script.send_photos
-        - service: notify.alarm
+      actions:
+        - action: script.create_photos
+        - action: script.send_photos
+        - condition: state
+          entity_id: input_boolean.mobile_app_motion_notify_resolution
+          state: "on"
+        - action: notify.alarm
           data:
             title: "Охрана"
             message: "Зафиксировано движение"
@@ -180,6 +187,9 @@ perimeter_defenses:
                 - action: "SILENCE"
                   title: "Silence Alarm"
                   icon: "sfsymbols:bell.slash"
+                - action: "DISABLE_ALARM_NOTIFY"
+                  title: "Disable alarm notify"
+                  icon: "sfsymbols:a.circle"
 
     - id: Напоминание о необходимости снять дом с охраны
       alias: reminder_to_disarm_the_house
@@ -510,3 +520,18 @@ perimeter_defenses:
               {{- " "}}{{ states('sensor.alarm_control_panel_arm_mode') }}
               Выберите режим:
             inline_keyboard: *alarm_keyb
+
+    - id: Разрешить отправку аварийных уведомлений при движении
+      alias: reset_mobile_app_motion_notify_resolution
+      initial_state: true
+      trigger:
+        - platform: time
+          at: "10:19:00"
+      condition:
+        - condition: state
+          entity_id: input_boolean.mobile_app_motion_notify_resolution
+          state: "off"
+      action:
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.mobile_app_motion_notify_resolution

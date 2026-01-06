@@ -7,7 +7,6 @@ porch:
     outdoor_light_limit_minutes:
       min: 1
       max: 20
-      initial: 8
       step: 1
       mode: slider
       icon: mdi:timer
@@ -15,6 +14,18 @@ porch:
   timer:
     outdoor_light:
       duration: "00:08:00"
+
+  template:
+    - sensor:
+        - default_entity_id: sensor.outdoor_light_duration
+          name: "Время работы уличного освещения"
+          icon: mdi:timer
+          state: |
+            {% if states.zone.home.state | int > 0 -%}
+              {{ states('input_number.outdoor_light_limit_minutes') | int * 60 }}
+            {%- else -%}
+              {{ 60 }}
+            {%- endif %}
 
   automation:
     - alias: "outdoor_light_auto_mode_reset"
@@ -110,7 +121,7 @@ porch:
       actions:
         - action: timer.start
           data:
-            duration: "{{ states('input_number.outdoor_light_limit_minutes') | int * 60 }}"
+            duration: "{{ states('sensor.outdoor_light_duration') | int }}"
           target:
             entity_id: timer.outdoor_light
 
@@ -125,7 +136,7 @@ porch:
       actions:
         - action: timer.start
           data:
-            duration: "{{ states('input_number.outdoor_light_limit_minutes') | int * 60 }}"
+            duration: "{{ states('sensor.outdoor_light_duration') | int }}"
           target:
             entity_id: timer.outdoor_light
 

@@ -10,6 +10,8 @@ include:
   entity_globs:
     - binary_sensor.*_occupancy
     - binary_sensor.*_heater_heat
+    - binary_sensor.*_is_available
+    - binary_sensor.*_motion_detection
     - sensor.*_battery
     - sensor.*_humidity
     - sensor.*_power
@@ -20,6 +22,7 @@ include:
     - sensor.monthly_total_energy*
     - sensor.daily_total_energy*
   entities:
+    - binary_sensor.iflat_connection
     - sensor.disk_free
     - sensor.disk_use_percent
     - sensor.fans
