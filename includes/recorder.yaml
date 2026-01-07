@@ -21,6 +21,7 @@ include:
     - sensor.cost_*
     - sensor.monthly_total_energy*
     - sensor.daily_total_energy*
+    - sensor.unavailable_objects*
   entities:
     - binary_sensor.iflat_connection
     - sensor.disk_free

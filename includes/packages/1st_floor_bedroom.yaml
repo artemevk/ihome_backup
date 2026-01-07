@@ -2,7 +2,9 @@
   template:
     - sensor:
         - default_entity_id: sensor.1st_floor_bedroom_temperature
+          name: 1st_floor_bedroom_temperature
           device_class: temperature
+          state_class: measurement
           unit_of_measurement: °C
           state: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') | float }}"
 

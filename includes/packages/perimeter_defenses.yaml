@@ -14,6 +14,10 @@ perimeter_defenses:
             {% elif states('alarm_control_panel.master') == 'armed_away' %}{{" Не дома"}}
             {% endif -%}
 
+  timer:
+    disable_motion_notify_mobile_app:
+      duration: "08:00:00"
+
   script:
     creating_photos:
       sequence:
@@ -183,13 +187,13 @@ perimeter_defenses:
                 - action: "ALARM" # The key you are sending for the event
                   title: "Sound Alarm" # The button title
                   destructive: true
-                  icon: "sfsymbols:bell"
+                  icon: sfsymbols:bell
                 - action: "SILENCE"
                   title: "Silence Alarm"
-                  icon: "sfsymbols:bell.slash"
-                - action: "DISABLE_ALARM_NOTIFY"
-                  title: "Disable alarm notify"
-                  icon: "sfsymbols:a.circle"
+                  icon: sfsymbols:bell.slash
+                - action: disable_alarm_notify
+                  title: "Выкл. уведомления на 8 часов"
+                  icon: sfsymbols:bell.slash.circle
 
     - id: Напоминание о необходимости снять дом с охраны
       alias: reminder_to_disarm_the_house
@@ -521,17 +525,49 @@ perimeter_defenses:
               Выберите режим:
             inline_keyboard: *alarm_keyb
 
-    - id: Разрешить отправку аварийных уведомлений при движении
-      alias: reset_mobile_app_motion_notify_resolution
+    - id: Запуск таймера отправки аварийных уведомлений при движении
+      alias: start_timer_disable_motion_notify_mobile_app
       initial_state: true
       trigger:
-        - platform: time
-          at: "10:19:00"
-      condition:
-        - condition: state
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: "disable_alarm_notify"
+        - platform: state
           entity_id: input_boolean.mobile_app_motion_notify_resolution
-          state: "off"
-      action:
-        - service: input_boolean.turn_on
+          to: "off"
+      actions:
+        - action: timer.start
+          target:
+            entity_id: timer.disable_motion_notify_mobile_app
+        - action: input_boolean.turn_off
           target:
             entity_id: input_boolean.mobile_app_motion_notify_resolution
+
+    - alias: "notify_mobile_app_motion_enable"
+      id: Включение аварийных уведомлений при движении
+      triggers:
+        - trigger: event
+          event_type: timer.finished
+          event_data:
+            entity_id: timer.disable_motion_notify_mobile_app
+      actions:
+        - action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.mobile_app_motion_notify_resolution
+
+    - id: Сброс таймера отправки аварийных уведомлений при движении
+      alias: finish_timer_disable_motion_notify_mobile_app
+      initial_state: true
+      triggers:
+        - trigger: state
+          entity_id: input_boolean.mobile_app_motion_notify_resolution
+          to: "on"
+      conditions:
+        - condition: state
+          entity_id: timer.disable_motion_notify_mobile_app
+          state: "active"
+      actions:
+        - action: timer.finish
+          target:
+            entity_id: timer.disable_motion_notify_mobile_app
