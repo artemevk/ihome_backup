@@ -3,7 +3,7 @@ bathhouse:
     - platform: generic_thermostat
       name: bathhouse_thermostat
       heater: switch.protherm
-      target_sensor: sensor.bathhouse_climate_temperature
+      target_sensor: sensor.bathhouse_median_temperature
       min_temp: 5
       max_temp: 28
       target_temp_step: 1
