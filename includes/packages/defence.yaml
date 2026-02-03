@@ -97,11 +97,11 @@ defence:
             hours: 0
             minutes: 5
             seconds: 0
-          below: 4
+          below: 3
       action:
         - service: notify.mobile_app_artemevk
           data:
-            title: '{{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 4 °C!'
+            title: '{{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 3 °C!'
             message: "{{ states('sensor.msg_temperature_protection') }}"
             data:
               url: "/lovelace/main"
@@ -118,7 +118,7 @@ defence:
             target: !secret tlg_user1_id
             title: "#alarm"
             message: |
-              {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 4 °C!
+              {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 3 °C!
               {{ states('sensor.msg_temperature_protection') }}
             inline_keyboard:
               - "Главное меню:/mm"

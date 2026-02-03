@@ -8,9 +8,9 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 4.93,
-        "humidity": 39.76,
-        "pressure": 983.5,
+        "temperature": 4.44,
+        "humidity": 39.84,
+        "pressure": 992.4,
         "linkquality": 196,
         "voltage": 2955,
         "battery": 70,
@@ -33,7 +33,7 @@
         "energy": 2.91,
         "power": 0,
         "current": 0,
-        "voltage": 222,
+        "voltage": 215,
         "state": "OFF",
         "linkquality": 171,
         "power_outage_memory": "restore",
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 216,
+        "voltage": 213,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 215,
+        "voltage": 216,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 219,
+        "voltage": 213,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -128,23 +128,25 @@
         "backlight_mode": "ON"
     },
     "0xa4c138f5ad2c4a13": {
-        "update": {
-            "state": "idle",
-            "installed_version": 671166465,
-            "latest_version": 671166465
-        },
         "linkquality": 204,
         "state": "OFF",
         "brightness": 254,
         "color_temp": 500,
         "color_mode": "color_temp",
         "color_temp_startup": 500,
-        "power_on_behavior": "previous"
+        "power_on_behavior": "previous",
+        "update": {
+            "state": "idle",
+            "installed_version": 671166465,
+            "latest_version": 671166465,
+            "latest_source": null,
+            "latest_release_notes": null
+        }
     },
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 78.18,
-        "voltage": 220,
+        "voltage": 212,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
@@ -155,7 +157,7 @@
     },
     "0xe0798dfffec10ca5": {
         "operation_mode": "event",
-        "battery": 84,
+        "battery": 82,
         "voltage": 2900,
         "linkquality": 54
     },
@@ -169,13 +171,15 @@
         "update": {
             "state": "idle",
             "installed_version": 671166465,
-            "latest_version": 671166465
+            "latest_version": 671166465,
+            "latest_source": null,
+            "latest_release_notes": null
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 20.5,
-        "temperature": 4.99,
-        "humidity": 34.36,
+        "battery": 22.5,
+        "temperature": 4.54,
+        "humidity": 34.35,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
@@ -185,11 +189,13 @@
         "comfort_humidity_min": 30,
         "comfort_humidity_max": 60,
         "linkquality": 200,
+        "temperature_calibration": 0,
         "update": {
             "state": "idle",
             "installed_version": 285224961,
-            "latest_version": 285224961
-        },
-        "temperature_calibration": 0
+            "latest_version": 285224961,
+            "latest_source": "https://raw.githubusercontent.com/Koenkk/zigbee-OTA/master/images/DIY/db15-0203-11003001-z03mmc.zigbee",
+            "latest_release_notes": null
+        }
     }
 }

@@ -55,4 +55,4 @@ availability:
   enabled: true
   passive:
     timeout: 360
-version: 5
+version: 4

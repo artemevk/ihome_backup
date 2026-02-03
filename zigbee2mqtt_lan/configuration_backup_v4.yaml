@@ -42,7 +42,7 @@ frontend:
   enabled: true
   port: 8099
 device_options: {}
-version: 5
+version: 4
 devices:
   '0xa4c138cd256aef56':
     friendly_name: protherm
