@@ -909,33 +909,30 @@ var Ue=function(e){return function(t,i){void 0!==i?i.addInitializer(function(){c
       `:fe`
       <ha-card>
         ${i.state===Ze.Disarmed?fe`
-              <ha-button-menu
-                corner="BOTTOM_START"
-                multi
+              <ha-dropdown
+                placement="bottom-end"
                 id="cornerMenu"
               >
                 <ha-icon-button slot="trigger" .label=${this.hass.localize("ui.common.menu")} .path=${"M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"}>
                 </ha-icon-button>
-                <mwc-list-item noninteractive>
-                  <span class="title">
-                    ${ei("arm_options.heading",this.hass.language)}
-                  </span>
-                </mwc-list-item>
-                <mwc-list-item graphic="icon" @click=${e=>this._toggleArmOptions(e,"skip_delay")}>
+                <span class="title">
+                  ${ei("arm_options.heading",this.hass.language)}
+                </span>
+                <ha-dropdown-item @click=${e=>this._toggleArmOptions(e,"skip_delay")}>
                   <ha-icon
-                    slot="graphic"
-                    icon="${this.armOptions.skip_delay?"mdi:check":""}"
+                    icon="mdi:check"
+                    style="${this.armOptions.skip_delay?"":"visibility: hidden"}"
                   ></ha-icon>
                   ${ei("arm_options.skip_delay",this.hass.language)}
-                </mwc-list-item>
-                <mwc-list-item graphic="icon" @click=${e=>this._toggleArmOptions(e,"force")}>
+                </ha-dropdown-item>
+                <ha-dropdown-item @click=${e=>this._toggleArmOptions(e,"force")}>
                   <ha-icon
-                    slot="graphic"
-                    icon="${this.armOptions.force?"mdi:check":""}"
+                    icon="mdi:check"
+                    style="${this.armOptions.force?"":"visibility: hidden"}"
                   ></ha-icon>
                   ${ei("arm_options.force",this.hass.language)}
-                </mwc-list-item>
-              </ha-button-menu>
+                </ha-dropdown-item>
+              </ha-dropdown>
             `:""}
 
         <div class="header">
@@ -1241,22 +1238,22 @@ var Ue=function(e){return function(t,i){void 0!==i?i.addInitializer(function(){c
         justify-self: center;
         margin-bottom: 10px;
       }
-      ha-button-menu {
+      ha-dropdown {
+        display: block;
         position: absolute;
         right: 4px;
         top: 4px;
       }
+      ha-dropdown span.title {
+        font-weight: bold;
+        display: flex;
+        height: 32px;
+        align-items: center;
+        padding: 0px 8px;
+      }
       @media all and (max-width: 250px) {
-        ha-button-menu {
+        ha-dropdown {
           display: none;
         }
       }
-      mwc-list-item {
-        --mdc-theme-secondary: var(--primary-color);
-        --mdc-list-item-graphic-margin: 16px;
-      }
-      mwc-list-item .title {
-        font-weight: 500;
-        font-size: 1.1em;
-      }
-    `}},t([Ve({attribute:!1})],e.AlarmoCard.prototype,"hass",void 0),t([qe()],e.AlarmoCard.prototype,"_config",void 0),t([qe()],e.AlarmoCard.prototype,"_alarmoConfig",void 0),t([qe()],e.AlarmoCard.prototype,"_input",void 0),t([qe()],e.AlarmoCard.prototype,"warning",void 0),t([qe()],e.AlarmoCard.prototype,"area_id",void 0),t([qe()],e.AlarmoCard.prototype,"armOptions",void 0),t([qe()],e.AlarmoCard.prototype,"readyForArmModes",void 0),t([qe()],e.AlarmoCard.prototype,"backendConnection",void 0),t([qe()],e.AlarmoCard.prototype,"showBypassedSensors",void 0),e.AlarmoCard=t([Ue("alarmo-card")],e.AlarmoCard),window.customCards=window.customCards||[],window.customCards.push({type:"alarmo-card",name:"Alarmo Card",description:"Card for operating Alarmo through Lovelace.",preview:!0}),console.info(`%c  ALARMO-CARD  \n%c  Version: ${"v1.6.6".padEnd(7," ")}`,"color: orange; font-weight: bold; background: black","color: white; font-weight: bold; background: dimgray"),e}({});
+    `}},t([Ve({attribute:!1})],e.AlarmoCard.prototype,"hass",void 0),t([qe()],e.AlarmoCard.prototype,"_config",void 0),t([qe()],e.AlarmoCard.prototype,"_alarmoConfig",void 0),t([qe()],e.AlarmoCard.prototype,"_input",void 0),t([qe()],e.AlarmoCard.prototype,"warning",void 0),t([qe()],e.AlarmoCard.prototype,"area_id",void 0),t([qe()],e.AlarmoCard.prototype,"armOptions",void 0),t([qe()],e.AlarmoCard.prototype,"readyForArmModes",void 0),t([qe()],e.AlarmoCard.prototype,"backendConnection",void 0),t([qe()],e.AlarmoCard.prototype,"showBypassedSensors",void 0),e.AlarmoCard=t([Ue("alarmo-card")],e.AlarmoCard),window.customCards=window.customCards||[],window.customCards.push({type:"alarmo-card",name:"Alarmo Card",description:"Card for operating Alarmo through Lovelace.",preview:!0}),console.info(`%c  ALARMO-CARD  \n%c  Version: ${"v1.6.7".padEnd(7," ")}`,"color: orange; font-weight: bold; background: black","color: white; font-weight: bold; background: dimgray"),e}({});
