@@ -4,13 +4,13 @@
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
-        "linkquality": 83,
+        "linkquality": 204,
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 9.6,
-        "humidity": 40.96,
-        "pressure": 976.9,
+        "temperature": 8.12,
+        "humidity": 40.77,
+        "pressure": 991.4,
         "linkquality": 123,
         "voltage": 2975,
         "battery": 83,
@@ -23,7 +23,7 @@
         "power_on_behavior_l2": "previous",
         "switch_mode_l1": "switch",
         "switch_mode_l2": "switch",
-        "linkquality": 83,
+        "linkquality": 185,
         "countdown_l1": 0,
         "countdown_l2": 0,
         "backlight_mode": "ON",
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 202,
+        "voltage": 199,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 202,
+        "voltage": 200,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 204,
+        "voltage": 203,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -146,7 +146,7 @@
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 78.18,
-        "voltage": 204,
+        "voltage": 201,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
@@ -157,7 +157,7 @@
     },
     "0xe0798dfffec10ca5": {
         "operation_mode": "event",
-        "battery": 82,
+        "battery": 86,
         "voltage": 2900,
         "linkquality": 54
     },
@@ -177,9 +177,9 @@
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 45.5,
-        "temperature": 9.48,
-        "humidity": 35.18,
+        "battery": 43,
+        "temperature": 8.16,
+        "humidity": 34.94,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
@@ -188,7 +188,7 @@
         "comfort_temperature_max": 26,
         "comfort_humidity_min": 30,
         "comfort_humidity_max": 60,
-        "linkquality": 72,
+        "linkquality": 204,
         "temperature_calibration": 0,
         "update": {
             "state": "idle",
