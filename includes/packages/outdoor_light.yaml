@@ -66,33 +66,15 @@ porch:
           entity_id:
             - switch.gate_l1
             - switch.gate_l2
-
-conditions:
-  - and:
-    - condition: state
-      entity_id: "device_tracker.paulus"
-      state: "home"
-    - or:
-      - condition: state
-        entity_id: sensor.weather_precip
-        state: "rain"
-      - condition: numeric_state
-        entity_id: "sensor.temperature"
-        below: 20
-
-      conditions: 
-        - and:
-          - condition: state
-            entity_id: input_boolean.outdoor_light_auto_mode
-            state: "on"
-          - condition: state
-            entity_id: light.outdoor
-            state: "off"
-          - condition: template
-            value_template: "{{ state_attr('sun.sun', 'elevation') < -2 }}"
-          - or:
-            - condition: template
-              value_template: "{{ trigger.from_state.state < states.zone.home.state }}"
+      conditions:
+        - condition: state
+          entity_id: input_boolean.outdoor_light_auto_mode
+          state: "on"
+        - condition: state
+          entity_id: light.outdoor
+          state: "off"
+        - condition: template
+          value_template: "{{ state_attr('sun.sun', 'elevation') < -2 }}"
       actions:
         - action: light.turn_on
           target:
@@ -113,7 +95,7 @@ conditions:
         - condition: template
           value_template: "{{ state_attr('sun.sun', 'elevation') < -2 }}"
         - condition: template
-          value_template: "{{ trigger.from_state.state < states.zone.home.state }}"
+          value_template: "{{ trigger.from_state.state < trigger.to_state.state }}"
       actions:
         - action: light.turn_on
           target:
