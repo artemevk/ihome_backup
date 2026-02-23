@@ -1,6 +1,6 @@
 {
     "0xa4c138cd256aef56": {
-        "state": "OFF",
+        "state": "ON",
         "countdown": 0,
         "power_on_behavior": "previous",
         "switch_type": "toggle",
@@ -8,16 +8,16 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 24.34,
-        "humidity": 80.56,
-        "pressure": 979.1,
+        "temperature": 19.24,
+        "humidity": 48.9,
+        "pressure": 986,
         "linkquality": 123,
-        "voltage": 2985,
-        "battery": 90,
+        "voltage": 3005,
+        "battery": 100,
         "power_outage_count": 24363
     },
     "0xa4c138357ecf3e4c": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
@@ -33,16 +33,16 @@
         "energy": 2.91,
         "power": 0,
         "current": 0,
-        "voltage": 209,
+        "voltage": 210,
         "state": "OFF",
         "linkquality": 174,
         "power_outage_memory": "restore",
         "indicator_mode": "on_off"
     },
     "0xa4c13877995a1c32": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
-        "state_l2": "ON",
+        "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
         "linkquality": 167,
         "switch_mode_l1": "switch",
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 207,
+        "voltage": 210,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -65,7 +65,7 @@
         "linkquality": 61
     },
     "0xa4c138d847ff5892": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
         "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 206,
+        "voltage": 207,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 207,
+        "voltage": 210,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -115,9 +115,9 @@
         "linkquality": 127
     },
     "0xa4c1381d6d20d4a8": {
-        "state_l1": "ON",
+        "state_l1": "OFF",
         "power_on_behavior_l1": "previous",
-        "state_l2": "ON",
+        "state_l2": "OFF",
         "power_on_behavior_l2": "previous",
         "linkquality": 171,
         "switch_mode_l1": "switch",
@@ -129,8 +129,8 @@
     },
     "0xa4c138f5ad2c4a13": {
         "linkquality": 204,
-        "state": "ON",
-        "brightness": 64,
+        "state": "OFF",
+        "brightness": 254,
         "color_temp": 500,
         "color_mode": "color_temp",
         "color_temp_startup": 500,
@@ -144,15 +144,15 @@
         }
     },
     "0xa4c138e3d37737ce": {
-        "state": "ON",
-        "energy": 89.79,
-        "voltage": 207,
+        "state": "OFF",
+        "energy": 90.89,
+        "voltage": 210,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
         "child_lock": "UNLOCK",
-        "power": 1580,
-        "current": 7.61,
+        "power": 0,
+        "current": 0,
         "linkquality": 65
     },
     "0xe0798dfffec10ca5": {
@@ -162,8 +162,8 @@
         "linkquality": 54
     },
     "0xa4c138f66453ad9f": {
-        "state": "ON",
-        "brightness": 64,
+        "state": "OFF",
+        "brightness": 254,
         "linkquality": 145,
         "color_temp": 153,
         "color_mode": "color_temp",
@@ -177,9 +177,9 @@
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 41,
-        "temperature": 24.3,
-        "humidity": 70.57,
+        "battery": 43,
+        "temperature": 19.05,
+        "humidity": 42.83,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
