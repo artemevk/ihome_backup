@@ -8,9 +8,9 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 7.68,
-        "humidity": 57.99,
-        "pressure": 988.6,
+        "temperature": 6.68,
+        "humidity": 56.19,
+        "pressure": 984.8,
         "linkquality": 163,
         "voltage": 2965,
         "battery": 77,
@@ -33,7 +33,7 @@
         "energy": 2.91,
         "power": 0,
         "current": 0,
-        "voltage": 223,
+        "voltage": 222,
         "state": "OFF",
         "linkquality": 178,
         "power_outage_memory": "restore",
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 217,
+        "voltage": 220,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 218,
+        "voltage": 221,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 217,
+        "voltage": 220,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -146,7 +146,7 @@
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 90.89,
-        "voltage": 220,
+        "voltage": 221,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
@@ -157,8 +157,8 @@
     },
     "0xe0798dfffec10ca5": {
         "operation_mode": "event",
-        "battery": 84,
-        "voltage": 2900,
+        "battery": 100,
+        "voltage": 3000,
         "linkquality": 25
     },
     "0xa4c138f66453ad9f": {
@@ -177,9 +177,9 @@
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 34.5,
-        "temperature": 7.91,
-        "humidity": 52.79,
+        "battery": 30,
+        "temperature": 6.97,
+        "humidity": 50.86,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
