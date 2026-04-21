@@ -8,9 +8,9 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 6.68,
-        "humidity": 56.19,
-        "pressure": 984.8,
+        "temperature": 7.17,
+        "humidity": 55.29,
+        "pressure": 984.3,
         "linkquality": 163,
         "voltage": 2965,
         "battery": 77,
@@ -33,7 +33,7 @@
         "energy": 2.91,
         "power": 0,
         "current": 0,
-        "voltage": 222,
+        "voltage": 214,
         "state": "OFF",
         "linkquality": 178,
         "power_outage_memory": "restore",
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 220,
+        "voltage": 212,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 221,
+        "voltage": 213,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 220,
+        "voltage": 213,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -146,7 +146,7 @@
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 90.89,
-        "voltage": 221,
+        "voltage": 215,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
@@ -157,8 +157,8 @@
     },
     "0xe0798dfffec10ca5": {
         "operation_mode": "event",
-        "battery": 100,
-        "voltage": 3000,
+        "battery": 79,
+        "voltage": 2800,
         "linkquality": 25
     },
     "0xa4c138f66453ad9f": {
@@ -178,8 +178,8 @@
     },
     "0xa4c138bf469f6d1f": {
         "battery": 30,
-        "temperature": 6.97,
-        "humidity": 50.86,
+        "temperature": 7.63,
+        "humidity": 49.78,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
