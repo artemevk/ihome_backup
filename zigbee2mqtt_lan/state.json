@@ -8,12 +8,12 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 13.33,
-        "humidity": 60.88,
-        "pressure": 975.3,
+        "temperature": 12.23,
+        "humidity": 62.21,
+        "pressure": 980.8,
         "linkquality": 182,
-        "voltage": 2995,
-        "battery": 97,
+        "voltage": 2985,
+        "battery": 90,
         "power_outage_count": 24363
     },
     "0xa4c138357ecf3e4c": {
@@ -33,7 +33,7 @@
         "energy": 2.91,
         "power": 0,
         "current": 0,
-        "voltage": 225,
+        "voltage": 217,
         "state": "OFF",
         "linkquality": 174,
         "power_outage_memory": "restore",
@@ -54,7 +54,7 @@
     },
     "0xa4c138f1fa6eae89": {
         "energy": 0.28,
-        "voltage": 223,
+        "voltage": 215,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 222,
+        "voltage": 214,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 223,
+        "voltage": 215,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -129,7 +129,7 @@
     },
     "0xa4c138f5ad2c4a13": {
         "linkquality": 207,
-        "state": "ON",
+        "state": "OFF",
         "brightness": 0,
         "color_temp": 500,
         "color_mode": "color_temp",
@@ -146,7 +146,7 @@
     "0xa4c138e3d37737ce": {
         "state": "OFF",
         "energy": 112.9,
-        "voltage": 224,
+        "voltage": 216,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
@@ -162,7 +162,7 @@
         "linkquality": 10
     },
     "0xa4c138f66453ad9f": {
-        "state": "ON",
+        "state": "OFF",
         "brightness": 0,
         "linkquality": 182,
         "color_temp": 153,
