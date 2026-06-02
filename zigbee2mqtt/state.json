@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
         "state": "ON",
-        "energy": 1055.8,
+        "energy": 1058.12,
         "power": 0,
         "current": 0,
-        "voltage": 229,
+        "voltage": 232,
         "power_outage_memory": "restore",
         "last_seen": "2026-05-16T14:04:19+03:00",
         "indicator_mode": "off/on",
@@ -21,9 +21,9 @@
     },
     "0x00124b001ed0f19e": {
         "state": "ON",
-        "cpu_temperature": 35.5,
-        "power": 1940.82,
-        "current": 8.44,
+        "cpu_temperature": 35.44,
+        "power": 1972.88,
+        "current": 8.58,
         "last_seen": "2026-05-16T14:04:16+03:00",
         "linkquality": 72
     },
@@ -38,9 +38,9 @@
         "linkquality": 63
     },
     "0x847127fffe04dc4d": {
-        "current_heating_setpoint": 25,
+        "current_heating_setpoint": 24,
         "heat": "OFF",
-        "local_temperature": 24.5,
+        "local_temperature": 24,
         "system_mode": "heat",
         "preset_mode": "hold",
         "preset": "hold",
@@ -99,19 +99,19 @@
         "power_on_behavior": "previous"
     },
     "0x00158d0006baa93b": {
-        "voltage": 3035,
+        "voltage": 3045,
         "battery": 100,
         "illuminance": 77,
         "temperature": 24,
         "occupancy": false,
         "device_temperature": 30,
         "last_seen": "2026-05-16T14:04:38+03:00",
-        "power_outage_count": 189,
+        "power_outage_count": 190,
         "linkquality": 72
     },
     "0x00158d00057f6f0b": {
         "contact": true,
-        "voltage": 3005,
+        "voltage": 3015,
         "battery": 100,
         "last_seen": "2026-05-16T14:03:42+03:00",
         "power_outage_count": 468,
@@ -125,7 +125,7 @@
         "max_temperature_limit": 28,
         "max_temperature": 35,
         "deadzone_temperature": 1,
-        "local_temperature": 25,
+        "local_temperature": 24.5,
         "local_temperature_calibration": -2,
         "heat": "OFF",
         "running_state": "idle",
@@ -176,8 +176,8 @@
     "0x00124b001f2b5b39": {
         "state_l1": "OFF",
         "state_l2": "ON",
-        "l1": 0.96,
-        "current_l1": 0.96,
+        "l1": 0.911,
+        "current_l1": 0.911,
         "last_seen": "2026-05-16T14:04:34+03:00",
         "linkquality": 69
     },
@@ -185,9 +185,9 @@
         "voltage": 3005,
         "battery": 100,
         "power_outage_count": 1154,
-        "temperature": 17.51,
-        "humidity": 61.25,
-        "pressure": 988.9,
+        "temperature": 20.86,
+        "humidity": 55.48,
+        "pressure": 991.4,
         "last_seen": "2026-05-16T13:54:11+03:00",
         "linkquality": 57
     },
@@ -198,17 +198,17 @@
         "energy": 4552.62,
         "power": 0,
         "current": 0,
-        "voltage": 229,
+        "voltage": 232,
         "last_seen": "2026-05-16T14:04:29+03:00",
         "linkquality": 60
     },
     "0x385cfbfffe850809": {
         "current": 0,
-        "voltage": 231,
+        "voltage": 233,
         "power": 0,
         "last_seen": "2026-05-16T14:04:36+03:00",
         "linkquality": 87,
-        "energy": 17,
+        "energy": 17.01,
         "state": "OFF",
         "power_outage_memory": "restore",
         "indicator_mode": "on_off"
@@ -216,7 +216,7 @@
     "0x00158d000710ffc4": {
         "voltage": 3015,
         "battery": 100,
-        "device_temperature": 20,
+        "device_temperature": 21,
         "power_outage_count": 290,
         "trigger_count": 0,
         "water_leak": false,
@@ -236,28 +236,28 @@
         "power_outage_count": 51139
     },
     "0xf84477fffe4cb612": {
-        "voltage": 222.1,
+        "voltage": 224,
         "last_seen": "2026-05-16T14:04:52+03:00",
         "linkquality": 60,
-        "current": 6.02,
-        "power": 1335.4,
+        "current": 6.06,
+        "power": 1353,
         "energy": 0.18
     },
     "0xf84477fffe4ecff6": {
-        "current": 8.21,
-        "power": 1869.8,
-        "voltage": 229.5,
+        "current": 8.29,
+        "power": 1923.9,
+        "voltage": 233,
         "last_seen": "2026-05-16T14:04:53+03:00",
         "linkquality": 33,
-        "energy": 0.34
+        "energy": 0.26
     },
     "0x7cc6b6fffea5501c": {
-        "power": 34.7,
-        "voltage": 230.7,
-        "current": 0.44,
+        "power": 135,
+        "voltage": 234,
+        "current": 0.75,
         "last_seen": "2026-05-16T14:04:50+03:00",
         "linkquality": 51,
-        "energy": 0.01
+        "energy": 0.05
     },
     "0x54ef441000b8d412": {
         "switch_type": "momentary",
@@ -265,12 +265,12 @@
         "operation_mode_l1": "decoupled",
         "operation_mode_l2": "decoupled",
         "mode": "pulse",
-        "device_temperature": 21,
+        "device_temperature": 23,
         "power_outage_count": 122,
         "state": "OFF",
         "energy": 0,
         "consumption": 0.0035999996662139894,
-        "voltage": 221.32,
+        "voltage": 223.92,
         "current": 0,
         "power": 0,
         "state_l1": "OFF",
