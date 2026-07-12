@@ -33,7 +33,7 @@ bathhouse:
 
   input_number:
     bathhouse_drying_time:
-      min: 8
+      min: 6
       max: 48
       initial: 24
       step: 2
