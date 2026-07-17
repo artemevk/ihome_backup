@@ -36,6 +36,11 @@ perimeter_defenses:
             entity_id: camera.courtyard_camera_mainstream
           data:
             filename: "/media/courtyard_camera_last_snapshot.jpg"
+        - action: camera.snapshot
+          target:
+            entity_id: camera.bathhouse_camera_mainstream
+          data:
+            filename: "/media/bathhouse_camera_last_snapshot.jpg"
         - delay: 00:00:06
 
     create_photos:
@@ -121,6 +126,10 @@ perimeter_defenses:
         - service: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
+            target: [!secret tlg_user1_id, !secret tlg_user3_id]
+        - service: telegram_bot.send_photo
+          data:
+            file: "/media/bathhouse_camera_last_snapshot.jpg"
             target: [!secret tlg_user1_id, !secret tlg_user3_id]
 
     arm_away:

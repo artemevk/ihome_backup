@@ -296,5 +296,10 @@ telegramm:
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
             target: "{{ trigger.event.data.chat_id }}"
+            disable_notification: true
+        - service: telegram_bot.send_photo
+          data:
+            file: "/media/bathhouse_camera_last_snapshot.jpg"
+            target: "{{ trigger.event.data.chat_id }}"
             inline_keyboard:
               - "Главное меню:/mm"
