@@ -37,7 +37,7 @@ bathhouse:
       max: 48
       initial: 24
       step: 2
-      mode: slider
+      mode: box
       icon: mdi:timer
 
     bathhouse_shoe_drying_time:
@@ -46,6 +46,14 @@ bathhouse:
       initial: 8
       step: 1
       mode: slider
+      icon: mdi:timer
+
+    bathhouse_ir_heater_time:
+      min: 1
+      max: 6
+      initial: 1
+      step: 1
+      mode: box
       icon: mdi:timer
 
     # bathhouse_target_temperature_after_drying:
@@ -62,6 +70,8 @@ bathhouse:
 
     bathhouse_shoe_drying_timer:
       duration: "08:00:00"
+    bathhouse_ir_heater_timer:
+      duration: "01:00:00"
 
   input_datetime:
     bathhouse_prepare_dt:
@@ -115,6 +125,27 @@ bathhouse:
           target:
             entity_id: timer.bathhouse_shoe_drying_timer
 
+    bathhouse_ir_heater_on:
+      sequence:
+        - service: switch.turn_on
+          target:
+            entity_id: switch.bathhouse_ir_heater
+
+    bathhouse_ir_heater_timer_finish:
+      sequence:
+        - service: timer.finish
+          target:
+            entity_id: timer.bathhouse_ir_heater_timer
+
+    bathhouse_ir_heater_off:
+      sequence:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.bathhouse_ir_heater
+        - service: timer.finish
+          target:
+            entity_id: timer.bathhouse_ir_heater_timer
+
     bathhouse_prepare:
       sequence:
         - service: climate.set_preset_mode
@@ -131,8 +162,8 @@ bathhouse:
             message: Активирована подготовка бани
             data:
               url: /lovelace/bathhouse
-   
-  # switch.schedule_f094e3
+
+    # switch.schedule_f094e3
 
     bathhouse_antifrost:
       sequence:
