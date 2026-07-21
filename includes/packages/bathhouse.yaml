@@ -403,6 +403,37 @@ bathhouse:
           target:
             entity_id: script.bathhouse_shoe_drying_off
 
+    - alias: "bathhouse_ir_heater_timer_restart"
+      id: "bathhouse_ir_heater_timer_restart"
+      triggers:
+        - trigger: state
+          entity_id:
+            - script.bathhouse_ir_heater_on
+        - trigger: state
+          entity_id: switch.bathhouse_ir_heater
+          to: "on"
+      actions:
+        - action: timer.start
+          data:
+            duration: "{{ states('input_number.bathhouse_ir_heater_time') | int * 60 * 60 }}"
+          target:
+            entity_id: timer.bathhouse_ir_heater_timer
+
+    - alias: "bathhouse_ir_heater_off"
+      id: "bathhouse_ir_heater_off"
+      triggers:
+        - trigger: event
+          event_type: timer.finished
+          event_data:
+            entity_id: timer.bathhouse_ir_heater_timer
+        - trigger: state
+          entity_id: switch.bathhouse_ir_heater
+          to: "off"
+      actions:
+        - action: script.turn_on
+          target:
+            entity_id: script.bathhouse_ir_heater_off
+
     - id: bathhouse_steam_next_scene_by_switch
       alias: bathhouse_steam_next_scene_by_switch
       triggers:
