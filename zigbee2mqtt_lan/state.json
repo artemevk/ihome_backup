@@ -8,9 +8,9 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 23.35,
-        "humidity": 66.97,
-        "pressure": 993.1,
+        "temperature": 23.37,
+        "humidity": 73.24,
+        "pressure": 991.7,
         "linkquality": 171,
         "voltage": 3015,
         "battery": 100,
@@ -30,10 +30,10 @@
         "indicator_mode": "relay"
     },
     "0xa49e69fffe014ee0": {
-        "energy": 12.66,
+        "energy": 13.05,
         "power": 0,
         "current": 0,
-        "voltage": 228,
+        "voltage": 229,
         "state": "OFF",
         "linkquality": 174,
         "power_outage_memory": "restore",
@@ -53,8 +53,8 @@
         "backlight_mode": "ON"
     },
     "0xa4c138f1fa6eae89": {
-        "energy": 0.46,
-        "voltage": 227,
+        "energy": 0.53,
+        "voltage": 229,
         "state": "ON",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 227,
+        "voltage": 228,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 226,
+        "voltage": 229,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -145,13 +145,13 @@
     },
     "0xa4c138e3d37737ce": {
         "state": "ON",
-        "energy": 188.82,
-        "voltage": 226,
+        "energy": 190.86,
+        "voltage": 230,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
         "child_lock": "UNLOCK",
-        "power": 647,
+        "power": 654,
         "current": 2.86,
         "linkquality": 40
     },
@@ -178,8 +178,8 @@
     },
     "0xa4c138bf469f6d1f": {
         "battery": 80,
-        "temperature": 23.39,
-        "humidity": 61.28,
+        "temperature": 23.57,
+        "humidity": 64.63,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
