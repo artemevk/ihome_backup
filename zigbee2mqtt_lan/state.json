@@ -8,9 +8,9 @@
         "indicator_mode": "on/off"
     },
     "0x00158d00048681f7": {
-        "temperature": 23.37,
-        "humidity": 73.24,
-        "pressure": 991.7,
+        "temperature": 24.54,
+        "humidity": 77.71,
+        "pressure": 986.7,
         "linkquality": 171,
         "voltage": 3015,
         "battery": 100,
@@ -30,10 +30,10 @@
         "indicator_mode": "relay"
     },
     "0xa49e69fffe014ee0": {
-        "energy": 13.05,
+        "energy": 13.44,
         "power": 0,
         "current": 0,
-        "voltage": 229,
+        "voltage": 236,
         "state": "OFF",
         "linkquality": 174,
         "power_outage_memory": "restore",
@@ -53,8 +53,8 @@
         "backlight_mode": "ON"
     },
     "0xa4c138f1fa6eae89": {
-        "energy": 0.53,
-        "voltage": 229,
+        "energy": 0.62,
+        "voltage": 231,
         "state": "ON",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -92,7 +92,7 @@
     },
     "0xa4c138bb122b0448": {
         "energy": 0,
-        "voltage": 228,
+        "voltage": 230,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -104,7 +104,7 @@
     },
     "0xa4c1386a9f805cb5": {
         "energy": 0,
-        "voltage": 229,
+        "voltage": 234,
         "state": "OFF",
         "countdown": 0,
         "power_outage_memory": "restore",
@@ -145,14 +145,14 @@
     },
     "0xa4c138e3d37737ce": {
         "state": "ON",
-        "energy": 190.86,
+        "energy": 194.3,
         "voltage": 230,
         "countdown": 0,
         "power_outage_memory": "restore",
         "indicator_mode": "off/on",
         "child_lock": "UNLOCK",
-        "power": 654,
-        "current": 2.86,
+        "power": 7,
+        "current": 0.04,
         "linkquality": 40
     },
     "0xe0798dfffec10ca5": {
@@ -177,9 +177,9 @@
         }
     },
     "0xa4c138bf469f6d1f": {
-        "battery": 80,
-        "temperature": 23.57,
-        "humidity": 64.63,
+        "battery": 78,
+        "temperature": 24.87,
+        "humidity": 74.32,
         "temperature_display_mode": "celsius",
         "show_smiley": "SHOW",
         "enable_display": "ON",
