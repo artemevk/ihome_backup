@@ -72,9 +72,9 @@ defence:
                   name: "alarm.caf"
                   critical: 1
                   volume: 0.2
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: !secret tlg_user1_id
+            chat_id: !secret tlg_user1_id
             title: "#alarm"
             message: "{{ states('sensor.msg_power_protection') }}"
             inline_keyboard:
@@ -113,9 +113,9 @@ defence:
                   name: "alarm.caf"
                   critical: 1
                   volume: 0.2
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: !secret tlg_user1_id
+            chat_id: !secret tlg_user1_id
             title: "#alarm"
             message: |
               {{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 3 °C!

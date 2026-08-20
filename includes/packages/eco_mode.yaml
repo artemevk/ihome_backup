@@ -37,7 +37,7 @@
 #           entity_id: input_boolean.eco_mode_resolution
 #           to: "on"
 #       action:
-#         - service: telegram_bot.send_message
+#         - service: notify.send_message
 #           data_template:
 #             target: !secret tlg_user1_id
 #             message: '{{"\U0001F343"}} Разрешен перевод в режим энергосбережения.'
@@ -53,7 +53,7 @@
 #           entity_id: input_boolean.eco_mode_resolution
 #           to: "off"
 #       action:
-#         - service: telegram_bot.send_message
+#         - service: notify.send_message
 #           data_template:
 #             target: !secret tlg_user1_id
 #             message: '{{"\U0001F342"}} Активировирован запрет включения режима энергосбережения.'

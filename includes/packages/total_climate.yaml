@@ -58,9 +58,9 @@ total_climate:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0000231A"}} Отчет за {{ states('sensor.date_time') }}
 
@@ -88,9 +88,9 @@ total_climate:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U00002668"}} Команда принята. Подтвержение будет через 5 секунд
         - service: script.turn_on
@@ -102,9 +102,9 @@ total_climate:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0000231A"}} {{ states('sensor.date_time') }}
               {{"\U00002668"}} Дом подготавливается.
@@ -145,9 +145,9 @@ total_climate:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U00002744"}} Команда принята. Подтвержение будет через 5 секунд
         - service: script.turn_on
@@ -159,9 +159,9 @@ total_climate:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0000231A"}} {{ states('sensor.date_time') }}
               {{"\U00002744"}} Дом переведен в режим антизамерзания.

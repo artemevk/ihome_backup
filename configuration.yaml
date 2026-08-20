@@ -65,6 +65,21 @@ lovelace:
 
 # Платформа телеграмм уведомлений
 notify:
+  - platform: telegram
+    name: tlg_user1_id
+    chat_id: !secret tlg_user1_id
+  - platform: telegram
+    name: tlg_user2_id
+    chat_id: !secret tlg_user2_id
+  - platform: telegram
+    name: tlg_user3_id
+    chat_id: !secret tlg_user3_id
+  - platform: telegram
+    name: tlg_user4_id
+    chat_id: !secret tlg_user4_id
+  - platform: telegram
+    name: tlg_user5_id
+    chat_id: !secret tlg_user5_id
   - platform: group
     name: alarm
     services:

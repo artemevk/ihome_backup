@@ -121,9 +121,9 @@ weather_outside:
           data_template:
             message_id: "last"
             chat_id: "{{ trigger.event.data.chat_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             disable_notification: true
             title: "#weather"
             message: >
@@ -141,7 +141,7 @@ weather_outside:
         - service: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             caption: >
               {{ states('sensor.msg_weather') }}
             inline_keyboard:

@@ -563,9 +563,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: &keyb_bh
               - "Обновить:/bathhouse_refresh"
@@ -589,9 +589,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
         - action: script.bathhouse_prepare
@@ -600,9 +600,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
         # - action: telegram_bot.edit_message
@@ -635,9 +635,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
         - action: script.bathhouse_antifrost
@@ -646,9 +646,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
 
@@ -666,9 +666,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
         - action: switch.turn_on
@@ -679,9 +679,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
 
@@ -699,9 +699,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
         - action: switch.turn_off
@@ -712,9 +712,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
 
@@ -732,9 +732,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
         - action: script.bathhouse_drying_on
@@ -743,9 +743,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
 
@@ -763,9 +763,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
         - action: script.bathhouse_drying_off
@@ -774,9 +774,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
 
@@ -794,9 +794,9 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
         - action: light.turn_off
@@ -807,8 +807,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh

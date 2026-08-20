@@ -117,9 +117,9 @@ telegramm:
           event_data:
             command: "/mm"
       actions:
-        - action: telegram_bot.send_message
+        - action: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: "Добро пожаловать в главное меню. Выберите действие:"
             inline_keyboard:
               - "Ворота:/gate_step_mode, Калитка:/gate_pedestrian_crossing"
@@ -137,17 +137,17 @@ telegramm:
         - platform: homeassistant
           event: start
       action:
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: !secret tlg_user1_id
+            chat_id: !secret tlg_user1_id
             title: "#system"
             message: |
               {{"\U0001F5A5"}} Зафиксирован запуск. Отчет о состоянии будет через 1 минуту.
         # Задержка и отправка полного отчета через минуту
         - delay: 00:01:00
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: !secret tlg_user1_id
+            chat_id: !secret tlg_user1_id
             title: "#system"
             message: |
               {{ states('sensor.msg_report') }}
@@ -159,9 +159,9 @@ telegramm:
               {{- "\n"}}{{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
         # Задержка 1 с
         - delay: 00:00:01
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: !secret tlg_user1_id
+            chat_id: !secret tlg_user1_id
             # title: "#system"
             message: "Добро пожаловать в главное меню. Выберите действие:"
             inline_keyboard:
@@ -191,9 +191,9 @@ telegramm:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             title: "#system"
             message: |
               {{ states('sensor.msg_report') }}
@@ -222,9 +222,9 @@ telegramm:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             title: "#system"
             message: |
               {{"\U0001F50B"}}Батарейки:
@@ -249,9 +249,9 @@ telegramm:
           - condition: template
             value_template: "{{ trigger.to_state.state > states('sensor.unavailable_objects_5_minutes_ago') }}"
       action:
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: !secret tlg_user1_id
+            chat_id: !secret tlg_user1_id
             message: |
               {{"\U0000203C"}} Обнаружена новая неисправность
               {{ states('sensor.msg_report') }}
@@ -272,9 +272,9 @@ telegramm:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            tachat_idrget: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F4F8"}} Команда принята, ожидайте.
         - service: script.create_photos
@@ -285,21 +285,21 @@ telegramm:
         - service: telegram_bot.send_photo
           data:
             file: "/media/parking_camera_last_snapshot.jpg"
-            target: "{{ trigger.event.data.chat_id }}"
+            chat_id: "{{ trigger.event.data.chat_id }}"
             disable_notification: true
         - service: telegram_bot.send_photo
           data:
             file: "/media/porch_camera_last_snapshot.jpg"
-            target: "{{ trigger.event.data.chat_id }}"
+            chat_id: "{{ trigger.event.data.chat_id }}"
             disable_notification: true
         - service: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
-            target: "{{ trigger.event.data.chat_id }}"
+            chat_id: "{{ trigger.event.data.chat_id }}"
             disable_notification: true
         - service: telegram_bot.send_photo
           data:
             file: "/media/bathhouse_camera_last_snapshot.jpg"
-            target: "{{ trigger.event.data.chat_id }}"
+            chat_id: "{{ trigger.event.data.chat_id }}"
             inline_keyboard:
               - "Главное меню:/mm"

@@ -116,21 +116,21 @@ perimeter_defenses:
         - service: telegram_bot.send_photo
           data:
             file: "/media/parking_camera_last_snapshot.jpg"
-            target: [!secret tlg_user1_id, !secret tlg_user3_id]
+            chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
             disable_notification: true
         - service: telegram_bot.send_photo
           data:
             file: "/media/porch_camera_last_snapshot.jpg"
-            target: [!secret tlg_user1_id, !secret tlg_user3_id]
+            chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
             disable_notification: true
         - service: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
-            target: [!secret tlg_user1_id, !secret tlg_user3_id]
+            chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
         - service: telegram_bot.send_photo
           data:
             file: "/media/bathhouse_camera_last_snapshot.jpg"
-            target: [!secret tlg_user1_id, !secret tlg_user3_id]
+            chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
 
     arm_away:
       sequence:
@@ -430,9 +430,9 @@ perimeter_defenses:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: telegram_bot.send_message
+        - service: notify.send_message
           data_template:
-            target: "{{ trigger.event.data.user_id }}"
+            chat_id: "{{ trigger.event.data.user_id }}"
             title: "#охрана"
             message: |
               {{'\U0001F6A8'}} Меню охраны
