@@ -1,10 +1,10 @@
 {
     "0x588e81fffed39429": {
         "state": "ON",
-        "energy": 1253.69,
-        "power": 0,
+        "energy": 1254.37,
+        "power": 1832,
         "current": 0,
-        "voltage": 236,
+        "voltage": 235,
         "power_outage_memory": "restore",
         "last_seen": "2026-08-07T23:00:23+03:00",
         "indicator_mode": "off/on",
@@ -21,7 +21,7 @@
     },
     "0x00124b001ed0f19e": {
         "state": "OFF",
-        "cpu_temperature": 24.78,
+        "cpu_temperature": 25.11,
         "power": 0,
         "current": 0,
         "last_seen": "2026-08-07T22:55:05+03:00",
@@ -30,15 +30,15 @@
     "0x00158d00048893ac": {
         "voltage": 2985,
         "battery": 90,
-        "temperature": 20.82,
-        "humidity": 62.64,
-        "pressure": 982.6,
+        "temperature": 21.11,
+        "humidity": 60.2,
+        "pressure": 983.6,
         "last_seen": "2026-08-07T22:23:25+03:00",
         "power_outage_count": 7605,
         "linkquality": 69
     },
     "0x847127fffe04dc4d": {
-        "current_heating_setpoint": 5,
+        "current_heating_setpoint": 16,
         "heat": "OFF",
         "local_temperature": 20.5,
         "system_mode": "off",
@@ -111,7 +111,7 @@
     },
     "0x00158d00057f6f0b": {
         "contact": true,
-        "voltage": 3005,
+        "voltage": 3015,
         "battery": 100,
         "last_seen": "2026-08-07T22:19:39+03:00",
         "power_outage_count": 468,
@@ -129,9 +129,9 @@
         "voltage": 3015,
         "battery": 100,
         "power_outage_count": 1154,
-        "temperature": 19.57,
-        "humidity": 63.62,
-        "pressure": 983.7,
+        "temperature": 19.73,
+        "humidity": 62.85,
+        "pressure": 984.9,
         "last_seen": "2026-08-07T22:29:02+03:00",
         "linkquality": 78
     },
@@ -142,13 +142,13 @@
         "energy": 4641.02,
         "power": 0,
         "current": 0,
-        "voltage": 236,
+        "voltage": 239,
         "last_seen": "2026-08-07T22:55:30+03:00",
         "linkquality": 57
     },
     "0x385cfbfffe850809": {
         "current": 0,
-        "voltage": 238,
+        "voltage": 239,
         "power": 0,
         "last_seen": "2026-08-07T23:00:24+03:00",
         "linkquality": 69,
@@ -170,9 +170,9 @@
         "linkquality": 78
     },
     "0x00158d00047def18": {
-        "temperature": 22.39,
-        "humidity": 55.18,
-        "pressure": 984,
+        "temperature": 23,
+        "humidity": 51.38,
+        "pressure": 984.8,
         "last_seen": "2026-08-07T22:52:47+03:00",
         "linkquality": 141,
         "voltage": 3025,
@@ -180,28 +180,28 @@
         "power_outage_count": 51140
     },
     "0xf84477fffe4cb612": {
-        "voltage": 227.4,
+        "voltage": 237.1,
         "last_seen": "2026-08-07T23:00:26+03:00",
         "linkquality": 63,
         "current": 0.23,
-        "power": 25.3,
-        "energy": 0.02
+        "power": 26.1,
+        "energy": 0.01
     },
     "0xf84477fffe4ecff6": {
-        "current": 0.76,
-        "power": 103.7,
-        "voltage": 237.3,
+        "current": 6.64,
+        "power": 1565.1,
+        "voltage": 236.9,
         "last_seen": "2026-08-07T23:00:26+03:00",
         "linkquality": 84,
-        "energy": 0.1
+        "energy": 0.02
     },
     "0x7cc6b6fffea5501c": {
         "power": 35.9,
-        "voltage": 237.6,
-        "current": 0.45,
+        "voltage": 238.8,
+        "current": 0.46,
         "last_seen": "2026-08-07T23:00:23+03:00",
         "linkquality": 48,
-        "energy": 0.01
+        "energy": 0.02
     },
     "0x54ef441000b8d412": {
         "switch_type": "momentary",
@@ -209,12 +209,12 @@
         "operation_mode_l1": "decoupled",
         "operation_mode_l2": "decoupled",
         "mode": "pulse",
-        "device_temperature": 27,
+        "device_temperature": 26,
         "power_outage_count": 122,
         "state": "OFF",
         "energy": 0,
         "consumption": 0.0035999996662139894,
-        "voltage": 226.72,
+        "voltage": 232.89,
         "current": 0,
         "power": 0,
         "state_l1": "OFF",
