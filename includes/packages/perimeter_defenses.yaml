@@ -116,12 +116,16 @@ perimeter_defenses:
         - service: telegram_bot.send_photo
           data:
             file: "/media/parking_camera_last_snapshot.jpg"
-            chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
+            chat_id: 
+              -!secret tlg_user1_id
+              -!secret tlg_user3_id
             disable_notification: true
         - service: telegram_bot.send_photo
           data:
             file: "/media/porch_camera_last_snapshot.jpg"
-            chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
+            chat_id: 
+              -!secret tlg_user1_id
+              -!secret tlg_user3_id
             disable_notification: true
         - service: telegram_bot.send_photo
           data:
