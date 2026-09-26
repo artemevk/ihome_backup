@@ -403,6 +403,15 @@ bathhouse:
           target:
             entity_id: script.bathhouse_shoe_drying_off
 
+    - alias: "bathhouse_ir_heater_starts_at_noon"
+      id: "bathhouse_ir_heater_starts_at_noon"
+      triggers:
+        - trigger: time
+          at: "12:00:00"
+      actions:
+        - action: switch.turn_on
+          entity_id: switch.bathhouse_ir_heater
+
     - alias: "bathhouse_ir_heater_timer_restart"
       id: "bathhouse_ir_heater_timer_restart"
       triggers:
