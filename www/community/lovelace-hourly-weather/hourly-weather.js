@@ -1147,7 +1147,7 @@ var Hn = (e) => !On(e) && typeof e.then == "function", Un = 1073741823, Wn = jn(
 	reconnected() {
 		this._$CK.reconnect(this), this._$CX.resume();
 	}
-}), Gn = "7.1.0", Kn = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.maxTouchPoints > 0, qn = class extends HTMLElement {
+}), Gn = "7.1.1", Kn = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.maxTouchPoints > 0, qn = class extends HTMLElement {
 	constructor() {
 		super(), this.holdTime = 500, this.held = !1, this.ripple = document.createElement("mwc-ripple");
 	}
@@ -3321,7 +3321,7 @@ function hs(e) {
 	var t = e.state;
 	Object.keys(t.elements).forEach(function(e) {
 		var n = t.styles[e] || {}, r = t.attributes[e] || {}, i = t.elements[e];
-		!J(i) || !K(i) || (Object.assign(i.style, n), Object.keys(r).forEach(function(e) {
+		J(i) && K(i) && (Object.assign(i.style, n), Object.keys(r).forEach(function(e) {
 			var t = r[e];
 			t === !1 ? i.removeAttribute(e) : i.setAttribute(e, t === !0 ? "" : t);
 		}));
@@ -3343,7 +3343,7 @@ function gs(e) {
 			var r = t.elements[e], i = t.attributes[e] || {}, a = Object.keys(t.styles.hasOwnProperty(e) ? t.styles[e] : n[e]).reduce(function(e, t) {
 				return e[t] = "", e;
 			}, {});
-			!J(r) || !K(r) || (Object.assign(r.style, a), Object.keys(i).forEach(function(e) {
+			J(r) && K(r) && (Object.assign(r.style, a), Object.keys(i).forEach(function(e) {
 				r.removeAttribute(e);
 			}));
 		});
@@ -3508,7 +3508,7 @@ var zs = function(e, t) {
 };
 function Bs(e) {
 	var t, n = e.state, r = e.name, i = e.options, a = n.elements.arrow, o = n.modifiersData.popperOffsets, s = Y(n.placement), c = Ns(s), l = ["left", "right"].indexOf(s) >= 0 ? "height" : "width";
-	if (!(!a || !o)) {
+	if (a && o) {
 		var u = zs(i.padding, n), d = ws(a), f = c === "y" ? "top" : G, p = c === "y" ? W : ns, m = n.rects.reference[l] + n.rects.reference[c] - o[c] - n.rects.popper[l], h = o[c] - n.rects.reference[c], g = Ms(a), _ = g ? c === "y" ? g.clientHeight || 0 : g.clientWidth || 0 : 0, v = m / 2 - h / 2, y = u[f], b = _ - d[l] - u[p], x = _ / 2 - d[l] / 2 + v, S = Ps(y, x, b), C = c;
 		n.modifiersData[r] = (t = {}, t[C] = S, t.centerOffset = S - x, t);
 	}
@@ -4566,7 +4566,7 @@ function Bl(e, t) {
 		}
 	}
 	function F() {
-		w || !y.props.aria.expanded || nl(y.props.triggerTarget || e).forEach(function(e) {
+		!w && y.props.aria.expanded && nl(y.props.triggerTarget || e).forEach(function(e) {
 			y.props.interactive ? e.setAttribute("aria-expanded", y.state.isVisible && e === O() ? "true" : "false") : e.removeAttribute("aria-expanded");
 		});
 	}
@@ -4576,7 +4576,7 @@ function Bl(e, t) {
 		});
 	}
 	function I(t) {
-		if (!(X.isTouch && (c || t.type === "mousedown"))) {
+		if (!X.isTouch || !c && t.type !== "mousedown") {
 			var n = t.composedPath && t.composedPath()[0] || t.target;
 			if (!(y.props.interactive && yl(x, n))) {
 				if (nl(y.props.triggerTarget || e).some(function(e) {
@@ -4806,7 +4806,7 @@ function Bl(e, t) {
 			}
 			f = function() {
 				var e;
-				if (!(!y.state.isVisible || l)) {
+				if (y.state.isVisible && !l) {
 					if (l = !0, x.offsetHeight, x.style.transition = y.props.moveTransition, D() && y.props.animation) {
 						var t = A(), n = t.box, r = t.content;
 						ml([n, r], i), hl([n, r], "visible");
@@ -4872,7 +4872,7 @@ function Ou(e) {
 	return e <= 0 || e < 1 ? Hl : e < 2.5 ? Ul : e < 5 ? Wl : e < 7.5 ? Gl : e < 10 ? Kl : e < 12.5 ? ql : e < 15 ? Jl : e < 17.5 ? Yl : e < 20 ? Xl : e < 22.5 ? Zl : e < 25 ? Ql : e < 27.5 ? $l : e < 30 ? eu : e < 32.5 ? tu : e < 35 ? nu : e < 37.5 ? ru : e < 40 ? iu : e < 42.5 ? au : e < 45 ? ou : e < 47.5 ? su : e < 50 ? cu : e < 52.5 ? lu : e < 55 ? uu : e < 57.5 ? du : e < 60 ? fu : e < 62.5 ? pu : e < 65 ? mu : e < 67.5 ? hu : e < 70 ? gu : e < 72.5 ? _u : e < 75 ? vu : e < 77.5 ? yu : e < 80 ? bu : e < 82.5 ? xu : e < 85 ? Su : e < 87.5 ? Cu : e < 90 ? wu : e < 92.5 ? Tu : e < 95 ? Eu : e < 97.5 ? Du : Hl;
 }
 //#endregion
-//#region \0@oxc-project+runtime@0.146.0/helpers/esm/decorate.js
+//#region \0@oxc-project+runtime@0.149.0/helpers/esm/decorate.js
 function Q(e, t, n, r) {
 	var i = arguments.length, a = i < 3 ? t : r === null ? r = Object.getOwnPropertyDescriptor(t, n) : r, o;
 	if (typeof Reflect == "object" && typeof Reflect.decorate == "function") a = Reflect.decorate(e, t, n, r);
@@ -5179,7 +5179,7 @@ function Iu(e) {
 var Lu = t((() => {
 	Fu();
 })), Ru = /* @__PURE__ */ n({ HourlyWeatherCardEditor: () => Bu }), zu, Bu, Vu = t((() => {
-	fn(), E(), Lu(), En(), ku(), Bu = (zu = class extends Iu(cn) {
+	fn(), E(), Lu(), En(), ku(), zu = class extends Iu(cn) {
 		constructor(...e) {
 			super(...e), this._initialized = !1;
 		}
@@ -5378,7 +5378,7 @@ var Lu = t((() => {
 				(t[e] === "" || t[e] === void 0) && delete t[e];
 			}), "num_hours" in t && "num_segments" in t && delete t.num_hours, this._config = t, v(this, "config-changed", { config: this._config });
 		}
-	}, zu.styles = zt`
+	}, Bu = (zu.styles = zt`
     mwc-select,
     mwc-textfield {
       margin-bottom: 16px;
@@ -5447,7 +5447,7 @@ var Yu = Hu = class extends cn {
 		this.forecastRecoveryTimer !== void 0 && (window.clearTimeout(this.forecastRecoveryTimer), this.forecastRecoveryTimer = void 0);
 	}
 	scheduleForecastRecovery(e) {
-		this.stopForecastRecovery(), !(!this.isConnected || !this.hass || !this.config?.entity || !this.hassSupportsForecastEvents()) && (this.forecastRecoveryTimer = window.setTimeout(() => {
+		this.stopForecastRecovery(), this.isConnected && this.hass && this.config?.entity && this.hassSupportsForecastEvents() && (this.forecastRecoveryTimer = window.setTimeout(() => {
 			this.forecastRecoveryTimer = void 0, this.recoverForecast();
 		}, e));
 	}
@@ -5815,10 +5815,10 @@ var Yu = Hu = class extends cn {
 		if (typeof e != "string") return !1;
 		let t = e.trim();
 		if (!t.startsWith("var(") || !t.endsWith(")")) return !1;
-		let [n, r] = t.slice(4, -1).trim().split(","), i = n.trim();
-		if (!Hu.isValidCustomPropertyName(i)) return !1;
-		let a = r?.trim();
-		return !(a && !Hu.isValidColor(a));
+		let n = t.slice(4, -1).trim(), r = n.indexOf(","), i = r === -1 ? n : n.slice(0, r), a = r === -1 ? void 0 : n.slice(r + 1), o = i.trim();
+		if (!Hu.isValidCustomPropertyName(o)) return !1;
+		let s = a?.trim();
+		return !(s && !Hu.isValidColor(s));
 	}
 	static toColorObject(e) {
 		return typeof e == "string" ? { background: e } : e;
