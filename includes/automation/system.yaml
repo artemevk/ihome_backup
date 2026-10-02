@@ -55,47 +55,47 @@
           Был недоступен ~{{ ((now() - as_datetime(down_since)).total_seconds() // 60) | int }} мин
           (с {{ (as_datetime(down_since) | as_local).strftime('%H:%M') }})
 
-- id: start_offline_timer
-  alias: start_offline_timer
-  initial_state: true
-  triggers:
-    - trigger: state
-      entity_id:
-        - binary_sensor.iflat_connection
-      to: "off"
-  actions:
-    - action: timer.start
-      target:
-        entity_id: timer.iflat_offline
-
+# Как mplens: «не отвечает» после 3 мин офлайна, «снова работает» — только после него.
 - id: iflat_disconnected
-  alias: iflat_disconnected
-  triggers:
-    - trigger: event
-      event_type: timer.finished
-      event_data:
-        entity_id: timer.iflat_offline
-  actions:
-    - action: telegram_bot.send_message
-      data:
-        chat_id: !secret tlg_user1_id
-        message: "Сервер iFlat не отвечает!"
-    - action: notify.mobile_app_artemevk
-      data:
-        message: "Сервер iFlat не отвечает!"
-
-- id: cancel_offline_timer
-  alias: cancel_offline_timer
-  initial_state: true
+  alias: iFlat не отвечает
+  mode: single
+  max_exceeded: silent
   triggers:
     - trigger: state
-      entity_id:
-        - binary_sensor.iflat_connection
-      to: "on"
+      entity_id: binary_sensor.iflat_connection
+      to: "off"
+      for: "00:03:00"
   actions:
-    - action: timer.cancel
-      target:
-        entity_id: timer.iflat_offline
+    - variables:
+        down_since: "{{ now() - timedelta(minutes=3) }}"
+        msg: "Сервер iFlat не отвечает!"
+    - &iflat_notify
+      sequence:
+        - action: notify.mobile_app_artemevk
+          data:
+            message: "{{ msg }}"
+        # Telegram — только если telegram_bot поднялся (без VPN не поднимается),
+        # иначе ошибка «действие не найдено» остановит автоматизацию.
+        - if:
+            - condition: template
+              value_template: "{{ integration_entities('telegram_bot') | select('has_value') | list | count > 0 }}"
+          then:
+            - action: telegram_bot.send_message
+              continue_on_error: true
+              data:
+                chat_id: !secret tlg_user1_id
+                message: "{{ msg }}"
+    - wait_for_trigger:
+        - trigger: state
+          entity_id: binary_sensor.iflat_connection
+          to: "on"
+          for: "00:01:00"
+    - variables:
+        msg: >-
+          Сервер iFlat снова работает (был недоступен
+          ~{{ ((now() - as_datetime(down_since)).total_seconds() // 60) | int }} мин,
+          с {{ (as_datetime(down_since) | as_local).strftime('%H:%M') }})
+    - *iflat_notify
 
 - id: porch_timelapce
   alias: porch_timelapce

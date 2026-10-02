@@ -1,9 +1,5 @@
 ## коды эмоджи для телеграмм - https://unicode.org/Public/emoji/13.1/emoji-test.txt
 telegramm:
-  timer:
-    iflat_offline:
-      duration: "00:03:00"
-      icon: mdi:lan-disconnect
 
   template:
     - sensor:
