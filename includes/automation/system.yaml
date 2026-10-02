@@ -1,11 +1,11 @@
 - id: Сжатие базы
   alias: 00_purge_everyday
   initial_state: true
-  trigger:
-    - platform: time
+  triggers:
+    - trigger: time
       at: "01:00:00"
-  action:
-    - service: recorder.purge
+  actions:
+    - action: recorder.purge
       data:
         keep_days: 5
         repack: true
@@ -13,12 +13,12 @@
 - id: l1k3
   alias: push_HA_configuration_to_GitHub_repo
   initial_state: true
-  trigger:
+  triggers:
     # Everyday at 23:23:23 time
-    - platform: time
+    - trigger: time
       at: "23:23:23"
-  action:
-    - service: shell_command.push_to_github
+  actions:
+    - action: shell_command.push_to_github
 
       # https://peyanski.com/automatic-home-assistant-backup-to-github/
       # Чтобы сделать бэкап на Github нужно выполнить команды:
@@ -26,81 +26,85 @@
       # 2. git remote set-url origin https://github.com/artemevk/country_house_backup.git
       # 3. ./ha_gitpush.sh
 
-- alias: mplens недоступен
-  trigger:
-    - platform: template
+- id: mplens_down
+  alias: mplens недоступен
+  triggers:
+    - trigger: template
       value_template: "{{ states('sensor.mplens_status') != 'healthy' }}"
       for: "00:06:00"
-  action:
-    - service: notify.mobile_app_artemevk
+  actions:
+    - action: notify.mobile_app_artemevk
       data:
         title: "mplens недоступен"
         message: "Статус: {{ states('sensor.mplens_status') }}"
-- alias: mplens снова работает
-  trigger:
-    - platform: state
+
+- id: mplens_up
+  alias: mplens снова работает
+  triggers:
+    - trigger: state
       entity_id: sensor.mplens_status
       to: "healthy"
       for: "00:02:00"
-  action:
-    - service: notify.mobile_app_artemevk
+  actions:
+    - action: notify.mobile_app_artemevk
       data:
         message: "mplens снова работает"
 
 - id: start_offline_timer
   alias: start_offline_timer
   initial_state: true
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id:
         - binary_sensor.iflat_connection
       to: "off"
-  action:
-    - service: timer.start
-      entity_id: timer.iflat_offline
+  actions:
+    - action: timer.start
+      target:
+        entity_id: timer.iflat_offline
 
 - id: iflat_disconnected
   alias: iflat_disconnected
-  trigger:
-    - platform: event
+  triggers:
+    - trigger: event
       event_type: timer.finished
       event_data:
         entity_id: timer.iflat_offline
-  action:
-    - service: notify.send_message
-      data_template:
+  actions:
+    - action: telegram_bot.send_message
+      data:
         chat_id: !secret tlg_user1_id
         message: "Сервер iFlat не отвечает!"
-    - service: notify.mobile_app_artemevk
+    - action: notify.mobile_app_artemevk
       data:
         message: "Сервер iFlat не отвечает!"
 
 - id: cancel_offline_timer
   alias: cancel_offline_timer
   initial_state: true
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id:
         - binary_sensor.iflat_connection
       to: "on"
-  action:
-    - service: timer.cancel
-      entity_id: timer.iflat_offline
+  actions:
+    - action: timer.cancel
+      target:
+        entity_id: timer.iflat_offline
 
 - id: porch_timelapce
   alias: porch_timelapce
   initial_state: false
-  trigger:
-    - platform: time_pattern
+  triggers:
+    - trigger: time_pattern
       minutes: "/15"
-  condition:
-    alias: "Time 9~18"
-    condition: time
-    # At least one of the following is required.
-    after: "9:00:00"
-    before: "18:00:00"
-  action:
-    - service: camera.snapshot
+  conditions:
+    - alias: "Time 9~18"
+      condition: time
+      after: "09:00:00"
+      before: "18:00:00"
+  actions:
+    - action: camera.snapshot
       target:
         entity_id: camera.courtyard_camera_mainstream
       data:

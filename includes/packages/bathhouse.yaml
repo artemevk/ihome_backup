@@ -81,82 +81,82 @@ bathhouse:
   script:
     bathhouse_drying_on:
       sequence:
-        - service: climate.turn_off
+        - action: climate.turn_off
           target:
             entity_id: climate.bathhouse_thermostat
         - delay: "00:00:01"
-        - service: switch.turn_on
+        - action: switch.turn_on
           target:
             entity_id: switch.protherm
 
     bathhouse_drying_timer_finish:
       sequence:
-        - service: timer.finish
+        - action: timer.finish
           target:
             entity_id: timer.bathhouse_drying_timer
 
     bathhouse_drying_off:
       sequence:
-        - service: climate.turn_on
+        - action: climate.turn_on
           target:
             entity_id: climate.bathhouse_thermostat
-        - service: timer.finish
+        - action: timer.finish
           target:
             entity_id: timer.bathhouse_drying_timer
 
     bathhouse_shoe_drying_on:
       sequence:
-        - service: switch.turn_on
+        - action: switch.turn_on
           target:
             entity_id: switch.shoe_dryer
 
     bathhouse_shoe_drying_timer_finish:
       sequence:
-        - service: timer.finish
+        - action: timer.finish
           target:
             entity_id: timer.bathhouse_shoe_drying_timer
 
     bathhouse_shoe_drying_off:
       sequence:
-        - service: switch.turn_off
+        - action: switch.turn_off
           target:
             entity_id: switch.shoe_dryer
-        - service: timer.finish
+        - action: timer.finish
           target:
             entity_id: timer.bathhouse_shoe_drying_timer
 
     bathhouse_ir_heater_on:
       sequence:
-        - service: switch.turn_on
+        - action: switch.turn_on
           target:
             entity_id: switch.bathhouse_ir_heater
 
     bathhouse_ir_heater_timer_finish:
       sequence:
-        - service: timer.finish
+        - action: timer.finish
           target:
             entity_id: timer.bathhouse_ir_heater_timer
 
     bathhouse_ir_heater_off:
       sequence:
-        - service: switch.turn_off
+        - action: switch.turn_off
           target:
             entity_id: switch.bathhouse_ir_heater
-        - service: timer.finish
+        - action: timer.finish
           target:
             entity_id: timer.bathhouse_ir_heater_timer
 
     bathhouse_prepare:
       sequence:
-        - service: climate.set_preset_mode
+        - action: climate.set_preset_mode
           target:
             entity_id: climate.bathhouse_thermostat
           data:
             preset_mode: "comfort"
-        - service: switch.turn_on
+        - action: switch.turn_on
           target:
             entity_id: switch.bathhouse_boiler
-        - service: notify.mobile_app_artemevk
+        - action: notify.mobile_app_artemevk
           data:
             title: Отопление
             message: Активирована подготовка бани
@@ -167,12 +167,12 @@ bathhouse:
 
     bathhouse_antifrost:
       sequence:
-        - service: climate.set_preset_mode
+        - action: climate.set_preset_mode
           target:
             entity_id: climate.bathhouse_thermostat
           data:
             preset_mode: "away"
-        - service: switch.turn_off
+        - action: switch.turn_off
           target:
             entity_id: switch.bathhouse_boiler
 
@@ -410,7 +410,8 @@ bathhouse:
           at: "12:00:00"
       actions:
         - action: switch.turn_on
-          entity_id: switch.bathhouse_ir_heater
+          target:
+            entity_id: switch.bathhouse_ir_heater
 
     - alias: "bathhouse_ir_heater_timer_restart"
       id: "bathhouse_ir_heater_timer_restart"
@@ -492,7 +493,7 @@ bathhouse:
                     entity_id: scene.bathhouse_steam_off
           default:
             - action: scene.turn_on
-              data_template:
+              data:
                 entity_id: scene.{{ states("input_select.bathhouse_steam_preset") }}
                 transition: 1
 
@@ -506,7 +507,7 @@ bathhouse:
           entity_id: input_select.bathhouse_steam_preset
       actions:
         - action: scene.turn_on
-          data_template:
+          data:
             entity_id: scene.{{trigger.to_state.state}}
             transition: 1
 
@@ -558,12 +559,12 @@ bathhouse:
     - id: tlg bathhouse main menu
       alias: tlg_bathhouse_mm
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_mm"
-        - platform: event
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_refresh"
@@ -572,8 +573,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: &keyb_bh
@@ -588,8 +589,8 @@ bathhouse:
     - id: Подготовить баню тлг
       alias: bathhouse_prepare_tlg
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_prepare"
@@ -598,8 +599,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
@@ -609,8 +610,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
@@ -634,8 +635,8 @@ bathhouse:
     - id: Режим антизамерзания бани
       alias: bathhouse_antifrost_tlg
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_antifrost"
@@ -644,8 +645,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
@@ -655,8 +656,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
@@ -665,8 +666,8 @@ bathhouse:
     - id: Включить бойлер
       alias: bathhouse_boiler_switch_on_tlg
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_boiler_switch_on"
@@ -675,8 +676,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
@@ -688,8 +689,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
@@ -698,8 +699,8 @@ bathhouse:
     - id: Выключить бойлер
       alias: bathhouse_boiler_switch_off_tlg
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_boiler_switch_off"
@@ -708,8 +709,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
@@ -721,8 +722,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
@@ -731,8 +732,8 @@ bathhouse:
     - id: Включить просушку
       alias: bathhouse_start_drying_tlg
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_start_drying"
@@ -741,8 +742,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
@@ -752,8 +753,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
@@ -762,8 +763,8 @@ bathhouse:
     - id: Выключить просушку
       alias: bathhouse_stop_drying_tlg
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_stop_drying"
@@ -772,8 +773,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
@@ -783,8 +784,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh
@@ -793,8 +794,8 @@ bathhouse:
     - id: Выключить освещение
       alias: bathhouse_light_switch_off
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/bathhouse_light_switch_off"
@@ -803,8 +804,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F9D6"}} Команда принята, ожидайте.
@@ -816,8 +817,8 @@ bathhouse:
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: '{{ states("sensor.bathhouse_mm") }}'
             inline_keyboard: *keyb_bh

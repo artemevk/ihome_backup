@@ -112,7 +112,7 @@ corridor:
           target:
             entity_id: input_boolean.corridor_light_auto_mode
         - action: scene.turn_on
-          data_template:
+          data:
             entity_id: scene.off_light
             transition: 2
 
@@ -124,7 +124,7 @@ corridor:
           entity_id: input_select.scenes
       actions:
         - action: scene.turn_on
-          data_template:
+          data:
             entity_id: scene.{{trigger.to_state.state}}
             transition: 2
 

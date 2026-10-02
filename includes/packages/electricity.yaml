@@ -325,23 +325,24 @@ electricity:
   automation:
     - alias: Set tariff
       initial_state: true
-      trigger:
-        - platform: time
+      triggers:
+        - trigger: time
           at: "07:00:00"
           variables:
             tariff: "day"
-        - platform: time
+        - trigger: time
           at: "23:00:00"
           variables:
-           tariff: "night"
-      action:
-        - service: select.select_option
-          entity_id:
-            - select.electricity_meter_a_daily
-            - select.electricity_meter_a_monthly
-            - select.electricity_meter_b_daily
-            - select.electricity_meter_b_monthly
-            - select.electricity_meter_c_daily
-            - select.electricity_meter_c_monthly
+            tariff: "night"
+      actions:
+        - action: select.select_option
+          target:
+            entity_id:
+              - select.electricity_meter_a_daily
+              - select.electricity_meter_a_monthly
+              - select.electricity_meter_b_daily
+              - select.electricity_meter_b_monthly
+              - select.electricity_meter_c_daily
+              - select.electricity_meter_c_monthly
           data:
             option: "{{ tariff }}"

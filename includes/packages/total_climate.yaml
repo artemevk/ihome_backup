@@ -7,20 +7,20 @@ total_climate:
   script:
     prepare_the_house:
       sequence:
-        - service: switch.turn_off
+        - action: switch.turn_off
           target:
             entity_id:
               - switch.schedule_180e40
               - switch.schedule_a12a90
               - switch.schedule_d02526
-        - service: switch.turn_on
+        - action: switch.turn_on
           target:
             entity_id:
               - switch.schedule_05e577
               - switch.schedule_0c5617
               - switch.schedule_aaa3bc
               - switch.water_heater
-        - service: notify.mobile_app_artemevk
+        - action: notify.mobile_app_artemevk
           data:
             title: Отопление
             message: Активирована подготовка дома
@@ -29,14 +29,14 @@ total_climate:
 
     antifrost_mode:
       sequence:
-        - service: switch.turn_off
+        - action: switch.turn_off
           target:
             entity_id:
               - switch.schedule_05e577
               - switch.schedule_0c5617
               - switch.schedule_aaa3bc
               - switch.water_heater
-        - service: switch.turn_on
+        - action: switch.turn_on
           target:
             entity_id:
               - switch.schedule_180e40
@@ -48,18 +48,18 @@ total_climate:
     - id: Погода в доме
       alias: home_climate_report
       initial_state: true
-      trigger:
-        - platform: event # по запросу из telegramm
+      triggers:
+        - trigger: event # по запросу из telegramm
           event_type: telegram_callback
           event_data:
             command: "/home_climate_report"
-      action:
-        - service: telegram_bot.delete_message
+      actions:
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0000231A"}} Отчет за {{ states('sensor.date_time') }}
@@ -83,27 +83,27 @@ total_climate:
           event_type: telegram_callback
           event_data:
             command: "/prepare_the_house"
-      action:
-        - service: telegram_bot.delete_message
+      actions:
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U00002668"}} Команда принята. Подтвержение будет через 5 секунд
-        - service: script.turn_on
+        - action: script.turn_on
           target:
             entity_id:
               - script.prepare_the_house
         - delay: 00:00:05
-        - service: telegram_bot.delete_message
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0000231A"}} {{ states('sensor.date_time') }}
@@ -135,32 +135,32 @@ total_climate:
     - id: Дом в режим антизамерзания
       alias: tlg_antifrost_mode
       initial_state: true
-      trigger:
-        - platform: event # по запросу из telegramm
+      triggers:
+        - trigger: event # по запросу из telegramm
           event_type: telegram_callback
           event_data:
             command: "/antifrost_mode"
-      action:
-        - service: telegram_bot.delete_message
+      actions:
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U00002744"}} Команда принята. Подтвержение будет через 5 секунд
-        - service: script.turn_on
+        - action: script.turn_on
           target:
             entity_id:
               - script.antifrost_mode
         - delay: 00:00:05
-        - service: telegram_bot.delete_message
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0000231A"}} {{ states('sensor.date_time') }}

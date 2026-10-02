@@ -117,8 +117,8 @@ telegramm:
           event_data:
             command: "/mm"
       actions:
-        - action: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             message: "Добро пожаловать в главное меню. Выберите действие:"
             inline_keyboard:
@@ -133,20 +133,20 @@ telegramm:
     - id: Отчет при запуске системы
       alias: start_message
       initial_state: true
-      trigger:
-        - platform: homeassistant
+      triggers:
+        - trigger: homeassistant
           event: start
-      action:
-        - service: notify.send_message
-          data_template:
+      actions:
+        - action: telegram_bot.send_message
+          data:
             chat_id: !secret tlg_user1_id
             title: "#system"
             message: |
               {{"\U0001F5A5"}} Зафиксирован запуск. Отчет о состоянии будет через 1 минуту.
         # Задержка и отправка полного отчета через минуту
         - delay: 00:01:00
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: !secret tlg_user1_id
             title: "#system"
             message: |
@@ -159,8 +159,8 @@ telegramm:
               {{- "\n"}}{{ friendly_name | regex_replace('_', ' ') + ": " + value }}{% endfor %}
         # Задержка 1 с
         - delay: 00:00:01
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: !secret tlg_user1_id
             # title: "#system"
             message: "Добро пожаловать в главное меню. Выберите действие:"
@@ -177,22 +177,22 @@ telegramm:
     - id: Отчет о системе по запросу
       alias: send_report
       initial_state: true
-      trigger:
-        - platform: event # по запросу из telegramm
+      triggers:
+        - trigger: event # по запросу из telegramm
           event_type: telegram_callback
           event_data:
             command: "/report"
-        - platform: event
+        - trigger: event
           event_type: telegram_command # вызов из меню
           event_data:
             command: "/report"
-      action:
-        - service: telegram_bot.delete_message
+      actions:
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             title: "#system"
             message: |
@@ -209,21 +209,21 @@ telegramm:
     - id: Отправить отчет о состоянии батареек
       alias: send_battaries_states
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/battaries_states"
-        - platform: numeric_state
+        - trigger: numeric_state
           entity_id: sensor.min_batteries_state
           below: 40
-      action:
-        - service: telegram_bot.delete_message
+      actions:
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             title: "#system"
             message: |
@@ -239,18 +239,18 @@ telegramm:
     - id: Отчет при потере объектов
       alias: send_report_when_objects_are_lost
       initial_state: true
-      trigger:
-        - platform: state # при потере объектов
+      triggers:
+        - trigger: state # при потере объектов
           entity_id: sensor.unavailable_objects
           for: "00:03:00"
-      condition:
+      conditions:
         condition: and
         conditions:
           - condition: template
             value_template: "{{ trigger.to_state.state > states('sensor.unavailable_objects_5_minutes_ago') }}"
-      action:
-        - service: notify.send_message
-          data_template:
+      actions:
+        - action: telegram_bot.send_message
+          data:
             chat_id: !secret tlg_user1_id
             message: |
               {{"\U0000203C"}} Обнаружена новая неисправность
@@ -262,42 +262,42 @@ telegramm:
     - id: Фото по запросу
       alias: send_photos_tlg
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # встроенная клавиатура telegramm
           event_data:
             command: "/photo"
-      action:
-        - service: telegram_bot.delete_message
+      actions:
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: notify.send_message
-          data_template:
-            tachat_idrget: "{{ trigger.event.data.user_id }}"
+        - action: telegram_bot.send_message
+          data:
+            chat_id: "{{ trigger.event.data.user_id }}"
             message: |
               {{"\U0001F4F8"}} Команда принята, ожидайте.
-        - service: script.create_photos
-        - service: telegram_bot.delete_message
+        - action: script.create_photos
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "last"
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/parking_camera_last_snapshot.jpg"
             chat_id: "{{ trigger.event.data.chat_id }}"
             disable_notification: true
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/porch_camera_last_snapshot.jpg"
             chat_id: "{{ trigger.event.data.chat_id }}"
             disable_notification: true
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
             chat_id: "{{ trigger.event.data.chat_id }}"
             disable_notification: true
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/bathhouse_camera_last_snapshot.jpg"
             chat_id: "{{ trigger.event.data.chat_id }}"

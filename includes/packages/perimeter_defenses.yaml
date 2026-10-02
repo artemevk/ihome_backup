@@ -113,25 +113,25 @@ perimeter_defenses:
 
     send_photos:
       sequence:
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/parking_camera_last_snapshot.jpg"
             chat_id: 
               -!secret tlg_user1_id
               -!secret tlg_user3_id
             disable_notification: true
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/porch_camera_last_snapshot.jpg"
             chat_id: 
               -!secret tlg_user1_id
               -!secret tlg_user3_id
             disable_notification: true
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
             chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/bathhouse_camera_last_snapshot.jpg"
             chat_id: [!secret tlg_user1_id, !secret tlg_user3_id]
@@ -161,13 +161,13 @@ perimeter_defenses:
   automation:
     - alias: "motion_notification"
       id: motion_notification
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id:
             - binary_sensor.cameras_motion
             - binary_sensor.porch_motion_protect_occupancy
           to: "on"
-      condition:
+      conditions:
         alias: "alarm not disarmed"
         not:
           - condition: state
@@ -211,17 +211,17 @@ perimeter_defenses:
     - id: Напоминание о необходимости снять дом с охраны
       alias: reminder_to_disarm_the_house
       initial_state: false
-      trigger:
-        platform: state
+      triggers:
+        trigger: state
         entity_id: device_tracker.artemevk
         to: "home"
-      condition:
+      conditions:
         not:
           - condition: state
             entity_id: alarm_control_panel.master
             state: "disarmed"
-      action:
-        - service: notify.mobile_app_artemevk
+      actions:
+        - action: notify.mobile_app_artemevk
           data:
             title: "Охрана"
             message: "Не забудь снять дом с охраны"
@@ -243,17 +243,17 @@ perimeter_defenses:
     - id: Напоминание о необходимости снять дом с охраны АПН
       alias: reminder_to_disarm_the_house_artemevp
       initial_state: false
-      trigger:
-        platform: state
+      triggers:
+        trigger: state
         entity_id: device_tracker.artemevp
         to: "home"
-      condition:
+      conditions:
         not:
           - condition: state
             entity_id: alarm_control_panel.master
             state: "disarmed"
-      action:
-        - service: notify.mobile_app_artemevp
+      actions:
+        - action: notify.mobile_app_artemevp
           data:
             title: "Охрана"
             message: "Не забудь снять дом с охраны"
@@ -273,28 +273,28 @@ perimeter_defenses:
                   icon: "sfsymbols:lock.open"
 
     - alias: "disarmed"
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: mobile_app_notification_action
           event_data:
             action: "disarmed"
-      action:
+      actions:
         - action: script.disarm
 
     - alias: "Trigger alarm while armed away"
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: binary_sensor.entrance_door_contact
           to: "on"
-        - platform: state
+        - trigger: state
           entity_id: binary_sensor.open_kitchen_motion_sensor
           to: "on"
-      condition:
+      conditions:
         - condition: state
           entity_id: alarm_control_panel.master
           state: armed_away
-      action:
-        service: alarm_control_panel.alarm_trigger
+      actions:
+        action: alarm_control_panel.alarm_trigger
         target:
           entity_id: alarm_control_panel.master
 
@@ -321,12 +321,12 @@ perimeter_defenses:
             entity_id: alarm_control_panel.master
 
     - alias: "Send notification when alarm triggered"
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: alarm_control_panel.master
           to: "triggered"
-      action:
-        - service: notify.alarm
+      actions:
+        - action: notify.alarm
           data:
             title: "Охрана"
             message: "Сработала сигнализация!"
@@ -351,10 +351,10 @@ perimeter_defenses:
 
     - id: "automatic arming"
       alias: "automatic arming"
-      trigger:
-        - platform: template
+      triggers:
+        - trigger: template
           value_template: "{{ states('zone.home') | int == 0 }}"
-      condition:
+      conditions:
         not:
           - condition: state
             entity_id: alarm_control_panel.master
@@ -364,10 +364,10 @@ perimeter_defenses:
 
     - id: "automatic disarming"
       alias: "automatic disarming"
-      trigger:
-        - platform: template
+      triggers:
+        - trigger: template
           value_template: "{{ states('zone.home') | int > 0 }}"
-      condition:
+      conditions:
         not:
           - condition: state
             entity_id: alarm_control_panel.master
@@ -377,8 +377,8 @@ perimeter_defenses:
 
     - id: "alarm notify armed"
       alias: "alarm notify armed"
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: alarm_control_panel.master
           to:
             - "armed_away"
@@ -401,8 +401,8 @@ perimeter_defenses:
 
     - id: "alarm notify disarmed"
       alias: "alarm notify disarmed"
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: alarm_control_panel.master
           not_from:
             - "arming"
@@ -424,18 +424,18 @@ perimeter_defenses:
 
     - id: tlg_alarm_menu
       alias: "tlg_alarm_menu"
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback # вызов с клавиатуры
           event_data:
             command: "/alarm_panel"
-      action:
-        - service: telegram_bot.delete_message
+      actions:
+        - action: telegram_bot.delete_message
           data:
             chat_id: "{{ trigger.event.data.chat_id }}"
             message_id: "{{ trigger.event.data.message.message_id }}"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             title: "#охрана"
             message: |
@@ -541,12 +541,12 @@ perimeter_defenses:
     - id: Запуск таймера отправки аварийных уведомлений при движении
       alias: start_timer_disable_motion_notify_mobile_app
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: mobile_app_notification_action
           event_data:
             action: "disable_alarm_notify"
-        - platform: state
+        - trigger: state
           entity_id: input_boolean.mobile_app_motion_notify_resolution
           to: "off"
       actions:

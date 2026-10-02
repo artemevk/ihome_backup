@@ -29,8 +29,8 @@ defence:
           entity_id:
             - binary_sensor.toilet_water_leak
           to: "on"
-      action:
-        - service: notify.mobile_app_artemevk
+      actions:
+        - action: notify.mobile_app_artemevk
           data:
             title: "Протечка!"
             message: "Обнаружена протечка!"
@@ -57,8 +57,8 @@ defence:
             minutes: 1
             seconds: 0
           above: 6700
-      action:
-        - service: notify.mobile_app_artemevk
+      actions:
+        - action: notify.mobile_app_artemevk
           data:
             title: "Потребление электроэнергии!"
             message: "{{ states('sensor.msg_power_protection') }}"
@@ -72,8 +72,8 @@ defence:
                   name: "alarm.caf"
                   critical: 1
                   volume: 0.2
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: !secret tlg_user1_id
             title: "#alarm"
             message: "{{ states('sensor.msg_power_protection') }}"
@@ -98,8 +98,8 @@ defence:
             minutes: 5
             seconds: 0
           below: 3
-      action:
-        - service: notify.mobile_app_artemevk
+      actions:
+        - action: notify.mobile_app_artemevk
           data:
             title: '{{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 3 °C!'
             message: "{{ states('sensor.msg_temperature_protection') }}"
@@ -113,8 +113,8 @@ defence:
                   name: "alarm.caf"
                   critical: 1
                   volume: 0.2
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: !secret tlg_user1_id
             title: "#alarm"
             message: |

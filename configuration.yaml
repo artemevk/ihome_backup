@@ -49,7 +49,6 @@ automation: !include_dir_merge_list includes/automation
 # binary_sensor: !include_dir_merge_list includes/binary_sensor
 # camera: !include includes/camera.yaml
 # group: !include includes/groups.yaml
-light: !include includes/light.yaml
 recorder: !include includes/recorder.yaml
 # scene: !include includes/scenes.yaml
 # script: !include includes/scripts.yaml
@@ -71,23 +70,8 @@ lovelace:
     - url: /local/simple-thermostat.js?v=1
       type: module
 
-# Платформа телеграмм уведомлений
+# Уведомления (telegram — через telegram_bot.send_message с chat_id)
 notify:
-  - platform: telegram
-    name: tlg_user1_id
-    chat_id: !secret tlg_user1_id
-  - platform: telegram
-    name: tlg_user2_id
-    chat_id: !secret tlg_user2_id
-  - platform: telegram
-    name: tlg_user3_id
-    chat_id: !secret tlg_user3_id
-  - platform: telegram
-    name: tlg_user4_id
-    chat_id: !secret tlg_user4_id
-  - platform: telegram
-    name: tlg_user5_id
-    chat_id: !secret tlg_user5_id
   - platform: group
     name: alarm
     services:

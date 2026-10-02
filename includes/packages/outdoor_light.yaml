@@ -85,7 +85,7 @@ porch:
       triggers:
         - trigger: state
           entity_id: zone.home
-      condition:
+      conditions:
         - condition: state
           entity_id: input_boolean.outdoor_light_auto_mode
           state: "on"
@@ -138,7 +138,7 @@ porch:
       triggers:
         - trigger: state
           entity_id: zone.home
-      condition:
+      conditions:
         - condition: template
           value_template: "{{ trigger.from_state.state < states.zone.home.state }}"
       actions:

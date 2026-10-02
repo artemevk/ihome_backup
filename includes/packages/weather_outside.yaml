@@ -77,17 +77,17 @@ weather_outside:
     - alias: send_morning_climate_report
       id: Утренний отчет о погоде
       initial_state: true
-      trigger:
-        - platform: time
+      triggers:
+        - trigger: time
           at: "07:30:00"
-      action:
-        - service: camera.snapshot
+      actions:
+        - action: camera.snapshot
           target:
             entity_id: camera.courtyard_camera_mainstream
           data:
             filename: "/media/courtyard_camera_last_snapshot.jpg"
         - delay: 5
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
             target:
@@ -107,38 +107,38 @@ weather_outside:
     - alias: send_climate_report
       id: Отчет о погоде по запросу
       initial_state: true
-      trigger:
-        - platform: event
+      triggers:
+        - trigger: event
           event_type: telegram_callback
           event_data:
             command: "/forecast"
-        - platform: event
+        - trigger: event
           event_type: telegram_command
           event_data:
             command: "/forecast"
-      action:
-        - service: telegram_bot.delete_message
-          data_template:
+      actions:
+        - action: telegram_bot.delete_message
+          data:
             message_id: "last"
             chat_id: "{{ trigger.event.data.chat_id }}"
-        - service: notify.send_message
-          data_template:
+        - action: telegram_bot.send_message
+          data:
             chat_id: "{{ trigger.event.data.user_id }}"
             disable_notification: true
             title: "#weather"
             message: >
               {{"\U0001F326"}} Команда принята, ожидайте.
-        - service: camera.snapshot
+        - action: camera.snapshot
           target:
             entity_id: camera.courtyard_camera_mainstream
           data:
             filename: "/media/courtyard_camera_last_snapshot.jpg"
         - delay: 00:00:05
-        - service: telegram_bot.delete_message
-          data_template:
+        - action: telegram_bot.delete_message
+          data:
             message_id: "last"
             chat_id: "{{ trigger.event.data.chat_id }}"
-        - service: telegram_bot.send_photo
+        - action: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
             chat_id: "{{ trigger.event.data.user_id }}"

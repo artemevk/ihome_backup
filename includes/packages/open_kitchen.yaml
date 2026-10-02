@@ -45,22 +45,22 @@ open_kitchen:
 
   automation:
     - alias: "open_kitchen_heater_thermostat Set Temperature" # не срабатывает
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: sensor.open_kitchen_setpoint
-      action:
-        - service: climate.set_temperature
+      actions:
+        - action: climate.set_temperature
           target:
             entity_id: climate.open_kitchen_heater_thermostat
           data:
             temperature: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') }}"
 
     - alias: "open_kitchen_thermostat Set Temperature"
-      trigger:
-        - platform: state
+      triggers:
+        - trigger: state
           entity_id: sensor.open_kitchen_heater_setpoint
-      action:
-        - service: climate.set_temperature
+      actions:
+        - action: climate.set_temperature
           target:
             entity_id: climate.open_kitchen_thermostat
           data:
