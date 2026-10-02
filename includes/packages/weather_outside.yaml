@@ -90,7 +90,7 @@ weather_outside:
         - action: telegram_bot.send_photo
           data:
             file: "/media/courtyard_camera_last_snapshot.jpg"
-            target:
+            chat_id:
               [
                 !secret tlg_user1_id,
                 !secret tlg_user2_id,
