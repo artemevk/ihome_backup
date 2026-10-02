@@ -7,6 +7,12 @@ binary_sensor:
       state_attr('climate.open_kitchen_thermostat', 'temperature'),
       state_attr('climate.childrens_room_heater_thermostat', 'temperature')]) == 5
       }}
+    # все пять термостатов должны отдавать уставку, иначе max() по None падает
+    availability: >
+      {{ ['climate.1st_floor_bedroom_heater_thermostat', 'climate.1st_floor_bedroom_thermostat',
+          'climate.open_kitchen_heater_thermostat', 'climate.open_kitchen_thermostat',
+          'climate.childrens_room_heater_thermostat']
+         | map('state_attr', 'temperature') | select('number') | list | count == 5 }}
 
   - name: cameras_motion
     device_class: motion

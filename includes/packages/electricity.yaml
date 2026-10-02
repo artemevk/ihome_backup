@@ -80,6 +80,7 @@ electricity:
             states('sensor.c_power') | int
             }}
           icon: mdi:lightning-bolt
+          availability: "{{ ['sensor.a_power', 'sensor.b_power', 'sensor.c_power'] | map('states') | map('is_number') | min }}"
           state_class: measurement
 
         - default_entity_id: sensor.daily_total_energy_day
