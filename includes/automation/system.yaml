@@ -109,3 +109,32 @@
         entity_id: camera.courtyard_camera_mainstream
       data:
         filename: '/config/tmp/courtyard_camera_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
+
+# Zigbee2MQTT (application-фаза) стартует только после ядра; если Supervisor
+# в этот момент не готов, add-on остаётся остановленным. Запускаем вручную.
+# Только выключенные: app_start по работающему add-on перезапускает контейнер.
+- id: zigbee2mqtt_start_guard
+  alias: Страховка запуска Zigbee2MQTT
+  triggers:
+    - trigger: homeassistant
+      event: start
+  actions:
+    - delay: "00:05:00"
+    - repeat:
+        for_each:
+          - binary_sensor.zigbee2mqtt_running
+          - binary_sensor.zigbee2mqtt_running_2
+        sequence:
+          - variables:
+              app: "{{ (device_attr(device_id(repeat.item), 'identifiers') | list | first)[1] }}"
+          - if:
+              - condition: template
+                value_template: "{{ is_state(repeat.item, 'off') }}"
+            then:
+              - action: hassio.app_start
+                data:
+                  app: "{{ app }}"
+              - action: notify.mobile_app_artemevk
+                data:
+                  title: Zigbee2MQTT
+                  message: "{{ app }} не запустился после старта HA — запущен автоматически"
