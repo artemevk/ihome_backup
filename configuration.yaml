@@ -58,6 +58,14 @@ recorder: !include includes/recorder.yaml
 # yeelight: !include includes/yeelight.yaml
 template: !include_dir_list includes/template
 
+rest:
+  - resource: https://app.mplens.ru/health
+    scan_interval: 120
+    timeout: 20
+    sensor:
+      - name: mplens status
+        value_template: "{{ value_json.status }}"
+
 lovelace:
   resources:
     - url: /local/simple-thermostat.js?v=1

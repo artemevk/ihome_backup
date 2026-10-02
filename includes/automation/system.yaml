@@ -26,6 +26,27 @@
       # 2. git remote set-url origin https://github.com/artemevk/country_house_backup.git
       # 3. ./ha_gitpush.sh
 
+- alias: mplens недоступен
+  trigger:
+    - platform: template
+      value_template: "{{ states('sensor.mplens_status') != 'healthy' }}"
+      for: "00:06:00"
+  action:
+    - service: notify.mobile_app_artemevk
+      data:
+        title: "mplens недоступен"
+        message: "Статус: {{ states('sensor.mplens_status') }}"
+- alias: mplens снова работает
+  trigger:
+    - platform: state
+      entity_id: sensor.mplens_status
+      to: "healthy"
+      for: "00:02:00"
+  action:
+    - service: notify.mobile_app_artemevk
+      data:
+        message: "mplens снова работает"
+
 - id: start_offline_timer
   alias: start_offline_timer
   initial_state: true
