@@ -26,29 +26,34 @@
       # 2. git remote set-url origin https://github.com/artemevk/country_house_backup.git
       # 3. ./ha_gitpush.sh
 
+# Одна автоматизация на весь эпизод: «снова работает» приходит только после
+# «недоступен», поэтому короткие сбои опроса (один неудачный запрос) молчат.
 - id: mplens_down
   alias: mplens недоступен
+  mode: single
+  max_exceeded: silent
   triggers:
     - trigger: template
       value_template: "{{ states('sensor.mplens_status') != 'healthy' }}"
       for: "00:06:00"
   actions:
+    - variables:
+        down_since: "{{ now() - timedelta(minutes=6) }}"
     - action: notify.mobile_app_artemevk
       data:
         title: "mplens недоступен"
         message: "Статус: {{ states('sensor.mplens_status') }}"
-
-- id: mplens_up
-  alias: mplens снова работает
-  triggers:
-    - trigger: state
-      entity_id: sensor.mplens_status
-      to: "healthy"
-      for: "00:02:00"
-  actions:
+    - wait_for_trigger:
+        - trigger: state
+          entity_id: sensor.mplens_status
+          to: "healthy"
+          for: "00:02:00"
     - action: notify.mobile_app_artemevk
       data:
-        message: "mplens снова работает"
+        title: "mplens снова работает"
+        message: >-
+          Был недоступен ~{{ ((now() - as_datetime(down_since)).total_seconds() // 60) | int }} мин
+          (с {{ (as_datetime(down_since) | as_local).strftime('%H:%M') }})
 
 - id: start_offline_timer
   alias: start_offline_timer
