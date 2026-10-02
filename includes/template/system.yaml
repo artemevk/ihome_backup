@@ -42,6 +42,7 @@ binary_sensor:
 sensor:
   - name: last_google_backup
     state: "{{ as_timestamp(state_attr('sensor.backup_state', 'last_backup')) | timestamp_custom('%d.%m.%Y %H:%M:%S %Z') }}"
+    availability: "{{ as_timestamp(state_attr('sensor.backup_state', 'last_backup'), none) is number }}"
     icon: >
       {% if is_state("binary_sensor.backups_stale", "off") %}
         mdi:calendar-check-outline
@@ -54,8 +55,10 @@ sensor:
 
   - name: snapshots_in_google_drive
     state: "{{ state_attr('sensor.backup_state', 'backups_in_google_drive') }}"
+    availability: "{{ state_attr('sensor.backup_state', 'backups_in_google_drive') is not none }}"
     icon: mdi:folder-google-drive
 
   - name: snapshots_in_hassio
     state: "{{ state_attr('sensor.backup_state', 'backups_in_home_assistant') }}"
+    availability: "{{ state_attr('sensor.backup_state', 'backups_in_home_assistant') is not none }}"
     icon: mdi:home-assistant

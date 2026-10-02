@@ -7,16 +7,19 @@
           state_class: measurement
           unit_of_measurement: °C
           state: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') | float }}"
+          availability: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'current_temperature') is number }}"
 
         - default_entity_id: sensor.1st_floor_bedroom_setpoint
           device_class: temperature
           unit_of_measurement: °C
           state: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') | float }}"
+          availability: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') is number }}"
 
         - default_entity_id: sensor.1st_floor_bedroom_heater_setpoint
           device_class: temperature
           unit_of_measurement: °C
           state: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') | float }}"
+          availability: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') is number }}"
 
         # 1st_floor_bedroom_heater_heat:
         #   state: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'hvac_action') == 'heating' }}"
@@ -57,6 +60,11 @@
       triggers:
         - trigger: state
           entity_id: sensor.1st_floor_bedroom_setpoint
+          not_from: [unknown, unavailable]
+          not_to: [unknown, unavailable]
+      conditions:
+        - condition: template
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_thermostat', 'temperature') is number }}"
       actions:
         - action: climate.set_temperature
           target:
@@ -68,6 +76,11 @@
       triggers:
         - trigger: state
           entity_id: sensor.1st_floor_bedroom_heater_setpoint
+          not_from: [unknown, unavailable]
+          not_to: [unknown, unavailable]
+      conditions:
+        - condition: template
+          value_template: "{{ state_attr('climate.1st_floor_bedroom_heater_thermostat', 'temperature') is number }}"
       actions:
         - action: climate.set_temperature
           target:

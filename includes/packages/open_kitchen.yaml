@@ -6,16 +6,19 @@ open_kitchen:
           state_class: measurement
           unit_of_measurement: °C
           state: "{{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') | float }}"
+          availability: "{{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') is number }}"
 
         - name: open_kitchen_setpoint
           device_class: temperature
           unit_of_measurement: °C
           state: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') | float }}"
+          availability: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') is number }}"
 
         - name: open_kitchen_heater_setpoint
           device_class: temperature
           unit_of_measurement: °C
           state: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') | float }}"
+          availability: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') is number }}"
 
       #   open_kitchen_temperature:
       #     value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'current_temperature') | float | round(1) }}"
@@ -48,6 +51,11 @@ open_kitchen:
       triggers:
         - trigger: state
           entity_id: sensor.open_kitchen_setpoint
+          not_from: [unknown, unavailable]
+          not_to: [unknown, unavailable]
+      conditions:
+        - condition: template
+          value_template: "{{ state_attr('climate.open_kitchen_thermostat', 'temperature') is number }}"
       actions:
         - action: climate.set_temperature
           target:
@@ -59,6 +67,11 @@ open_kitchen:
       triggers:
         - trigger: state
           entity_id: sensor.open_kitchen_heater_setpoint
+          not_from: [unknown, unavailable]
+          not_to: [unknown, unavailable]
+      conditions:
+        - condition: template
+          value_template: "{{ state_attr('climate.open_kitchen_heater_thermostat', 'temperature') is number }}"
       actions:
         - action: climate.set_temperature
           target:
