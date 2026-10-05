@@ -407,7 +407,7 @@ bathhouse:
       id: "bathhouse_ir_heater_starts_at_noon"
       triggers:
         - trigger: time
-          at: "12:00:00"
+          at: "18:00:00"
       actions:
         - action: switch.turn_on
           target:
