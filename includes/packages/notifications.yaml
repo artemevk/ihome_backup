@@ -1,0 +1,33 @@
+# Все пуши идут через script.notify_push: он отправляет уведомление как раньше
+# и пишет его текст в журнал HA (Logbook), чтобы прочитанный/смахнутый пуш можно было найти.
+# Служебные команды (message: clear_notification) шлются напрямую, мимо журнала.
+notifications:
+  script:
+    notify_push:
+      alias: Пуш с записью в журнал
+      mode: parallel
+      max: 20
+      fields:
+        target:
+          description: "Служба notify без префикса: alarm, mobile_app_artemevk, …"
+          required: true
+          example: mobile_app_artemevk
+        title:
+          description: Заголовок
+          example: Охрана
+        message:
+          description: Текст
+          required: true
+          example: Квартира поставлена на охрану.
+        data:
+          description: Доп. данные пуша (кнопки, звук, картинка, tag)
+      sequence:
+        - action: "notify.{{ target }}"
+          data:
+            title: "{{ title | default('') }}"
+            message: "{{ message }}"
+            data: "{{ data | default({}) }}"
+        - action: logbook.log
+          data:
+            name: "Пуш{{ ' · ' ~ title if title | default('') else '' }}"
+            message: "{{ message }} (→ {{ target }})"

@@ -20,8 +20,9 @@ total_climate:
               - switch.schedule_0c5617
               - switch.schedule_aaa3bc
               - switch.water_heater
-        - action: notify.mobile_app_artemevk
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevk
             title: Отопление
             message: Активирована подготовка дома
             data:

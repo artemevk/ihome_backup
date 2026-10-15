@@ -175,8 +175,9 @@ perimeter_defenses:
         - condition: state
           entity_id: input_boolean.mobile_app_motion_notify_resolution
           state: "on"
-        - action: notify.alarm
+        - action: script.notify_push
           data:
+            target: alarm
             title: "Охрана"
             message: "Зафиксировано движение"
             data:
@@ -217,8 +218,9 @@ perimeter_defenses:
             entity_id: alarm_control_panel.master
             state: "disarmed"
       actions:
-        - action: notify.mobile_app_artemevk
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevk
             title: "Охрана"
             message: "Не забудь снять дом с охраны"
             data:
@@ -249,8 +251,9 @@ perimeter_defenses:
             entity_id: alarm_control_panel.master
             state: "disarmed"
       actions:
-        - action: notify.mobile_app_artemevp
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevp
             title: "Охрана"
             message: "Не забудь снять дом с охраны"
             data:
@@ -322,8 +325,9 @@ perimeter_defenses:
           entity_id: alarm_control_panel.master
           to: "triggered"
       actions:
-        - action: notify.alarm
+        - action: script.notify_push
           data:
+            target: alarm
             title: "Охрана"
             message: "Сработала сигнализация!"
             data:
@@ -381,8 +385,9 @@ perimeter_defenses:
       actions:
         - action: script.create_photos
         - action: script.send_photos
-        - action: notify.alarm
+        - action: script.notify_push
           data:
+            target: alarm
             title: "Охрана"
             message: |
               Дом поставлен на охрану. Проверьте чек-лист.
@@ -406,8 +411,9 @@ perimeter_defenses:
           to:
             - "disarmed"
       actions:
-        - action: notify.alarm
+        - action: script.notify_push
           data:
+            target: alarm
             title: "Охрана"
             message: Дом снят с охраны.
             data:

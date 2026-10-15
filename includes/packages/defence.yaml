@@ -30,8 +30,9 @@ defence:
             - binary_sensor.toilet_water_leak
           to: "on"
       actions:
-        - action: notify.mobile_app_artemevk
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevk
             title: "Протечка!"
             message: "Обнаружена протечка!"
             data:
@@ -58,8 +59,9 @@ defence:
             seconds: 0
           above: 6700
       actions:
-        - action: notify.mobile_app_artemevk
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevk
             title: "Потребление электроэнергии!"
             message: "{{ states('sensor.msg_power_protection') }}"
             data:
@@ -99,8 +101,9 @@ defence:
             seconds: 0
           below: 3
       actions:
-        - action: notify.mobile_app_artemevk
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevk
             title: '{{"\U0001F321"}} Температура {{ trigger.entity_id }} упала ниже 3 °C!'
             message: "{{ states('sensor.msg_temperature_protection') }}"
             data:

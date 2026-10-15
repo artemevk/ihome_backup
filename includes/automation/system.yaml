@@ -39,8 +39,9 @@
   actions:
     - variables:
         down_since: "{{ now() - timedelta(minutes=6) }}"
-    - action: notify.mobile_app_artemevk
+    - action: script.notify_push
       data:
+        target: mobile_app_artemevk
         title: "mplens недоступен"
         message: "Статус: {{ states('sensor.mplens_status') }}"
     - wait_for_trigger:
@@ -48,8 +49,9 @@
           entity_id: sensor.mplens_status
           to: "healthy"
           for: "00:02:00"
-    - action: notify.mobile_app_artemevk
+    - action: script.notify_push
       data:
+        target: mobile_app_artemevk
         title: "mplens снова работает"
         message: >-
           Был недоступен ~{{ ((now() - as_datetime(down_since)).total_seconds() // 60) | int }} мин
@@ -71,8 +73,10 @@
         msg: "Сервер iFlat не отвечает!"
     - &iflat_notify
       sequence:
-        - action: notify.mobile_app_artemevk
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevk
+            target: mobile_app_artemevk
             message: "{{ msg }}"
         # Telegram — только если telegram_bot поднялся (без VPN не поднимается),
         # иначе ошибка «действие не найдено» остановит автоматизацию.
@@ -143,8 +147,9 @@
     - delay: "00:03:00"
     - variables:
         still_down: "{{ bridges | reject('is_state', 'on') | list }}"
-    - action: notify.mobile_app_artemevk
+    - action: script.notify_push
       data:
+        target: mobile_app_artemevk
         title: Zigbee2MQTT
         message: >-
           {%- if still_down | count == 0 -%}

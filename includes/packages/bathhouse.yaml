@@ -156,8 +156,9 @@ bathhouse:
         - action: switch.turn_on
           target:
             entity_id: switch.bathhouse_boiler
-        - action: notify.mobile_app_artemevk
+        - action: script.notify_push
           data:
+            target: mobile_app_artemevk
             title: Отопление
             message: Активирована подготовка бани
             data:
