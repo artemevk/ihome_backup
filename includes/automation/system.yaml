@@ -115,31 +115,40 @@
       data:
         filename: '/config/tmp/courtyard_camera_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg'
 
-# Zigbee2MQTT (application-фаза) стартует только после ядра; если Supervisor
-# в этот момент не готов, add-on остаётся остановленным. Запускаем вручную.
-# Только выключенные: app_start по работающему add-on перезапускает контейнер.
+# Zigbee2MQTT (application-фаза) стартует только после ядра, а ядро на даче
+# по несколько минут ждёт xiaomi_gateway3. Сенсоры Supervisor «работает» при этом
+# залипают, поэтому судим по мосту Z2M в MQTT: он «on», только если Z2M реально работает.
+# app_start по уже работающему аддону Supervisor игнорирует («already running»).
 - id: zigbee2mqtt_start_guard
   alias: Страховка запуска Zigbee2MQTT
+  mode: single
   triggers:
     - trigger: homeassistant
       event: start
   actions:
-    - delay: "00:05:00"
+    - delay: "00:10:00"
+    - variables:
+        bridges: &z2m_bridges
+          - binary_sensor.zigbee2mqtt_bridge_connection_state
+          - binary_sensor.zigbee2mqtt_bridge_connection_state_2
+        down: "{{ bridges | reject('is_state', 'on') | list }}"
+    - condition: "{{ down | count > 0 }}"
     - repeat:
-        for_each:
-          - binary_sensor.zigbee2mqtt_running
-          - binary_sensor.zigbee2mqtt_running_2
+        for_each: [9336c2b0_zigbee2mqtt, 45df7312_zigbee2mqtt]
         sequence:
-          - variables:
-              app: "{{ (device_attr(device_id(repeat.item), 'identifiers') | list | first)[1] }}"
-          - if:
-              - condition: template
-                value_template: "{{ is_state(repeat.item, 'off') }}"
-            then:
-              - action: hassio.app_start
-                data:
-                  app: "{{ app }}"
-              - action: notify.mobile_app_artemevk
-                data:
-                  title: Zigbee2MQTT
-                  message: "{{ app }} не запустился после старта HA — запущен автоматически"
+          - action: hassio.app_start
+            continue_on_error: true
+            data:
+              app: "{{ repeat.item }}"
+    - delay: "00:03:00"
+    - variables:
+        still_down: "{{ bridges | reject('is_state', 'on') | list }}"
+    - action: notify.mobile_app_artemevk
+      data:
+        title: Zigbee2MQTT
+        message: >-
+          {%- if still_down | count == 0 -%}
+            Zigbee2MQTT не был на связи через 10 мин после старта HA — запустил, теперь работает.
+          {%- else -%}
+            Zigbee2MQTT не поднялся и после повторного запуска: {{ still_down | join(', ') }}. Нужно смотреть журнал аддона.
+          {%- endif %}
