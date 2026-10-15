@@ -29,5 +29,7 @@ notifications:
             data: "{{ data | default({}) }}"
         - action: logbook.log
           data:
+            # привязка к скрипту: в «Активности» фильтр по нему показывает все пуши
+            entity_id: script.notify_push
             name: "Пуш{{ ' · ' ~ title if title | default('') else '' }}"
             message: "{{ message }} (→ {{ target }})"
