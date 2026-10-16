@@ -1,0 +1,27 @@
+# Вспомогательные сенсоры для значков в шапке «Главной» (iHome).
+sensor:
+  # Режим отопления одним значком вместо двух (дом и баня).
+  - default_entity_id: sensor.heating_mode
+    unique_id: heating_mode
+    name: Отопление
+    icon: >-
+      {{ 'mdi:snowflake-thermometer' if is_state('binary_sensor.antifrost_mode', 'on')
+         or is_state('binary_sensor.bathhouse_antifrost_mode', 'on') else 'mdi:radiator' }}
+    state: >-
+      {%- set h = is_state('binary_sensor.antifrost_mode', 'on') -%}
+      {%- set b = is_state('binary_sensor.bathhouse_antifrost_mode', 'on') -%}
+      {{ 'Антизамерзание' if h and b else 'Антизамерзание (дом)' if h else 'Антизамерзание (баня)' if b else 'Обычный' }}
+
+  # Недоступные устройства — только Zigbee (MQTT) и только «настоящие» сущности:
+  # служебные select/number спящих пультов «недоступны» штатно.
+  - default_entity_id: sensor.unavailable_devices
+    unique_id: unavailable_devices
+    name: Недоступно устройств
+    icon: mdi:lan-disconnect
+    state: >-
+      {{ integration_entities('mqtt') | select('match', '^(sensor|binary_sensor|switch|light|climate|cover|lock|valve)\.')
+         | select('is_state', 'unavailable') | list | count }}
+    attributes:
+      entities: >-
+        {{ integration_entities('mqtt') | select('match', '^(sensor|binary_sensor|switch|light|climate|cover|lock|valve)\.')
+           | select('is_state', 'unavailable') | list }}
