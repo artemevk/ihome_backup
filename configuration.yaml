@@ -18,12 +18,6 @@ frontend:
   extra_module_url:
     - /local/card-mod.js
 
-homekit:
-  filter:
-    include_entities:
-      - script.gate_step_mode
-      - script.gate_pedestrian_crossing
-
 # alarm_control_panel:
 #   - platform: manual
 #     name: Home Alarm
