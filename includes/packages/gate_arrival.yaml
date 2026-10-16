@@ -103,4 +103,4 @@ gate_arrival:
             message: >-
               {{ source }}; по GPS до центра участка
               {{ (distance('zone.home', gps_tracker) * 1000) | round(0) | int }} м
-              (GPS обновлён {{ relative_time(states[gps_tracker].last_updated) }} назад)
+              (GPS обновлён {{ ((now() - states[gps_tracker].last_updated).total_seconds() // 60) | int }} мин назад)
