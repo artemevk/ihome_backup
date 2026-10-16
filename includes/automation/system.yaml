@@ -76,7 +76,6 @@
         - action: script.notify_push
           data:
             target: mobile_app_artemevk
-            target: mobile_app_artemevk
             message: "{{ msg }}"
         # Telegram — только если telegram_bot поднялся (без VPN не поднимается),
         # иначе ошибка «действие не найдено» остановит автоматизацию.
