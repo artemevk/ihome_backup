@@ -6,11 +6,12 @@ sensor:
     name: Отопление
     icon: >-
       {{ 'mdi:snowflake-thermometer' if is_state('binary_sensor.antifrost_mode', 'on')
-         or is_state('binary_sensor.bathhouse_antifrost_mode', 'on') else 'mdi:radiator' }}
+         and is_state('binary_sensor.bathhouse_antifrost_mode', 'on') else 'mdi:radiator' }}
+    # «Антизамерзание» — только если в нём и дом, и баня (режим экономии на пустой даче);
+    # если хоть что-то греется в обычном режиме — «Обычный».
     state: >-
-      {%- set h = is_state('binary_sensor.antifrost_mode', 'on') -%}
-      {%- set b = is_state('binary_sensor.bathhouse_antifrost_mode', 'on') -%}
-      {{ 'Антизамерзание' if h and b else 'Антизамерзание (дом)' if h else 'Антизамерзание (баня)' if b else 'Обычный' }}
+      {{ 'Антизамерзание' if is_state('binary_sensor.antifrost_mode', 'on')
+         and is_state('binary_sensor.bathhouse_antifrost_mode', 'on') else 'Обычный' }}
 
   # Недоступные устройства — только Zigbee (MQTT) и только «настоящие» сущности:
   # служебные select/number спящих пультов «недоступны» штатно.
