@@ -29,7 +29,7 @@ bathhouse:
           {{ "\n" }}{{"\U0001F4A7"}} {{ states('sensor.bathhouse_climate_humidity') }} %
           {{ "\n" }}{{"\U0001F4A1"}} {% if states('light.bathhouse') == "off" %}выкл.{% else %}вкл.{% endif %}
           {{ "\n" }}Бойлер: {% if states("switch.bathhouse_boiler") == "off" %}выкл.{% else %}вкл.{% endif %}
-          {{ "\n" }}Просушка: {% if states("timer.bathhouse_drying_timer") == "idle" %}выкл.{% else %}вкл. до {{ as_timestamp(state_attr("timer.bathhouse_drying_timer", "finishes_at")) | timestamp_custom('%d.%m.%Y %H:%M') }}{% endif %}
+          {{ "\n" }}Просушка: {% if is_state("input_boolean.bathhouse_drying_armed", "off") %}выкл.{% elif now().hour >= 23 or now().hour < 7 %}идёт до 07:00{% else %}запланирована на 23:00{% endif %}
 
   input_number:
     bathhouse_drying_time:
@@ -64,10 +64,13 @@ bathhouse:
     #   mode: slider
     #   icon: mdi:thermometer
 
-  timer:
-    bathhouse_drying_timer:
-      duration: "24:00:00"
+  input_boolean:
+    # Просушка ночью (23:00–07:00, ночной тариф): флаг взводится кнопкой, сбрасывается в 07:00.
+    bathhouse_drying_armed:
+      name: Просушка бани ночью
+      icon: mdi:weather-night
 
+  timer:
     bathhouse_shoe_drying_timer:
       duration: "08:00:00"
     bathhouse_ir_heater_timer:
@@ -79,7 +82,22 @@ bathhouse:
       has_time: true
 
   script:
+    # Кнопка «Просушка»: взвести флаг; ночью (23:00–07:00) — сразу старт.
     bathhouse_drying_on:
+      alias: Просушка бани — запланировать на ночь
+      sequence:
+        - action: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.bathhouse_drying_armed
+        - if:
+            - condition: time
+              after: "23:00:00"
+              before: "07:00:00"
+          then:
+            - action: script.bathhouse_drying_start
+
+    bathhouse_drying_start:
+      alias: Просушка бани — котёл на полную
       sequence:
         - action: climate.turn_off
           target:
@@ -89,20 +107,16 @@ bathhouse:
           target:
             entity_id: switch.protherm
 
-    bathhouse_drying_timer_finish:
-      sequence:
-        - action: timer.finish
-          target:
-            entity_id: timer.bathhouse_drying_timer
-
+    # Отмена или окончание: снять флаг и вернуть термостат.
     bathhouse_drying_off:
+      alias: Просушка бани — отменить / завершить
       sequence:
+        - action: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.bathhouse_drying_armed
         - action: climate.turn_on
           target:
             entity_id: climate.bathhouse_thermostat
-        - action: timer.finish
-          target:
-            entity_id: timer.bathhouse_drying_timer
 
     bathhouse_shoe_drying_on:
       sequence:
@@ -348,30 +362,35 @@ bathhouse:
       icon: mdi:palette-swatch-variant
 
   automation:
-    - alias: "bathhouse_drying_timer_restart"
-      id: "bathhouse_drying_timer_restart"
+    - alias: "bathhouse_drying_night_start"
+      id: "bathhouse_drying_night_start"
       triggers:
-        - trigger: state
-          entity_id:
-            - script.bathhouse_drying_on
+        - trigger: time
+          at: "23:00:00"
+      conditions:
+        - condition: state
+          entity_id: input_boolean.bathhouse_drying_armed
+          state: "on"
       actions:
-        - action: timer.start
-          data:
-            duration: "{{ states('input_number.bathhouse_drying_time') | int * 60 * 60 }}"
-          target:
-            entity_id: timer.bathhouse_drying_timer
+        - action: script.bathhouse_drying_start
 
+    # Окончание в 07:00; если HA в 07:00 был выключен — доделать при запуске днём.
     - alias: "bathhouse_drying_off"
       id: "bathhouse_drying_off"
       triggers:
-        - trigger: event
-          event_type: timer.finished
-          event_data:
-            entity_id: timer.bathhouse_drying_timer
+        - trigger: time
+          at: "07:00:00"
+        - trigger: homeassistant
+          event: start
+      conditions:
+        - condition: state
+          entity_id: input_boolean.bathhouse_drying_armed
+          state: "on"
+        - condition: time
+          after: "07:00:00"
+          before: "23:00:00"
       actions:
-        - action: script.turn_on
-          target:
-            entity_id: script.bathhouse_drying_off
+        - action: script.bathhouse_drying_off
 
     - alias: "bathhouse_shoe_drying_timer_restart"
       id: "bathhouse_shoe_drying_timer_restart"
@@ -395,7 +414,7 @@ bathhouse:
         - trigger: event
           event_type: timer.finished
           event_data:
-            entity_id: timer.bathhouse_drying_timer
+            entity_id: timer.bathhouse_shoe_drying_timer
         - trigger: state
           entity_id: switch.shoe_dryer
           to: "off"
