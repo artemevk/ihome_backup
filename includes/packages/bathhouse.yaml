@@ -32,14 +32,6 @@ bathhouse:
           {{ "\n" }}Просушка: {% if is_state("input_boolean.bathhouse_drying_armed", "off") %}выкл.{% elif now().hour >= 23 or now().hour < 7 %}идёт до 07:00{% else %}запланирована на 23:00{% endif %}
 
   input_number:
-    bathhouse_drying_time:
-      min: 6
-      max: 48
-      initial: 24
-      step: 2
-      mode: box
-      icon: mdi:timer
-
     bathhouse_shoe_drying_time:
       min: 2
       max: 14
