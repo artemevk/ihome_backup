@@ -1,7 +1,6 @@
-# Ворота при подъезде к даче.
-# 1) Въезд в зону «Рядом с дачей» (1,5 км) — пуш приехавшему с кнопками «Ворота» / «Калитка».
-# 2) Журнал замеров: когда телефон цепляется к Wi-Fi Keenetic-9102 и где он в этот момент —
-#    чтобы понять, успеет ли автооткрытие по Wi-Fi до автозакрытия ворот (30 с).
+# Ворота при подъезде к даче: въезд в зону «Рядом с дачей» (3 км) — пуш приехавшему
+# с кнопками «Ворота» / «Калитка». Автооткрытие по Wi-Fi отвергнуто замером 2026-10-18:
+# телефон цепляется к Keenetic-9102 уже у дома и переподключается в течение дня.
 gate_arrival:
   automation:
     - id: gate_arrival_prompt
@@ -64,43 +63,3 @@ gate_arrival:
             message: >-
               {{ 'ворота' if wait.trigger.event.data.action == open_id else 'калитка' }}
               открыты с пуша ({{ state_attr(trigger.entity_id, 'friendly_name') }})
-
-    - id: gate_wifi_log
-      alias: gate_wifi_log
-      mode: queued
-      triggers:
-        - trigger: state
-          entity_id: [sensor.artemevk_ssid, sensor.iphone_mariia_2_ssid, sensor.artemevi_ssid]
-          to: Keenetic-9102
-          variables:
-            source: телефон подключился к Keenetic-9102
-        - trigger: state
-          entity_id:
-            - device_tracker.a6_9c_02_01_de_fc
-            - device_tracker.3e_8a_34_c6_cc_70
-            - device_tracker.16_ee_88_20_99_92
-          to: home
-          variables:
-            source: роутер увидел телефон в Wi-Fi
-        - trigger: zone
-          entity_id: [person.artemevk, person.artemevam, person.artemevi]
-          zone: zone.home
-          event: enter
-          variables:
-            source: GPS — вошёл в зону «Дом» (100 м)
-      actions:
-        - variables:
-            person: >-
-              {%- set m = {'sensor.artemevk_ssid': 'person.artemevk', 'device_tracker.a6_9c_02_01_de_fc': 'person.artemevk',
-                           'sensor.iphone_mariia_2_ssid': 'person.artemevam', 'device_tracker.3e_8a_34_c6_cc_70': 'person.artemevam',
-                           'sensor.artemevi_ssid': 'person.artemevi', 'device_tracker.16_ee_88_20_99_92': 'person.artemevi'} -%}
-              {{ m.get(trigger.entity_id, trigger.entity_id) }}
-            gps_tracker: "{{ state_attr(person, 'device_trackers') | first }}"
-        - action: logbook.log
-          data:
-            name: Ворота · замер
-            entity_id: "{{ person }}"
-            message: >-
-              {{ source }}; по GPS до центра участка
-              {{ (distance('zone.home', gps_tracker) * 1000) | round(0) | int }} м
-              (GPS обновлён {{ ((now() - states[gps_tracker].last_updated).total_seconds() // 60) | int }} мин назад)
