@@ -29,7 +29,7 @@ bathhouse:
           {{ "\n" }}{{"\U0001F4A7"}} {{ states('sensor.bathhouse_climate_humidity') }} %
           {{ "\n" }}{{"\U0001F4A1"}} {% if states('light.bathhouse') == "off" %}выкл.{% else %}вкл.{% endif %}
           {{ "\n" }}Бойлер: {% if states("switch.bathhouse_boiler") == "off" %}выкл.{% else %}вкл.{% endif %}
-          {{ "\n" }}Просушка: {% if is_state("input_boolean.bathhouse_drying_armed", "off") %}выкл.{% elif now().hour >= 23 or now().hour < 7 %}идёт до 07:00{% else %}запланирована на 23:00{% endif %}
+          {{ "\n" }}Просушка: {% if is_state("input_boolean.bathhouse_drying_armed", "off") %}выкл.{% elif now().hour >= 23 or now().hour < 7 %}идёт до 07:00{% else %}запланирована на 23:01{% endif %}
 
   input_number:
     bathhouse_shoe_drying_time:
