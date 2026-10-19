@@ -348,7 +348,7 @@ bathhouse:
       id: "bathhouse_drying_night_start"
       triggers:
         - trigger: time
-          at: "23:00:00"
+          at: "23:01:00"  # после расписания бани (в 23:00 ставит 18 °C), чтобы выключение термостата было последним
       conditions:
         - condition: state
           entity_id: input_boolean.bathhouse_drying_armed
