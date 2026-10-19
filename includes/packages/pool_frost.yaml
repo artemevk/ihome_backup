@@ -1,0 +1,104 @@
+# Насос фильтра бассейна (розетка switch.bathhouse_ir_heater): при заморозках гоняет воду
+# 5 минут каждый час, чтобы она не замёрзла в насосе и шлангах. Спасает только от лёгких
+# заморозков: перед морозами ниже −2 °C насос нужно законсервировать — об этом пуш по прогнозу.
+pool_frost:
+  input_boolean:
+    pool_frost_protection:
+      name: Бассейн — защита насоса от заморозков
+      icon: mdi:snowflake-thermometer
+
+  template:
+    - sensor:
+        # Уличная температура — меньшая из met.no и Яндекса (своего датчика у насоса нет).
+        - default_entity_id: sensor.pool_outdoor_temperature
+          unique_id: pool_outdoor_temperature
+          name: Бассейн — температура на улице
+          device_class: temperature
+          unit_of_measurement: "°C"
+          state: >-
+            {{ [state_attr('weather.home', 'temperature'), state_attr('weather.yandex_weather', 'temperature')]
+               | select('is_number') | map('float') | min }}
+          availability: >-
+            {{ [state_attr('weather.home', 'temperature'), state_attr('weather.yandex_weather', 'temperature')]
+               | select('is_number') | list | count > 0 }}
+
+  automation:
+    - id: pool_frost_pump_cycle
+      alias: pool_frost_pump_cycle
+      mode: single
+      triggers:
+        - trigger: time_pattern
+          minutes: 30
+      conditions:
+        - condition: state
+          entity_id: input_boolean.pool_frost_protection
+          state: "on"
+        - condition: numeric_state
+          entity_id: sensor.pool_outdoor_temperature
+          below: 1
+        # Уже работает (вечерний запуск в 18:00 или вручную) — не вмешиваемся.
+        - condition: state
+          entity_id: switch.bathhouse_ir_heater
+          state: "off"
+      actions:
+        - action: switch.turn_on
+          target:
+            entity_id: switch.bathhouse_ir_heater
+        - delay: "00:05:00"
+        - action: switch.turn_off
+          target:
+            entity_id: switch.bathhouse_ir_heater
+
+    # Насос включён, а мощность ~0 — не крутится (лёд, подсос воздуха, сухой ход).
+    - id: pool_frost_pump_no_power
+      alias: pool_frost_pump_no_power
+      triggers:
+        - trigger: numeric_state
+          entity_id: sensor.bathhouse_ir_heater_power
+          below: 50
+          for: "00:01:00"
+      conditions:
+        - condition: state
+          entity_id: switch.bathhouse_ir_heater
+          state: "on"
+          for: "00:01:00"
+      actions:
+        - action: script.notify_push
+          data:
+            target: alarm
+            title: Бассейн
+            message: >-
+              Насос включён, но почти не потребляет ({{ states('sensor.bathhouse_ir_heater_power') }} Вт) —
+              проверьте, не замёрз ли он. На улице {{ states('sensor.pool_outdoor_temperature') }} °C.
+
+    # Раз в день: если в ближайшие сутки обещают −2 °C и ниже — пора консервировать насос.
+    - id: pool_frost_forecast_warning
+      alias: pool_frost_forecast_warning
+      triggers:
+        - trigger: time
+          at: "12:00:00"
+      conditions:
+        - condition: state
+          entity_id: input_boolean.pool_frost_protection
+          state: "on"
+      actions:
+        - action: weather.get_forecasts
+          target:
+            entity_id: [weather.home, weather.yandex_weather]
+          data:
+            type: hourly
+          response_variable: fc
+        - variables:
+            temps: >-
+              {{ fc.values() | map(attribute='forecast') | map('batch', 24) | map('first') | sum(start=[])
+                 | map(attribute='temperature') | select('is_number') | list }}
+            min_temp: "{{ temps | min if temps else none }}"
+        - condition: template
+          value_template: "{{ min_temp is number and min_temp <= -2 }}"
+        - action: script.notify_push
+          data:
+            target: alarm
+            title: Бассейн
+            message: >-
+              В ближайшие сутки до {{ min_temp | round(0) | int }} °C — прогоны насоса
+              от такого не спасут, пора слить воду из насоса и фильтра.
