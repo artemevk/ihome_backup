@@ -70,7 +70,7 @@ weather_outside:
           icon: mdi:thermometer
           name: "Температура на улице"
           state: |
-            {{ state_attr("weather.yandex_weather_moscow", "temperature") | int }}
+            {{ state_attr("weather.yandex_weather", "temperature") | int }}
 
   automation:
     # Отправка ежедневного утреннего отчета о погоде
