@@ -1,0 +1,121 @@
+# Тревоги mplens — пуши от сервера mplens (прод, 192.168.0.84). Сторож синхронизации
+# (pipelines/airflow/dags/sync_watchdog_pipeline.py в репозитории mplens) шлёт POST на webhook:
+#   {"title": "...", "message": "...", "critical": true|false}
+# critical: true — срочный пуш iOS: звучит в беззвучном режиме и при «Не беспокоить» (начало сбоя,
+# напоминания); false — обычный («восстановилось»). Webhook — только из локальной сети, id — в secrets.yaml.
+# iHome, кроме того, сам проверяет, жив ли сайт (см. rest ниже — внешняя проверка).
+# Пуши — только на телефон artemevk (не в notify.alarm: это служебные тревоги сервиса, не дома).
+mplens:
+  automation:
+    - id: mplens_alert_webhook
+      alias: "mplens: тревога от сервера"
+      mode: queued
+      triggers:
+        - trigger: webhook
+          webhook_id: !secret mplens_webhook_id
+          allowed_methods: [POST]
+          local_only: true
+      actions:
+        - action: script.notify_push
+          data:
+            target: mobile_app_artemevk
+            title: "{{ trigger.json.title | default('mplens') }}"
+            message: "{{ trigger.json.message | default('—') }}"
+            # без tag: iOS схлопывает пуши с одинаковым тегом — разные тревоги заменяли бы друг друга
+            data: >-
+              {{ {'push': {'interruption-level': 'critical',
+                  'sound': {'name': 'default', 'critical': 1, 'volume': 1.0}}}
+                 if trigger.json.critical | default(false) else {} }}
+    - id: mplens_server_down_push
+      alias: "mplens: сайт не отвечает (проверка с iHome)"
+      mode: single
+      triggers:
+        - trigger: state
+          entity_id: binary_sensor.mplens_server_down
+          to: "on"
+          for: "00:05:00"
+        # интернет на даче вернулся, а сайт всё ещё лежит — тоже сообщить
+        - trigger: state
+          entity_id: binary_sensor.ihome_internet
+          to: "on"
+          for: "00:05:00"
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.mplens_server_down
+          state: "on"
+          for: "00:05:00"
+        - condition: state
+          entity_id: binary_sensor.ihome_internet
+          state: "on"
+        - condition: state
+          entity_id: input_boolean.mplens_down_notified
+          state: "off"
+      actions:
+        - action: script.notify_push
+          data:
+            target: mobile_app_artemevk
+            title: mplens недоступен
+            message: "app.mplens.ru не отвечает больше 5 минут (проверка с iHome): сервер, Docker или сеть."
+            data:
+              push:
+                interruption-level: critical
+                sound: {name: default, critical: 1, volume: 1.0}
+        - action: input_boolean.turn_on
+          target: {entity_id: input_boolean.mplens_down_notified}
+
+    - id: mplens_server_up_push
+      alias: "mplens: сайт снова отвечает"
+      mode: single
+      triggers:
+        - trigger: state
+          entity_id: binary_sensor.mplens_server
+          to: "on"
+          for: "00:01:00"
+      conditions:
+        - condition: state
+          entity_id: input_boolean.mplens_down_notified
+          state: "on"
+      actions:
+        - action: script.notify_push
+          data:
+            target: mobile_app_artemevk
+            title: mplens снова работает
+            message: "app.mplens.ru отвечает (проверка с iHome)."
+        - action: input_boolean.turn_off
+          target: {entity_id: input_boolean.mplens_down_notified}
+
+  # Внешняя проверка: жив ли сайт mplens. iHome — в другом месте (своё электричество и интернет),
+  # поэтому заметит то, о чём сторож на самом сервере сообщить не может: упал сервер, Docker,
+  # пропал свет или интернет там, где стоит сервер. Раз в минуту /health; не отвечает 5 минут —
+  # срочный пуш, снова отвечает — обычный. Пропал интернет на даче (ya.ru тоже не отвечает) —
+  # это не сбой mplens, молчим.
+  rest:
+    - resource: https://app.mplens.ru/health
+      scan_interval: 60
+      timeout: 20
+      binary_sensor:
+        - name: mplens server
+          unique_id: mplens_server_up
+          device_class: connectivity
+          value_template: "{{ value_json is defined and value_json.status == 'healthy' }}"
+    - resource: https://ya.ru
+      scan_interval: 60
+      timeout: 20
+      binary_sensor:
+        - name: iHome internet
+          unique_id: ihome_internet_yaru
+          device_class: connectivity
+          value_template: "{{ true }}"
+
+  input_boolean:
+    mplens_down_notified:
+      name: mplens — пуш о недоступности отправлен
+      icon: mdi:server-off
+
+  template:
+    - binary_sensor:
+        - name: mplens server down
+          unique_id: mplens_server_down
+          # off или unavailable (нет ответа) — одинаково «не работает»; шаблон не сбрасывает
+          # отсчёт 5 минут, когда off сменяется на unavailable
+          state: "{{ not is_state('binary_sensor.mplens_server', 'on') }}"
